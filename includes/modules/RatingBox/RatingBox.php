@@ -1126,16 +1126,20 @@ class DIFL_RatingBox extends ET_Builder_Module
             )
             : "";
 
+        // Rating Number placement
+
+        $rating_icon_and_number_placement = '';
+        $this->props['enable_rating_number'] === 'on' && $this->props['rating_number_placement_left_right'] === 'left' ?
+            $rating_icon_and_number_placement = $rating_icon . $rating_number : $rating_icon_and_number_placement = $rating_number . $rating_icon;
+
         return sprintf(
             '<div class="df-rating-wrapper">
                 <div class="df-rating-icon">
                     %1$s
-                    %2$s
                 </div>
-                %3$s
+                %2$s
             </div>',
-            $rating_icon,
-            $rating_number,
+            $rating_icon_and_number_placement,
             $title
         );
     }
