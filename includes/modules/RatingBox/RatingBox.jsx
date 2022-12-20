@@ -250,7 +250,7 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .et-pb-icon.df-rating-icon",
+      selector: "%%order_class%% .df-rating-icon .et-pb-icon",
     });
 
     console.log(props);
@@ -279,10 +279,18 @@ class RatingBox extends Component {
         : 10;
 
     // Get only Icon
+    // let icon =
+    //   props.enable_rating_icon === "on" && props.rating_icon !== ""
+    //     ? utils.processFontIcon(props.rating_icon)
+    //     : utils.processFontIcon("&#xe031;");
+
     let icon =
       props.enable_rating_icon === "on" && props.rating_icon !== ""
         ? utils.processFontIcon(props.rating_icon)
         : utils.processFontIcon("&#xe031;");
+
+        // console.log(props['rating_icon']);
+        console.log(props.rating_icon);
 
     // Set Rating Icon
     let rating_icon = [];

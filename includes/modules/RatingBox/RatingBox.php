@@ -493,9 +493,9 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'font-weight' => array(
                     'default' => 'normal'
                 ),
-                'header_level' => array(
-                    'default' => 'h3',
-                ),
+                // 'header_level' => array(
+                //     'default' => 'h3',
+                // ),
                 'css'      => array(
                     'main' => "%%order_class%% .df-rating-title",
                     'hover' => "%%order_class%% .df-rating-title:hover",
@@ -1057,13 +1057,14 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         // icon font family
         if (method_exists('ET_Builder_Module_Helper_Style_Processor', 'process_extended_icon')) {
+
             $this->generate_styles(
                 array(
                     'utility_arg'    => 'icon_font_family',
                     'render_slug'    => $render_slug,
                     'base_attr_name' => 'rating_icon',
                     'important'      => true,
-                    'selector'       => '%%order_class%% .et-pb-icon.df-rating-icon',
+                    'selector'       => '%%order_class%% .df-rating-icon span.et-pb-icon',
                     'processor'      => array(
                         'ET_Builder_Module_Helper_Style_Processor',
                         'process_extended_icon'
@@ -1130,7 +1131,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         $rating_icon_and_number_placement = '';
         $this->props['enable_rating_number'] === 'on' && $this->props['rating_number_placement_left_right'] === 'left' ?
-            $rating_icon_and_number_placement = $rating_icon . $rating_number : $rating_icon_and_number_placement = $rating_number . $rating_icon;
+        $rating_icon_and_number_placement = $rating_number . $rating_icon : $rating_icon_and_number_placement = $rating_icon . $rating_number;
 
         return sprintf(
             '<div class="df-rating-wrapper">
