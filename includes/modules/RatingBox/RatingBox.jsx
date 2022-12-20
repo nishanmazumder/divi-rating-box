@@ -45,7 +45,8 @@ class RatingBox extends Component {
       props: props,
       key: "rating_color",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon .et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
+      selector:
+        "%%order_class%% .df-rating-icon .et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
       type: "color",
       important: true,
     });
@@ -73,7 +74,7 @@ class RatingBox extends Component {
     // Rating Icon (+ before) Size
     utility.process_range_value({
       props: props,
-      key: "rating_size",
+      key: "rating_icon_size",
       additionalCss: additionalCss,
       selector:
         "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
@@ -204,8 +205,8 @@ class RatingBox extends Component {
 
     // Rating Display type
     if (
-      typeof props.rating_display_type !== "undefined" &&
-      props.rating_display_type === "inline"
+      typeof props.title_display_type !== "undefined" &&
+      props.title_display_type === "inline"
     ) {
       additionalCss.push([
         {
@@ -217,8 +218,8 @@ class RatingBox extends Component {
 
     // Rating Placement Left/Right
     if (
-      props.rating_display_type === "inline" &&
-      props.rating_placement_left_right === "right"
+      props.title_display_type === "inline" &&
+      props.title_placement_left_right === "left"
     ) {
       additionalCss.push([
         {
@@ -234,8 +235,8 @@ class RatingBox extends Component {
 
     // Rating Placement Up/down
     if (
-      props.rating_display_type === "block" &&
-      props.rating_placement_up_down === "down"
+      props.title_display_type === "block" &&
+      props.title_placement_top_bottom === "top"
     ) {
       additionalCss.push([
         {
@@ -245,22 +246,12 @@ class RatingBox extends Component {
       ]);
     }
 
-    // if (props.enable_rating_number === "on") {
-    //   utility.process_color({
-    //     props: props,
-    //     key: "enable_rating_number", // dynamic
-    //     additionalCss: additionalCss,
-    //     selector: "%%order_class%% span.df-rating-number",
-    //     type: "color",
-    //     important: false,
-    //   });
-    // }
-    // utility.process_icon_font_style({
-    //   'props'             : props,
-    //   'key'               : 'rating_icon',
-    //   'additionalCss'     : additionalCss,
-    //   'selector'          : '%%order_class%% .et-pb-icon.df-rating-icon',
-    // })
+    utility.process_icon_font_style({
+      props: props,
+      key: "rating_icon",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .et-pb-icon.df-rating-icon",
+    });
 
     console.log(props);
 
@@ -281,11 +272,11 @@ class RatingBox extends Component {
         ? typeof props.rating_value_5 !== "undefined" &&
           props.rating_value_5 !== ""
           ? props.rating_value_5
-          : 0
+          : 5
         : typeof props.rating_value_10 !== "undefined" &&
           props.rating_value_10 !== ""
         ? props.rating_value_10
-        : 0;
+        : 10;
 
     // Get only Icon
     let icon =
@@ -340,22 +331,29 @@ class RatingBox extends Component {
         ""
       );
 
-    // Get Rating Icon title
-    let title =
-      props.enable_title === "on" && props.title !== "" ? props.title : "";
-
-    // Rating Icon wrapper
     let iconWrapper = (
       <div className={"df-rating-icon"}>
-        {rating_icon}
-        {ratingNumber}
+        {props.enable_rating_number === "on" &&
+        props.rating_number_placement_left_right === "left" ? (
+          <>
+            {ratingNumber} {rating_icon}
+          </>
+        ) : (
+          <>
+            {rating_icon} {ratingNumber}
+          </>
+        )}
       </div>
     );
 
-    // Title Wrapper
+    // Rating Title Wrapper
     let titleWrapper =
       props.enable_title === "on" && props.title !== "" ? (
-        <div className={"df-rating-title"}>{title}</div>
+        <div className={"df-rating-title"}>
+          {props.dynamic.title.hasValue !== ""
+            ? utility._renderDynamicContent(props, "title")
+            : ""}
+        </div>
       ) : (
         ""
       );
@@ -369,15 +367,20 @@ class RatingBox extends Component {
     );
   }
 
+  // Rating Content
   render_content() {
-    const props = this.props;
-    // const content = this.props.dynamic.content.hasValue  !== '' ? utility._renderDynamicContent(this.props, 'content') : ''
-    let content =
-      props.enable_content === "on" && props.content() !== ""
-        ? props.content()
-        : "";
+    const content =
+      this.props.enable_content === "on" && this.props.content() !== "" ? (
+        <div className={"df-rating-content"}>
+          {this.props.dynamic.content.hasValue !== ""
+            ? utility._renderDynamicContent(this.props, "content")
+            : ""}
+        </div>
+      ) : (
+        ""
+      );
 
-    return <div className="df-rating-content">{content}</div>;
+    return content;
   }
 
   render() {
@@ -394,12 +397,13 @@ class RatingBox extends Component {
 
 export default RatingBox;
 
-// Html Structure
+// Structure
+
 // <div class="df-rating-box-wrapper">
 //     <div class="df-rating-wrapper">
 //         <div class="df-rating-icon">
-//             <span class="et-pb-icon">
-//             <span class="df-rating-number">( 2 / 5 )</span>
+//              <span class="et-pb-icon"></span>
+//              <span class="df-rating-number">(2/5)</span>
 //         </div>
 //         <div class="df-rating-title">asdfsafsa</div>
 //     </div>

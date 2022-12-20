@@ -1,21 +1,21 @@
 /* Icon */
-.df-rating-icon{
+.difl_ratingbox .df-rating-icon{
     margin: 10px;
 }
 
-.df-rating-icon span{
+.difl_ratingbox .df-rating-icon span{
     font-size: 20px;
     color: #E02B20;
 }
 
-span.df-rating-icon-fill {
+.difl_ratingbox span.df-rating-icon-fill {
     display: inline-block;
     position: relative;
     font-style: normal;
     cursor: default;
 }
 
-.df-rating-icon span.df-rating-icon-fill::before {
+.difl_ratingbox .df-rating-icon span.df-rating-icon-fill::before {
     content: "\e033";
     display: block;
     font-size: 20px;
@@ -28,38 +28,38 @@ span.df-rating-icon-fill {
     color: #E02B20;
 }
 
-.df-rating-icon span.df-fill-1::before{ width: 10% !important; }
-.df-rating-icon span.df-fill-2::before{ width: 20% !important; }
-.df-rating-icon span.df-fill-3::before{ width: 30% !important; }
-.df-rating-icon span.df-fill-4::before{ width: 40% !important; }
-.df-rating-icon span.df-fill-5::before{ width: 50% !important; }
-.df-rating-icon span.df-fill-6::before{ width: 60% !important; }
-.df-rating-icon span.df-fill-7::before{ width: 70% !important; }
-.df-rating-icon span.df-fill-8::before{ width: 80% !important; }
-.df-rating-icon span.df-fill-9::before{ width: 90% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-1::before{ width: 10% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-2::before{ width: 20% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-3::before{ width: 30% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-4::before{ width: 40% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-5::before{ width: 50% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-6::before{ width: 60% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-7::before{ width: 70% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-8::before{ width: 80% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-9::before{ width: 90% !important; }
 
 /* Rating number */
-.df-rating-number{
+.difl_ratingbox .df-rating-number{
     color: #000;
-    margin-left: 10px;
+    margin: 0px 5px;
 }
 
 /* Border */
-.df-rating-box-wrapper * {
+.difl_ratingbox .df-rating-box-wrapper * {
   border-width: 0px;
   border-style: solid;
   border-color: #333;
 }
 
 /* Title & Content */
-.df-rating-title, .df-rating-content{
+.difl_ratingbox .df-rating-title, .df-rating-content{
     text-align: center;
 }
-.df-rating-content p{
+/* .difl_ratingbox .df-rating-content p{
     font-style: inherit;
     padding-left: 0px;
     padding-bottom: 0px;
-}
+} */
 
 /* .df-icon-init::before{
     display: none !important;
