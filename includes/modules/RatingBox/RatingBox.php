@@ -1076,10 +1076,11 @@ class DIFL_RatingBox extends ET_Builder_Module
     public function render_content()
     {
         // Rating Content
-        $content = $this->props['enable_content'] === 'on' && !empty($this->props['content']) ? sprintf(
-            '<div class="df-rating-content">%1$s</div>',
-            $this->props['content']
-        ) : "";
+        $content = $this->props['enable_content'] === 'on' && !empty($this->props['content'])
+            ? sprintf(
+                '<div class="df-rating-content">%1$s</div>',
+                $this->props['content']
+            ) : "";
 
         return $content;
     }

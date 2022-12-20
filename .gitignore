@@ -83,6 +83,9 @@ yarn-error.log*
 /includes/modules/IconList
 /includes/modules/IconListItem
 /includes/modules/Breadcrumbs
+/includes/modules/LogoCarouselItem
+/includes/modules/PostItem
+/includes/modules/ProductItem
 /includes/modules/index.js
 /includes/utils
 /languages
