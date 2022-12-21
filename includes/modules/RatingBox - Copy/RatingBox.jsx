@@ -46,30 +46,30 @@ class RatingBox extends Component {
       key: "rating_color",
       additionalCss: additionalCss,
       selector:
-        "%%order_class%% .df-rating-icon .et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
-      type: "color",
-      important: true,
-    });
-
-    // Rating inactive color
-    utility.process_color({
-      props: props,
-      key: "rating_color_inactive",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon .et-pb-icon",
+        "%%order_class%% .difl_ratingbox .df-rating-icon span.df-rating-icon-fill::before, %%order_class%% .df-rating-icon .et-pb-icon",
       type: "color",
       important: true,
     });
 
     // Rating active color
-    utility.process_color({
-      props: props,
-      key: "rating_color_active",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% span.df-rating-icon-fill::before",
-      type: "color",
-      important: true,
-    });
+    // utility.process_color({
+    //   props: props,
+    //   key: "rating_color_active",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% span.df-rating-icon-fill::before",
+    //   type: "color",
+    //   important: false,
+    // });
+
+    // Rating inactive color
+    // utility.process_color({
+    //   props: props,
+    //   key: "rating_color_inactive",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% .df-rating-icon .et-pb-icon",
+    //   type: "color",
+    //   important: false,
+    // });
 
     // Rating Icon (+ before) Size
     utility.process_range_value({
@@ -220,7 +220,7 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
-          declaration: `content: attr(data-icon); color: #333;`,
+          declaration: `content: attr(data-icon);`, // color: #333;
         },
       ]);
     }
@@ -275,7 +275,7 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-icon .et-pb-icon",
     });
 
-    // console.log(props);
+    console.log(props);
 
     return additionalCss;
   }

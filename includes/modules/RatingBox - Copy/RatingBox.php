@@ -121,36 +121,33 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'design_rating',
                 'tab_slug'        => 'advanced',
-                'show_if'         => array(
-                    'enable_custom_icon'     => 'off'
-                )
+                // 'show_if'         => array(
+                //     'enable_single_rating'     => 'on'
+                // )
             ),
 
-            'rating_color_active' => array(
-                'label'           => esc_html__('Rating color', 'divi_flash'),
-                'description'     => esc_html__('Add rating color.', 'divi_flash'),
-                'type'            => 'color-alpha',
-                'hover'           => 'tabs',
-                'option_category' => 'basic_option',
-                'toggle_slug'     => 'design_rating',
-                'tab_slug'        => 'advanced',
-                'show_if'         => array(
-                    'enable_custom_icon'     => 'on'
-                )
-            ),
+            // 'rating_color_active' => array(
+            //     'label'           => esc_html__('Active color', 'divi_flash'),
+            //     'description'     => esc_html__('Add active rating color.', 'divi_flash'),
+            //     'type'            => 'color-alpha',
+            //     'hover'           => 'tabs',
+            //     'option_category' => 'basic_option',
+            //     'toggle_slug'     => 'design_rating',
+            //     'tab_slug'        => 'advanced',
+            //     'show_if'         => array(
+            //         'enable_single_rating'     => 'on'
+            //     )
+            // ),
 
-            'rating_color_inactive' => array(
-                'label'           => esc_html__('Inactive color', 'divi_flash'),
-                'description'     => esc_html__('Add inactive rating color.', 'divi_flash'),
-                'type'            => 'color-alpha',
-                'hover'           => 'tabs',
-                'option_category' => 'basic_option',
-                'toggle_slug'     => 'design_rating',
-                'tab_slug'        => 'advanced',
-                'show_if'         => array(
-                    'enable_custom_icon'     => 'on'
-                )
-            ),
+            // 'rating_color_inactive' => array(
+            //     'label'           => esc_html__('Inactive Rating color', 'divi_flash'),
+            //     'description'     => esc_html__('Inactive Rating color.', 'divi_flash'),
+            //     'type'            => 'color-alpha',
+            //     'hover'           => 'tabs',
+            //     'option_category' => 'basic_option',
+            //     'toggle_slug'     => 'design_rating',
+            //     'tab_slug'        => 'advanced',
+            // ),
 
             // For single rating
             'rating_alignment_left_right' => array(
@@ -931,8 +928,8 @@ class DIFL_RatingBox extends ET_Builder_Module
             'render_slug'       => $render_slug,
             'slug'              => 'rating_color',
             'type'              => 'color',
-            'selector'          => "%%order_class%% .df-rating-icon .et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
-            'hover'             => "%%order_class%% .df-rating-icon .et-pb-icon:hover, %%order_class%% span.df-rating-icon-fill:hover::before",
+            'selector'          => "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
+            'hover'             => "%%order_class%% .df-rating-icon span.et-pb-icon:hover, %%order_class%% span.df-rating-icon-fill:hover::before",
             'important' => false,
         ));
 
@@ -943,18 +940,18 @@ class DIFL_RatingBox extends ET_Builder_Module
             'type'              => 'color',
             'selector'          => "%%order_class%% .df-rating-icon .et-pb-icon",
             'hover'             => "%%order_class%% .df-rating-icon .et-pb-icon:hover",
-            'important' => true,
+            'important' => false,
         ));
 
-        // Rating active color
-        $this->df_process_color(array(
-            'render_slug'       => $render_slug,
-            'slug'              => 'rating_color_active',
-            'type'              => 'color',
-            'selector'          => "%%order_class%% span.df-rating-icon-fill::before",
-            'hover'             => "%%order_class%% span.df-rating-icon-fill:hover::before",
-            'important' => true,
-        ));
+        // // Rating active color
+        // $this->df_process_color(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'rating_color_active',
+        //     'type'              => 'color',
+        //     'selector'          => "%%order_class%% span.df-rating-icon-fill::before",
+        //     'hover'             => "%%order_class%% span.df-rating-icon-fill:hover::before",
+        //     'important' => false,
+        // ));
 
         // Rating Icon (+ before) Size
         $this->df_process_range(array(
