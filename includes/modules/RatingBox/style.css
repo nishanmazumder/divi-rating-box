@@ -54,13 +54,5 @@
 /* Title & Content */
 .difl_ratingbox .df-rating-title, .df-rating-content{
     text-align: center;
+    line-height: 1.7em;
 }
-/* .difl_ratingbox .df-rating-content p{
-    font-style: inherit;
-    padding-left: 0px;
-    padding-bottom: 0px;
-} */
-
-/* .df-icon-init::before{
-    display: none !important;
-} */

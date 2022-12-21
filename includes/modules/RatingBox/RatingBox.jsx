@@ -193,8 +193,30 @@ class RatingBox extends Component {
       type: "padding",
     });
 
+    // Rating Single
+    if (
+      props.enable_single_rating === "on" &&
+      props.title_display_type === "inline"
+    ) {
+      if (props.rating_alignment_left_right === "right") {
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-wrapper`,
+            declaration: `justify-content: flex-end !important;`,
+          },
+        ]);
+      } else if (props.rating_alignment_left_right === "left") {
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-wrapper`,
+            declaration: `justify-content: flex-start !important;`,
+          },
+        ]);
+      }
+    }
+
     // Rating Icon
-    if (props.enable_rating_icon === "on" && props.rating_icon !== "") {
+    if (props.enable_custom_icon === "on" && props.rating_icon !== "") {
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
@@ -253,18 +275,22 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-icon .et-pb-icon",
     });
 
-    console.log(props);
+    // console.log(props);
 
     return additionalCss;
   }
 
-  render_rating_wrapper() {
+  df_render_rating_wrapper() {
     const props = this.props;
     const utils = window.ET_Builder.API.Utils;
 
     // Rating scale type
     let rating_scale_type =
-      props.rating_scale_type !== "" ? parseInt(props.rating_scale_type) : 5;
+      props.enable_single_rating === "off"
+        ? props.rating_scale_type !== ""
+          ? parseInt(props.rating_scale_type)
+          : 5
+        : 1;
 
     // Rating value
     let rating_value =
@@ -279,18 +305,10 @@ class RatingBox extends Component {
         : 10;
 
     // Get only Icon
-    // let icon =
-    //   props.enable_rating_icon === "on" && props.rating_icon !== ""
-    //     ? utils.processFontIcon(props.rating_icon)
-    //     : utils.processFontIcon("&#xe031;");
-
-    let icon =
-      props.enable_rating_icon === "on" && props.rating_icon !== ""
+    const icon =
+      props.enable_custom_icon === "on" && props.rating_icon !== ""
         ? utils.processFontIcon(props.rating_icon)
         : utils.processFontIcon("&#xe031;");
-
-        // console.log(props['rating_icon']);
-        console.log(props.rating_icon);
 
     // Set Rating Icon
     let rating_icon = [];
@@ -344,11 +362,11 @@ class RatingBox extends Component {
         {props.enable_rating_number === "on" &&
         props.rating_number_placement_left_right === "left" ? (
           <>
-            {ratingNumber} {rating_icon}
+            {ratingNumber}{rating_icon}
           </>
         ) : (
           <>
-            {rating_icon} {ratingNumber}
+            {rating_icon}{ratingNumber}
           </>
         )}
       </div>
@@ -374,9 +392,8 @@ class RatingBox extends Component {
       </div>
     );
   }
-
   // Rating Content
-  render_content() {
+  df_render_content() {
     const content =
       this.props.enable_content === "on" && this.props.content() !== "" ? (
         <div className={"df-rating-content"}>
@@ -395,8 +412,8 @@ class RatingBox extends Component {
     return (
       <>
         <div className="df-rating-box-wrapper">
-          {this.render_rating_wrapper()}
-          {this.render_content()}
+          {this.df_render_rating_wrapper()}
+          {this.df_render_content()}
         </div>
       </>
     );
@@ -414,6 +431,7 @@ export default RatingBox;
 //              <span class="df-rating-number">(2/5)</span>
 //         </div>
 //         <div class="df-rating-title">asdfsafsa</div>
+//         <>
 //     </div>
 //     <div class="df-rating-content">
 //         test
