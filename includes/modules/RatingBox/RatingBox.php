@@ -119,36 +119,42 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'            => 'color-alpha',
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
+                'default'           => '#E02B20',
                 'toggle_slug'     => 'design_rating',
                 'tab_slug'        => 'advanced',
-                'show_if'         => array(
-                    'enable_custom_icon'     => 'off'
-                )
+                // 'show_if'         => array(
+                //     'enable_custom_icon'     => 'off'
+                // )
             ),
+
+            // 'rating_color_active' => array(
+            //     'label'           => esc_html__('Rating color', 'divi_flash'),
+            //     'description'     => esc_html__('Add rating color.', 'divi_flash'),
+            //     'type'            => 'color-alpha',
+            //     'hover'           => 'tabs',
+            //     'option_category' => 'basic_option',
+            //     'toggle_slug'     => 'design_rating',
+            //     'default'           => '#333',
+            //     'tab_slug'        => 'advanced',
+            //     'show_if'         => array(
+            //         'enable_custom_icon'     => 'on'
+            //     )
+            // ),
 
             'rating_color_active' => array(
-                'label'           => esc_html__('Rating color', 'divi_flash'),
-                'description'     => esc_html__('Add rating color.', 'divi_flash'),
+                'label'           => esc_html__('Active color', 'divi_flash'),
+                'description'     => esc_html__('Active rating color.', 'divi_flash'),
                 'type'            => 'color-alpha',
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'design_rating',
+                'default'           => '#333',
                 'tab_slug'        => 'advanced',
-                'show_if'         => array(
-                    'enable_custom_icon'     => 'on'
-                )
-            ),
-
-            'rating_color_inactive' => array(
-                'label'           => esc_html__('Inactive color', 'divi_flash'),
-                'description'     => esc_html__('Add inactive rating color.', 'divi_flash'),
-                'type'            => 'color-alpha',
-                'hover'           => 'tabs',
-                'option_category' => 'basic_option',
-                'toggle_slug'     => 'design_rating',
-                'tab_slug'        => 'advanced',
-                'show_if'         => array(
-                    'enable_custom_icon'     => 'on'
+                // 'show_if'         => array(
+                //     'enable_custom_icon'     => 'on'
+                // ),
+                'show_if_not'         => array(
+                    'enable_single_rating'     => 'on',
                 )
             ),
 
@@ -918,19 +924,9 @@ class DIFL_RatingBox extends ET_Builder_Module
             'render_slug'       => $render_slug,
             'slug'              => 'rating_color',
             'type'              => 'color',
-            'selector'          => "%%order_class%% .df-rating-icon .et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
-            'hover'             => "%%order_class%% .df-rating-icon .et-pb-icon:hover, %%order_class%% span.df-rating-icon-fill:hover::before",
-            'important' => true,
-        ));
-
-        // Rating inactive color
-        $this->df_process_color(array(
-            'render_slug'       => $render_slug,
-            'slug'              => 'rating_color_inactive',
-            'type'              => 'color',
-            'selector'          => "%%order_class%% .df-rating-icon .et-pb-icon",
-            'hover'             => "%%order_class%% .df-rating-icon .et-pb-icon:hover",
-            'important' => true,
+            'selector'          => "%%order_class%% .df-rating-icon span.et-pb-icon",
+            'hover'             => "%%order_class%% .df-rating-icon span.et-pb-icon:hover",
+            'important' => false,
         ));
 
         // Rating active color
@@ -938,10 +934,20 @@ class DIFL_RatingBox extends ET_Builder_Module
             'render_slug'       => $render_slug,
             'slug'              => 'rating_color_active',
             'type'              => 'color',
-            'selector'          => "%%order_class%% span.df-rating-icon-fill::before",
-            'hover'             => "%%order_class%% span.df-rating-icon-fill:hover::before",
-            'important' => true,
+            'selector'          => "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
+            'hover'             => "%%order_class%% .df-rating-icon span.df-rating-icon-fill:hover::before",
+            'important' => false,
         ));
+
+        // Rating active color
+        // $this->df_process_color(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'rating_color_active',
+        //     'type'              => 'color',
+        //     'selector'          => "%%order_class%% span.df-rating-icon-fill::before",
+        //     'hover'             => "%%order_class%% span.df-rating-icon-fill:hover::before",
+        //     'important' => true,
+        // ));
 
         // Rating Icon (+ before) Size
         $this->df_process_range(array(
@@ -1074,9 +1080,15 @@ class DIFL_RatingBox extends ET_Builder_Module
             );
         }
 
+
+        // echo '<pre>';
+        // print_r(et_pb_process_font_icon("&#xe033;"));
+
+
         // Get only icon
         $get_rating_icon =
-            $this->props['enable_custom_icon'] === 'on' && !empty($this->props['rating_icon']) ? et_pb_process_font_icon($this->props['rating_icon']) : "";
+            // $this->props['enable_custom_icon'] === 'on' && !empty($this->props['rating_icon']) ? et_pb_process_font_icon($this->props['rating_icon']) : "";
+            $this->props['enable_custom_icon'] === 'on' && !empty($this->props['rating_icon']) ? et_pb_process_font_icon($this->props['rating_icon']) : et_pb_process_font_icon("&#xe033;"); // et_pb_process_font_icon('');
 
         if ($get_rating_icon) {
             ET_Builder_Element::set_style($render_slug, array(
@@ -1137,11 +1149,19 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'selector' => "%%order_class%% .df-rating-wrapper",
                     'declaration' => "flex-direction: column-reverse; float: $rating_float_content;"
                 ));
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "%%order_class%% .df-rating-content",
+                    'declaration' => "clear: both;"
+                ));
             } else {
 
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
                     'declaration' => "flex-direction: column; float: $rating_float_content;"
+                ));
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "%%order_class%% .df-rating-content",
+                    'declaration' => "clear: both;"
                 ));
             }
         } else {

@@ -46,30 +46,30 @@ class RatingBox extends Component {
       key: "rating_color",
       additionalCss: additionalCss,
       selector:
-        "%%order_class%% .df-rating-icon .et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
+        "%%order_class%% .df-rating-icon span.et-pb-icon",
       type: "color",
-      important: true,
+      important: false,
     });
 
-    // Rating inactive color
-    utility.process_color({
-      props: props,
-      key: "rating_color_inactive",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon .et-pb-icon",
-      type: "color",
-      important: true,
-    });
-
-    // Rating active color
+    // Active color
     utility.process_color({
       props: props,
       key: "rating_color_active",
       additionalCss: additionalCss,
-      selector: "%%order_class%% span.df-rating-icon-fill::before",
+      selector: "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
       type: "color",
-      important: true,
+      important: false,
     });
+
+    // Rating active color
+    // utility.process_color({
+    //   props: props,
+    //   key: "rating_color_active",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% span.df-rating-icon-fill::before",
+    //   type: "color",
+    //   important: true,
+    // });
 
     // Rating Icon (+ before) Size
     utility.process_range_value({
@@ -235,34 +235,56 @@ class RatingBox extends Component {
 
     // Rating alignment
     if (props.title_display_type === "block") {
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-wrapper`,
+          declaration: `display: flex; align-items: center;`,
+        },
+      ]);
+
       if (props.title_placement_top_bottom === "top") {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; flex-direction: column-reverse; align-items: center; float: ${rating_float_content};`,
+            declaration: `flex-direction: column-reverse; float: ${rating_float_content};`,
+          },
+          {
+            selector: `%%order_class%% .df-rating-content`,
+            declaration: `clear: both;`,
           },
         ]);
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; flex-direction: column; align-items: center; float: ${rating_float_content};`,
+            declaration: `flex-direction: column; float: ${rating_float_content};`,
+          },
+          {
+            selector: `%%order_class%% .df-rating-content`,
+            declaration: `clear: both;`,
           },
         ]);
       }
     } else {
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-wrapper`,
+          declaration: `display: flex; align-items: center;`,
+        },
+      ]);
+
       if (props.title_placement_left_right === "left") {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; flex-direction: row-reverse; align-items: center; justify-content: ${rating_justify_content};`,
+            declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
           },
         ]);
       } else if(props.title_placement_left_right === "right"){
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; flex-direction: row; align-items: center; justify-content: ${rating_justify_content};`,
+            declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
           },
         ]);
       }else{
@@ -318,7 +340,7 @@ class RatingBox extends Component {
     const icon =
       props.enable_custom_icon === "on" && props.rating_icon !== ""
         ? utils.processFontIcon(props.rating_icon)
-        : utils.processFontIcon("&#xe031;");
+        : utils.processFontIcon("&#xe033;");
 
     // Set Rating Icon
     let rating_icon = [];
