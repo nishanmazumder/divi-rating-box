@@ -1100,12 +1100,17 @@ class DIFL_RatingBox extends ET_Builder_Module
             'default'           => 'center'
         ));
 
+
+        $title_display_type = !empty($this->props['title_display_type']) ? $this->props['title_display_type'] : "block";
+        $title_placement_left_right = !empty($this->props['title_placement_left_right']) ? $this->props['title_placement_left_right'] : "right";
+        $title_placement_top_bottom = !empty($this->props['title_placement_top_bottom']) ? $this->props['title_placement_top_bottom'] : "bottom";
+
         $rating_justify_content = "";
         $rating_float_content = "";
-        if ($this->props['rating_icon_align'] == "right") {
+        if ($this->props['rating_icon_align'] === "right") {
             $rating_justify_content = "flex-end";
             $rating_float_content = "right";
-        } else if ($this->props['rating_icon_align'] == "left") {
+        } else if ($this->props['rating_icon_align'] === "left") {
             $rating_justify_content = "flex-start";
             $rating_float_content = "left";
         } else {
@@ -1121,43 +1126,44 @@ class DIFL_RatingBox extends ET_Builder_Module
             ));
         }
 
-        $title_display_type = !empty($this->props['title_display_type']) ? $this->props['title_display_type'] : "block";
-        $title_placement_left_right = !empty($this->props['title_placement_left_right']) ? $this->props['title_placement_left_right'] : "right";
-        $title_placement_top_bottom = !empty($this->props['title_placement_top_bottom']) ? $this->props['title_placement_top_bottom'] : "bottom";
-
-        // echo '<pre>';
-        // print_r($title_display_type);
-
-
         if ($title_display_type === "block") {
-            if ($title_placement_top_bottom === "top") {
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "%%order_class%% .df-rating-wrapper",
+                'declaration' => "display: flex; align-items: center; "
+            ));
 
+            if ($title_placement_top_bottom === "top") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: center; flex-direction: column-reverse; float: $rating_float_content;"
+                    'declaration' => "flex-direction: column-reverse; float: $rating_float_content;"
                 ));
             } else {
 
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: center; flex-direction: column; float: $rating_float_content;"
+                    'declaration' => "flex-direction: column; float: $rating_float_content;"
                 ));
             }
         } else {
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "%%order_class%% .df-rating-wrapper",
+                'declaration' => "display: flex; align-items: center;"
+            ));
+
             if ($title_placement_left_right === "left") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: center; flex-direction: row-reverse; justify-content: $rating_justify_content;"
+                    'declaration' => "flex-direction: row-reverse; justify-content: $rating_justify_content;"
                 ));
             } elseif ($title_placement_left_right === "right") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: center; flex-direction: row; justify-content: $rating_justify_content;"
+                    'declaration' => "flex-direction: row; justify-content: $rating_justify_content;"
                 ));
             } else {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "display: flex; flex-direction: row; align-items: center; justify-content: center;"
+                    'declaration' => "flex-direction: row; justify-content: center;"
                 ));
             }
         }
