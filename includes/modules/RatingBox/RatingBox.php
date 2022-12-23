@@ -105,7 +105,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'label'             => esc_html__('Rating Icon', 'divi_flash'),
                 'description'     => esc_html__('Rating Icon.', 'divi_flash'),
                 'type'              => 'select_icon',
-                'default'           => '&#xe033;',
+                'default'           => '&#xe031;',
                 'class'             => array('et-pb-font-icon'),
                 'toggle_slug'       => 'rating',
                 'show_if'         => array(
@@ -122,24 +122,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'default'           => '#E02B20',
                 'toggle_slug'     => 'design_rating',
                 'tab_slug'        => 'advanced',
-                // 'show_if'         => array(
-                //     'enable_custom_icon'     => 'off'
-                // )
             ),
-
-            // 'rating_color_active' => array(
-            //     'label'           => esc_html__('Rating color', 'divi_flash'),
-            //     'description'     => esc_html__('Add rating color.', 'divi_flash'),
-            //     'type'            => 'color-alpha',
-            //     'hover'           => 'tabs',
-            //     'option_category' => 'basic_option',
-            //     'toggle_slug'     => 'design_rating',
-            //     'default'           => '#333',
-            //     'tab_slug'        => 'advanced',
-            //     'show_if'         => array(
-            //         'enable_custom_icon'     => 'on'
-            //     )
-            // ),
 
             'rating_color_active' => array(
                 'label'           => esc_html__('Active color', 'divi_flash'),
@@ -148,11 +131,11 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'design_rating',
-                'default'           => '#333',
+                // 'default'           => '#E02B20',
                 'tab_slug'        => 'advanced',
-                // 'show_if'         => array(
-                //     'enable_custom_icon'     => 'on'
-                // ),
+                'show_if'         => array(
+                    'enable_custom_icon'     => 'on'
+                ),
                 'show_if_not'         => array(
                     'enable_single_rating'     => 'on',
                 )
@@ -178,7 +161,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'label'             => esc_html__('Rating Value', 'divi_flash'),
                 'description'     => esc_html__('Rating value.', 'divi_flash'),
                 'type'              => 'range',
-                // 'default'           => '5',
+                'default'           => '5',
                 'range_settings'    => array(
                     'min'  => '1',
                     'max'  => '5',
@@ -195,7 +178,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'label'             => esc_html__('Rating Value', 'divi_flash'),
                 'description'     => esc_html__('Rating value.', 'divi_flash'),
                 'type'              => 'range',
-                // 'default'           => '10',
+                'default'           => '10',
                 'range_settings'    => array(
                     'min'  => '1',
                     'max'  => '10',
@@ -299,9 +282,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'options_icon'     => 'module_align',
                 // 'advanced_fields' => true,
                 'mobile_options'  => true,
-                // 'show_if'         => array(
-                //     'enable_single_rating'     => 'off'
-                // )
             ),
 
             // Rating Number

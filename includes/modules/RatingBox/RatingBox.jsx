@@ -40,36 +40,51 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-content",
     });
 
-    // Rating Color
-    utility.process_color({
-      props: props,
-      key: "rating_color",
-      additionalCss: additionalCss,
-      selector:
-        "%%order_class%% .df-rating-icon span.et-pb-icon",
-      type: "color",
-      important: false,
-    });
+    // Rating Icon
+    let rating_color_active = props.rating_color_active === "" ? "#333" : props.rating_color_active;
 
-    // Active color
-    utility.process_color({
-      props: props,
-      key: "rating_color_active",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
-      type: "color",
-      important: false,
-    });
+    if (props.enable_custom_icon === "on") {
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
+          declaration: `content: attr(data-icon); color: ${rating_color_active} !important`,
+        },
+      ]);
+    }
 
-    // Rating active color
-    // utility.process_color({
-    //   props: props,
-    //   key: "rating_color_active",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% span.df-rating-icon-fill::before",
-    //   type: "color",
-    //   important: true,
-    // });
+    if (
+      props.enable_custom_icon !== "on" ||
+      props.enable_single_rating === "on"
+    ) {
+      utility.process_color({
+        props: props,
+        key: "rating_color",
+        additionalCss: additionalCss,
+        selector:
+          "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
+        type: "color",
+        important: false,
+      });
+    } else {
+      utility.process_color({
+        props: props,
+        key: "rating_color",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df-rating-icon span.et-pb-icon",
+        type: "color",
+        important: false,
+      });
+
+      // Rating active color
+      utility.process_color({
+        props: props,
+        key: "rating_color_active",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% span.df-rating-icon-fill::before",
+        type: "color",
+        important: true,
+      });
+    }
 
     // Rating Icon (+ before) Size
     utility.process_range_value({
@@ -190,16 +205,6 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-icon .et-pb-icon",
     });
 
-    // Rating Icon
-    if (props.enable_custom_icon === "on" && props.rating_icon !== "") {
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
-          declaration: `content: attr(data-icon); color: #333;`,
-        },
-      ]);
-    }
-
     // Rating Alignment
     utility.df_process_string_attr({
       props: props,
@@ -214,7 +219,7 @@ class RatingBox extends Component {
     let rating_float_content = "";
     if (props.rating_icon_align === "right") {
       rating_justify_content = "end";
-      rating_float_content = "right"
+      rating_float_content = "right";
     } else if (props.rating_icon_align === "left") {
       rating_justify_content = "start";
       rating_float_content = "left";
@@ -280,14 +285,14 @@ class RatingBox extends Component {
             declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
           },
         ]);
-      } else if(props.title_placement_left_right === "right"){
+      } else if (props.title_placement_left_right === "right") {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
           },
         ]);
-      }else{
+      } else {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
@@ -330,17 +335,17 @@ class RatingBox extends Component {
         ? typeof props.rating_value_5 !== "undefined" &&
           props.rating_value_5 !== ""
           ? props.rating_value_5
-          : 5
+          : ""
         : typeof props.rating_value_10 !== "undefined" &&
           props.rating_value_10 !== ""
         ? props.rating_value_10
-        : 10;
+        : "";
 
     // Get only Icon
     const icon =
-      props.enable_custom_icon === "on" && props.rating_icon !== ""
+      props.enable_custom_icon === "on"
         ? utils.processFontIcon(props.rating_icon)
-        : utils.processFontIcon("&#xe033;");
+        : utils.processFontIcon("&#xe031;");
 
     // Set Rating Icon
     let rating_icon = [];
