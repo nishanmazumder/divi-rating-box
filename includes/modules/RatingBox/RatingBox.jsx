@@ -40,8 +40,9 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-content",
     });
 
-    // Rating Icon
-    let rating_color_active = props.rating_color_active === "" ? "#333" : props.rating_color_active;
+    // Rating active color
+    let rating_color_active =
+      props.rating_color_active === "" ? "#333" : props.rating_color_active;
 
     if (props.enable_custom_icon === "on") {
       additionalCss.push([
@@ -127,8 +128,6 @@ class RatingBox extends Component {
       type: "padding",
       important: false,
     });
-
-    ////// Custom Spacing //
 
     // Rating wrapper
     utility.process_margin_padding({
@@ -322,7 +321,7 @@ class RatingBox extends Component {
     const utils = window.ET_Builder.API.Utils;
 
     // Rating scale type
-    let rating_scale_type =
+    const rating_scale_type =
       props.enable_single_rating === "off"
         ? props.rating_scale_type !== ""
           ? parseInt(props.rating_scale_type)
@@ -330,27 +329,19 @@ class RatingBox extends Component {
         : 1;
 
     // Rating value
-    let rating_value =
-      rating_scale_type === 5
-        ? typeof props.rating_value_5 !== "undefined" &&
-          props.rating_value_5 !== ""
-          ? props.rating_value_5
-          : ""
-        : typeof props.rating_value_10 !== "undefined" &&
-          props.rating_value_10 !== ""
-        ? props.rating_value_10
-        : "";
+    const rating_value =
+      rating_scale_type === 5 ? props.rating_value_5 : props.rating_value_10;
 
     // Get only Icon
     const icon =
       props.enable_custom_icon === "on"
         ? utils.processFontIcon(props.rating_icon)
-        : utils.processFontIcon("&#xe031;");
+        : utils.processFontIcon("&#xe031; || divi");
 
     // Set Rating Icon
-    let rating_icon = [];
+    const rating_icon = [];
     let rating_active_class = "";
-    let get_float =
+    const get_float =
       typeof rating_value === "string" && rating_value.includes(".")
         ? rating_value.split(".")
         : parseInt(rating_value);
@@ -387,7 +378,7 @@ class RatingBox extends Component {
     }
 
     // Show rating number/text
-    let ratingNumber =
+    const ratingNumber =
       props.enable_rating_number === "on" ? (
         props.enable_rating_number_bracket === "on" ? (
           <span className="df-rating-number">{`( ${rating_value} / ${rating_scale_type} )`}</span>
@@ -398,7 +389,7 @@ class RatingBox extends Component {
         ""
       );
 
-    let iconWrapper = (
+    const iconWrapper = (
       <div className={"df-rating-icon"}>
         {props.enable_rating_number === "on" &&
         props.rating_number_placement_left_right === "left" ? (
@@ -416,7 +407,7 @@ class RatingBox extends Component {
     );
 
     // Rating Title Wrapper
-    let titleWrapper =
+    const titleWrapper =
       props.enable_title === "on" && props.title !== "" ? (
         <div className={"df-rating-title"}>
           {props.dynamic.title.hasValue !== ""
