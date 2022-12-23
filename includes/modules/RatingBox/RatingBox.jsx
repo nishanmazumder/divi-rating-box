@@ -40,8 +40,9 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-content",
     });
 
-    // Rating Icon
-    let rating_color_active = props.rating_color_active === "" ? "#333" : props.rating_color_active;
+    // Rating active color
+    let rating_color_active =
+      props.rating_color_active === "" ? "#333" : props.rating_color_active;
 
     if (props.enable_custom_icon === "on") {
       additionalCss.push([
@@ -128,8 +129,6 @@ class RatingBox extends Component {
       important: false,
     });
 
-    ////// Custom Spacing //
-
     // Rating wrapper
     utility.process_margin_padding({
       props: props,
@@ -206,100 +205,100 @@ class RatingBox extends Component {
     });
 
     // Rating Alignment
-    utility.df_process_string_attr({
-      props: props,
-      key: "rating_icon_align",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon",
-      type: "text-align",
-      default_value: "center",
-    });
-
-    let rating_justify_content = "";
-    let rating_float_content = "";
-    if (props.rating_icon_align === "right") {
-      rating_justify_content = "end";
-      rating_float_content = "right";
-    } else if (props.rating_icon_align === "left") {
-      rating_justify_content = "start";
-      rating_float_content = "left";
-    } else {
-      rating_justify_content = "center";
-      rating_float_content = "none";
-    }
-
     if (props.enable_single_rating === "on") {
-      // Rating Ttile + Icon align (single rating)
+      // Rating Title + Icon align (single rating)
+      let rating_justify_content = "";
+      let rating_float_content = "";
+      if (props.rating_icon_align === "right") {
+        rating_justify_content = "end";
+        rating_float_content = "right";
+      } else if (props.rating_icon_align === "left") {
+        rating_justify_content = "start";
+        rating_float_content = "left";
+      } else if (props.rating_icon_align === "center") {
+        rating_justify_content = "center";
+        rating_float_content = "none";
+      }
+
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-wrapper`,
           declaration: `display: flex; align-items: center; justify-content: ${rating_justify_content};`,
         },
       ]);
-    }
 
-    // Rating alignment
-    if (props.title_display_type === "block") {
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center;`,
-        },
-      ]);
-
-      if (props.title_placement_top_bottom === "top") {
+      // Rating alignment
+      if (props.title_display_type === "block") {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: column-reverse; float: ${rating_float_content};`,
-          },
-          {
-            selector: `%%order_class%% .df-rating-content`,
-            declaration: `clear: both;`,
+            declaration: `display: flex; align-items: center;`,
           },
         ]);
+
+        if (props.title_placement_top_bottom === "top") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: column-reverse; float: ${rating_float_content};`,
+            },
+            {
+              selector: `%%order_class%% .df-rating-content`,
+              declaration: `clear: both;`,
+            },
+          ]);
+        } else {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: column; float: ${rating_float_content};`,
+            },
+            {
+              selector: `%%order_class%% .df-rating-content`,
+              declaration: `clear: both;`,
+            },
+          ]);
+        }
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: column; float: ${rating_float_content};`,
-          },
-          {
-            selector: `%%order_class%% .df-rating-content`,
-            declaration: `clear: both;`,
+            declaration: `display: flex; align-items: center;`,
           },
         ]);
+
+        if (props.title_placement_left_right === "left") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
+            },
+          ]);
+        } else if (props.title_placement_left_right === "right") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
+            },
+          ]);
+        } else if (props.title_placement_left_right === "center") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `display: flex; flex-direction: row; align-items: center; justify-content: center;`,
+            },
+          ]);
+        }
       }
     } else {
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center;`,
-        },
-      ]);
-
-      if (props.title_placement_left_right === "left") {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
-          },
-        ]);
-      } else if (props.title_placement_left_right === "right") {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
-          },
-        ]);
-      } else {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; flex-direction: row; align-items: center; justify-content: center;`,
-          },
-        ]);
-      }
+      utility.df_process_string_attr({
+        props: props,
+        key: "rating_icon_align",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df-rating-icon",
+        type: "text-align",
+        default_value: "center",
+      });
     }
 
     // Rating number disable
@@ -322,7 +321,7 @@ class RatingBox extends Component {
     const utils = window.ET_Builder.API.Utils;
 
     // Rating scale type
-    let rating_scale_type =
+    const rating_scale_type =
       props.enable_single_rating === "off"
         ? props.rating_scale_type !== ""
           ? parseInt(props.rating_scale_type)
@@ -330,27 +329,19 @@ class RatingBox extends Component {
         : 1;
 
     // Rating value
-    let rating_value =
-      rating_scale_type === 5
-        ? typeof props.rating_value_5 !== "undefined" &&
-          props.rating_value_5 !== ""
-          ? props.rating_value_5
-          : ""
-        : typeof props.rating_value_10 !== "undefined" &&
-          props.rating_value_10 !== ""
-        ? props.rating_value_10
-        : "";
+    const rating_value =
+      rating_scale_type === 5 ? props.rating_value_5 : props.rating_value_10;
 
     // Get only Icon
     const icon =
       props.enable_custom_icon === "on"
         ? utils.processFontIcon(props.rating_icon)
-        : utils.processFontIcon("&#xe031;");
+        : utils.processFontIcon("&#xe031; || divi");
 
     // Set Rating Icon
-    let rating_icon = [];
+    const rating_icon = [];
     let rating_active_class = "";
-    let get_float =
+    const get_float =
       typeof rating_value === "string" && rating_value.includes(".")
         ? rating_value.split(".")
         : parseInt(rating_value);
@@ -387,7 +378,7 @@ class RatingBox extends Component {
     }
 
     // Show rating number/text
-    let ratingNumber =
+    const ratingNumber =
       props.enable_rating_number === "on" ? (
         props.enable_rating_number_bracket === "on" ? (
           <span className="df-rating-number">{`( ${rating_value} / ${rating_scale_type} )`}</span>
@@ -398,7 +389,7 @@ class RatingBox extends Component {
         ""
       );
 
-    let iconWrapper = (
+    const iconWrapper = (
       <div className={"df-rating-icon"}>
         {props.enable_rating_number === "on" &&
         props.rating_number_placement_left_right === "left" ? (
@@ -416,7 +407,7 @@ class RatingBox extends Component {
     );
 
     // Rating Title Wrapper
-    let titleWrapper =
+    const titleWrapper =
       props.enable_title === "on" && props.title !== "" ? (
         <div className={"df-rating-title"}>
           {props.dynamic.title.hasValue !== ""
