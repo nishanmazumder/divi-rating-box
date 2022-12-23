@@ -55,7 +55,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             ),
             'advanced'   => array(
                 'toggles'   => array(
-                    // 'design_rating_badge'            => esc_html__('Rating Badge', 'divi_flash'),
                     'design_rating'                => esc_html__('Rating', 'divi_flash'),
                     'design_rating_number'                => esc_html__('Rating Number', 'divi_flash'),
                     'design_title'                 => esc_html__('Title', 'divi_flash'),
@@ -265,12 +264,13 @@ class DIFL_RatingBox extends ET_Builder_Module
                 )
             ),
 
-            // For rating only
+            // Rating Alignment
             'rating_icon_align'  => array(
                 'label'           => esc_html__('Rating Alignment', 'divi_flash'),
                 'description'     => esc_html__('Rating Alignment.', 'divi_flash'),
                 'type'            => 'text_align',
-                'option_category' => 'basic_option',
+                // 'option_category' => 'basic_option',
+                'option_category' => 'configuration',
                 'options'         => et_builder_get_text_orientation_options(
                     array('justified')
                 ),
@@ -282,7 +282,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'mobile_options'  => true,
             ),
 
-            // Rating Number
             'enable_rating_number'  => array(
                 'label'             => esc_html__('Show Rating number', 'divi_flash'),
                 'description'     => esc_html__('Show Rating number or text.', 'divi_flash'),
@@ -463,7 +462,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             'toggle_slug'       => 'margin_padding'
         ));
 
-        // Return all values
         return array_merge(
             $rating_badge_bg,
             $rating_box_bg,
@@ -1080,88 +1078,90 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Rating Alignment
-        $this->df_process_string_attr(array(
-            'render_slug'       => $render_slug,
-            'slug'              => 'rating_icon_align',
-            'type'              => 'text-align',
-            'selector'          => '%%order_class%% .df-rating-icon',
-            'important'         => true,
-            'default'           => 'center'
-        ));
-
-        $title_display_type = !empty($this->props['title_display_type']) ? $this->props['title_display_type'] : "block";
-        $title_placement_left_right = !empty($this->props['title_placement_left_right']) ? $this->props['title_placement_left_right'] : "right";
-        $title_placement_top_bottom = !empty($this->props['title_placement_top_bottom']) ? $this->props['title_placement_top_bottom'] : "bottom";
-
-        $rating_justify_content = "";
-        $rating_float_content = "";
-        if ($this->props['rating_icon_align'] === "right") {
-            $rating_justify_content = "flex-end";
-            $rating_float_content = "right";
-        } else if ($this->props['rating_icon_align'] === "left") {
-            $rating_justify_content = "flex-start";
-            $rating_float_content = "left";
-        } else {
-            $rating_justify_content = "center";
-            $rating_float_content = "none";
-        }
-
         if ($this->props['enable_single_rating'] === "on") {
+
+            $title_display_type = !empty($this->props['title_display_type']) ? $this->props['title_display_type'] : "block";
+            $title_placement_left_right = !empty($this->props['title_placement_left_right']) ? $this->props['title_placement_left_right'] : "right";
+            $title_placement_top_bottom = !empty($this->props['title_placement_top_bottom']) ? $this->props['title_placement_top_bottom'] : "bottom";
+
+            $rating_justify_content = "";
+            $rating_float_content = "";
+            if ($this->props['rating_icon_align'] === "right") {
+                $rating_justify_content = "end";
+                $rating_float_content = "right";
+            } else if ($this->props['rating_icon_align'] === "left") {
+                $rating_justify_content = "start";
+                $rating_float_content = "left";
+            } else if ($this->props['rating_icon_align'] === "center") {
+                $rating_justify_content = "center";
+                $rating_float_content = "none";
+            }
+
             // Rating Title + Icon align (single rating)
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "%%order_class%% .df-rating-wrapper",
                 'declaration' => `display: flex; align-items: center; justify-content: $rating_justify_content;`
             ));
-        }
 
-        if ($title_display_type === "block" || $this->props['enable_single_rating'] === "on") {
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "%%order_class%% .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: center; "
-            ));
-
-            if ($title_placement_top_bottom === "top" || $this->props['enable_single_rating'] === "on") {
+            if ($title_display_type === "block") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "flex-direction: column-reverse; float: $rating_float_content;"
+                    'declaration' => "display: flex; align-items: center; "
                 ));
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "%%order_class%% .df-rating-content",
-                    'declaration' => "clear: both;"
-                ));
+
+                if ($title_placement_top_bottom === "top") {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "%%order_class%% .df-rating-wrapper",
+                        'declaration' => "flex-direction: column-reverse; float: $rating_float_content;"
+                    ));
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "%%order_class%% .df-rating-content",
+                        'declaration' => "clear: both;"
+                    ));
+                } else {
+
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "%%order_class%% .df-rating-wrapper",
+                        'declaration' => "flex-direction: column; float: $rating_float_content;"
+                    ));
+
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "%%order_class%% .df-rating-content",
+                        'declaration' => "clear: both;"
+                    ));
+                }
             } else {
-
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "flex-direction: column; float: $rating_float_content;"
+                    'declaration' => "display: flex; align-items: center;"
                 ));
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "%%order_class%% .df-rating-content",
-                    'declaration' => "clear: both;"
-                ));
+
+                if ($title_placement_left_right === "left") {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "%%order_class%% .df-rating-wrapper",
+                        'declaration' => "flex-direction: row-reverse; justify-content: $rating_justify_content;"
+                    ));
+                } elseif ($title_placement_left_right === "right") {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "%%order_class%% .df-rating-wrapper",
+                        'declaration' => "flex-direction: row; justify-content: $rating_justify_content;"
+                    ));
+                } else {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "%%order_class%% .df-rating-wrapper",
+                        'declaration' => "flex-direction: row; justify-content: center;"
+                    ));
+                }
             }
         } else {
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "%%order_class%% .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: center;"
+            $this->df_process_string_attr(array(
+                'render_slug'       => $render_slug,
+                'slug'              => 'rating_icon_align',
+                'type'              => 'text-align',
+                'selector'          => '%%order_class%% .df-rating-icon',
+                'important'         => true,
+                'default'           => 'center'
             ));
-
-            if ($title_placement_left_right === "left" || $this->props['enable_single_rating'] === "on") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "flex-direction: row-reverse; justify-content: $rating_justify_content;"
-                ));
-            } elseif ($title_placement_left_right === "right") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "flex-direction: row; justify-content: $rating_justify_content;"
-                ));
-            } else {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "%%order_class%% .df-rating-wrapper",
-                    'declaration' => "flex-direction: row; justify-content: center;"
-                ));
-            }
         }
 
         // Rating Number Disable

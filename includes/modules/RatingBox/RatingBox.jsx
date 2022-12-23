@@ -205,100 +205,100 @@ class RatingBox extends Component {
     });
 
     // Rating Alignment
-    utility.df_process_string_attr({
-      props: props,
-      key: "rating_icon_align",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon",
-      type: "text-align",
-      default_value: "center",
-    });
-
-    let rating_justify_content = "";
-    let rating_float_content = "";
-    if (props.rating_icon_align === "right") {
-      rating_justify_content = "end";
-      rating_float_content = "right";
-    } else if (props.rating_icon_align === "left") {
-      rating_justify_content = "start";
-      rating_float_content = "left";
-    } else {
-      rating_justify_content = "center";
-      rating_float_content = "none";
-    }
-
     if (props.enable_single_rating === "on") {
-      // Rating Ttile + Icon align (single rating)
+      // Rating Title + Icon align (single rating)
+      let rating_justify_content = "";
+      let rating_float_content = "";
+      if (props.rating_icon_align === "right") {
+        rating_justify_content = "end";
+        rating_float_content = "right";
+      } else if (props.rating_icon_align === "left") {
+        rating_justify_content = "start";
+        rating_float_content = "left";
+      } else if (props.rating_icon_align === "center") {
+        rating_justify_content = "center";
+        rating_float_content = "none";
+      }
+
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-wrapper`,
           declaration: `display: flex; align-items: center; justify-content: ${rating_justify_content};`,
         },
       ]);
-    }
 
-    // Rating alignment
-    if (props.title_display_type === "block") {
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center;`,
-        },
-      ]);
-
-      if (props.title_placement_top_bottom === "top") {
+      // Rating alignment
+      if (props.title_display_type === "block") {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: column-reverse; float: ${rating_float_content};`,
-          },
-          {
-            selector: `%%order_class%% .df-rating-content`,
-            declaration: `clear: both;`,
+            declaration: `display: flex; align-items: center;`,
           },
         ]);
+
+        if (props.title_placement_top_bottom === "top") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: column-reverse; float: ${rating_float_content};`,
+            },
+            {
+              selector: `%%order_class%% .df-rating-content`,
+              declaration: `clear: both;`,
+            },
+          ]);
+        } else {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: column; float: ${rating_float_content};`,
+            },
+            {
+              selector: `%%order_class%% .df-rating-content`,
+              declaration: `clear: both;`,
+            },
+          ]);
+        }
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: column; float: ${rating_float_content};`,
-          },
-          {
-            selector: `%%order_class%% .df-rating-content`,
-            declaration: `clear: both;`,
+            declaration: `display: flex; align-items: center;`,
           },
         ]);
+
+        if (props.title_placement_left_right === "left") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
+            },
+          ]);
+        } else if (props.title_placement_left_right === "right") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
+            },
+          ]);
+        } else if (props.title_placement_left_right === "center") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-wrapper`,
+              declaration: `display: flex; flex-direction: row; align-items: center; justify-content: center;`,
+            },
+          ]);
+        }
       }
     } else {
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center;`,
-        },
-      ]);
-
-      if (props.title_placement_left_right === "left") {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
-          },
-        ]);
-      } else if (props.title_placement_left_right === "right") {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
-          },
-        ]);
-      } else {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; flex-direction: row; align-items: center; justify-content: center;`,
-          },
-        ]);
-      }
+      utility.df_process_string_attr({
+        props: props,
+        key: "rating_icon_align",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df-rating-icon",
+        type: "text-align",
+        default_value: "center",
+      });
     }
 
     // Rating number disable
