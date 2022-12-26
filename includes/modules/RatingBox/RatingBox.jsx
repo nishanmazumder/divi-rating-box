@@ -8,14 +8,6 @@ class RatingBox extends Component {
   static css(props) {
     var additionalCss = [];
 
-    //  Rating icon wrapper background
-    utility.df_process_bg({
-      props: props,
-      key: "rating_box_bg",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-wrapper",
-    });
-
     //  Rating icon background
     utility.df_process_bg({
       props: props,
@@ -103,21 +95,49 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon_space",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon .et-pb-icon",
+      selector:
+        "%%order_class%% .df-rating-icon span.et-pb-icon:not(:first-child)",
       type: "margin-left",
       unit: "px",
-      default_value: "5px",
     });
 
-    utility.process_range_value({
-      props: props,
-      key: "rating_icon_space",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-icon .et-pb-icon",
-      type: "margin-right",
-      unit: "px",
-      default_value: "5px",
-    });
+    if (props.title_display_type === "inline") {
+      if (props.title_placement_left_right === "right") {
+        additionalCss.push([
+          {
+            selector: `%%order_class%%  .df-rating-title`,
+            declaration: `margin-left: 10px;`,
+          },
+        ]);
+      } else {
+        additionalCss.push([
+          {
+            selector: `%%order_class%%  .df-rating-title`,
+            declaration: `margin-right: 10px;`,
+          },
+        ]);
+      }
+    }
+
+    if (props.enable_rating_number === "on") {
+      if (props.rating_number_placement_left_right === "right") {
+        additionalCss.push([
+          {
+            selector: `%%order_class%%  .df-rating-title`,
+            declaration: `margin-left: 0px; margin-right: 0px;`,
+          },
+        ]);
+
+        if (props.title_placement_left_right === "left") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%%  .df-rating-title`,
+              declaration: `margin-right: 10px;`,
+            },
+          ]);
+        }
+      }
+    }
 
     // Rating number spacing
     utility.process_margin_padding({
@@ -205,7 +225,10 @@ class RatingBox extends Component {
     });
 
     // Rating Alignment
-    if (props.enable_single_rating === "on" || props.enable_single_rating === "off") {
+    if (
+      props.enable_single_rating === "on" ||
+      props.enable_single_rating === "off"
+    ) {
       // Rating Title + Icon align (single rating)
       let rating_justify_content = "";
       let rating_float_content = "";
@@ -407,13 +430,17 @@ class RatingBox extends Component {
     );
 
     // Rating Title Wrapper
+    const HeadingTag =
+      props.rating_title_tag !== "" ? props.rating_title_tag : "h4";
     const titleWrapper =
       props.enable_title === "on" && props.title !== "" ? (
-        <div className={"df-rating-title"}>
-          {props.dynamic.title.hasValue !== ""
-            ? utility._renderDynamicContent(props, "title")
-            : ""}
-        </div>
+        // <div className={"df-rating-title"}>
+          <HeadingTag className="df-rating-title">
+            {props.dynamic.title.hasValue !== ""
+              ? utility._renderDynamicContent(props, "title")
+              : ""}
+          </HeadingTag>
+        // </div>
       ) : (
         ""
       );

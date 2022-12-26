@@ -1,6 +1,6 @@
 /* Icon */
-.difl_ratingbox .df-rating-icon{
-    margin: 10px;
+.difl_ratingbox .df-rating-icon span.et-pb-icon{
+    margin: 0px 2px;
 }
 
 .difl_ratingbox .df-rating-icon span{
@@ -59,8 +59,6 @@
 
 .difl_ratingbox  .df-rating-title{
     font-size: 20px;
-    line-height: 1.5em;
-    margin-top: -5px;
 }
 .difl_ratingbox  .df-rating-content{
     font-size: 16px;
