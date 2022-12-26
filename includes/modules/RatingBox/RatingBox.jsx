@@ -205,7 +205,7 @@ class RatingBox extends Component {
     });
 
     // Rating Alignment
-    if (props.enable_single_rating === "on") {
+    if (props.enable_single_rating === "on" || props.enable_single_rating === "off") {
       // Rating Title + Icon align (single rating)
       let rating_justify_content = "";
       let rating_float_content = "";

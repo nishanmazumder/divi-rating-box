@@ -1078,7 +1078,7 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Rating Alignment
-        if ($this->props['enable_single_rating'] === "on") {
+        if ($this->props['enable_single_rating'] === "on" || $this->props['enable_single_rating'] === "off") {
 
             $title_display_type = !empty($this->props['title_display_type']) ? $this->props['title_display_type'] : "block";
             $title_placement_left_right = !empty($this->props['title_placement_left_right']) ? $this->props['title_placement_left_right'] : "right";
