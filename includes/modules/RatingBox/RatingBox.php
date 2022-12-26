@@ -1350,6 +1350,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             }
         }
 
+        // base on single rating
         if ($this->props['enable_single_rating'] === 'on') {
             if ($title_display_type === 'inline' && $title_placement_left_right === "right") {
                 ET_Builder_Element::set_style($render_slug, array(
