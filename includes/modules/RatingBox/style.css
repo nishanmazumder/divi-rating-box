@@ -59,6 +59,7 @@
 
 .difl_ratingbox  .df-rating-title{
     font-size: 20px;
+    padding-bottom: 0;
 }
 .difl_ratingbox  .df-rating-content{
     font-size: 16px;
