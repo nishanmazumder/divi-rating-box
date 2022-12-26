@@ -8,7 +8,6 @@ class RatingBox extends Component {
   static css(props) {
     var additionalCss = [];
 
-    //  Rating icon background
     utility.df_process_bg({
       props: props,
       key: "rating_bg",
@@ -16,7 +15,6 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-icon",
     });
 
-    //  Title background
     utility.df_process_bg({
       props: props,
       key: "rating_title_bg",
@@ -24,7 +22,6 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-title",
     });
 
-    //  Content background
     utility.df_process_bg({
       props: props,
       key: "rating_content_bg",
@@ -32,7 +29,7 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-content",
     });
 
-    // Rating active color
+    // Rating color
     let rating_color_active =
       props.rating_color_active === "" ? "#333" : props.rating_color_active;
 
@@ -45,6 +42,7 @@ class RatingBox extends Component {
       ]);
     }
 
+    // for single color
     if (
       props.enable_custom_icon !== "on" ||
       props.enable_single_rating === "on"
@@ -224,12 +222,7 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-icon .et-pb-icon",
     });
 
-    // Rating Alignment
-    // if (
-    //   props.enable_single_rating === "on" ||
-    //   props.enable_single_rating === "off"
-    // ) {
-      // Rating Title + Icon align (single rating)
+      // Rating Alignment
       let rating_justify_content = "";
       let rating_float_content = "";
       if (props.rating_icon_align === "right") {
@@ -250,7 +243,6 @@ class RatingBox extends Component {
         },
       ]);
 
-      // Rating alignment
       if (props.title_display_type === "block") {
         additionalCss.push([
           {
@@ -324,26 +316,7 @@ class RatingBox extends Component {
           ]);
         }
 
-        // else if (props.title_placement_left_right === "center") {
-        //   additionalCss.push([
-        //     {
-        //       selector: `%%order_class%% .df-rating-wrapper`,
-        //       declaration: `display: flex; flex-direction: row; align-items: center; justify-content: center;`,
-        //     },
-        //   ]);
-        // }
-
       }
-    // } else {
-    //   utility.df_process_string_attr({
-    //     props: props,
-    //     key: "rating_icon_align",
-    //     additionalCss: additionalCss,
-    //     selector: "%%order_class%% .df-rating-icon",
-    //     type: "text-align",
-    //     default_value: "center",
-    //   });
-    // }
 
     // Rating number disable
     if (props.enable_single_rating === "on") {
@@ -355,7 +328,7 @@ class RatingBox extends Component {
       ]);
     }
 
-    console.log(props);
+    // console.log(props);
 
     return additionalCss;
   }
