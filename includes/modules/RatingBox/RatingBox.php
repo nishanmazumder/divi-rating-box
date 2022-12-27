@@ -1162,6 +1162,9 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         if ($get_rating_icon && !empty($this->props['rating_icon'])) {
             if (method_exists('ET_Builder_Module_Helper_Style_Processor', 'process_extended_icon')) {
+
+                difl_inject_fa_icons($this->props['rating_icon']);
+
                 $this->generate_styles(
                     array(
                         'utility_arg'    => 'icon_font_family',
@@ -1285,7 +1288,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'declaration' => "clear: both;"
                 ));
             } else {
-
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
                     'declaration' => "flex-direction: column; float: $rating_float_content;"
@@ -1296,6 +1298,15 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'declaration' => "clear: both;"
                 ));
             }
+
+            $this->df_process_flex_mobile(
+                array(
+                    'render_slug' => $render_slug,
+                    'slug'        => 'rating_icon_align',
+                    'selector'    => "$this->main_css_element .df-rating-wrapper",
+                    'type'        => "float",
+                )
+            );
         } else {
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-title",
@@ -1327,6 +1338,15 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ));
             }
         }
+
+        $this->df_process_flex_mobile(
+            array(
+                'render_slug' => $render_slug,
+                'slug'        => 'rating_icon_align',
+                'selector'    => "$this->main_css_element .df-rating-wrapper",
+                'type'        => "justify-content",
+            )
+        );
 
         // Title align base on rating number
         if ($this->props['enable_rating_number'] === "on") {
@@ -1458,6 +1478,69 @@ class DIFL_RatingBox extends ET_Builder_Module
             ) : "";
 
         return $content;
+    }
+
+    /**
+     * Process dynamic flex for module output
+     *
+     * @param array $options Options array for operation
+     *
+     * @return void
+     */
+    private function df_process_flex_mobile($options)
+    {
+        $default = array(
+            'render_slug' => '',
+            'slug'        => '',
+            'selector'    => '',
+            'type'        => '',
+        );
+        $options = wp_parse_args($options, $default);
+
+        if ($this->props['title_display_type'] === "block" && $options['type'] === 'float') {
+            if ($this->props[$options['slug']] === "start") {
+                $this->props[$options['slug']] = "left";
+            } else if ($this->props[$options['slug']] === "end") {
+                $this->props[$options['slug']] = "right";
+            } else {
+                $this->props[$options['slug']] = "center";
+            }
+        }
+
+        // echo '<pre>';
+        // print_r($options);
+
+        // if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug']])) {
+        //     self::set_style(
+        //         $options['render_slug'],
+        //         array(
+        //             'selector'    => $options['selector'],
+        //             'declaration' => sprintf('%1$s:%2$s;', $options['type'], $this->props[$options['slug']])
+        //         ),
+        //     );
+        // }
+
+        if (
+            array_key_exists($options['slug'] . '_tablet', $this->props)
+            && !empty($this->props[$options['slug'] . '_tablet'])
+        ) {
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $this->props[$options['slug'] . '_tablet']),
+                'media_query' => self::get_media_query('max_width_980')
+            ));
+        }
+
+        if (
+            array_key_exists($options['slug'] . '_phone', $this->props)
+            && !empty($this->props[$options['slug'] . '_phone'])
+        ) {
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $this->props[$options['slug'] . '_phone']),
+                'media_query' => self::get_media_query('max_width_767')
+            ));
+        }
     }
 } //Class
 

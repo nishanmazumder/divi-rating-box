@@ -222,63 +222,94 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-icon .et-pb-icon",
     });
 
-      // Rating Alignment
-      let rating_justify_content = "";
-      let rating_float_content = "";
-      if (props.rating_icon_align === "right") {
-        rating_justify_content = "end";
-        rating_float_content = "right";
-      } else if (props.rating_icon_align === "left") {
-        rating_justify_content = "start";
-        rating_float_content = "left";
-      } else if (props.rating_icon_align === "center") {
-        rating_justify_content = "center";
-        rating_float_content = "none";
-      }
+    // Rating Alignment
+    let rating_justify_content = "";
+    let rating_float_content = "";
+    if (props.rating_icon_align === "right") {
+      rating_justify_content = "end";
+      rating_float_content = "right";
+    } else if (props.rating_icon_align === "left") {
+      rating_justify_content = "start";
+      rating_float_content = "left";
+    } else if (props.rating_icon_align === "center") {
+      rating_justify_content = "center";
+      rating_float_content = "none";
+    }
 
+    additionalCss.push([
+      {
+        selector: `%%order_class%% .df-rating-wrapper`,
+        declaration: `display: flex; align-items: center; justify-content: ${rating_justify_content};`,
+      },
+    ]);
+
+    if (props.title_display_type === "block") {
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center; justify-content: ${rating_justify_content};`,
+          declaration: `display: flex; align-items: center;`,
         },
       ]);
 
-      if (props.title_display_type === "block") {
+      if (props.title_placement_top_bottom === "top") {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; align-items: center;`,
+            declaration: `flex-direction: column-reverse; float: ${rating_float_content};`,
+          },
+          {
+            selector: `%%order_class%% .df-rating-content`,
+            declaration: `clear: both;`,
           },
         ]);
 
-        if (props.title_placement_top_bottom === "top") {
-          additionalCss.push([
-            {
-              selector: `%%order_class%% .df-rating-wrapper`,
-              declaration: `flex-direction: column-reverse; float: ${rating_float_content};`,
-            },
-            {
-              selector: `%%order_class%% .df-rating-content`,
-              declaration: `clear: both;`,
-            },
-          ]);
-        } else {
-          additionalCss.push([
-            {
-              selector: `%%order_class%% .df-rating-wrapper`,
-              declaration: `flex-direction: column; float: ${rating_float_content};`,
-            },
-            {
-              selector: `%%order_class%% .df-rating-content`,
-              declaration: `clear: both;`,
-            },
-          ]);
-        }
+        this.df_process_flex_mobile({
+          props: props,
+          key: "rating_icon_align",
+          additionalCss: additionalCss,
+          selector: `%%order_class%% .df-rating-wrapper`,
+          type: "float",
+        });
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
-            declaration: `display: flex; align-items: center;`,
+            declaration: `flex-direction: column; float: ${rating_float_content};`,
+          },
+          {
+            selector: `%%order_class%% .df-rating-content`,
+            declaration: `clear: both;`,
+          },
+        ]);
+      }
+    } else {
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-wrapper`,
+          declaration: `display: flex; align-items: center;`,
+        },
+      ]);
+
+      this.df_process_flex_mobile({
+        props: props,
+        key: "rating_icon_align",
+        additionalCss: additionalCss,
+        selector: `%%order_class%% .df-rating-wrapper`,
+        type: "justify-content",
+      });
+
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-title`,
+          declaration: `margin-left: 10px;`,
+        },
+      ]);
+
+      if (props.title_placement_left_right === "left") {
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-wrapper`,
+            declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
           },
         ]);
 
@@ -288,35 +319,19 @@ class RatingBox extends Component {
             declaration: `margin-left: 10px;`,
           },
         ]);
-
-        if (props.title_placement_left_right === "left") {
-          additionalCss.push([
-            {
-              selector: `%%order_class%% .df-rating-wrapper`,
-              declaration: `flex-direction: row-reverse; justify-content: ${rating_justify_content};`,
-            },
-          ]);
-
-          additionalCss.push([
-            {
-              selector: `%%order_class%% .df-rating-title`,
-              declaration: `margin-left: 10px;`,
-            },
-          ]);
-        } else if (props.title_placement_left_right === "right") {
-          additionalCss.push([
-            {
-              selector: `%%order_class%% .df-rating-wrapper`,
-              declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
-            },
-            {
-              selector: `%%order_class%% .df-rating-title`,
-              declaration: `margin-left: 10px;`,
-            },
-          ]);
-        }
-
+      } else if (props.title_placement_left_right === "right") {
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-wrapper`,
+            declaration: `flex-direction: row; justify-content: ${rating_justify_content};`,
+          },
+          {
+            selector: `%%order_class%% .df-rating-title`,
+            declaration: `margin-left: 10px;`,
+          },
+        ]);
       }
+    }
 
     // Rating number disable
     if (props.enable_single_rating === "on") {
@@ -328,7 +343,7 @@ class RatingBox extends Component {
       ]);
     }
 
-    // console.log(props);
+    console.log(props);
 
     return additionalCss;
   }
@@ -428,14 +443,12 @@ class RatingBox extends Component {
       props.rating_title_tag !== "" ? props.rating_title_tag : "h4";
     const titleWrapper =
       props.enable_title === "on" && props.title !== "" ? (
-        // <div className={"df-rating-title"}>
         <HeadingTag className="df-rating-title">
           {props.dynamic.title.hasValue !== ""
             ? utility._renderDynamicContent(props, "title")
             : ""}
         </HeadingTag>
       ) : (
-        // </div>
         ""
       );
 
@@ -461,6 +474,54 @@ class RatingBox extends Component {
       );
 
     return content;
+  }
+
+  /* Custom functions for icon list module */
+  static df_process_flex_mobile(options = {}) {
+    const defaults = {
+      props: {},
+      key: "",
+      additionalCss: "",
+      selector: "",
+      type: "justify-content",
+    };
+    const settings = utility.extend(defaults, options);
+    const { props, key, additionalCss, selector, type } = settings;
+
+    if (props.title_display_type === "block" && type === "float") {
+      if (props[key] === "start") {
+        props[key] = "left";
+      } else if (props[key] === "end") {
+        props[key] = "right";
+      } else {
+        props[key] = "center";
+      }
+    }
+
+    const desktop_column = props[key];
+    const tablet = utility.df_check_values(
+      desktop_column,
+      props[key + "_tablet"]
+    );
+    const phone = utility.df_check_values(
+      desktop_column,
+      props[key + "_phone"]
+    );
+
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `${type}:${tablet};`,
+        device: "tablet",
+      },
+    ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `${type}:${phone};`,
+        device: "phone",
+      },
+    ]);
   }
 
   render() {
