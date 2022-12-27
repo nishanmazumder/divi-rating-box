@@ -104,7 +104,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             ),
             'advanced'   => array(
                 'toggles'   => array(
-                    'rating_box_align'                => esc_html__('Rating Box Alignment', 'divi_flash'),
                     'design_rating'                => esc_html__('Rating', 'divi_flash'),
                     'design_rating_number'         => esc_html__('Rating Number', 'divi_flash'),
                     'design_title'                 => esc_html__('Title', 'divi_flash'),
@@ -119,6 +118,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                         'tabbed_subtoggles' => true,
                         'sub_toggles'       => $content_sub_toggles,
                     ),
+                    'rating_box_align'                => esc_html__('Alignment', 'divi_flash'),
                     'custom_spacing'        => esc_html__('Custom Spacing', 'divi_flash')
                 )
             ),
@@ -362,7 +362,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ),
                 'tab_slug'        => 'advanced',
                 'toggle_slug'     => 'rating_box_align',
-                'default_on_front' => 'center',
+                'default' => 'center',
                 'options_icon'     => 'module_align',
                 'mobile_options'  => true,
             ),
@@ -377,7 +377,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ),
                 'tab_slug'        => 'advanced',
                 'toggle_slug'     => 'design_rating',
-                'default_on_front' => 'center',
+                'default' => 'center',
                 'options_icon'     => 'module_align',
                 'mobile_options'  => true,
             ),
@@ -1320,36 +1320,73 @@ class DIFL_RatingBox extends ET_Builder_Module
         //     ));
         // }
 
+        // Global Alignment
+        // $rating_box_justify = "";
+        // if ($this->props['rating_box_align'] === "right") {
+        //     $rating_box_justify = "end";
+        // } elseif ($this->props['rating_box_align'] === "left") {
+        //     $rating_box_justify = "start";
+        // } elseif ($this->props['rating_box_align'] === "center") {
+        //     $rating_box_justify = "center";
+        // }
+
+        $rating_box_float = "";
+        if ($this->props['rating_box_align'] === "right") {
+            $rating_box_float = "right";
+        } elseif ($this->props['rating_box_align'] === "left") {
+            $rating_box_float = "left";
+        } elseif ($this->props['rating_box_align'] === "center") {
+            $rating_box_float = "none";
+        }
+
+        // rating box alignment
+        if ($this->props['rating_box_align'] === "center") {
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-box-container",
+                'declaration' => "display: table; width:100%; margin: 0px auto;"
+            ));
+        } else {
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-box-container",
+                'declaration' => "display: table; float: $rating_box_float;"
+            ));
+        }
+
+        $this->df_process_flex_mobile(
+            array(
+                'render_slug' => $render_slug,
+                'slug'        => 'rating_box_align',
+                'selector'    => "$this->main_css_element .df-rating-box-container",
+                'type'        => "float",
+            )
+        );
+
         // Rating Alignment
         $rating_justify_content = "";
-        $rating_float_content = "";
         if ($this->props['rating_icon_align'] === "right") {
             $rating_justify_content = "end";
-            $rating_float_content = "right";
         } else if ($this->props['rating_icon_align'] === "left") {
             $rating_justify_content = "start";
-            $rating_float_content = "left";
         } else if ($this->props['rating_icon_align'] === "center") {
             $rating_justify_content = "center";
-            $rating_float_content = "none";
         }
 
         // Rating Title + Icon align (single rating)
         ET_Builder_Element::set_style($render_slug, array(
             'selector' => "$this->main_css_element .df-rating-wrapper",
-            'declaration' => `display: flex; align-items: center; justify-content: $rating_justify_content;`
+            'declaration' => `display: flex; align-items: center;`
         ));
 
         if ($title_display_type === "block") {
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: center; "
+                'declaration' => "display: flex; align-items: $rating_justify_content; "
             ));
 
             if ($title_placement_top_bottom === "top") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "flex-direction: column-reverse; float: $rating_float_content;"
+                    'declaration' => "flex-direction: column-reverse;"
                 ));
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-content",
@@ -1358,7 +1395,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             } else {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "flex-direction: column; float: $rating_float_content;"
+                    'declaration' => "flex-direction: column;"
                 ));
 
                 ET_Builder_Element::set_style($render_slug, array(
@@ -1383,7 +1420,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: center;"
+                'declaration' => "display: flex; align-items: center;  justify-content: $rating_justify_content;"
             ));
 
             if ($title_placement_left_right === "left") {
@@ -1393,7 +1430,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ));
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "flex-direction: row-reverse; justify-content: $rating_justify_content;"
+                    'declaration' => "flex-direction: row-reverse;"
                 ));
             } elseif ($title_placement_left_right === "right") {
                 ET_Builder_Element::set_style($render_slug, array(
@@ -1402,7 +1439,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ));
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "flex-direction: row; justify-content: $rating_justify_content;"
+                    'declaration' => "flex-direction: row;"
                 ));
             }
         }
@@ -1569,18 +1606,21 @@ class DIFL_RatingBox extends ET_Builder_Module
         );
         $options = wp_parse_args($options, $default);
 
-        if ($this->props['title_display_type'] === "block" && $options['type'] === 'float') {
-            if ($this->props[$options['slug']] === "start") {
-                $this->props[$options['slug']] = "left";
-            } else if ($this->props[$options['slug']] === "end") {
-                $this->props[$options['slug']] = "right";
+        if ($options['type'] === "justify-content") {
+            if ($this->props[$options['slug']] === "left") {
+                $this->props[$options['slug']] = "start";
+            } else if ($this->props[$options['slug']] === "right") {
+                $this->props[$options['slug']] = "end";
             } else {
                 $this->props[$options['slug']] = "center";
             }
+        } elseif ($options['type'] === "float") {
+            if ($this->props[$options['slug']] === "center") {
+                $this->props[$options['slug']] = "none";
+            } else {
+                $this->props[$options['slug']] = $this->props[$options['slug']];
+            }
         }
-
-        // echo '<pre>';
-        // print_r($options);
 
         // if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug']])) {
         //     self::set_style(

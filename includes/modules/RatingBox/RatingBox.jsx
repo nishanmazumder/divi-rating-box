@@ -239,35 +239,34 @@ class RatingBox extends Component {
     }
 
     // Global Alignment
-    let rating_justify_content = "";
-    let rating_float_content = "";
-    if (
-      props.rating_box_align === "right" ||
-      props.rating_icon_align === "right"
-    ) {
-      rating_justify_content = "end";
-      rating_float_content = "right";
-    } else if (
-      props.rating_box_align === "left" ||
-      props.rating_icon_align === "left"
-    ) {
-      rating_justify_content = "start";
-      rating_float_content = "left";
-    } else if (
-      props.rating_box_align === "center" ||
-      props.rating_icon_align === "center"
-    ) {
-      rating_justify_content = "center";
-      rating_float_content = "none";
-    }
+    // const rating_box_justify =
+    //   props.rating_box_align === "right"
+    //     ? "end"
+    //     : props.rating_box_align === "left"
+    //     ? "start"
+    //     : props.rating_box_align === "center"
+    //     ? "center"
+    //     : "";
+
+    const rating_box_float =
+      props.rating_box_align === "center" ? "none" : props.rating_box_align;
 
     // rating box alignment
-    additionalCss.push([
-      {
-        selector: `%%order_class%% .df-rating-box-container`,
-        declaration: `display: block; width: 100%; float: ${rating_float_content};`,
-      },
-    ]);
+    if (props.rating_box_align === "center") {
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-box-container`,
+          declaration: `display: table; width:100%; margin: 0px auto;`,
+        },
+      ]);
+    } else {
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-box-container`,
+          declaration: `display: table; float: ${rating_box_float};`,
+        },
+      ]);
+    }
 
     this.df_process_flex_mobile({
       props: props,
@@ -288,26 +287,36 @@ class RatingBox extends Component {
     additionalCss.push([
       {
         selector: `%%order_class%% .df-rating-icon`,
-        declaration: `display: block; width:100%; text-align: ${props.rating_icon_align};`,
+        declaration: `display: block; text-align: ${props.rating_icon_align};`,
       },
     ]);
 
-    this.df_process_flex_mobile({
-      props: props,
-      key: "rating_icon_align",
-      additionalCss: additionalCss,
-      selector: `%%order_class%% .df-rating-icon`,
-      type: "text-align",
-    });
-
-    // rating title align
+    // this.df_process_flex_mobile({
+    //   props: props,
+    //   key: "rating_icon_align",
+    //   additionalCss: additionalCss,
+    //   selector: `%%order_class%% .df-rating-icon`,
+    //   type: "text-align",
+    // });
 
     // Title Placement
+    const rating_icon_justify =
+      props.rating_icon_align === "right"
+        ? "end"
+        : props.rating_icon_align === "left"
+        ? "start"
+        : props.rating_icon_align === "center"
+        ? "center"
+        : "";
+
+    // const rating_icon__float =
+    //   props.rating_icon_align === "center" ? "none" : props.rating_box_align;
+
     if (props.title_display_type === "block") {
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center;`,
+          declaration: `display: flex; align-items: ${rating_icon_justify};`,
         },
       ]);
 
@@ -340,7 +349,7 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center;`,
+          declaration: `display: flex; align-items: center; justify-content: ${rating_icon_justify};`,
         },
       ]);
 
@@ -389,7 +398,7 @@ class RatingBox extends Component {
       ]);
     }
 
-    // console.log(props);
+    console.log(props);
 
     return additionalCss;
   }
@@ -540,18 +549,24 @@ class RatingBox extends Component {
       key: "",
       additionalCss: "",
       selector: "",
-      type: "justify-content",
+      type: "",
     };
     const settings = utility.extend(defaults, options);
     const { props, key, additionalCss, selector, type } = settings;
 
-    if (props.title_display_type === "block" && type === "float") {
-      if (props[key] === "start") {
-        props[key] = "left";
-      } else if (props[key] === "end") {
-        props[key] = "right";
+    if (props[type] === "justify-content") {
+      if (props[key] === "left") {
+        props[key] = "start";
+      } else if (props[key] === "right") {
+        props[key] = "end";
       } else {
         props[key] = "center";
+      }
+    } else if (props[type] === "float") {
+      if (props[key] === "center") {
+        props[key] = "none";
+      } else {
+        props[key] = props[key];
       }
     }
 
