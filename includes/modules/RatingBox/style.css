@@ -1,6 +1,7 @@
 /* Icon */
 .difl_ratingbox .df-rating-icon span.et-pb-icon{
     margin: 0px 2px;
+    vertical-align: text-bottom;
 }
 
 .difl_ratingbox .df-rating-icon span{
@@ -45,7 +46,7 @@
 }
 
 /* Border */
-.difl_ratingbox .df-rating-box-wrapper * {
+.difl_ratingbox .df-rating-box-container * {
   border-width: 0px;
   border-style: solid;
   border-color: #333;
