@@ -138,16 +138,6 @@ class RatingBox extends Component {
       unit: "px",
     });
 
-    // Rating number spacing
-    // utility.process_margin_padding({
-    //   props: props,
-    //   key: "rating_number_space",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .df-rating-number",
-    //   type: "padding",
-    //   important: false,
-    // });
-
     utility.process_range_value({
       props: props,
       key: "rating_number_space_left",
@@ -183,7 +173,6 @@ class RatingBox extends Component {
       type: "padding",
     });
 
-    // Rating Icon
     utility.process_margin_padding({
       props: props,
       key: "rating_box_icon_margin",
@@ -200,7 +189,6 @@ class RatingBox extends Component {
       type: "padding",
     });
 
-    // Title wrapper
     utility.process_margin_padding({
       props: props,
       key: "rating_box_title_margin",
@@ -217,7 +205,6 @@ class RatingBox extends Component {
       type: "padding",
     });
 
-    // Content wrapper
     utility.process_margin_padding({
       props: props,
       key: "rating_box_content_margin",
@@ -234,7 +221,7 @@ class RatingBox extends Component {
       type: "padding",
     });
 
-    if (props.enable_custom_icon == "on") {
+    if (props.enable_custom_icon === "on") {
       utility.process_icon_font_style({
         props: props,
         additionalCss: additionalCss,
@@ -452,8 +439,6 @@ class RatingBox extends Component {
       ]);
     }
 
-    console.log(props);
-
     return additionalCss;
   }
 
@@ -593,68 +578,6 @@ class RatingBox extends Component {
       );
 
     return content;
-  }
-
-  /* Custom functions for icon list module */
-  static df_process_flex_mobile(options = {}) {
-    const defaults = {
-      props: {},
-      key: "",
-      additionalCss: "",
-      selector: "",
-      type: "",
-    };
-    const settings = utility.extend(defaults, options);
-    const { props, key, additionalCss, selector, type } = settings;
-    let position = "";
-
-    const desktop_column = props[key];
-    const tablet = utility.df_check_values(
-      desktop_column,
-      props[key + "_tablet"]
-    );
-
-    const phone = utility.df_check_values(
-      desktop_column,
-      props[key + "_phone"]
-    );
-
-    if (type === "align-items") {
-      if (props[key] === "left") {
-        return (position = "start");
-      } else if (props[key] === "right") {
-        return (position = "end");
-      } else if (props[key] === "center") {
-        return (position = "center");
-      }
-    }
-
-    return console.log(position);
-
-    // else if (type === "float") {
-    //   if (props[key] === "center") {
-    //     position = "none";
-    //   } else {
-    //     position = props[key];
-    //   }
-    // }
-
-    // return console.log(position)
-
-    additionalCss.push([
-      {
-        selector: tablet,
-        declaration: `${type}:${position};`,
-        device: "tablet",
-      },
-    ]);
-    additionalCss.push([
-      {
-        selector: phone,
-        declaration: `${type}:${position};`,
-        device: "phone",
-      },
-    ]);
   }
 
   render() {
