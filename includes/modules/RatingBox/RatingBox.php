@@ -1288,9 +1288,10 @@ class DIFL_RatingBox extends ET_Builder_Module
         if ($enable_rating_icon) {
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                'declaration' => 'content: attr(data-icon);'
+                'declaration' => 'content: attr(data-icon) !important;'
             ));
 
+            // Default
             if ($rating_color_active === "" || $rating_color_inactive === "") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
@@ -1307,7 +1308,39 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ));
             }
 
-            if ($rating_color_active !== "" || $rating_color_inactive !== "") {
+            if ($rating_color_active !== "" && $rating_color_inactive === "") {
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                    'declaration' => "color: #333;"
+                ));
+
+                $this->df_process_color(array(
+                    'render_slug'       => $render_slug,
+                    'slug'              => 'rating_color_active',
+                    'type'              => 'color',
+                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'important' => true,
+                ));
+            } else if ($rating_color_active === "" && $rating_color_inactive !== "") {
+                $this->df_process_color(array(
+                    'render_slug'       => $render_slug,
+                    'slug'              => 'rating_color_inactive',
+                    'type'              => 'color',
+                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                    'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
+                    'important' => false,
+                ));
+
+                $this->df_process_color(array(
+                    'render_slug'       => $render_slug,
+                    'slug'              => 'rating_color_active',
+                    'type'              => 'color',
+                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'important' => true,
+                ));
+            }else{
                 $this->df_process_color(array(
                     'render_slug'       => $render_slug,
                     'slug'              => 'rating_color_inactive',
@@ -1333,12 +1366,12 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'              => 'color',
                 'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
                 'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
-                'important' => false,
+                'important' => true,
             ));
         }
 
         // Single
-        if (($this->props['enable_custom_icon'] === "on" || "off") && $this->props['enable_single_rating'] === "on") {
+        if (($enable_rating_icon === true || false) && $this->props['enable_single_rating'] === "on") {
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_single',
@@ -1350,69 +1383,13 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Rating Alignment
-        $rating_icon_align_tablet =
-            $this->props['rating_icon_align']."_tablet" !== ""
-            ? $this->props['rating_icon_align_tablet']
-            : "";
-        $rating_icon_align_phone =
-            $this->props['rating_icon_align']."_phone" !== ""
-            ? $this->props['rating_icon_align_phone']
-            : "";
-        $rating_position = "";
-        $rating_position_tab = "";
-        $rating_position_mob = "";
-
-        if ($this->props['rating_icon_align'] === "right") {
-            $rating_position = "end";
-        } else if ($this->props['rating_icon_align'] === "left") {
-            $rating_position = "start";
-        } else if ($this->props['rating_icon_align'] === "center") {
-            $rating_position = "center";
-        }
-
-        if ($rating_icon_align_tablet === "right") {
-            $rating_position_tab = "end";
-        } else if ($rating_icon_align_tablet === "left") {
-            $rating_position_tab = "start";
-        } else if ($rating_icon_align_tablet === "center") {
-            $rating_position_tab = "center";
-        }
-
-        if ($rating_icon_align_phone === "right") {
-            $rating_position_mob = "end";
-        } else if ($rating_icon_align_phone === "left") {
-            $rating_position_mob = "start";
-        } else if ($rating_icon_align_phone === "center") {
-            $rating_position_mob = "center";
-        }
-
-        // Rating Title + Icon align (single rating)
-        ET_Builder_Element::set_style($render_slug, array(
-            'selector' => "$this->main_css_element .df-rating-wrapper",
-            'declaration' => `display: flex; align-items: center;`
-        ));
-
         if ($title_display_type === "block") {
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: $rating_position;"
-            ));
-
-            if ($rating_icon_align_tablet) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_tab;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_980')
-                ));
-            }
-
-            if ($rating_icon_align_phone) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_mob;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_767')
-                ));
-            }
+            $this->df_set_flex_position([
+                'render_slug' => $render_slug,
+                'slug'        => 'rating_icon_align',
+                'selector'    => "$this->main_css_element .df-rating-wrapper",
+                'type'        => "align-items",
+            ]);
 
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-title",
@@ -1446,26 +1423,13 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'declaration' => 'margin-left: 10px;'
             ));
 
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: center;  justify-content: $rating_position;"
-            ));
-
-            if ($rating_icon_align_tablet) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_tab;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_980')
-                ));
-            }
-
-            if ($rating_icon_align_phone) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_mob;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_767')
-                ));
-            }
+            $this->df_set_flex_position([
+                'render_slug' => $render_slug,
+                'slug'        => 'rating_icon_align',
+                'selector'    => "$this->main_css_element .df-rating-wrapper",
+                'type'        => "justify-content",
+                'css'         => "align-items: center"
+            ]);
 
             if ($title_placement_left_right === "left") {
                 ET_Builder_Element::set_style($render_slug, array(
@@ -1622,6 +1586,51 @@ class DIFL_RatingBox extends ET_Builder_Module
         return $content;
     }
 
+    public function df_set_flex_position($options)
+    {
+        $defaults = [
+            'render_slug' => '',
+            'slug'        => '',
+            'selector'    => '',
+            'type'        => '',
+            'css'         => '',
+        ];
+
+        $options = wp_parse_args($options, $defaults);
+        $get_values = ["center", "left", "right"];
+        $set_values = ["center", "start", "end"];
+        $values = [];
+
+        foreach ($get_values as $key => $value) {
+            $values[$value] = $set_values[$key];
+        }
+
+        if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug']])) {
+            $desktop = $this->props[$options['slug']];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('display: flex;%1$s:%2$s;%3$s;', $options['type'], $values[$desktop], $options['css']),
+            ));
+        }
+
+        if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug'] . "_tablet"])) {
+            $tablet = $this->props[$options['slug'] . "_tablet"];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('display: flex;%1$s:%2$s;%3$s;', $options['type'], $values[$tablet], $options['css']),
+                'media_query' => self::get_media_query('max_width_980')
+            ));
+        }
+
+        if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug'] . "_phone"])) {
+            $phone = $this->props[$options['slug'] . "_phone"];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('display: flex;%1$s:%2$s;%3$s;', $options['type'], $values[$phone], $options['css']),
+                'media_query' => self::get_media_query('max_width_767')
+            ));
+        }
+    }
 } //Class
 
 new DIFL_RatingBox;

@@ -281,66 +281,14 @@ class RatingBox extends Component {
       }
     }
 
-    const rating_icon_align_tablet =
-      props.rating_icon_align + "_tablet" !== ""
-        ? props.rating_icon_align_tablet
-        : "";
-    const rating_icon_align_phone =
-      props.rating_icon_align + "_phone" !== ""
-        ? props.rating_icon_align_phone
-        : "";
-
-    const rating_position =
-      props.rating_icon_align === "right"
-        ? "end"
-        : props.rating_icon_align === "left"
-        ? "start"
-        : props.rating_icon_align === "center"
-        ? "center"
-        : "";
-    const rating_position_tab =
-      rating_icon_align_tablet === "right"
-        ? "end"
-        : rating_icon_align_tablet === "left"
-        ? "start"
-        : rating_icon_align_tablet === "center"
-        ? "center"
-        : "";
-    const rating_position_mob =
-      rating_icon_align_phone === "right"
-        ? "end"
-        : rating_icon_align_phone === "left"
-        ? "start"
-        : rating_icon_align_phone === "center"
-        ? "center"
-        : "";
-
     if (props.title_display_type === "block") {
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: ${rating_position};`,
-        },
-      ]);
-
-      if (rating_icon_align_tablet && "" !== rating_icon_align_tablet) {
-        additionalCss.push([
-          {
-            selector: "%%order_class%% .df-rating-wrapper",
-            declaration: `align-items: ${rating_position_tab};`,
-            device: "tablet",
-          },
-        ]);
-      }
-      if (rating_icon_align_phone && "" !== rating_icon_align_phone) {
-        additionalCss.push([
-          {
-            selector: "%%order_class%% .df-rating-wrapper",
-            declaration: `align-items: ${rating_position_mob};`,
-            device: "phone",
-          },
-        ]);
-      }
+      this.df_set_flex_position({
+        props: props,
+        key: "rating_icon_align",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df-rating-wrapper",
+        type: "align-items",
+      });
 
       if (props.title_placement_top_bottom === "top") {
         additionalCss.push([
@@ -371,28 +319,19 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-wrapper`,
-          declaration: `display: flex; align-items: center; justify-content: ${rating_position};`,
+          // declaration: `display: flex; align-items: center; justify-content: ${rating_position};`,
+          declaration: `display: flex; align-items: center;`,
         },
       ]);
 
-      if (rating_icon_align_tablet && "" !== rating_icon_align_tablet) {
-        additionalCss.push([
-          {
-            selector: "%%order_class%% .df-rating-wrapper",
-            declaration: `justify-content: ${rating_position_tab};`,
-            device: "tablet",
-          },
-        ]);
-      }
-      if (rating_icon_align_phone && "" !== rating_icon_align_phone) {
-        additionalCss.push([
-          {
-            selector: "%%order_class%% .df-rating-wrapper",
-            declaration: `justify-content: ${rating_position_mob};`,
-            device: "phone",
-          },
-        ]);
-      }
+      this.df_set_flex_position({
+        props: props,
+        key: "rating_icon_align",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df-rating-wrapper",
+        type: "justify-content",
+        css: "align-items: center",
+      });
 
       additionalCss.push([
         {
@@ -440,6 +379,60 @@ class RatingBox extends Component {
     }
 
     return additionalCss;
+  }
+
+  static df_set_flex_position(options = {}) {
+    const defaults = {
+      props: {},
+      key: "",
+      additionalCss: "",
+      selector: "",
+      type: "",
+      css: "",
+    };
+    const settings = utility.extend(defaults, options);
+    const { props, key, additionalCss, selector, type, css } = settings;
+
+    const desktop = props[key];
+    const tablet =
+      props[key + "_tablet"] !== "" ? props[key + "_tablet"] : undefined;
+    const phone =
+      props[key + "_phone"] !== "" ? props[key + "_phone"] : undefined;
+
+    const get_values = ["center", "left", "right"];
+    const set_values = ["center", "start", "end"];
+    const values = {};
+
+    for (let i in get_values) {
+      values[get_values[i]] = set_values[i];
+    }
+
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
+      },
+    ]);
+
+    if (typeof tablet !== "undefined") {
+      additionalCss.push([
+        {
+          selector: selector,
+          declaration: `display: flex; ${type}:${values[tablet]};${css};`,
+          device: "tablet",
+        },
+      ]);
+    }
+
+    if (typeof phone !== "undefined") {
+      additionalCss.push([
+        {
+          selector: selector,
+          declaration: `display: flex; ${type}:${values[phone]};${css};`,
+          device: "phone",
+        },
+      ]);
+    }
   }
 
   df_render_rating_wrapper() {
@@ -502,6 +495,7 @@ class RatingBox extends Component {
         rating_active_class = "df-rating-icon-empty";
       }
 
+      // Render rating loop
       rating_icon.push(
         <span
           className={"et-pb-icon " + rating_active_class}
@@ -525,6 +519,7 @@ class RatingBox extends Component {
         ""
       );
 
+    // Render icon wrapper
     const iconWrapper = (
       <div className={"df-rating-icon"}>
         {props.enable_rating_number === "on" &&
@@ -593,19 +588,3 @@ class RatingBox extends Component {
 }
 
 export default RatingBox;
-
-// Structure
-
-// <div class="df-rating-box-container">
-//     <div class="df-rating-wrapper">
-//         <div class="df-rating-icon">
-//              <span class="et-pb-icon"></span>
-//              <span class="df-rating-number">(2/5)</span>
-//         </div>
-//         <div class="df-rating-title">asdfsafsa</div>
-//         <>
-//     </div>
-//     <div class="df-rating-content">
-//         test
-//     </div>
-// </div>
