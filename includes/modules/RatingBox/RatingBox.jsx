@@ -494,6 +494,7 @@ class RatingBox extends Component {
         rating_active_class = "df-rating-icon-empty";
       }
 
+      // Render rating loop
       rating_icon.push(
         <span
           className={"et-pb-icon " + rating_active_class}
@@ -517,6 +518,7 @@ class RatingBox extends Component {
         ""
       );
 
+    // Render icon wrapper
     const iconWrapper = (
       <div className={"df-rating-icon"}>
         {props.enable_rating_number === "on" &&

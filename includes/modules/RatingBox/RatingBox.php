@@ -1351,11 +1351,11 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         // Rating Alignment
         $rating_icon_align_tablet =
-            $this->props['rating_icon_align']."_tablet" !== ""
+            $this->props['rating_icon_align'] . "_tablet" !== ""
             ? $this->props['rating_icon_align_tablet']
             : "";
         $rating_icon_align_phone =
-            $this->props['rating_icon_align']."_phone" !== ""
+            $this->props['rating_icon_align'] . "_phone" !== ""
             ? $this->props['rating_icon_align_phone']
             : "";
         $rating_position = "";
@@ -1387,32 +1387,46 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Rating Title + Icon align (single rating)
-        ET_Builder_Element::set_style($render_slug, array(
-            'selector' => "$this->main_css_element .df-rating-wrapper",
-            'declaration' => `display: flex; align-items: center;`
-        ));
+        // $this->df_set_flex_position([
+        //     'render_slug' => $render_slug,
+        //     'slug'        => 'rating_icon_align',
+        //     'selector'    => "$this->main_css_element .df-rating-wrapper",
+        //     'type'        => "align-items",
+        // ]);
+
+        // ET_Builder_Element::set_style($render_slug, array(
+        //     'selector' => "$this->main_css_element .df-rating-wrapper",
+        //     'declaration' => `display: flex; align-items: center;`
+        // ));
 
         if ($title_display_type === "block") {
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: $rating_position;"
-            ));
+            // ET_Builder_Element::set_style($render_slug, array(
+            //     'selector' => "$this->main_css_element .df-rating-wrapper",
+            //     'declaration' => "display: flex; align-items: $rating_position;"
+            // ));
 
-            if ($rating_icon_align_tablet) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_tab;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_980')
-                ));
-            }
+            $this->df_set_flex_position([
+                'render_slug' => $render_slug,
+                'slug'        => 'rating_icon_align',
+                'selector'    => "$this->main_css_element .df-rating-wrapper",
+                'type'        => "align-items",
+            ]);
 
-            if ($rating_icon_align_phone) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_mob;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_767')
-                ));
-            }
+            // if ($rating_icon_align_tablet) {
+            //     ET_Builder_Element::set_style($render_slug, array(
+            //         'selector' => "$this->main_css_element .df-rating-wrapper",
+            //         'declaration' => "display: flex; align-items: $rating_position_tab;",
+            //         'media_query' => ET_Builder_Element::get_media_query('max_width_980')
+            //     ));
+            // }
+
+            // if ($rating_icon_align_phone) {
+            //     ET_Builder_Element::set_style($render_slug, array(
+            //         'selector' => "$this->main_css_element .df-rating-wrapper",
+            //         'declaration' => "display: flex; align-items: $rating_position_mob;",
+            //         'media_query' => ET_Builder_Element::get_media_query('max_width_767')
+            //     ));
+            // }
 
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-title",
@@ -1622,6 +1636,50 @@ class DIFL_RatingBox extends ET_Builder_Module
         return $content;
     }
 
+    public function df_set_flex_position($options)
+    {
+        $defaults = [
+            'render_slug' => '',
+            'slug'        => '',
+            'selector'    => '',
+            'type'        => '',
+        ];
+
+        $options = wp_parse_args($options, $defaults);
+        $get_values = ["center", "left", "right"];
+        $set_values = ["center", "start", "end"];
+        $values = [];
+
+        foreach ($get_values as $key => $value) {
+            $values[$value[$key]] = $set_values[$key];
+        }
+
+        if (array_key_exists($options, $this->props) && !empty($this->props[$options['slug']])) {
+            $desktop = $this->props[$options['slug']];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $values[$desktop]),
+            ));
+        }
+
+        if (array_key_exists($options, $this->props) && !empty($this->props[$options['slug'] . "_tablet"])) {
+            $tablet = $this->props[$options['slug'] . "_tablet"];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $values[$tablet]),
+                'media_query' => self::get_media_query('max_width_767')
+            ));
+        }
+
+        if (array_key_exists($options, $this->props) && !empty($this->props[$options['slug'] . "_phone"])) {
+            $phone = $this->props[$options['slug'] . "_phone"];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $values[$phone]),
+                'media_query' => self::get_media_query('max_width_767')
+            ));
+        }
+    }
 } //Class
 
 new DIFL_RatingBox;
