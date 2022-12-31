@@ -281,15 +281,6 @@ class RatingBox extends Component {
       }
     }
 
-    // const rating_icon_align_tablet =
-    //   props.rating_icon_align + "_tablet" !== ""
-    //     ? props.rating_icon_align_tablet
-    //     : "";
-    // const rating_icon_align_phone =
-    //   props.rating_icon_align + "_phone" !== ""
-    //     ? props.rating_icon_align_phone
-    //     : "";
-
     if (props.title_display_type === "block") {
       this.df_set_flex_position({
         props: props,
@@ -597,19 +588,3 @@ class RatingBox extends Component {
 }
 
 export default RatingBox;
-
-// Structure
-
-// <div class="df-rating-box-container">
-//     <div class="df-rating-wrapper">
-//         <div class="df-rating-icon">
-//              <span class="et-pb-icon"></span>
-//              <span class="df-rating-number">(2/5)</span>
-//         </div>
-//         <div class="df-rating-title">asdfsafsa</div>
-//         <>
-//     </div>
-//     <div class="df-rating-content">
-//         test
-//     </div>
-// </div>

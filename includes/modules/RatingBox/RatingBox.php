@@ -1288,9 +1288,10 @@ class DIFL_RatingBox extends ET_Builder_Module
         if ($enable_rating_icon) {
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                'declaration' => 'content: attr(data-icon);'
+                'declaration' => 'content: attr(data-icon) !important;'
             ));
 
+            // Default
             if ($rating_color_active === "" || $rating_color_inactive === "") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
@@ -1307,7 +1308,39 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ));
             }
 
-            if ($rating_color_active !== "" || $rating_color_inactive !== "") {
+            if ($rating_color_active !== "" && $rating_color_inactive === "") {
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                    'declaration' => "color: #333;"
+                ));
+
+                $this->df_process_color(array(
+                    'render_slug'       => $render_slug,
+                    'slug'              => 'rating_color_active',
+                    'type'              => 'color',
+                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'important' => true,
+                ));
+            } else if ($rating_color_active === "" && $rating_color_inactive !== "") {
+                $this->df_process_color(array(
+                    'render_slug'       => $render_slug,
+                    'slug'              => 'rating_color_inactive',
+                    'type'              => 'color',
+                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                    'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
+                    'important' => false,
+                ));
+
+                $this->df_process_color(array(
+                    'render_slug'       => $render_slug,
+                    'slug'              => 'rating_color_active',
+                    'type'              => 'color',
+                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'important' => true,
+                ));
+            }else{
                 $this->df_process_color(array(
                     'render_slug'       => $render_slug,
                     'slug'              => 'rating_color_inactive',
@@ -1333,12 +1366,12 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'              => 'color',
                 'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
                 'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
-                'important' => false,
+                'important' => true,
             ));
         }
 
         // Single
-        if (($this->props['enable_custom_icon'] === "on" || "off") && $this->props['enable_single_rating'] === "on") {
+        if (($enable_rating_icon === true || false) && $this->props['enable_single_rating'] === "on") {
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_single',
@@ -1397,27 +1430,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'        => "justify-content",
                 'css'         => "align-items: center"
             ]);
-
-            // ET_Builder_Element::set_style($render_slug, array(
-            //     'selector' => "$this->main_css_element .df-rating-wrapper",
-            //     'declaration' => "display: flex; align-items: center;  justify-content: '';"
-            // ));
-
-            // if ($rating_icon_align_tablet) {
-            //     ET_Builder_Element::set_style($render_slug, array(
-            //         'selector' => "$this->main_css_element .df-rating-wrapper",
-            //         'declaration' => "display: flex; align-items: $rating_position_tab;",
-            //         'media_query' => ET_Builder_Element::get_media_query('max_width_980')
-            //     ));
-            // }
-
-            // if ($rating_icon_align_phone) {
-            //     ET_Builder_Element::set_style($render_slug, array(
-            //         'selector' => "$this->main_css_element .df-rating-wrapper",
-            //         'declaration' => "display: flex; align-items: $rating_position_mob;",
-            //         'media_query' => ET_Builder_Element::get_media_query('max_width_767')
-            //     ));
-            // }
 
             if ($title_placement_left_right === "left") {
                 ET_Builder_Element::set_style($render_slug, array(
