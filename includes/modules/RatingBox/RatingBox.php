@@ -1350,83 +1350,13 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Rating Alignment
-        $rating_icon_align_tablet =
-            $this->props['rating_icon_align'] . "_tablet" !== ""
-            ? $this->props['rating_icon_align_tablet']
-            : "";
-        $rating_icon_align_phone =
-            $this->props['rating_icon_align'] . "_phone" !== ""
-            ? $this->props['rating_icon_align_phone']
-            : "";
-        $rating_position = "";
-        $rating_position_tab = "";
-        $rating_position_mob = "";
-
-        if ($this->props['rating_icon_align'] === "right") {
-            $rating_position = "end";
-        } else if ($this->props['rating_icon_align'] === "left") {
-            $rating_position = "start";
-        } else if ($this->props['rating_icon_align'] === "center") {
-            $rating_position = "center";
-        }
-
-        if ($rating_icon_align_tablet === "right") {
-            $rating_position_tab = "end";
-        } else if ($rating_icon_align_tablet === "left") {
-            $rating_position_tab = "start";
-        } else if ($rating_icon_align_tablet === "center") {
-            $rating_position_tab = "center";
-        }
-
-        if ($rating_icon_align_phone === "right") {
-            $rating_position_mob = "end";
-        } else if ($rating_icon_align_phone === "left") {
-            $rating_position_mob = "start";
-        } else if ($rating_icon_align_phone === "center") {
-            $rating_position_mob = "center";
-        }
-
-        // Rating Title + Icon align (single rating)
-        // $this->df_set_flex_position([
-        //     'render_slug' => $render_slug,
-        //     'slug'        => 'rating_icon_align',
-        //     'selector'    => "$this->main_css_element .df-rating-wrapper",
-        //     'type'        => "align-items",
-        // ]);
-
-        // ET_Builder_Element::set_style($render_slug, array(
-        //     'selector' => "$this->main_css_element .df-rating-wrapper",
-        //     'declaration' => `display: flex; align-items: center;`
-        // ));
-
         if ($title_display_type === "block") {
-            // ET_Builder_Element::set_style($render_slug, array(
-            //     'selector' => "$this->main_css_element .df-rating-wrapper",
-            //     'declaration' => "display: flex; align-items: $rating_position;"
-            // ));
-
             $this->df_set_flex_position([
                 'render_slug' => $render_slug,
                 'slug'        => 'rating_icon_align',
                 'selector'    => "$this->main_css_element .df-rating-wrapper",
                 'type'        => "align-items",
             ]);
-
-            // if ($rating_icon_align_tablet) {
-            //     ET_Builder_Element::set_style($render_slug, array(
-            //         'selector' => "$this->main_css_element .df-rating-wrapper",
-            //         'declaration' => "display: flex; align-items: $rating_position_tab;",
-            //         'media_query' => ET_Builder_Element::get_media_query('max_width_980')
-            //     ));
-            // }
-
-            // if ($rating_icon_align_phone) {
-            //     ET_Builder_Element::set_style($render_slug, array(
-            //         'selector' => "$this->main_css_element .df-rating-wrapper",
-            //         'declaration' => "display: flex; align-items: $rating_position_mob;",
-            //         'media_query' => ET_Builder_Element::get_media_query('max_width_767')
-            //     ));
-            // }
 
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-title",
@@ -1460,26 +1390,34 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'declaration' => 'margin-left: 10px;'
             ));
 
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df-rating-wrapper",
-                'declaration' => "display: flex; align-items: center;  justify-content: $rating_position;"
-            ));
+            $this->df_set_flex_position([
+                'render_slug' => $render_slug,
+                'slug'        => 'rating_icon_align',
+                'selector'    => "$this->main_css_element .df-rating-wrapper",
+                'type'        => "justify-content",
+                'css'         => "align-items: center"
+            ]);
 
-            if ($rating_icon_align_tablet) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_tab;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_980')
-                ));
-            }
+            // ET_Builder_Element::set_style($render_slug, array(
+            //     'selector' => "$this->main_css_element .df-rating-wrapper",
+            //     'declaration' => "display: flex; align-items: center;  justify-content: '';"
+            // ));
 
-            if ($rating_icon_align_phone) {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "display: flex; align-items: $rating_position_mob;",
-                    'media_query' => ET_Builder_Element::get_media_query('max_width_767')
-                ));
-            }
+            // if ($rating_icon_align_tablet) {
+            //     ET_Builder_Element::set_style($render_slug, array(
+            //         'selector' => "$this->main_css_element .df-rating-wrapper",
+            //         'declaration' => "display: flex; align-items: $rating_position_tab;",
+            //         'media_query' => ET_Builder_Element::get_media_query('max_width_980')
+            //     ));
+            // }
+
+            // if ($rating_icon_align_phone) {
+            //     ET_Builder_Element::set_style($render_slug, array(
+            //         'selector' => "$this->main_css_element .df-rating-wrapper",
+            //         'declaration' => "display: flex; align-items: $rating_position_mob;",
+            //         'media_query' => ET_Builder_Element::get_media_query('max_width_767')
+            //     ));
+            // }
 
             if ($title_placement_left_right === "left") {
                 ET_Builder_Element::set_style($render_slug, array(
@@ -1643,6 +1581,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             'slug'        => '',
             'selector'    => '',
             'type'        => '',
+            'css'         => '',
         ];
 
         $options = wp_parse_args($options, $defaults);
@@ -1651,31 +1590,31 @@ class DIFL_RatingBox extends ET_Builder_Module
         $values = [];
 
         foreach ($get_values as $key => $value) {
-            $values[$value[$key]] = $set_values[$key];
+            $values[$value] = $set_values[$key];
         }
 
-        if (array_key_exists($options, $this->props) && !empty($this->props[$options['slug']])) {
+        if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug']])) {
             $desktop = $this->props[$options['slug']];
             self::set_style($options['render_slug'], array(
                 'selector'    => $options['selector'],
-                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $values[$desktop]),
+                'declaration' => sprintf('display: flex;%1$s:%2$s;%3$s;', $options['type'], $values[$desktop], $options['css']),
             ));
         }
 
-        if (array_key_exists($options, $this->props) && !empty($this->props[$options['slug'] . "_tablet"])) {
+        if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug'] . "_tablet"])) {
             $tablet = $this->props[$options['slug'] . "_tablet"];
             self::set_style($options['render_slug'], array(
                 'selector'    => $options['selector'],
-                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $values[$tablet]),
-                'media_query' => self::get_media_query('max_width_767')
+                'declaration' => sprintf('display: flex;%1$s:%2$s;%3$s;', $options['type'], $values[$tablet], $options['css']),
+                'media_query' => self::get_media_query('max_width_980')
             ));
         }
 
-        if (array_key_exists($options, $this->props) && !empty($this->props[$options['slug'] . "_phone"])) {
+        if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug'] . "_phone"])) {
             $phone = $this->props[$options['slug'] . "_phone"];
             self::set_style($options['render_slug'], array(
                 'selector'    => $options['selector'],
-                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $values[$phone]),
+                'declaration' => sprintf('display: flex;%1$s:%2$s;%3$s;', $options['type'], $values[$phone], $options['css']),
                 'media_query' => self::get_media_query('max_width_767')
             ));
         }

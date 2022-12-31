@@ -281,14 +281,14 @@ class RatingBox extends Component {
       }
     }
 
-    const rating_icon_align_tablet =
-      props.rating_icon_align + "_tablet" !== ""
-        ? props.rating_icon_align_tablet
-        : "";
-    const rating_icon_align_phone =
-      props.rating_icon_align + "_phone" !== ""
-        ? props.rating_icon_align_phone
-        : "";
+    // const rating_icon_align_tablet =
+    //   props.rating_icon_align + "_tablet" !== ""
+    //     ? props.rating_icon_align_tablet
+    //     : "";
+    // const rating_icon_align_phone =
+    //   props.rating_icon_align + "_phone" !== ""
+    //     ? props.rating_icon_align_phone
+    //     : "";
 
     if (props.title_display_type === "block") {
       this.df_set_flex_position({
@@ -332,6 +332,15 @@ class RatingBox extends Component {
           declaration: `display: flex; align-items: center;`,
         },
       ]);
+
+      this.df_set_flex_position({
+        props: props,
+        key: "rating_icon_align",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df-rating-wrapper",
+        type: "justify-content",
+        css: "align-items: center",
+      });
 
       additionalCss.push([
         {
@@ -388,9 +397,10 @@ class RatingBox extends Component {
       additionalCss: "",
       selector: "",
       type: "",
+      css: "",
     };
     const settings = utility.extend(defaults, options);
-    const { props, key, additionalCss, selector, type } = settings;
+    const { props, key, additionalCss, selector, type, css } = settings;
 
     const desktop = props[key];
     const tablet =
@@ -409,7 +419,7 @@ class RatingBox extends Component {
     additionalCss.push([
       {
         selector: selector,
-        declaration: `display: flex; ${type}:${values[desktop]};`,
+        declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
       },
     ]);
 
@@ -417,7 +427,7 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: selector,
-          declaration: `display: flex; ${type}:${values[tablet]};`,
+          declaration: `display: flex; ${type}:${values[tablet]};${css};`,
           device: "tablet",
         },
       ]);
@@ -427,7 +437,7 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: selector,
-          declaration: `display: flex; ${type}:${values[phone]};`,
+          declaration: `display: flex; ${type}:${values[phone]};${css};`,
           device: "phone",
         },
       ]);
