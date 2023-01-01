@@ -514,6 +514,9 @@ class RatingBox extends Component {
       );
     }
 
+
+    // console.log(rating_value)
+
     // Show rating number/text
     const ratingNumber =
       props.enable_rating_number === "on" ? (
