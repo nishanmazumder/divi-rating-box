@@ -119,7 +119,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                         'sub_toggles'       => $content_sub_toggles,
                     ),
                     'custom_spacing'        => esc_html__('Custom Spacing', 'divi_flash'),
-                    // 'rating_wrapper_align'                => esc_html__('Rating Icon Wrapper Alignment', 'divi_flash'),
                 )
             ),
         );
@@ -137,7 +136,6 @@ class DIFL_RatingBox extends ET_Builder_Module
         $rating = [
             'enable_single_rating'  => array(
                 'label'             => esc_html__('Enable Single Rating', 'divi_flash'),
-                'description'     => esc_html__('Enable Single Rating', 'divi_flash'),
                 'type'              => 'yes_no_button',
                 'default'           => 'off',
                 'options'           => array(
@@ -165,7 +163,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_value_5' => array(
                 'label'             => esc_html__('Rating Value', 'divi_flash'),
-                'description'     => esc_html__('Rating value.', 'divi_flash'),
+                'description'     => esc_html__('Set Rating Value', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '5',
                 'range_settings'    => array(
@@ -184,7 +182,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_value_10' => array(
                 'label'             => esc_html__('Rating Value', 'divi_flash'),
-                'description'     => esc_html__('Rating value.', 'divi_flash'),
+                'description'     => esc_html__('Set Rating Value', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '10',
                 'range_settings'    => array(
@@ -204,7 +202,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             // Custom icon
             'enable_custom_icon'  => array(
                 'label'             => esc_html__('Use Custom Icon', 'divi_flash'),
-                'description'     => esc_html__('Enable Rating Icon.', 'divi_flash'),
                 'type'              => 'yes_no_button',
                 'options'           => array(
                     'off' => esc_html__('Off', 'divi_flash'),
@@ -216,7 +213,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_icon'          => array(
                 'label'             => esc_html__('Rating Icon', 'divi_flash'),
-                'description'     => esc_html__('Rating Icon.', 'divi_flash'),
                 'type'              => 'select_icon',
                 'option_category'  => 'basic_option',
                 'default'           => '&#xe031;||divi||400',
@@ -259,7 +255,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_color_active' => array(
                 'label'           => esc_html__('Active color', 'divi_flash'),
-                'description'     => esc_html__('Active rating color.', 'divi_flash'),
+                'description'     => esc_html__('Add active rating color.', 'divi_flash'),
                 'type'            => 'color-alpha',
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
@@ -275,7 +271,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_color_inactive' => array(
                 'label'           => esc_html__('Inactive color', 'divi_flash'),
-                'description'     => esc_html__('Inactive rating color.', 'divi_flash'),
+                'description'     => esc_html__('Add inactive rating color.', 'divi_flash'),
                 'type'            => 'color-alpha',
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
@@ -292,7 +288,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             // Title
             'enable_title'  => array(
                 'label'             => esc_html__('Enable Title', 'divi_flash'),
-                'description'     => esc_html__('Rating box title enable or disable.', 'divi_flash'),
+                'description'     => esc_html__('Enable Rating box title.', 'divi_flash'),
                 'type'              => 'yes_no_button',
                 'options'           => array(
                     'off' => esc_html__('Off', 'divi_flash'),
@@ -304,7 +300,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'title' => array(
                 'label'           => esc_html__('Title', 'divi_flash'),
-                'description'     => esc_html__('Rating box title.', 'divi_flash'),
                 'type'            => 'text',
                 'dynamic_content' => 'text',
                 'option_category' => 'basic_option',
@@ -339,7 +334,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'title_display_type' => array(
                 'label'           => esc_html__('Title Display Type', 'divi_flash'),
-                'description'     => esc_html__('Title Display Type', 'divi_flash'),
                 'type'            => 'select',
                 'default'           => 'block',
                 'options'         => array(
@@ -355,7 +349,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'title_placement_top_bottom' => array(
                 'label'           => esc_html__('Title Placement', 'divi_flash'),
-                'description'     => esc_html__('Title Placement', 'divi_flash'),
                 'type'            => 'select',
                 'options'         => array(
                     'top' => esc_html__('Top', 'divi_flash'),
@@ -372,7 +365,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'title_placement_left_right' => array(
                 'label'           => esc_html__('Title Placement', 'divi_flash'),
-                'description'     => esc_html__('Title Placement', 'divi_flash'),
                 'type'            => 'select',
                 'options'         => array(
 
@@ -388,9 +380,24 @@ class DIFL_RatingBox extends ET_Builder_Module
                 )
             ),
 
+            'title_display_type_mobile_inline'  => array(
+                'label'             => esc_html__('Title display block on mobile', 'divi_flash'),
+                'description'     => esc_html__('Set display type block only on mobile', 'divi_flash'),
+                'type'              => 'yes_no_button',
+                'options'           => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
+                'default'           => 'off',
+                'toggle_slug'       => 'rating',
+                'show_if'         => array(
+                    'title_display_type'     => 'inline',
+                    'enable_title'          => 'on'
+                )
+            ),
+
             'rating_icon_align'  => array(
                 'label'           => esc_html__('Rating Alignment', 'divi_flash'),
-                'description'     => esc_html__('Rating Alignment.', 'divi_flash'),
                 'type'            => 'text_align',
                 'option_category' => 'configuration',
                 'options'         => et_builder_get_text_orientation_options(
@@ -405,7 +412,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'enable_rating_number'  => array(
                 'label'             => esc_html__('Show Rating number', 'divi_flash'),
-                'description'     => esc_html__('Show Rating number or text.', 'divi_flash'),
                 'type'              => 'yes_no_button',
                 'options'           => array(
                     'off' => esc_html__('Off', 'divi_flash'),
@@ -420,7 +426,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_number_placement_left_right' => array(
                 'label'           => esc_html__('Rating Number Placement', 'divi_flash'),
-                'description'     => esc_html__('Rating Number Placement', 'divi_flash'),
                 'type'            => 'select',
                 'options'         => array(
                     'right'  => esc_html__('Right', 'divi_flash'),
@@ -437,7 +442,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'enable_rating_number_bracket'  => array(
                 'label'             => esc_html__('Show Rating Number Bracket', 'divi_flash'),
-                'description'     => esc_html__('Show Rating Number Bracket.', 'divi_flash'),
                 'type'              => 'yes_no_button',
                 'options'           => array(
                     'off' => esc_html__('Off', 'divi_flash'),
@@ -453,7 +457,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_number_space_left' => array(
                 'label'             => esc_html__('Add space on left', 'divi_flash'),
-                'description'     => esc_html__('Add space on left.', 'divi_flash'),
+                'description'     => esc_html__('Add space on the left side of the rating number.', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '0px',
                 'allowed_units'     => array('px'),
@@ -471,7 +475,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_number_space_right' => array(
                 'label'             => esc_html__('Add space on right', 'divi_flash'),
-                'description'     => esc_html__('Add space on spacing', 'divi_flash'),
+                'description'     => esc_html__('Add space on the right side of the rating number.', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '0px',
                 'allowed_units'     => array('px'),
@@ -489,7 +493,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             'rating_icon_size' => array(
                 'label'             => esc_html__('Rating Size', 'divi_flash'),
-                'description'     => esc_html__('Set rating size.', 'divi_flash'),
+                'description'     => esc_html__('Add size on rating icons.', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '20px',
                 'allowed_units'     => array('px'),
@@ -526,7 +530,7 @@ class DIFL_RatingBox extends ET_Builder_Module
         $content = [
             'enable_content'  => array(
                 'label'             => esc_html__('Content Enable', 'divi_flash'),
-                'description'     => esc_html__('Rating box content enable or disable.', 'divi_flash'),
+                'description'     => esc_html__('Enable rating box content.', 'divi_flash'),
                 'type'              => 'yes_no_button',
                 'options'           => array(
                     'off' => esc_html__('Off', 'divi_flash'),
@@ -649,9 +653,8 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'label'         => esc_html__('Rating Number', 'divi_flash'),
                 'toggle_slug'   => 'design_rating_number',
                 'tab_slug'        => 'advanced',
-                'line_height' => array(
-                    'default' => '1.7em',
-                ),
+                'hide_line_height'   => true,
+                'hide_text_align'    => true,
                 'font_size' => array(
                     'default' => '20px',
                 ),
@@ -669,7 +672,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'toggle_slug'   => 'design_title',
                 'tab_slug'        => 'advanced',
                 'line_height' => array(
-                    'default' => '1.7em',
+                    'default' => '1em',
                 ),
                 'font_size' => array(
                     'default' => '20px',
@@ -677,10 +680,10 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'font-weight' => array(
                     'default' => 'normal'
                 ),
-
                 'css'      => array(
                     'main' => "$this->main_css_element .df-rating-title",
                     'hover' => "$this->main_css_element .df-rating-title:hover",
+                    'important' => 'all',
                 )
             ),
 
@@ -691,7 +694,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'default' => '1.7em',
                 ),
                 'font_size' => array(
-                    'default' => '16px',
+                    'default' => '14px',
                 ),
                 'font-weight' => array(
                     'default' => 'normal'
@@ -831,19 +834,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         $advanced_fields['borders'] = array(
             'default'               => array(),
-            'rating_wrapper_border'         => array(
-                'css'               => array(
-                    'main'  => array(
-                        'border_radii' => "$this->main_css_element .df-rating-wrapper",
-                        'border_radii_hover' => "$this->main_css_element .df-rating-wrapper:hover",
-                        'border_styles' => "$this->main_css_element .df-rating-wrapper",
-                        'border_styles_hover' => "$this->main_css_element .df-rating-wrapper:hover",
-                    )
-                ),
-                'label_prefix'    => esc_html__('Rating Wrapper', 'divi_flash'),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_rating',
-            ),
             'rating_icon_border'         => array(
                 'css'               => array(
                     'main'  => array(
@@ -866,7 +856,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                         'border_styles_hover' => "$this->main_css_element .df-rating-title:hover",
                     )
                 ),
-                'label'    => esc_html__('Title', 'divi_flash'),
+                'label_prefix'    => esc_html__('Title', 'divi_flash'),
                 'tab_slug'        => 'advanced',
                 'toggle_slug'     => 'design_title',
             ),
@@ -879,7 +869,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                         'border_styles_hover' => "$this->main_css_element .df-rating-content:hover",
                     )
                 ),
-                'label'    => esc_html__('Content', 'divi_flash'),
+                'label_prefix'    => esc_html__('Content', 'divi_flash'),
                 'tab_slug'        => 'advanced',
                 'toggle_slug'     => 'design_content',
             ),
@@ -887,16 +877,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         $advanced_fields['box_shadow'] = array(
             'default'               => true,
-
-            'rating_box_wrapper_shadow'             => array(
-                'label'    => esc_html__('Rating Icon Wrapper Box Shadow', 'divi_flash'),
-                'css' => array(
-                    'main' => "$this->main_css_element .df-rating-wrapper",
-                    'hover' => "$this->main_css_element .df-rating-wrapper:hover",
-                ),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_rating',
-            ),
 
             'rating_box_shadow'             => array(
                 'label'    => esc_html__('Rating Icon Box Shadow', 'divi_flash'),
@@ -1303,7 +1283,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'slug'              => 'rating_color',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
                     'important' => true,
                 ));
             }
@@ -1319,7 +1299,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'slug'              => 'rating_color_active',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
                     'important' => true,
                 ));
             } else if ($rating_color_active === "" && $rating_color_inactive !== "") {
@@ -1328,7 +1308,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'slug'              => 'rating_color_inactive',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                    'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
                     'important' => false,
                 ));
 
@@ -1337,16 +1317,16 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'slug'              => 'rating_color_active',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
                     'important' => true,
                 ));
-            }else{
+            } else {
                 $this->df_process_color(array(
                     'render_slug'       => $render_slug,
                     'slug'              => 'rating_color_inactive',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                    'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
                     'important' => false,
                 ));
 
@@ -1355,7 +1335,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'slug'              => 'rating_color_active',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill:hover::before",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
                     'important' => true,
                 ));
             }
@@ -1365,7 +1345,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'slug'              => 'rating_color',
                 'type'              => 'color',
                 'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
+                'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
                 'important' => true,
             ));
         }
@@ -1377,7 +1357,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'slug'              => 'rating_color_single',
                 'type'              => 'color',
                 'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                'hover'             => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill:hover::before, $this->main_css_element .df-rating-icon span.et-pb-icon:hover",
+                'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
                 'important' => true,
             ));
         }
@@ -1431,6 +1411,11 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'css'         => "align-items: center"
             ]);
 
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-icon",
+                'declaration' => 'display: flex; align-items: center;'
+            ));
+
             if ($title_placement_left_right === "left") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-title",
@@ -1448,6 +1433,15 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
                     'declaration' => "flex-direction: row;"
+                ));
+            }
+
+            // Force display type block on mobile
+            if ($this->props['title_display_type_mobile_inline'] === 'on') {
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "$this->main_css_element .df-rating-wrapper",
+                    'declaration' => "flex-direction: column-reverse !important;",
+                    'media_query' => self::get_media_query('max_width_767')
                 ));
             }
         }

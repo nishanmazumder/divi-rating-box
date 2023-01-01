@@ -252,15 +252,12 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: `%%order_class%%  .df-rating-title`,
-          declaration: `display: block; width: 100%;`,
-        },
-        {
-          selector: `%%order_class%%  .df-rating-title`,
-          declaration: `margin-right: 0px;`,
-        },
+          declaration: `display: block; width: 100%; margin-right: 0px;`,
+        }
       ]);
     }
 
+    // rating number default
     if (props.enable_rating_number === "on") {
       if (props.rating_number_placement_left_right === "right") {
         additionalCss.push([
@@ -296,10 +293,10 @@ class RatingBox extends Component {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: column-reverse;`,
           },
-          {
-            selector: `%%order_class%% .df-rating-content`,
-            declaration: `clear: both;`,
-          },
+          // {
+          //   selector: `%%order_class%% .df-rating-content`,
+          //   declaration: `clear: both;`,
+          // },
         ]);
       } else {
         additionalCss.push([
@@ -307,23 +304,15 @@ class RatingBox extends Component {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: column;`,
           },
-          {
-            selector: `%%order_class%% .df-rating-content`,
-            declaration: `clear: both;`,
-          },
+          // {
+          //   selector: `%%order_class%% .df-rating-content`,
+          //   declaration: `clear: both;`,
+          // },
         ]);
       }
 
       // inline
     } else {
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-wrapper`,
-          // declaration: `display: flex; align-items: center; justify-content: ${rating_position};`,
-          declaration: `display: flex; align-items: center;`,
-        },
-      ]);
-
       this.df_set_flex_position({
         props: props,
         key: "rating_icon_align",
@@ -332,6 +321,13 @@ class RatingBox extends Component {
         type: "justify-content",
         css: "align-items: center",
       });
+
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-icon`,
+          declaration: `display: flex; align-items: center;`,
+        },
+      ]);
 
       additionalCss.push([
         {
@@ -366,6 +362,18 @@ class RatingBox extends Component {
           },
         ]);
       }
+
+      // Force display type block on mobile
+      if(props.title_display_type_mobile_inline === 'on' ){
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-wrapper`,
+            declaration: `flex-direction: column-reverse !important;`,
+            device: "phone",
+          }
+        ]);
+      }
+
     }
 
     // Rating number disable

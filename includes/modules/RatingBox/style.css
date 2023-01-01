@@ -1,12 +1,23 @@
+/* Border */
+.difl_ratingbox .df-rating-box-container * {
+    border-width: 0px;
+    border-style: solid;
+    border-color: #333;
+  }
+
 /* Icon */
+.difl_ratingbox .df-rating-icon{
+    display: flex;
+    align-items: center;
+}
 .difl_ratingbox .df-rating-icon span.et-pb-icon{
     margin: 0px 2px;
     vertical-align: text-bottom;
+    transition: .5s;
 }
 
 .difl_ratingbox .df-rating-icon span{
     font-size: 20px;
-    /* color: #E02B20; */
 }
 
 .difl_ratingbox span.df-rating-icon-fill {
@@ -26,7 +37,6 @@
     top: 0;
     left: 0;
     transition: .5s;
-    /* color: #333; */
 }
 
 .difl_ratingbox .df-rating-icon span.df-fill-1::before{ width: 10% !important; }
@@ -43,29 +53,21 @@
 .difl_ratingbox .df-rating-number{
     color: #000;
     margin: 0px 5px;
-}
-
-/* Border */
-.difl_ratingbox .df-rating-box-container * {
-  border-width: 0px;
-  border-style: solid;
-  border-color: #333;
-}
-
-/* Title & Content */
-.difl_ratingbox .df-rating-title, .df-rating-content{
-    text-align: center;
     line-height: 1em;
 }
 
-.difl_ratingbox  .df-rating-title{
+/* Title & Content */
+.difl_ratingbox .df-rating-box-container .df-rating-wrapper .df-rating-title{
     font-size: 20px;
-    padding-bottom: 0;
+    text-align: center;
+    line-height: 1em;
+    padding-bottom: 0px;
 }
-.difl_ratingbox  .df-rating-content{
-    font-size: 16px;
+.difl_ratingbox .df-rating-box-container .df-rating-content{
+    font-size: 14px;
+    text-align: center;
     line-height: 1.5em;
 }
-.difl_ratingbox .df-rating-content p{
+.difl_ratingbox .df-rating-box-container .df-rating-content p{
     padding-bottom: 0px;
 }
