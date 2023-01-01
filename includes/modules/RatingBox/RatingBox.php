@@ -156,9 +156,9 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ),
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'rating',
-                'show_if'         => array(
-                    'enable_single_rating'     => 'off'
-                )
+                // 'show_if'         => array(
+                //     'enable_single_rating'     => 'off'
+                // )
             ),
 
             'rating_value_5' => array(
@@ -175,7 +175,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ),
                 'toggle_slug'     => 'rating',
                 'show_if'         => array(
-                    'enable_single_rating'     => 'off',
+                    // 'enable_single_rating'     => 'off',
                     'rating_scale_type'     => '5'
                 )
             ),
@@ -194,7 +194,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ),
                 'toggle_slug'     => 'rating',
                 'show_if'         => array(
-                    'enable_single_rating'     => 'off',
+                    // 'enable_single_rating'     => 'off',
                     'rating_scale_type'     => '10'
                 )
             ),
@@ -419,9 +419,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ),
                 'default'           => 'off',
                 'toggle_slug'       => 'rating',
-                'show_if'         => array(
-                    'enable_single_rating'     => 'off'
-                )
             ),
 
             'rating_number_placement_left_right' => array(
@@ -436,7 +433,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'toggle_slug'     => 'rating',
                 'show_if'         => array(
                     'enable_rating_number'     => 'on',
-                    'enable_single_rating'     => 'off'
+                    'enable_single_rating'     => 'on'
                 ),
             ),
 
