@@ -53,14 +53,14 @@
 .difl_ratingbox .df-rating-number{
     color: #000;
     margin: 0px 5px;
-    line-height: 1em;
+    line-height: 1.5em;
 }
 
 /* Title & Content */
 .difl_ratingbox .df-rating-box-container .df-rating-wrapper .df-rating-title{
     font-size: 20px;
     text-align: center;
-    line-height: 1em;
+    line-height: 1.7em;
     padding-bottom: 0px;
 }
 .difl_ratingbox .df-rating-box-container .df-rating-content{

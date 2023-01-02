@@ -143,7 +143,7 @@ class RatingBox extends Component {
       key: "rating_number_space_left",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df-rating-number",
-      type: "padding-left",
+      type: "margin-left",
       unit: "px",
     });
 
@@ -152,27 +152,11 @@ class RatingBox extends Component {
       key: "rating_number_space_right",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df-rating-number",
-      type: "padding-right",
+      type: "margin-right",
       unit: "px",
     });
 
     // Rating wrapper
-    utility.process_margin_padding({
-      props: props,
-      key: "rating_box_margin",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-wrapper",
-      type: "margin",
-    });
-
-    utility.process_margin_padding({
-      props: props,
-      key: "rating_box_padding",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df-rating-wrapper",
-      type: "padding",
-    });
-
     utility.process_margin_padding({
       props: props,
       key: "rating_box_icon_margin",
