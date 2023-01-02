@@ -106,17 +106,17 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'toggles'   => array(
                     'design_rating'                => esc_html__('Rating', 'divi_flash'),
                     'design_rating_number'         => esc_html__('Rating Number', 'divi_flash'),
-                    'design_title'                 => esc_html__('Title', 'divi_flash'),
+                    'design_title'                 => esc_html__('Title Style', 'divi_flash'),
                     'design_content'               => esc_html__('Content Style', 'divi_flash'),
-                    'design_content_heading'       => array(
-                        'title' => esc_html__('Content Heading Text', 'divi_flash'),
-                        'tabbed_subtoggles' => true,
-                        'sub_toggles'       => $heading_sub_toggles,
-                    ),
                     'design_content_text'       => array(
                         'title' => esc_html__('Content Text', 'divi_flash'),
                         'tabbed_subtoggles' => true,
                         'sub_toggles'       => $content_sub_toggles,
+                    ),
+                    'design_content_heading'       => array(
+                        'title' => esc_html__('Content Heading Text', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'sub_toggles'       => $heading_sub_toggles,
                     ),
                     'custom_spacing'        => esc_html__('Custom Spacing', 'divi_flash'),
                 )
@@ -433,7 +433,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'toggle_slug'     => 'rating',
                 'show_if'         => array(
                     'enable_rating_number'     => 'on',
-                    'enable_single_rating'     => 'on'
+                    // 'enable_single_rating'     => 'on'
                 ),
             ),
 
@@ -687,6 +687,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             'content'   => array(
                 'label'         => esc_html__('Content', 'divi_flash'),
                 'tab_slug'        => 'advanced',
+                'toggle_slug'   => 'design_content_text',
                 'line_height' => array(
                     'default' => '1.7em',
                 ),
@@ -1268,95 +1269,107 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'declaration' => 'content: attr(data-icon) !important;'
             ));
 
-            // Default
-            if ($rating_color_active === "" || $rating_color_inactive === "") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                    'declaration' => "color: #333;"
-                ));
-
+            // Single
+            if ($this->props['enable_single_rating'] === "on") {
                 $this->df_process_color(array(
                     'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color',
-                    'type'              => 'color',
-                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
-                    'important' => true,
-                ));
-            }
-
-            if ($rating_color_active !== "" && $rating_color_inactive === "") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                    'declaration' => "color: #333;"
-                ));
-
-                $this->df_process_color(array(
-                    'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color_active',
-                    'type'              => 'color',
-                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
-                    'important' => true,
-                ));
-            } else if ($rating_color_active === "" && $rating_color_inactive !== "") {
-                $this->df_process_color(array(
-                    'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color_inactive',
+                    'slug'              => 'rating_color_single',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
                     'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
-                    'important' => false,
+                    'important' => true,
                 ));
+            } else {
+                // Default
+                if ($rating_color_active === "" || $rating_color_inactive === "") {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                        'declaration' => "color: #333;"
+                    ));
 
+                    $this->df_process_color(array(
+                        'render_slug'       => $render_slug,
+                        'slug'              => 'rating_color',
+                        'type'              => 'color',
+                        'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                        'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
+                        'important' => true,
+                    ));
+                }
+
+                if ($rating_color_active !== "" && $rating_color_inactive === "") {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                        'declaration' => "color: #333;"
+                    ));
+
+                    $this->df_process_color(array(
+                        'render_slug'       => $render_slug,
+                        'slug'              => 'rating_color_active',
+                        'type'              => 'color',
+                        'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                        'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
+                        'important' => true,
+                    ));
+                } else if ($rating_color_active === "" && $rating_color_inactive !== "") {
+                    $this->df_process_color(array(
+                        'render_slug'       => $render_slug,
+                        'slug'              => 'rating_color_inactive',
+                        'type'              => 'color',
+                        'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                        'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
+                        'important' => false,
+                    ));
+
+                    $this->df_process_color(array(
+                        'render_slug'       => $render_slug,
+                        'slug'              => 'rating_color_active',
+                        'type'              => 'color',
+                        'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                        'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
+                        'important' => true,
+                    ));
+                } else {
+                    $this->df_process_color(array(
+                        'render_slug'       => $render_slug,
+                        'slug'              => 'rating_color_inactive',
+                        'type'              => 'color',
+                        'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                        'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
+                        'important' => false,
+                    ));
+
+                    $this->df_process_color(array(
+                        'render_slug'       => $render_slug,
+                        'slug'              => 'rating_color_active',
+                        'type'              => 'color',
+                        'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
+                        'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
+                        'important' => true,
+                    ));
+                }
+            }
+        } else {
+            // Global
+            if ($this->props['enable_single_rating'] === "on") {
                 $this->df_process_color(array(
                     'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color_active',
+                    'slug'              => 'rating_color_single',
                     'type'              => 'color',
-                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
+                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
+                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
                     'important' => true,
                 ));
             } else {
                 $this->df_process_color(array(
                     'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color_inactive',
+                    'slug'              => 'rating_color',
                     'type'              => 'color',
                     'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
                     'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
-                    'important' => false,
-                ));
-
-                $this->df_process_color(array(
-                    'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color_active',
-                    'type'              => 'color',
-                    'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-                    'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before",
                     'important' => true,
                 ));
             }
-        } else {
-            $this->df_process_color(array(
-                'render_slug'       => $render_slug,
-                'slug'              => 'rating_color',
-                'type'              => 'color',
-                'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
-                'important' => true,
-            ));
-        }
-
-        // Single
-        if (($enable_rating_icon === true || false) && $this->props['enable_single_rating'] === "on") {
-            $this->df_process_color(array(
-                'render_slug'       => $render_slug,
-                'slug'              => 'rating_color_single',
-                'type'              => 'color',
-                'selector'          => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon span.et-pb-icon",
-                'hover'             => "$this->main_css_element .df-rating-icon:hover span.df-rating-icon-fill::before, $this->main_css_element .df-rating-icon:hover span.et-pb-icon",
-                'important' => true,
-            ));
         }
 
         // Rating Alignment
@@ -1460,7 +1473,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             if ($this->props['title_placement_left_right'] === "left") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-title",
-                    'declaration' => 'margin-right: 10px;'
+                    'declaration' => 'margin-right: 10px; margin-left: 0px;'
                 ));
             }
         }
@@ -1473,14 +1486,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'declaration' => 'margin-left: 10px;'
                 ));
             }
-        }
-
-        // Rating Number Disable
-        if ($this->props['enable_single_rating'] === 'on') {
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df-rating-number",
-                'declaration' => 'display: none;'
-            ));
         }
     }
 
@@ -1531,25 +1536,34 @@ class DIFL_RatingBox extends ET_Builder_Module
             $rating_icon .= '<span class="et-pb-icon ' . $rating_active_class . '" data-icon="' . $get_rating_icon . '">' . $get_rating_icon . '</span>';
         }
 
+        // Get single rating value
+        $rating_value_single =
+            $this->props['rating_scale_type'] === "5"
+            ? $this->props['rating_value_5']
+            : $this->props['rating_value_10'];
+
         // Show rating number
         $rating_number = '';
         $this->props['enable_rating_number'] === 'on' ?
-            ($this->props['enable_rating_number_bracket'] === 'on' ?
-                $rating_number = sprintf(
-                    '<span class="df-rating-number">( %1$s / %2$s )</span>',
-                    $rating_value,
-                    $rating_scale_type
-                )
-                :  $rating_number = sprintf(
-                    '<span class="df-rating-number">%1$s / %2$s</span>',
-                    $rating_value,
-                    $rating_scale_type
-                ))
+            ($this->props['enable_single_rating'] !== 'on' ?
+                ($this->props['enable_rating_number_bracket'] === 'on' ?
+                    $rating_number = sprintf(
+                        '<span class="df-rating-number">( %1$s / %2$s )</span>',
+                        $rating_value,
+                        $rating_scale_type
+                    )
+                    :  $rating_number = sprintf(
+                        '<span class="df-rating-number">%1$s / %2$s</span>',
+                        $rating_value,
+                        $rating_scale_type
+                    )) :
+                $rating_number = sprintf('<span class="df-rating-number">%1$s</span>', $rating_value_single)
+            )
             : "";
 
         // Rating Number placement
         $rating_icon_and_number_placement = '';
-        $this->props['enable_rating_number'] === 'on' && $this->props['rating_number_placement_left_right'] === 'left' ?
+        $this->props['rating_number_placement_left_right'] === 'left' ?
             $rating_icon_and_number_placement = $rating_number . $rating_icon : $rating_icon_and_number_placement = $rating_icon . $rating_number;
 
         return sprintf(

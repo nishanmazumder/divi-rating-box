@@ -271,7 +271,7 @@ class RatingBox extends Component {
           additionalCss.push([
             {
               selector: `%%order_class%%  .df-rating-title`,
-              declaration: `margin-right: 10px;`,
+              declaration: `margin-right: 10px; margin-left: 0px !important`,
             },
           ]);
         }
@@ -292,22 +292,14 @@ class RatingBox extends Component {
           {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: column-reverse;`,
-          },
-          // {
-          //   selector: `%%order_class%% .df-rating-content`,
-          //   declaration: `clear: both;`,
-          // },
+          }
         ]);
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: column;`,
-          },
-          // {
-          //   selector: `%%order_class%% .df-rating-content`,
-          //   declaration: `clear: both;`,
-          // },
+          }
         ]);
       }
 
@@ -374,16 +366,6 @@ class RatingBox extends Component {
         ]);
       }
     }
-
-    // Rating number disable
-    // if (props.enable_single_rating === "on") {
-    //   additionalCss.push([
-    //     {
-    //       selector: `%%order_class%% .df-rating-number`,
-    //       declaration: `display: none;`,
-    //     },
-    //   ]);
-    // }
 
     return additionalCss;
   }
@@ -514,8 +496,11 @@ class RatingBox extends Component {
       );
     }
 
-
-    // console.log(rating_value)
+    // Get single rating value
+    const rating_value_single =
+      parseInt(props.rating_scale_type) === 5
+        ? props.rating_value_5
+        : props.rating_value_10;
 
     // Show rating number/text
     const ratingNumber =
@@ -527,15 +512,16 @@ class RatingBox extends Component {
             <span className="df-rating-number">{`${rating_value}/${rating_scale_type}`}</span>
           )
         ) : (
-          <span className="df-rating-number">{props.rating_value_5}</span>
+          <span className="df-rating-number">{rating_value_single}</span>
         )
-      ) : "";
+      ) : (
+        ""
+      );
 
     // Render icon wrapper
     const iconWrapper = (
       <div className={"df-rating-icon"}>
-        {props.enable_single_rating === "on" &&
-        props.rating_number_placement_left_right === "left" ? (
+        {props.rating_number_placement_left_right === "left" ? (
           <>
             {ratingNumber}
             {rating_icon}
@@ -548,28 +534,6 @@ class RatingBox extends Component {
         )}
       </div>
     );
-
-    // const iconWrapper = (
-    //   <div className={"df-rating-icon"}>
-    //     {props.enable_rating_number === "on" ? (
-    //       props.rating_number_placement_left_right === "left" ? (
-    //         <>
-    //           <span className="df-rating-number">test {rating_value}</span>
-    //           {ratingNumber}
-    //           {rating_icon}
-    //         </>
-    //       ) : (
-    //         <>
-    //           {rating_icon}
-    //           {ratingNumber}
-    //           <span className="df-rating-number">{rating_value}</span>
-    //         </>
-    //       )
-    //     ) : (
-    //       ""
-    //     )}
-    //   </div>
-    // );
 
     // Rating Title Wrapper
     const HeadingTag =
