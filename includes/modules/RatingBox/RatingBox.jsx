@@ -215,7 +215,7 @@ class RatingBox extends Component {
       });
     }
 
-    // Title
+    // Title Placement
     if (props.title_display_type === "inline") {
       if (props.title_placement_left_right === "right") {
         additionalCss.push([
@@ -236,29 +236,27 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: `%%order_class%%  .df-rating-title`,
-          declaration: `display: block; width: 100%; margin-right: 0px;`,
+          declaration: `display: block; width: 100%;`,
         },
       ]);
     }
 
-    // rating number default
+    // Rating number default
     if (props.enable_rating_number === "on") {
       if (props.rating_number_placement_left_right === "right") {
         additionalCss.push([
           {
-            selector: `%%order_class%%  .df-rating-title`,
-            declaration: `margin-left: 0px; margin-right: 0px;`,
+            selector: `%%order_class%%  .df-rating-number`,
+            declaration: `margin-left: 5px;`,
           },
         ]);
-
-        if (props.title_placement_left_right === "left") {
-          additionalCss.push([
-            {
-              selector: `%%order_class%%  .df-rating-title`,
-              declaration: `margin-right: 10px; margin-left: 0px !important`,
-            },
-          ]);
-        }
+      } else {
+        additionalCss.push([
+          {
+            selector: `%%order_class%%  .df-rating-number`,
+            declaration: `margin-right: 5px;`,
+          },
+        ]);
       }
     }
 
@@ -276,14 +274,14 @@ class RatingBox extends Component {
           {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: column-reverse;`,
-          }
+          },
         ]);
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: column;`,
-          }
+          },
         ]);
       }
 
@@ -305,13 +303,6 @@ class RatingBox extends Component {
         },
       ]);
 
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df-rating-title`,
-          declaration: `margin-left: 10px;`,
-        },
-      ]);
-
       if (props.title_placement_left_right === "left") {
         additionalCss.push([
           {
@@ -319,22 +310,11 @@ class RatingBox extends Component {
             declaration: `flex-direction: row-reverse;`,
           },
         ]);
-
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df-rating-title`,
-            declaration: `margin-left: 10px;`,
-          },
-        ]);
       } else if (props.title_placement_left_right === "right") {
         additionalCss.push([
           {
             selector: `%%order_class%% .df-rating-wrapper`,
             declaration: `flex-direction: row;`,
-          },
-          {
-            selector: `%%order_class%% .df-rating-title`,
-            declaration: `margin-left: 10px;`,
           },
         ]);
       }
@@ -348,6 +328,26 @@ class RatingBox extends Component {
             device: "phone",
           },
         ]);
+
+        if (props.title_text_align_phone !== "") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-title`,
+              declaration: `width: 100%; margin-right:0px; text-align: ${props.title_text_align_phone}`,
+              device: "phone",
+            },
+          ]);
+        }
+
+        if (props.rating_icon_align_phone !== "") {
+          additionalCss.push([
+            {
+              selector: `%%order_class%% .df-rating-icon`,
+              declaration: `width: 100%; justify-content: ${props.rating_icon_align_phone}`,
+              device: "phone",
+            },
+          ]);
+        }
       }
     }
 
@@ -362,9 +362,18 @@ class RatingBox extends Component {
       selector: "",
       type: "",
       css: "",
+      responsive_d: true,
     };
     const settings = utility.extend(defaults, options);
-    const { props, key, additionalCss, selector, type, css } = settings;
+    const {
+      props,
+      key,
+      additionalCss,
+      selector,
+      type,
+      css,
+      responsive_d,
+    } = settings;
 
     const desktop = props[key];
     const tablet =
@@ -380,12 +389,14 @@ class RatingBox extends Component {
       values[get_values[i]] = set_values[i];
     }
 
-    additionalCss.push([
-      {
-        selector: selector,
-        declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
-      },
-    ]);
+    if (responsive_d === true) {
+      additionalCss.push([
+        {
+          selector: selector,
+          declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
+        },
+      ]);
+    }
 
     if (typeof tablet !== "undefined") {
       additionalCss.push([

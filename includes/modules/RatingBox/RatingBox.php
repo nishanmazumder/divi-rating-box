@@ -494,15 +494,15 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'range_settings'    => array(
                     'min'  => '1',
                     'max'  => '100',
-                    'step' => '1'
+                    'step' => '1',
+                    'min_limit' => '1',
                 ),
                 'toggle_slug'     => 'design_rating',
                 'tab_slug'        => 'advanced'
             ),
 
             'rating_icon_space' => array(
-                'label'             => esc_html__('Space between icons', 'divi_flash'),
-                'description'     => esc_html__('Add space between rating icons.', 'divi_flash'),
+                'label'             => esc_html__('Space between rating icons', 'divi_flash'),
                 'type'              => 'range',
                 'hover'             => 'tabs',
                 'responsive'        => true,
@@ -511,7 +511,8 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'range_settings'    => array(
                     'min'  => '1',
                     'max'  => '100',
-                    'step' => '1'
+                    'step' => '1',
+                    'min_limit' => '1'
                 ),
                 'toggle_slug'       => 'design_rating',
                 'tab_slug'          => 'advanced',
@@ -637,8 +638,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'hide_letter_spacing' => true,
                 'css'      => array(
                     'main' => "$this->main_css_element .df-rating-icon .et-pb-icon, $this->main_css_element span.df-rating-icon-fill::before",
-                    'hover' => "$this->main_css_element .df-rating-icon .et-pb-icon:hover, $this->main_css_element span.df-rating-icon-fill:hover::before",
-                    // 'important' => 'all',
+                    'hover' => "$this->main_css_element .df-rating-icon .et-pb-icon:hover, $this->main_css_element span.df-rating-icon-fill:hover::before"
                 )
             ),
 
@@ -1234,6 +1234,73 @@ class DIFL_RatingBox extends ET_Builder_Module
             'hover'             => "$this->main_css_element .df-rating-icon .et-pb-icon:hover",
         ));
 
+        //  // base on single rating
+        //  if ($this->props['enable_single_rating'] === 'on') {
+        //     if ($title_display_type === 'inline' && $title_placement_left_right === "right") {
+        //         ET_Builder_Element::set_style($render_slug, array(
+        //             'selector' => "$this->main_css_element .df-rating-title",
+        //             'declaration' => 'margin-left: 10px;'
+        //         ));
+        //     }
+        // }
+
+        // Title align base on rating number
+        // if ($this->props['enable_rating_number'] === "on") {
+        //     if ($this->props['rating_number_placement_left_right'] === "right") {
+        //         ET_Builder_Element::set_style($render_slug, array(
+        //             'selector' => "$this->main_css_element .df-rating-title",
+        //             'declaration' => 'margin-left: 0px; margin-right: 0px;'
+        //         ));
+        //     } else {
+        //         ET_Builder_Element::set_style($render_slug, array(
+        //             'selector' => "$this->main_css_element .df-rating-title",
+        //             'declaration' => 'margin-left: 10px;'
+        //         ));
+        //     }
+
+        //     if ($this->props['title_placement_left_right'] === "left") {
+        //         ET_Builder_Element::set_style($render_slug, array(
+        //             'selector' => "$this->main_css_element .df-rating-title",
+        //             'declaration' => 'margin-right: 10px; margin-left: 0px;'
+        //         ));
+        //     }
+        // }
+
+        // Title Placement default
+        if ($title_display_type === "inline") {
+            if ($this->props['title_placement_left_right'] === "right") {
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "$this->main_css_element .df-rating-title",
+                    'declaration' => 'margin-left: 10px;'
+                ));
+            } else {
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "$this->main_css_element .df-rating-title",
+                    'declaration' => 'margin-right: 10px;'
+                ));
+            }
+        } else {
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-title",
+                'declaration' => 'display: block; width: 100%;'
+            ));
+        }
+
+        // Rating Number Default
+        if ($this->props['enable_rating_number'] === "on") {
+            if ($this->props['rating_number_placement_left_right'] === "right") {
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "$this->main_css_element .df-rating-number",
+                    'declaration' => 'margin-left: 5px;'
+                ));
+            } else {
+                ET_Builder_Element::set_style($render_slug, array(
+                    'selector' => "$this->main_css_element .df-rating-number",
+                    'declaration' => 'margin-right: 5px'
+                ));
+            }
+        }
+
         // Rating color
         $rating_color_active =
             !isset($this->props['rating_color_active']) ? "" : $this->props['rating_color_active'];
@@ -1359,38 +1426,19 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'        => "align-items",
             ]);
 
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df-rating-title",
-                'declaration' => "display: block; width: 100%;"
-            ));
-
             if ($title_placement_top_bottom === "top") {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
                     'declaration' => "flex-direction: column-reverse;"
-                ));
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-content",
-                    'declaration' => "clear: both;"
                 ));
             } else {
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
                     'declaration' => "flex-direction: column;"
                 ));
-
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-content",
-                    'declaration' => "clear: both;"
-                ));
             }
             // Inline
         } else {
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df-rating-title",
-                'declaration' => 'margin-left: 10px;'
-            ));
-
             $this->df_set_flex_position([
                 'render_slug' => $render_slug,
                 'slug'        => 'rating_icon_align',
@@ -1406,18 +1454,10 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             if ($title_placement_left_right === "left") {
                 ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-title",
-                    'declaration' => 'margin-right: 10px;'
-                ));
-                ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
                     'declaration' => "flex-direction: row-reverse;"
                 ));
             } elseif ($title_placement_left_right === "right") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-title",
-                    'declaration' => 'margin-left: 10px;'
-                ));
                 ET_Builder_Element::set_style($render_slug, array(
                     'selector' => "$this->main_css_element .df-rating-wrapper",
                     'declaration' => "flex-direction: row;"
@@ -1431,38 +1471,22 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'declaration' => "flex-direction: column-reverse !important;",
                     'media_query' => self::get_media_query('max_width_767')
                 ));
-            }
-        }
 
-        // Title align base on rating number
-        if ($this->props['enable_rating_number'] === "on") {
-            if ($this->props['rating_number_placement_left_right'] === "right") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-title",
-                    'declaration' => 'margin-left: 0px; margin-right: 0px;'
-                ));
-            } else {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-title",
-                    'declaration' => 'margin-left: 10px;'
-                ));
-            }
+                if ($this->props['title_text_align_phone'] !== "") {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "$this->main_css_element .df-rating-title",
+                        'declaration' => "width: 100%; margin-right:0px; text-align: " . $this->props['title_text_align_phone'] . " ",
+                        'media_query' => self::get_media_query('max_width_767')
+                    ));
+                }
 
-            if ($this->props['title_placement_left_right'] === "left") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-title",
-                    'declaration' => 'margin-right: 10px; margin-left: 0px;'
-                ));
-            }
-        }
-
-        // base on single rating
-        if ($this->props['enable_single_rating'] === 'on') {
-            if ($title_display_type === 'inline' && $title_placement_left_right === "right") {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-title",
-                    'declaration' => 'margin-left: 10px;'
-                ));
+                if ($this->props['rating_icon_align_phone'] !== "") {
+                    ET_Builder_Element::set_style($render_slug, array(
+                        'selector' => "$this->main_css_element .df-rating-icon",
+                        'declaration' => "width: 100%; justify-content: " . $this->props['rating_icon_align_phone'] . " ",
+                        'media_query' => self::get_media_query('max_width_767')
+                    ));
+                }
             }
         }
     }
