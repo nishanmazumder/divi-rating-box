@@ -1234,38 +1234,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             'hover'             => "$this->main_css_element .df-rating-icon .et-pb-icon:hover",
         ));
 
-        //  // base on single rating
-        //  if ($this->props['enable_single_rating'] === 'on') {
-        //     if ($title_display_type === 'inline' && $title_placement_left_right === "right") {
-        //         ET_Builder_Element::set_style($render_slug, array(
-        //             'selector' => "$this->main_css_element .df-rating-title",
-        //             'declaration' => 'margin-left: 10px;'
-        //         ));
-        //     }
-        // }
-
-        // Title align base on rating number
-        // if ($this->props['enable_rating_number'] === "on") {
-        //     if ($this->props['rating_number_placement_left_right'] === "right") {
-        //         ET_Builder_Element::set_style($render_slug, array(
-        //             'selector' => "$this->main_css_element .df-rating-title",
-        //             'declaration' => 'margin-left: 0px; margin-right: 0px;'
-        //         ));
-        //     } else {
-        //         ET_Builder_Element::set_style($render_slug, array(
-        //             'selector' => "$this->main_css_element .df-rating-title",
-        //             'declaration' => 'margin-left: 10px;'
-        //         ));
-        //     }
-
-        //     if ($this->props['title_placement_left_right'] === "left") {
-        //         ET_Builder_Element::set_style($render_slug, array(
-        //             'selector' => "$this->main_css_element .df-rating-title",
-        //             'declaration' => 'margin-right: 10px; margin-left: 0px;'
-        //         ));
-        //     }
-        // }
-
         // Title Placement default
         if ($title_display_type === "inline") {
             if ($this->props['title_placement_left_right'] === "right") {
