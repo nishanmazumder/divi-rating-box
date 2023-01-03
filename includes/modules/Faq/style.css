@@ -1,0 +1,73 @@
+/* Border */
+.difl_ratingbox .df-rating-box-container * {
+    border-width: 0px;
+    border-style: solid;
+    border-color: #333;
+  }
+
+/* Icon */
+.difl_ratingbox .df-rating-icon{
+    display: flex;
+    align-items: center;
+}
+.difl_ratingbox .df-rating-icon span.et-pb-icon{
+    margin: 0px 2px;
+    vertical-align: text-bottom;
+    transition: .5s;
+}
+
+.difl_ratingbox .df-rating-icon span{
+    font-size: 20px;
+}
+
+.difl_ratingbox span.df-rating-icon-fill {
+    display: inline-block;
+    position: relative;
+    font-style: normal;
+    cursor: default;
+}
+
+.difl_ratingbox .df-rating-icon span.df-rating-icon-fill::before {
+    content: "\e033";
+    display: block;
+    font-size: 20px;
+    font-family: inherit;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    transition: .5s;
+}
+
+.difl_ratingbox .df-rating-icon span.df-fill-1::before{ width: 10% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-2::before{ width: 20% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-3::before{ width: 30% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-4::before{ width: 40% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-5::before{ width: 50% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-6::before{ width: 60% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-7::before{ width: 70% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-8::before{ width: 80% !important; }
+.difl_ratingbox .df-rating-icon span.df-fill-9::before{ width: 90% !important; }
+
+/* Rating number */
+.difl_ratingbox .df-rating-number{
+    color: #000;
+    margin: 0px 5px;
+    line-height: 1.5em;
+}
+
+/* Title & Content */
+.difl_ratingbox .df-rating-box-container .df-rating-wrapper .df-rating-title{
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.7em;
+    padding-bottom: 0px;
+}
+.difl_ratingbox .df-rating-box-container .df-rating-content{
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.7em;
+}
+.difl_ratingbox .df-rating-box-container .df-rating-content p{
+    padding-bottom: 0px;
+}
