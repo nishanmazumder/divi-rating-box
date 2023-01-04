@@ -138,26 +138,6 @@ class RatingBox extends Component {
       unit: "px",
     });
 
-    // utility.process_range_value({
-    //   props: props,
-    //   key: "rating_number_space_left",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .df-rating-number",
-    //   type: "margin-left",
-    //   unit: "px",
-    //   important: true
-    // });
-
-    // utility.process_range_value({
-    //   props: props,
-    //   key: "rating_number_space_right",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .df-rating-number",
-    //   type: "margin-right",
-    //   unit: "px",
-    //   important: true
-    // });
-
     utility.process_margin_padding({
       props: props,
       key: "rating_box_icon_margin",
@@ -349,7 +329,6 @@ class RatingBox extends Component {
     ]);
 
     // (Mobile) Set display type block on mobile
-    // if (props.title_display_type_mobile_inline === "on" || "off") {
     additionalCss.push([
       {
         selector: `%%order_class%% .df-rating-wrapper`,
@@ -357,7 +336,6 @@ class RatingBox extends Component {
         device: "phone",
       },
     ]);
-    // }
 
     if (props.title_text_align_phone !== "") {
       additionalCss.push([

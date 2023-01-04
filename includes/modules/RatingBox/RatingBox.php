@@ -307,48 +307,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                 )
             ),
 
-            // 'rating_number_space_left' => array(
-            //     'label'             => esc_html__('Left Gap', 'divi_flash'),
-            //     'description'     => esc_html__('Here you can set left gap for rating number.', 'divi_flash'),
-            //     'type'              => 'range',
-            //     'default'           => '0px',
-            //     'allowed_units'     => array('px'),
-            //     'range_settings'    => array(
-            //         'min'  => '1',
-            //         'max'  => '100',
-            //         'step' => '1'
-            //     ),
-            //     'hover'             => 'tabs',
-            //     'responsive'        => true,
-            //     'mobile_options'    => true,
-            //     'toggle_slug'       => 'design_rating_number',
-            //     'tab_slug'          => 'advanced',
-            //     'show_if'         => array(
-            //         'enable_rating_number'     => 'on'
-            //     )
-            // ),
-
-            // 'rating_number_space_right' => array(
-            //     'label'             => esc_html__('Right Gap', 'divi_flash'),
-            //     'description'     => esc_html__('Here you can set right gap for rating number.', 'divi_flash'),
-            //     'type'              => 'range',
-            //     'default'           => '0px',
-            //     'allowed_units'     => array('px'),
-            //     'range_settings'    => array(
-            //         'min'  => '1',
-            //         'max'  => '100',
-            //         'step' => '1'
-            //     ),
-            //     'hover'             => 'tabs',
-            //     'responsive'        => true,
-            //     'mobile_options'    => true,
-            //     'toggle_slug'       => 'design_rating_number',
-            //     'tab_slug'          => 'advanced',
-            //     'show_if'         => array(
-            //         'enable_rating_number'     => 'on'
-            //     )
-            // ),
-
             // Single
             'enable_single_rating'  => array(
                 'label'             => esc_html__('Enable Single Rating', 'divi_flash'),
@@ -455,22 +413,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'title_display_type'     => 'inline'
                 )
             ),
-
-            // 'title_display_type_mobile_inline'  => array(
-            //     'label'             => esc_html__('Title display block on mobile', 'divi_flash'),
-            //     'description'     => esc_html__('Set display type block only on mobile', 'divi_flash'),
-            //     'type'              => 'yes_no_button',
-            //     'options'           => array(
-            //         'off' => esc_html__('Off', 'divi_flash'),
-            //         'on'  => esc_html__('On', 'divi_flash')
-            //     ),
-            //     'default'           => 'off',
-            //     'toggle_slug'       => 'rating',
-            //     'show_if'         => array(
-            //         'title_display_type'     => 'inline',
-            //         'enable_title'          => 'on'
-            //     )
-            // ),
 
             'rating_icon_align'  => array(
                 'label'           => esc_html__('Rating Alignment', 'divi_flash'),
@@ -1167,24 +1109,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             'important'         => true
         ));
 
-        // $this->df_process_range(array(
-        //     'render_slug'       => $render_slug,
-        //     'slug'              => 'rating_number_space_left',
-        //     'type'              => 'margin-left',
-        //     'selector'          => "$this->main_css_element .df-rating-number",
-        //     'hover'             => "$this->main_css_element .df-rating-number:hover",
-        //     'important'         => true
-        // ));
-
-        // $this->df_process_range(array(
-        //     'render_slug'       => $render_slug,
-        //     'slug'              => 'rating_number_space_right',
-        //     'type'              => 'margin-right',
-        //     'selector'          => "$this->main_css_element .df-rating-number",
-        //     'hover'             => "$this->main_css_element .df-rating-number:hover",
-        //     'important'         => true
-        // ));
-
         $this->set_margin_padding_styles(array(
             'render_slug'       => $render_slug,
             'slug'              => 'rating_box_icon_margin',
@@ -1211,15 +1135,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             'hover'             => "$this->main_css_element .df-rating-number:hover",
             'important'         => true
         ));
-
-        // $this->set_margin_padding_styles(array(
-        //     'render_slug'       => $render_slug,
-        //     'slug'              => 'rating_box_number_padding',
-        //     'type'              => 'padding',
-        //     'selector'          => "$this->main_css_element .df-rating-number",
-        //     'hover'             => "$this->main_css_element .df-rating-number:hover",
-        //     'important'         => true
-        // ));
 
         $this->set_margin_padding_styles(array(
             'render_slug'       => $render_slug,
