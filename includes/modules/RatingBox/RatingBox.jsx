@@ -72,20 +72,22 @@ class RatingBox extends Component {
         ]);
       }
 
-      if (inactive_color !== "" || active_color !== "") {
-        utility.process_color({
-          props: props,
-          key: "rating_color_active",
-          additionalCss: additionalCss,
-          selector:
-            "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before, %%order_class%% .df-rating-icon span.et-pb-icon",
-          type: "color",
-          important: false,
-        });
-
+      if (props.rating_color_active !== "") {
         utility.process_color({
           props: props,
           key: "rating_color_inactive",
+          additionalCss: additionalCss,
+          selector:
+            "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
+          type: "color",
+          important: false,
+        });
+      }
+
+      if (props.rating_color_inactive !== "") {
+        utility.process_color({
+          props: props,
+          key: "rating_color_active",
           additionalCss: additionalCss,
           selector:
             "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
@@ -95,7 +97,6 @@ class RatingBox extends Component {
       }
     } else {
       // Global
-
       if (inactive_color === "" || active_color === "") {
         additionalCss.push([
           {
@@ -106,31 +107,71 @@ class RatingBox extends Component {
 
         additionalCss.push([
           {
-            selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
-            declaration: `color: #E02B20 !important;`,
+            selector: `%%order_class%% .df-rating-icon span.df-rating-icon-empty::after`,
+            declaration: `color: #000`,
           },
         ]);
       }
 
-      utility.process_color({
-        props: props,
-        key: "rating_color_inactive",
-        additionalCss: additionalCss,
-        selector:
-          "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
-        type: "color",
-        important: false,
-      });
+              utility.process_color({
+          props: props,
+          key: "rating_color_active",
+          additionalCss: additionalCss,
+          selector:
+            "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
+          type: "color",
+          important: true,
+        });
 
-      utility.process_color({
-        props: props,
-        key: "rating_color_active",
-        additionalCss: additionalCss,
-        selector:
-          "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
-        type: "color",
-        important: true,
-      });
+        utility.process_color({
+          props: props,
+          key: "rating_color_inactive",
+          additionalCss: additionalCss,
+          selector:
+            "%%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
+          type: "color",
+          important: true,
+        });
+
+
+      // else if (inactive_color !== "" || active_color === "") {
+      //   additionalCss.push([
+      //     {
+      //       selector: `%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
+      //       declaration: `color: #E02B20`,
+      //     },
+      //   ]);
+
+      //   utility.process_color({
+      //     props: props,
+      //     key: "rating_color_inactive",
+      //     additionalCss: additionalCss,
+      //     selector:
+      //       "%%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
+      //     type: "color",
+      //     important: true,
+      //   });
+      // }else if (inactive_color === "" || active_color !== "") {
+      //   utility.process_color({
+      //     props: props,
+      //     key: "rating_color_active",
+      //     additionalCss: additionalCss,
+      //     selector:
+      //       "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
+      //     type: "color",
+      //     important: true,
+      //   });
+
+      //   utility.process_color({
+      //     props: props,
+      //     key: "rating_color_inactive",
+      //     additionalCss: additionalCss,
+      //     selector:
+      //       "%%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
+      //     type: "color",
+      //     important: true,
+      //   });
+      // }
     }
 
     if (
