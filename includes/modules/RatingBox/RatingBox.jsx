@@ -45,33 +45,37 @@ class RatingBox extends Component {
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
-          declaration: `content: attr(data-icon);`,
+          declaration: `content: attr(data-icon) !important;`,
+        },
+      ]);
+
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df-rating-icon span.df-rating-icon-empty::after`,
+          declaration: `display:none !important;`,
         },
       ]);
 
       if (inactive_color === "" || active_color === "") {
         additionalCss.push([
           {
-            selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before, %%order_class%% .df-rating-icon span.et-pb-icon`,
+            selector: `%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
             declaration: `color: #333;`,
           },
         ]);
 
-        utility.process_color({
-          props: props,
-          key: "rating_color",
-          additionalCss: additionalCss,
-          selector:
-            "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
-          type: "color",
-          important: true,
-        });
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
+            declaration: `color: #E02B20 !important;`,
+          },
+        ]);
       }
 
       if (inactive_color !== "" || active_color !== "") {
         utility.process_color({
           props: props,
-          key: "rating_color_inactive",
+          key: "rating_color_active",
           additionalCss: additionalCss,
           selector:
             "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before, %%order_class%% .df-rating-icon span.et-pb-icon",
@@ -81,7 +85,7 @@ class RatingBox extends Component {
 
         utility.process_color({
           props: props,
-          key: "rating_color_active",
+          key: "rating_color_inactive",
           additionalCss: additionalCss,
           selector:
             "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
@@ -90,14 +94,42 @@ class RatingBox extends Component {
         });
       }
     } else {
+      // Global
+
+      if (inactive_color === "" || active_color === "") {
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
+            declaration: `color: #E02B20;`,
+          },
+        ]);
+
+        additionalCss.push([
+          {
+            selector: `%%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
+            declaration: `color: #E02B20 !important;`,
+          },
+        ]);
+      }
+
       utility.process_color({
         props: props,
-        key: "rating_color",
+        key: "rating_color_inactive",
         additionalCss: additionalCss,
         selector:
           "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
         type: "color",
         important: false,
+      });
+
+      utility.process_color({
+        props: props,
+        key: "rating_color_active",
+        additionalCss: additionalCss,
+        selector:
+          "%%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
+        type: "color",
+        important: true,
       });
     }
 
@@ -122,7 +154,7 @@ class RatingBox extends Component {
       key: "rating_icon_size",
       additionalCss: additionalCss,
       selector:
-        "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% span.df-rating-icon-fill::before",
+        "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before, %%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
       type: "font-size",
       important: true,
     });
@@ -162,15 +194,6 @@ class RatingBox extends Component {
       type: "margin",
       important: true,
     });
-
-    // utility.process_margin_padding({
-    //   props: props,
-    //   key: "rating_box_number_padding",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .df-rating-number",
-    //   type: "padding",
-    //   important: true
-    // });
 
     utility.process_margin_padding({
       props: props,
@@ -265,7 +288,7 @@ class RatingBox extends Component {
         key: "rating_icon_align",
         additionalCss: additionalCss,
         selector: "%%order_class%% .df-rating-wrapper",
-        type: "align-items"
+        type: "align-items",
       });
 
       if (props.title_placement_top_bottom === "top") {
@@ -329,7 +352,9 @@ class RatingBox extends Component {
     ]);
 
     if (props.title_text_align_phone !== "") {
-      const title_align_mob = props.title_text_align_phone ? props.title_text_align_phone : "center";
+      const title_align_mob = props.title_text_align_phone
+        ? props.title_text_align_phone
+        : "center";
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-title`,
@@ -340,7 +365,9 @@ class RatingBox extends Component {
     }
 
     if (props.rating_icon_align_phone !== "") {
-      const rating_align_mob = props.rating_icon_align_phone ? props.rating_icon_align_phone : "center";
+      const rating_align_mob = props.rating_icon_align_phone
+        ? props.rating_icon_align_phone
+        : "center";
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-icon`,
@@ -472,7 +499,7 @@ class RatingBox extends Component {
         if (i <= parseInt(get_float[0])) {
           rating_active_class = "df-rating-icon-fill";
         } else {
-          rating_active_class = `df-rating-icon-fill df-fill-${get_float[1]}`;
+          rating_active_class = `df-rating-icon-fill df-rating-icon-empty df-fraction-reverse df-fill-${get_float[1]}`;
         }
       } else {
         rating_active_class = "df-rating-icon-empty";
