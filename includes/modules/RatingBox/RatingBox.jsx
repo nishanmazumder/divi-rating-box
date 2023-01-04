@@ -265,7 +265,7 @@ class RatingBox extends Component {
         key: "rating_icon_align",
         additionalCss: additionalCss,
         selector: "%%order_class%% .df-rating-wrapper",
-        type: "align-items",
+        type: "align-items"
       });
 
       if (props.title_placement_top_bottom === "top") {
@@ -319,15 +319,6 @@ class RatingBox extends Component {
       }
     }
 
-    // (Mobile) Icon Wrapper Flex Wrap
-    additionalCss.push([
-      {
-        selector: `%%order_class%% .df-rating-icon`,
-        declaration: `flex-wrap: wrap;`,
-        device: "phone",
-      },
-    ]);
-
     // (Mobile) Set display type block on mobile
     additionalCss.push([
       {
@@ -338,20 +329,22 @@ class RatingBox extends Component {
     ]);
 
     if (props.title_text_align_phone !== "") {
+      const title_align_mob = props.title_text_align_phone ? props.title_text_align_phone : "center";
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-title`,
-          declaration: `width: 100%; margin-right:0px; text-align: ${props.title_text_align_phone}`,
+          declaration: `width: 100%; margin-right:0px; margin-left:0px; text-align: ${title_align_mob};`,
           device: "phone",
         },
       ]);
     }
 
     if (props.rating_icon_align_phone !== "") {
+      const rating_align_mob = props.rating_icon_align_phone ? props.rating_icon_align_phone : "center";
       additionalCss.push([
         {
           selector: `%%order_class%% .df-rating-icon`,
-          declaration: `width: 100%; justify-content: ${props.rating_icon_align_phone}`,
+          declaration: `width: 100%; justify-content: ${rating_align_mob};`,
           device: "phone",
         },
       ]);

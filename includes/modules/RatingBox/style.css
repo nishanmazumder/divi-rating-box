@@ -9,6 +9,7 @@
 .difl_ratingbox .df-rating-icon{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 .difl_ratingbox .df-rating-icon span.et-pb-icon{
     margin: 0px 2px;
@@ -21,6 +22,7 @@
     font-size: 20px;
 }
 
+/* Active */
 .difl_ratingbox span.df-rating-icon-fill {
     display: inline-block;
     position: relative;
@@ -50,6 +52,9 @@
 .difl_ratingbox .df-rating-icon span.df-fill-8::before{ width: 80% !important; }
 .difl_ratingbox .df-rating-icon span.df-fill-9::before{ width: 90% !important; }
 
+/* Inactive */
+
+
 /* Rating number */
 .difl_ratingbox .df-rating-number{
     color: #000;
@@ -58,7 +63,7 @@
 }
 .df-rating-bracket{
     position: relative;
-    top: -4px;
+    top: -2px;
 }
 /* Title & Content */
 .difl_ratingbox .df-rating-box-container .df-rating-wrapper .df-rating-title{

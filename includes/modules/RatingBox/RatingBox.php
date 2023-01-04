@@ -1038,6 +1038,7 @@ class DIFL_RatingBox extends ET_Builder_Module
         $this->additional_css_styles($render_slug);
 
         // Schema
+        $schema = "";
         if ($this->props['enable_schema'] && $this->props['enable_schema'] === 'on') {
             $rating_val =
                 $this->props['rating_scale_type'] === "5"
@@ -1224,6 +1225,13 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'declaration' => 'margin-right: 10px;'
                 ));
             }
+
+            // Mobile
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-title",
+                'declaration' => "width: 100%;",
+                'media_query' => self::get_media_query('max_width_767')
+            ));
         } else {
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-title",
@@ -1368,7 +1376,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'render_slug' => $render_slug,
                 'slug'        => 'rating_icon_align',
                 'selector'    => "$this->main_css_element .df-rating-wrapper",
-                'type'        => "align-items",
+                'type'        => "align-items"
             ]);
 
             if ($title_placement_top_bottom === "top") {
@@ -1389,7 +1397,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'slug'        => 'rating_icon_align',
                 'selector'    => "$this->main_css_element .df-rating-wrapper",
                 'type'        => "justify-content",
-                'css'         => "align-items: center"
+                'css'         => "align-items: center;"
             ]);
 
             ET_Builder_Element::set_style($render_slug, array(
@@ -1408,36 +1416,36 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'declaration' => "flex-direction: row;"
                 ));
             }
+
+            // Mobile
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-wrapper",
+                'declaration' => "align-items: unset !important;",
+                'media_query' => self::get_media_query('max_width_767')
+            ));
         }
 
-        // (Mobile) Icon Wrapper Flex Wrap
-        ET_Builder_Element::set_style($render_slug, array(
-            'selector' => "$this->main_css_element .df-rating-icon",
-            'declaration' => "flex-wrap: wrap;",
-            'media_query' => self::get_media_query('max_width_767')
-        ));
-
         // (Mobile) Set display type block on mobile
-        // if ($this->props['title_display_type_mobile_inline'] === 'on') {
         ET_Builder_Element::set_style($render_slug, array(
             'selector' => "$this->main_css_element .df-rating-wrapper",
             'declaration' => "flex-direction: column-reverse !important;",
             'media_query' => self::get_media_query('max_width_767')
         ));
-        // }
 
         if ($this->props['title_text_align_phone'] !== "") {
+            $title_text_align_mob = $this->props['title_text_align_phone'] ? $this->props['title_text_align_phone'] : "center";
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-title",
-                'declaration' => "width: 100% !important; margin-right:0px !important; text-align: " . $this->props['title_text_align_phone'] . ";",
+                'declaration' => "width: 100%; margin-right:0px; margin-left:0px; text-align: " . $title_text_align_mob . ";",
                 'media_query' => self::get_media_query('max_width_767')
             ));
         }
 
         if ($this->props['rating_icon_align_phone'] !== "") {
+            $rating_align_mob = $this->props['rating_icon_align_phone'] ? $this->props['rating_icon_align_phone'] : "center";
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df-rating-icon",
-                'declaration' => "width: 100%; justify-content: " . $this->props['rating_icon_align_phone'] . " ",
+                'declaration' => "width: 100%; justify-content: " . $rating_align_mob . ";",
                 'media_query' => self::get_media_query('max_width_767')
             ));
         }
