@@ -145,6 +145,7 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-number",
       type: "margin-left",
       unit: "px",
+      important: true
     });
 
     utility.process_range_value({
@@ -154,6 +155,7 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df-rating-number",
       type: "margin-right",
       unit: "px",
+      important: true
     });
 
     // Rating wrapper

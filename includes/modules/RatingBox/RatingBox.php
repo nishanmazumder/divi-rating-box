@@ -308,8 +308,8 @@ class DIFL_RatingBox extends ET_Builder_Module
             ),
 
             'rating_number_space_left' => array(
-                'label'             => esc_html__('Left Spacing', 'divi_flash'),
-                'description'     => esc_html__('Here you can set left spacing for rating number.', 'divi_flash'),
+                'label'             => esc_html__('Left Gap', 'divi_flash'),
+                'description'     => esc_html__('Here you can set left gap for rating number.', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '0px',
                 'allowed_units'     => array('px'),
@@ -329,8 +329,8 @@ class DIFL_RatingBox extends ET_Builder_Module
             ),
 
             'rating_number_space_right' => array(
-                'label'             => esc_html__('Right Spacing', 'divi_flash'),
-                'description'     => esc_html__('Here you can set right spacing for rating number.', 'divi_flash'),
+                'label'             => esc_html__('Right Gap', 'divi_flash'),
+                'description'     => esc_html__('Here you can set right gap for rating number.', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '0px',
                 'allowed_units'     => array('px'),
@@ -1129,7 +1129,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             'type'              => 'margin-left',
             'selector'          => "$this->main_css_element .df-rating-number",
             'hover'             => "$this->main_css_element .df-rating-number:hover",
-            'important'         => false
+            'important'         => true
         ));
 
         $this->df_process_range(array(
@@ -1138,7 +1138,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             'type'              => 'margin-right',
             'selector'          => "$this->main_css_element .df-rating-number",
             'hover'             => "$this->main_css_element .df-rating-number:hover",
-            'important'         => false
+            'important'         => true
         ));
 
         $this->set_margin_padding_styles(array(
