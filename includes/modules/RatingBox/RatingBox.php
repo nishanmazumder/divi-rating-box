@@ -307,47 +307,47 @@ class DIFL_RatingBox extends ET_Builder_Module
                 )
             ),
 
-            'rating_number_space_left' => array(
-                'label'             => esc_html__('Left Gap', 'divi_flash'),
-                'description'     => esc_html__('Here you can set left gap for rating number.', 'divi_flash'),
-                'type'              => 'range',
-                'default'           => '0px',
-                'allowed_units'     => array('px'),
-                'range_settings'    => array(
-                    'min'  => '1',
-                    'max'  => '100',
-                    'step' => '1'
-                ),
-                'hover'             => 'tabs',
-                'responsive'        => true,
-                'mobile_options'    => true,
-                'toggle_slug'       => 'design_rating_number',
-                'tab_slug'          => 'advanced',
-                'show_if'         => array(
-                    'enable_rating_number'     => 'on'
-                )
-            ),
+            // 'rating_number_space_left' => array(
+            //     'label'             => esc_html__('Left Gap', 'divi_flash'),
+            //     'description'     => esc_html__('Here you can set left gap for rating number.', 'divi_flash'),
+            //     'type'              => 'range',
+            //     'default'           => '0px',
+            //     'allowed_units'     => array('px'),
+            //     'range_settings'    => array(
+            //         'min'  => '1',
+            //         'max'  => '100',
+            //         'step' => '1'
+            //     ),
+            //     'hover'             => 'tabs',
+            //     'responsive'        => true,
+            //     'mobile_options'    => true,
+            //     'toggle_slug'       => 'design_rating_number',
+            //     'tab_slug'          => 'advanced',
+            //     'show_if'         => array(
+            //         'enable_rating_number'     => 'on'
+            //     )
+            // ),
 
-            'rating_number_space_right' => array(
-                'label'             => esc_html__('Right Gap', 'divi_flash'),
-                'description'     => esc_html__('Here you can set right gap for rating number.', 'divi_flash'),
-                'type'              => 'range',
-                'default'           => '0px',
-                'allowed_units'     => array('px'),
-                'range_settings'    => array(
-                    'min'  => '1',
-                    'max'  => '100',
-                    'step' => '1'
-                ),
-                'hover'             => 'tabs',
-                'responsive'        => true,
-                'mobile_options'    => true,
-                'toggle_slug'       => 'design_rating_number',
-                'tab_slug'          => 'advanced',
-                'show_if'         => array(
-                    'enable_rating_number'     => 'on'
-                )
-            ),
+            // 'rating_number_space_right' => array(
+            //     'label'             => esc_html__('Right Gap', 'divi_flash'),
+            //     'description'     => esc_html__('Here you can set right gap for rating number.', 'divi_flash'),
+            //     'type'              => 'range',
+            //     'default'           => '0px',
+            //     'allowed_units'     => array('px'),
+            //     'range_settings'    => array(
+            //         'min'  => '1',
+            //         'max'  => '100',
+            //         'step' => '1'
+            //     ),
+            //     'hover'             => 'tabs',
+            //     'responsive'        => true,
+            //     'mobile_options'    => true,
+            //     'toggle_slug'       => 'design_rating_number',
+            //     'tab_slug'          => 'advanced',
+            //     'show_if'         => array(
+            //         'enable_rating_number'     => 'on'
+            //     )
+            // ),
 
             // Single
             'enable_single_rating'  => array(
@@ -456,21 +456,21 @@ class DIFL_RatingBox extends ET_Builder_Module
                 )
             ),
 
-            'title_display_type_mobile_inline'  => array(
-                'label'             => esc_html__('Title display block on mobile', 'divi_flash'),
-                'description'     => esc_html__('Set display type block only on mobile', 'divi_flash'),
-                'type'              => 'yes_no_button',
-                'options'           => array(
-                    'off' => esc_html__('Off', 'divi_flash'),
-                    'on'  => esc_html__('On', 'divi_flash')
-                ),
-                'default'           => 'off',
-                'toggle_slug'       => 'rating',
-                'show_if'         => array(
-                    'title_display_type'     => 'inline',
-                    'enable_title'          => 'on'
-                )
-            ),
+            // 'title_display_type_mobile_inline'  => array(
+            //     'label'             => esc_html__('Title display block on mobile', 'divi_flash'),
+            //     'description'     => esc_html__('Set display type block only on mobile', 'divi_flash'),
+            //     'type'              => 'yes_no_button',
+            //     'options'           => array(
+            //         'off' => esc_html__('Off', 'divi_flash'),
+            //         'on'  => esc_html__('On', 'divi_flash')
+            //     ),
+            //     'default'           => 'off',
+            //     'toggle_slug'       => 'rating',
+            //     'show_if'         => array(
+            //         'title_display_type'     => 'inline',
+            //         'enable_title'          => 'on'
+            //     )
+            // ),
 
             'rating_icon_align'  => array(
                 'label'           => esc_html__('Rating Alignment', 'divi_flash'),
@@ -547,6 +547,20 @@ class DIFL_RatingBox extends ET_Builder_Module
             ),
         ];
 
+        $schema = [
+            'enable_schema'  => array(
+                'label'             => esc_html__('Schema Enable', 'divi_flash'),
+                'description'     => esc_html__('Enable Schema for SEO.', 'divi_flash'),
+                'type'              => 'yes_no_button',
+                'options'           => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
+                'default'           => 'off',
+                'toggle_slug'       => 'rating',
+            )
+        ];
+
         $rating_bg = $this->df_add_bg_field(array(
             'label'                 => 'Rating Background',
             'key'                   => 'rating_bg',
@@ -574,14 +588,23 @@ class DIFL_RatingBox extends ET_Builder_Module
             )
         ));
 
-        $rating_rating_icon = $this->add_margin_padding(array(
-            'title'             => 'Rating icon',
+        $rating_icon_margin = $this->add_margin_padding(array(
+            'title'             => 'Rating',
             'key'               => 'rating_box_icon',
             'toggle_slug'       => 'margin_padding'
         ));
 
-        $rating_rating_title = $this->add_margin_padding(array(
-            'title'             => 'Rating title',
+        $rating_number_margin = $this->add_margin_padding(array(
+            'title'             => 'Rating Number',
+            'key'               => 'rating_box_number',
+            'toggle_slug'       => 'margin_padding',
+            'show_if'         => array(
+                'enable_rating_number'     => 'on'
+            )
+        ));
+
+        $rating_title_margin = $this->add_margin_padding(array(
+            'title'             => 'Rating Title',
             'key'               => 'rating_box_title',
             'toggle_slug'       => 'margin_padding',
             'show_if'         => array(
@@ -589,8 +612,8 @@ class DIFL_RatingBox extends ET_Builder_Module
             )
         ));
 
-        $rating_rating_content = $this->add_margin_padding(array(
-            'title'             => 'Rating content',
+        $rating_content_margin = $this->add_margin_padding(array(
+            'title'             => 'Rating Content',
             'key'               => 'rating_box_content',
             'toggle_slug'       => 'margin_padding',
             'show_if'         => array(
@@ -604,9 +627,11 @@ class DIFL_RatingBox extends ET_Builder_Module
             $rating_title_bg,
             $rating_content_bg,
             $content,
-            $rating_rating_icon,
-            $rating_rating_title,
-            $rating_rating_content
+            $schema,
+            $rating_icon_margin,
+            $rating_number_margin,
+            $rating_title_margin,
+            $rating_content_margin
         );
     }
 
@@ -655,8 +680,9 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'default' => 'normal'
                 ),
                 'css'      => array(
-                    'main' => "$this->main_css_element span.df-rating-number",
-                    'hover' => "$this->main_css_element span.df-rating-number:hover",
+                    'main' => "$this->main_css_element span.df-rating-number, $this->main_css_element .df-rating-bracket",
+                    'hover' => "$this->main_css_element span.df-rating-number:hover, $this->main_css_element .df-rating-bracket:hover",
+                    'important' => 'all',
                 )
             ),
 
@@ -676,7 +702,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'css'      => array(
                     'main' => "$this->main_css_element .df-rating-title",
                     'hover' => "$this->main_css_element .df-rating-title:hover",
-                    'important' => 'all',
+                    'important' => 'all'
                 )
             ),
 
@@ -1069,9 +1095,27 @@ class DIFL_RatingBox extends ET_Builder_Module
         // Get all style
         $this->additional_css_styles($render_slug);
 
+        // Schema
+        if ($this->props['enable_schema'] && $this->props['enable_schema'] === 'on') {
+            $rating_val =
+                $this->props['rating_scale_type'] === "5"
+                ? $this->props['rating_value_5']
+                : $this->props['rating_value_10'];
+
+            $json = [
+                '@context' => 'https://schema.org',
+                '@type' => 'Rating',
+                "ratingValue" => intval($rating_val),
+                "worstRating" => 1,
+                "bestRating" => intval($this->props['rating_scale_type'])
+            ];
+
+            $schema =  '<script type="application/ld+json">' . wp_json_encode($json) . '</script>';
+        }
         // Display frontend
         $output = sprintf(
-            '<div class="df-rating-box-container">
+            $schema .
+                '<div class="df-rating-box-container">
                 %1$s
                 %2$s
             </div>',
@@ -1123,31 +1167,31 @@ class DIFL_RatingBox extends ET_Builder_Module
             'important'         => true
         ));
 
-        $this->df_process_range(array(
-            'render_slug'       => $render_slug,
-            'slug'              => 'rating_number_space_left',
-            'type'              => 'margin-left',
-            'selector'          => "$this->main_css_element .df-rating-number",
-            'hover'             => "$this->main_css_element .df-rating-number:hover",
-            'important'         => true
-        ));
+        // $this->df_process_range(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'rating_number_space_left',
+        //     'type'              => 'margin-left',
+        //     'selector'          => "$this->main_css_element .df-rating-number",
+        //     'hover'             => "$this->main_css_element .df-rating-number:hover",
+        //     'important'         => true
+        // ));
 
-        $this->df_process_range(array(
-            'render_slug'       => $render_slug,
-            'slug'              => 'rating_number_space_right',
-            'type'              => 'margin-right',
-            'selector'          => "$this->main_css_element .df-rating-number",
-            'hover'             => "$this->main_css_element .df-rating-number:hover",
-            'important'         => true
-        ));
+        // $this->df_process_range(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'rating_number_space_right',
+        //     'type'              => 'margin-right',
+        //     'selector'          => "$this->main_css_element .df-rating-number",
+        //     'hover'             => "$this->main_css_element .df-rating-number:hover",
+        //     'important'         => true
+        // ));
 
         $this->set_margin_padding_styles(array(
             'render_slug'       => $render_slug,
             'slug'              => 'rating_box_icon_margin',
             'type'              => 'margin',
             'selector'          => "$this->main_css_element .df-rating-icon",
-            'hover'             => '$this->main_css_element .df-rating-icon:hover',
-            'important'         => true
+            'hover'             => "$this->main_css_element .df-rating-icon:hover",
+            'important'         => false
         ));
 
         $this->set_margin_padding_styles(array(
@@ -1156,8 +1200,26 @@ class DIFL_RatingBox extends ET_Builder_Module
             'type'              => 'padding',
             'selector'          => "$this->main_css_element .df-rating-icon",
             'hover'             => "$this->main_css_element .df-rating-icon:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'rating_box_number_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .df-rating-number",
+            'hover'             => "$this->main_css_element .df-rating-number:hover",
             'important'         => true
         ));
+
+        // $this->set_margin_padding_styles(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'rating_box_number_padding',
+        //     'type'              => 'padding',
+        //     'selector'          => "$this->main_css_element .df-rating-number",
+        //     'hover'             => "$this->main_css_element .df-rating-number:hover",
+        //     'important'         => true
+        // ));
 
         $this->set_margin_padding_styles(array(
             'render_slug'       => $render_slug,
@@ -1431,33 +1493,40 @@ class DIFL_RatingBox extends ET_Builder_Module
                     'declaration' => "flex-direction: row;"
                 ));
             }
-
-            // Force display type block on mobile
-            if ($this->props['title_display_type_mobile_inline'] === 'on') {
-                ET_Builder_Element::set_style($render_slug, array(
-                    'selector' => "$this->main_css_element .df-rating-wrapper",
-                    'declaration' => "flex-direction: column-reverse !important;",
-                    'media_query' => self::get_media_query('max_width_767')
-                ));
-
-                if ($this->props['title_text_align_phone'] !== "") {
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df-rating-title",
-                        'declaration' => "width: 100%; margin-right:0px; text-align: " . $this->props['title_text_align_phone'] . " ",
-                        'media_query' => self::get_media_query('max_width_767')
-                    ));
-                }
-
-                if ($this->props['rating_icon_align_phone'] !== "") {
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df-rating-icon",
-                        'declaration' => "width: 100%; justify-content: " . $this->props['rating_icon_align_phone'] . " ",
-                        'media_query' => self::get_media_query('max_width_767')
-                    ));
-                }
-            }
         }
-    }
+
+        // (Mobile) Icon Wrapper Flex Wrap
+        ET_Builder_Element::set_style($render_slug, array(
+            'selector' => "$this->main_css_element .df-rating-icon",
+            'declaration' => "flex-wrap: wrap;",
+            'media_query' => self::get_media_query('max_width_767')
+        ));
+
+        // (Mobile) Set display type block on mobile
+        // if ($this->props['title_display_type_mobile_inline'] === 'on') {
+        ET_Builder_Element::set_style($render_slug, array(
+            'selector' => "$this->main_css_element .df-rating-wrapper",
+            'declaration' => "flex-direction: column-reverse !important;",
+            'media_query' => self::get_media_query('max_width_767')
+        ));
+        // }
+
+        if ($this->props['title_text_align_phone'] !== "") {
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-title",
+                'declaration' => "width: 100% !important; margin-right:0px !important; text-align: " . $this->props['title_text_align_phone'] . ";",
+                'media_query' => self::get_media_query('max_width_767')
+            ));
+        }
+
+        if ($this->props['rating_icon_align_phone'] !== "") {
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector' => "$this->main_css_element .df-rating-icon",
+                'declaration' => "width: 100%; justify-content: " . $this->props['rating_icon_align_phone'] . " ",
+                'media_query' => self::get_media_query('max_width_767')
+            ));
+        }
+    } // Css
 
     // Render Rating & Rating Number & Title
     public function df_render_rating_wrapper()
@@ -1518,7 +1587,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             ($this->props['enable_single_rating'] !== 'on' ?
                 ($this->props['enable_rating_number_bracket'] === 'on' ?
                     $rating_number = sprintf(
-                        '<span class="df-rating-number">( %1$s / %2$s )</span>',
+                        '<span class="df-rating-number"><span class="df-rating-bracket">(</span>%1$s / %2$s<span class="df-rating-bracket">)</span></span>',
                         $rating_value,
                         $rating_scale_type
                     )
