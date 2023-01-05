@@ -113,65 +113,25 @@ class RatingBox extends Component {
         ]);
       }
 
-              utility.process_color({
-          props: props,
-          key: "rating_color_active",
-          additionalCss: additionalCss,
-          selector:
-            "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
-          type: "color",
-          important: true,
-        });
+      utility.process_color({
+        props: props,
+        key: "rating_color_active",
+        additionalCss: additionalCss,
+        selector:
+          "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
+        type: "color",
+        important: true,
+      });
 
-        utility.process_color({
-          props: props,
-          key: "rating_color_inactive",
-          additionalCss: additionalCss,
-          selector:
-            "%%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
-          type: "color",
-          important: true,
-        });
-
-
-      // else if (inactive_color !== "" || active_color === "") {
-      //   additionalCss.push([
-      //     {
-      //       selector: `%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before`,
-      //       declaration: `color: #E02B20`,
-      //     },
-      //   ]);
-
-      //   utility.process_color({
-      //     props: props,
-      //     key: "rating_color_inactive",
-      //     additionalCss: additionalCss,
-      //     selector:
-      //       "%%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
-      //     type: "color",
-      //     important: true,
-      //   });
-      // }else if (inactive_color === "" || active_color !== "") {
-      //   utility.process_color({
-      //     props: props,
-      //     key: "rating_color_active",
-      //     additionalCss: additionalCss,
-      //     selector:
-      //       "%%order_class%% .df-rating-icon span.et-pb-icon, %%order_class%% .df-rating-icon span.df-rating-icon-fill::before",
-      //     type: "color",
-      //     important: true,
-      //   });
-
-      //   utility.process_color({
-      //     props: props,
-      //     key: "rating_color_inactive",
-      //     additionalCss: additionalCss,
-      //     selector:
-      //       "%%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
-      //     type: "color",
-      //     important: true,
-      //   });
-      // }
+      utility.process_color({
+        props: props,
+        key: "rating_color_inactive",
+        additionalCss: additionalCss,
+        selector:
+          "%%order_class%% .df-rating-icon span.df-rating-icon-empty::after",
+        type: "color",
+        important: true,
+      });
     }
 
     if (
@@ -284,14 +244,14 @@ class RatingBox extends Component {
         additionalCss.push([
           {
             selector: `%%order_class%%  .df-rating-title`,
-            declaration: `margin-left: 10px;`,
+            declaration: `margin-left: 5px;`,
           },
         ]);
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%%  .df-rating-title`,
-            declaration: `margin-right: 10px;`,
+            declaration: `margin-right: 5px;`,
           },
         ]);
       }
