@@ -22,7 +22,7 @@
 
 /* Inactive */
 .difl_ratingbox span.df_rating_icon_fill,
-.difl_ratingbox span.df_rating_icon-empty {
+.difl_ratingbox span.df_rating_icon_empty {
   display: inline-block;
   position: relative;
   font-style: normal;
@@ -68,7 +68,7 @@
   width: 90% !important;
 }
 
-.difl_ratingbox .df_rating_icon span.df_rating_icon-empty::after {
+.difl_ratingbox .df_rating_icon span.df_rating_icon_empty::after {
   content: "\e031";
   display: block;
   font-size: 20px;
@@ -112,7 +112,7 @@
 
 /* Rating number */
 .difl_ratingbox .df_rating_number {
-  color: #333;
+  color: #000;
   margin: 0px 5px;
   line-height: 1.7em;
 }

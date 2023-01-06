@@ -226,6 +226,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'            => 'color-alpha',
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
+                'default'           => '#E02B20',
                 'toggle_slug'     => 'design_rating',
                 'tab_slug'        => 'advanced',
                 'show_if_not'         => array(
@@ -238,6 +239,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'            => 'color-alpha',
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
+                'default'           => '#000',
                 'toggle_slug'     => 'design_rating',
                 'tab_slug'        => 'advanced',
                 'show_if_not'         => array(
@@ -1086,8 +1088,8 @@ class DIFL_RatingBox extends ET_Builder_Module
             'render_slug'       => $render_slug,
             'slug'              => 'rating_icon_size',
             'type'              => 'font-size',
-            'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon, $this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.df_rating_icon-empty::after",
-            'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon, $this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon:hover span.df_rating_icon-empty::after",
+            'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon, $this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.df_rating_icon_empty::after",
+            'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon, $this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon:hover span.df_rating_icon_empty::after",
             'important'         => true
         ));
 
@@ -1236,12 +1238,25 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Rating color
-        $rating_color_active =
-            $this->props['rating_color_active'] === "" ? "" : $this->props['rating_color_active'];
+        $this->df_process_color(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'rating_color_active',
+            'type'              => 'color',
+            'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill, $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
+            'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill, $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
+            'important' => true,
+        ));
 
-        $rating_color_inactive =
-            $this->props['rating_color_inactive'] === "" ? "" : $this->props['rating_color_inactive'];
+        $this->df_process_color(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'rating_color_inactive',
+            'type'              => 'color',
+            'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
+            'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon:hover .df_rating_icon_empty::after",
+            'important' => true,
+        ));
 
+        // Custom icon
         if ($enable_rating_icon) {
             ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
@@ -1249,206 +1264,39 @@ class DIFL_RatingBox extends ET_Builder_Module
             ));
 
             ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon-empty::after",
+                'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_empty::after",
                 'declaration' => 'display: none !important;'
             ));
 
-            // Single
-            if ($this->props['enable_single_rating'] === "on") {
-                $this->df_process_color(array(
-                    'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color_single',
-                    'type'              => 'color',
-                    'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon",
-                    'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon:hover span.et-pb-icon",
-                    'important' => true,
-                ));
-            } else {
-                // Default
-                if ($rating_color_active === "" && $rating_color_inactive === "") {
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon",
-                        'declaration' => "color: #333;"
-                    ));
+            $this->df_process_color(array(
+                'render_slug'       => $render_slug,
+                'slug'              => 'rating_color_active',
+                'type'              => 'color',
+                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill, $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill, $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
+                'important' => false,
+            ));
 
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
-                        'declaration' => "color: #E02B20;"
-                    ));
-                } else if ($rating_color_active !== "" && $rating_color_inactive === "") {
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon",
-                        'declaration' => "color: #333;"
-                    ));
+            $this->df_process_color(array(
+                'render_slug'       => $render_slug,
+                'slug'              => 'rating_color_inactive',
+                'type'              => 'color',
+                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon:hover .df_rating_icon_empty::after",
+                'important' => true,
+            ));
+        }
 
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_active',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before",
-                        'important' => true,
-                    ));
-                } else if ($rating_color_active === "" && $rating_color_inactive !== "") {
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_inactive',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon:hover span.et-pb-icon",
-                        'important' => false,
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_active',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before",
-                        'important' => true,
-                    ));
-                } else {
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_inactive',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon:hover span.et-pb-icon",
-                        'important' => false,
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_active',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before",
-                        'important' => true,
-                    ));
-                }
-            }
-        } else {
-            // Global
-            if ($this->props['enable_single_rating'] === "on") {
-                $this->df_process_color(array(
-                    'render_slug'       => $render_slug,
-                    'slug'              => 'rating_color_single',
-                    'type'              => 'color',
-                    'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon",
-                    'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon:hover span.et-pb-icon",
-                    'important' => true,
-                ));
-            } else {
-                if ($rating_color_active === "" && $rating_color_inactive === "") {
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon:not(.df_rating_icon-empty)",
-                        'declaration' => "color: #E02B20 !important;"
-                    ));
-
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon-empty::after",
-                        'declaration' => "color: #000 !important;"
-                    ));
-
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element span.et-pb-icon.df_rating_icon_fill.df_rating_icon-empty",
-                        'declaration' => "color: #E02B20 !important;"
-                    ));
-
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element span.et-pb-icon.df_rating_icon-empty.df_rating_icon_fill::after",
-                        'declaration' => "color: #000 !important;"
-                    ));
-                } else if ($rating_color_active !== "" && $rating_color_inactive === "") {
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_active',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon:not(.df_rating_icon-empty), $this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon, $this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before",
-                        'important' => true,
-                    ));
-
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon-empty::after",
-                        'declaration' => "color: #000 !important;"
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_active',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element span.et-pb-icon.df_rating_icon_fill.df_rating_icon-empty",
-                        'important' => true,
-                    ));
-
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element span.et-pb-icon.df_rating_icon-empty.df_rating_icon_fill::after",
-                        'declaration' => "color: #000 !important;"
-                    ));
-                } else if ($rating_color_active === "" && $rating_color_inactive !== "") {
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon:not(.df_rating_icon-empty)",
-                        'declaration' => "color: #E02B20 !important;"
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_inactive',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon-empty::after",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon-empty::after",
-                        'important'         => true,
-                    ));
-
-                    ET_Builder_Element::set_style($render_slug, array(
-                        'selector' => "$this->main_css_element span.et-pb-icon.df_rating_icon_fill.df_rating_icon-empty",
-                        'declaration' => "color: #E02B20 !important;"
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_inactive',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element span.et-pb-icon.df_rating_icon-empty.df_rating_icon_fill::after",
-                        'important'         => true,
-                    ));
-                } else {
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_active',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon:not(.df_rating_icon-empty), $this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon, $this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before",
-                        'important' => true,
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_inactive',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon-empty::after",
-                        'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon-empty::after",
-                        'important'         => true,
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_active',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element span.et-pb-icon.df_rating_icon_fill.df_rating_icon-empty",
-                        'important' => true,
-                    ));
-
-                    $this->df_process_color(array(
-                        'render_slug'       => $render_slug,
-                        'slug'              => 'rating_color_inactive',
-                        'type'              => 'color',
-                        'selector'          => "$this->main_css_element span.et-pb-icon.df_rating_icon-empty.df_rating_icon_fill::after",
-                        'important'         => true,
-                    ));
-                }
-            }
+        // Single rating
+        if ($this->props['enable_single_rating'] === "on") {
+            $this->df_process_color(array(
+                'render_slug'       => $render_slug,
+                'slug'              => 'rating_color_single',
+                'type'              => 'color',
+                'selector'          => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon span.et-pb-icon",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover span.df_rating_icon_fill::before, $this->main_css_element .df_rating_icon:hover span.et-pb-icon",
+                'important' => true,
+            ));
         }
 
         // Rating Alignment
@@ -1572,9 +1420,9 @@ class DIFL_RatingBox extends ET_Builder_Module
             } else if ($i <= $rating_value) {
                 $rating_active_class = 'df_rating_icon_fill';
             } else if ($i == $get_float[0] + 1 && isset($get_float[1]) && $get_float[1] != '' && $get_float[1] != 0) {
-                $rating_active_class = 'df_rating_icon_fill df_rating_icon-empty df_fill_' . $get_float[1];
+                $rating_active_class = 'df_rating_icon_fill df_rating_icon_empty df_fill_' . $get_float[1];
             } else {
-                $rating_active_class = 'df_rating_icon-empty';
+                $rating_active_class = 'df_rating_icon_empty';
             }
             $rating_icon .= '<span class="et-pb-icon ' . $rating_active_class . '" data-icon="' . $get_rating_icon . '">' . $get_rating_icon . '</span>';
         }

@@ -30,18 +30,35 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df_rating_content",
     });
 
-    // Color
-    const active_color =
-      typeof props.rating_color_active === "undefined"
-        ? ""
-        : props.rating_color_inactive;
+    // Rating color
+    utility.process_color({
+      props: props,
+      key: "rating_color_active",
+      additionalCss: additionalCss,
+      // prettier-ignore
+      selector: "%%order_class%% .df_rating_icon .df_rating_icon_fill, %%order_class%% .df_rating_icon .df_rating_icon_fill::before",
+      type: "color",
+      important: false,
+    });
 
-    const inactive_color =
-      typeof props.rating_color_inactive === "undefined"
-        ? ""
-        : props.rating_color_inactive;
+    utility.process_color({
+      props: props,
+      key: "rating_color_inactive",
+      additionalCss: additionalCss,
+      // prettier-ignore
+      selector: "%%order_class%% .df_rating_icon .df_rating_icon_empty:not(.df_rating_icon_fill), %%order_class%% .df_rating_icon .df_rating_icon_empty::after",
+      type: "color",
+      important: false,
+    });
 
+    // Custom Icon
     if (props.enable_custom_icon === "on") {
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df_rating_icon_empty::after`,
+          declaration: `display:none !important;`,
+        },
+      ]);
       additionalCss.push([
         {
           selector: `%%order_class%% .df_rating_icon span.df_rating_icon_fill::before`,
@@ -49,95 +66,27 @@ class RatingBox extends Component {
         },
       ]);
 
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df_rating_icon span.df_rating_icon-empty::after`,
-          declaration: `display:none !important;`,
-        },
-      ]);
-
-      if (inactive_color === "" || active_color === "") {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before`,
-            declaration: `color: #333;`,
-          },
-        ]);
-
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df_rating_icon span.df_rating_icon_fill::before`,
-            declaration: `color: #E02B20 !important;`,
-          },
-        ]);
-      }
-
-      if (props.rating_color_active !== "") {
-        utility.process_color({
-          props: props,
-          key: "rating_color_inactive",
-          additionalCss: additionalCss,
-          selector:
-            "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before",
-          type: "color",
-          important: false,
-        });
-      }
-
-      if (props.rating_color_inactive !== "") {
-        utility.process_color({
-          props: props,
-          key: "rating_color_active",
-          additionalCss: additionalCss,
-          selector:
-            "%%order_class%% .df_rating_icon span.df_rating_icon_fill::before",
-          type: "color",
-          important: true,
-        });
-      }
-    } else {
-      // Global
-      if (inactive_color === "" || active_color === "") {
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before`,
-            declaration: `color: #E02B20;`,
-          },
-        ]);
-
-        additionalCss.push([
-          {
-            selector: `%%order_class%% .df_rating_icon span.df_rating_icon-empty::after`,
-            declaration: `color: #000`,
-          },
-        ]);
-      }
+      utility.process_color({
+        props: props,
+        key: "rating_color_inactive",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df_rating_icon span.et-pb-icon",
+        type: "color",
+        important: false,
+      });
 
       utility.process_color({
         props: props,
         key: "rating_color_active",
         additionalCss: additionalCss,
-        selector:
-          "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before",
-        type: "color",
-        important: true,
-      });
-
-      utility.process_color({
-        props: props,
-        key: "rating_color_inactive",
-        additionalCss: additionalCss,
-        selector:
-          "%%order_class%% .df_rating_icon span.df_rating_icon-empty::after",
+        selector: "%%order_class%% .df_rating_icon_fill::before",
         type: "color",
         important: true,
       });
     }
 
-    if (
-      (props.enable_custom_icon === "on" || "off") &&
-      props.enable_single_rating === "on"
-    ) {
+    // Single Rating
+    if (props.enable_single_rating === "on") {
       utility.process_color({
         props: props,
         key: "rating_color_single",
@@ -155,7 +104,7 @@ class RatingBox extends Component {
       key: "rating_icon_size",
       additionalCss: additionalCss,
       selector:
-        "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before, %%order_class%% .df_rating_icon span.df_rating_icon-empty::after",
+        "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before, %%order_class%% .df_rating_icon span.df_rating_icon_empty::after",
       type: "font-size",
       important: true,
     });
@@ -500,10 +449,10 @@ class RatingBox extends Component {
         if (i <= parseInt(get_float[0])) {
           rating_active_class = "df_rating_icon_fill";
         } else {
-          rating_active_class = `df_rating_icon_fill df_rating_icon-empty df-fraction-reverse df_fill_${get_float[1]}`;
+          rating_active_class = `df_rating_icon_fill df_rating_icon_empty df_fraction_reverse df_fill_${get_float[1]}`;
         }
       } else {
-        rating_active_class = "df_rating_icon-empty";
+        rating_active_class = "df_rating_icon_empty";
       }
 
       // Render rating loop
