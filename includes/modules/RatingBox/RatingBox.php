@@ -1238,24 +1238,6 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Rating color
-        $this->df_process_color(array(
-            'render_slug'       => $render_slug,
-            'slug'              => 'rating_color_active',
-            'type'              => 'color',
-            'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill, $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
-            'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill, $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
-            'important' => true,
-        ));
-
-        $this->df_process_color(array(
-            'render_slug'       => $render_slug,
-            'slug'              => 'rating_color_inactive',
-            'type'              => 'color',
-            'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
-            'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon:hover .df_rating_icon_empty::after",
-            'important' => true,
-        ));
-
         // Custom icon
         if ($enable_rating_icon) {
             ET_Builder_Element::set_style($render_slug, array(
@@ -1270,20 +1252,59 @@ class DIFL_RatingBox extends ET_Builder_Module
 
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
+                'slug'              => 'rating_color_inactive',
+                'type'              => 'color',
+                'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon",
+                'hover'             => "",
+                'important' => false,
+            ));
+
+            $this->df_process_color(array(
+                'render_slug'       => $render_slug,
+                'slug'              => 'rating_color_active',
+                'type'              => 'color',
+                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
+                'hover'             => "",
+                'important' => true,
+            ));
+
+
+
+
+            // $this->df_process_color(array(
+            //     'render_slug'       => $render_slug,
+            //     'slug'              => 'rating_color_active',
+            //     'type'              => 'color',
+            //     'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill, $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
+            //     'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill, $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
+            //     'important' => false,
+            // ));
+
+            // $this->df_process_color(array(
+            //     'render_slug'       => $render_slug,
+            //     'slug'              => 'rating_color_inactive',
+            //     'type'              => 'color',
+            //     'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
+            //     'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon:hover .df_rating_icon_empty::after",
+            //     'important' => true,
+            // ));
+        } else {
+            $this->df_process_color(array(
+                'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_active',
                 'type'              => 'color',
                 'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill, $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
                 'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill, $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
-                'important' => false,
+                'important' => true,
             ));
 
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_inactive',
                 'type'              => 'color',
-                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
-                'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon:hover .df_rating_icon_empty::after",
-                'important' => true,
+                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty, $this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty, $this->main_css_element .df_rating_icon:hover .df_rating_icon_empty::after",
+                'important' => false,
             ));
         }
 
