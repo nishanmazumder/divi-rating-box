@@ -1237,7 +1237,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             }
         }
 
-        // Rating color
         // Custom icon
         if ($enable_rating_icon) {
             ET_Builder_Element::set_style($render_slug, array(
@@ -1250,12 +1249,13 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'declaration' => 'display: none !important;'
             ));
 
+            // Rating color
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_inactive',
                 'type'              => 'color',
                 'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon",
-                'hover'             => "",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon",
                 'important' => false,
             ));
 
@@ -1264,31 +1264,11 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'slug'              => 'rating_color_active',
                 'type'              => 'color',
                 'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
-                'hover'             => "",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
                 'important' => true,
             ));
-
-
-
-
-            // $this->df_process_color(array(
-            //     'render_slug'       => $render_slug,
-            //     'slug'              => 'rating_color_active',
-            //     'type'              => 'color',
-            //     'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill, $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
-            //     'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill, $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
-            //     'important' => false,
-            // ));
-
-            // $this->df_process_color(array(
-            //     'render_slug'       => $render_slug,
-            //     'slug'              => 'rating_color_inactive',
-            //     'type'              => 'color',
-            //     'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
-            //     'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty:not(.df_rating_icon_fill), $this->main_css_element .df_rating_icon:hover .df_rating_icon_empty::after",
-            //     'important' => true,
-            // ));
         } else {
+            // Rating color
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_active',
