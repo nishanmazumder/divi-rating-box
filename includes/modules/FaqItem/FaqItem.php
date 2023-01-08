@@ -10,11 +10,11 @@ if (!class_exists('ET_Builder_Element')) {
  *
  */
 
-class DIFL_FAQ extends ET_Builder_Module
+class DIFL_FaqItem extends ET_Builder_Module
 {
-    public $slug       = 'difl_faq';
-    public $child_slug = 'difl_faqitem';
+    public $slug       = 'difl_faqitem';
     public $vb_support = 'on';
+    public $type       = 'child';
     use DF_UTLS;
 
     protected $module_credits = array(
@@ -33,19 +33,10 @@ class DIFL_FAQ extends ET_Builder_Module
 
     public function init()
     {
-        $this->name = esc_html__('FAQ', 'divi_flash');
+        $this->name   = esc_html__('FAQ Item', 'divi_flash');
+        $this->plural = esc_html__('FAQ Items', 'divi_flash');
         $this->main_css_element = "%%order_class%%";
         $this->icon_path        =  DIFL_ADMIN_DIR_PATH . 'img/module-icons/rating-box.svg';
-    }
-
-    /**
-     * Return add new item(module) text.
-     *
-     * @return string
-     */
-    public function add_new_child_text()
-    {
-        return esc_html__('Add New Question', 'divi_flash');
     }
 
     /**
@@ -146,13 +137,20 @@ class DIFL_FAQ extends ET_Builder_Module
     {
 
         $content = [
-            'Title' => array(
-                'label'           => esc_html__('Test', 'divi_flash'),
+            'question' => array(
+                'label'           => esc_html__('Question', 'divi_flash'),
                 'type'            => 'text',
                 'dynamic_content' => 'text',
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'content'
-            )
+            ),
+            'answer' => array(
+                'label'           => esc_html__('Answer', 'divi_flash'),
+                'type'            => 'tiny_mce',
+                'dynamic_content' => 'text',
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'content'
+            ),
         ];
 
         return $content;
@@ -623,10 +621,10 @@ class DIFL_FAQ extends ET_Builder_Module
 
         // Display frontend
         $output = sprintf(
-            '<div class="df_faq_wrapper">
-                 %1$s
+            '<div class="df_faq_container">
+                %1$s
             </div>',
-            $this->content
+            $this->df_render_content()
         );
 
         return $output;
@@ -647,8 +645,46 @@ class DIFL_FAQ extends ET_Builder_Module
 
     public function df_render_content()
     {
-        return $this->props['title'];
+        return sprintf(
+            '<div class="df_faq_item active">
+            <div class="faq_question">
+              <div class="faq_question_image">
+                <div class="image_open">
+                  <img src="#" alt="" />
+                </div>
+                <div class="image_close">
+                  <img src="#" alt="" />
+                </div>
+              </div>
+              <h5 class="faq_title">%1$s</h5>
+              <div class="faq_icon">
+                <div class="icon_open">
+                  <span class="">+</span>
+                </div>
+                <div class="icon_close">
+                  <span class="">-</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq_answer">
+              <div class="faq_content_wrapper">
+                <div class="faq_content">
+                  <p>%2$s</p>
+                </div>
+                <div class="faq_answer_image">
+                  <img src="#" alt="" />
+                </div>
+              </div>
+              <div class="faq_button">
+                <a href="#" class=""></a>
+              </div>
+            </div>
+          </div>',
+            $this->props['question'],
+            $this->props['answer']
+        );
     }
 } //Class
 
-new DIFL_FAQ;
+new DIFL_FaqItem;
