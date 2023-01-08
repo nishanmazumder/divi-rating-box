@@ -650,7 +650,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             <div class="faq_question">
               <div class="faq_question_image">
                 <div class="image_open">
-                  <img src="#" alt="" />
+                  <img src="http://divi2.test/wp-content/uploads/2023/01/faq-demo-icons3.png" alt="" />
                 </div>
                 <div class="image_close">
                   <img src="#" alt="" />

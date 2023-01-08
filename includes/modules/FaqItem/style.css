@@ -1,11 +1,31 @@
 /* Border */
-.difl_faq .df_faq_container * {
+/* .difl_faq .df_faq_wrapper * {
     border-width: 0px;
     border-style: solid;
     border-color: #333;
-  }
+  } */
 
-/* FAQ */
-.df_faq_wrapper{
-    background: rgb(237, 188, 188);
+/* FAQ Item*/
+.active{}
+.difl_faqitem .df_faq_item{}
+.faq_question{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
+.faq_question_image{
+  width: 45px;
+  height: 45px;
+  display: block;
+}
+/* .image_open{}
+.image_open{} */
+/* .faq_title{}
+.faq_icon{}
+.icon_open{}
+.icon_close{}
+.faq_answer{}
+.faq_content_wrapper{}
+.faq_content{}
+.faq_answer_image{}
+.faq_button{} */
