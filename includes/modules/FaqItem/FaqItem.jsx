@@ -33,7 +33,7 @@ class FaqItem extends Component {
     // const height = el.querySelector('.faq_answer_wrapper').scrollHeight;
     this.setState({ toggle: true });
 
-    console.log("test")
+    console.log("test");
   };
 
   static css(props) {
@@ -50,9 +50,14 @@ class FaqItem extends Component {
     const answer = utility._renderDynamicContent(this.props, "answer");
     return (
       <>
-      {/* {console.log(this.state.toggle)} */}
+        {/* {console.log(this.state.toggle)} */}
         <div className="df_faq_item active">
-          <div className="faq_question_wrapper" onClick={()=>{this.showHideAnswer()}}>
+          <div
+            className="faq_question_wrapper"
+            onClick={() => {
+              this.setState({ toggle: true });
+            }}
+          >
             <div className="faq_question_area">
               <div className="faq_question_image">
                 <div className="image_open">
