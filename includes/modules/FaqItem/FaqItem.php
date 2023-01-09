@@ -616,15 +616,161 @@ class DIFL_FaqItem extends ET_Builder_Module
 
     public function render($attrs, $content, $render_slug)
     {
+        // Faq script
+        // wp_enqueue_script('df_faq');
+
         // Get all style
         $this->additional_css_styles($render_slug);
 
         // Display frontend
         $output = sprintf(
-            '<div class="df_faq_container">
-                %1$s
-            </div>',
-            $this->df_render_content()
+            '<div class="df_faq_item">
+
+            <div class="faq_question_wrapper">
+
+              <div class="faq_question_area">
+
+                <div class="faq_question_image">
+                  <div class="image_open"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt="" /></div>
+                </div>
+
+                <div class="faq_question">
+                  <h3>%1$s</h3>
+                </div>
+              </div>
+
+              <div class="faq_icon">
+                <div class="icon_open"><span class="">+</span></div>
+              </div>
+
+            </div>
+
+            <div class="faq_answer_wrapper">
+              <div class="faq_answer_area">
+                <div class="faq_answer">
+                  <p>%2$s</p>
+                </div>
+                <div class="faq_answer_image">
+                  <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
+                </div>
+              </div>
+              <div class="faq_button">
+                <a href="#" class="df_faq_btn">Button</a>
+              </div>
+            </div>
+
+          </div>
+          <div class="df_faq_item">
+
+            <div class="faq_question_wrapper">
+
+              <div class="faq_question_area">
+
+                <div class="faq_question_image">
+                  <div class="image_open"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt="" /></div>
+                </div>
+
+                <div class="faq_question">
+                  <h3>%1$s</h3>
+                </div>
+              </div>
+
+              <div class="faq_icon">
+                <div class="icon_open"><span class="">+</span></div>
+              </div>
+
+            </div>
+
+            <div class="faq_answer_wrapper">
+              <div class="faq_answer_area">
+                <div class="faq_answer">
+                  <p>%2$s</p>
+                </div>
+                <div class="faq_answer_image">
+                  <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
+                </div>
+              </div>
+              <div class="faq_button">
+                <a href="#" class="df_faq_btn">Button</a>
+              </div>
+            </div>
+
+          </div>
+          <div class="df_faq_item">
+
+            <div class="faq_question_wrapper">
+
+              <div class="faq_question_area">
+
+                <div class="faq_question_image">
+                  <div class="image_open"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt="" /></div>
+                </div>
+
+                <div class="faq_question">
+                  <h3>%1$s</h3>
+                </div>
+              </div>
+
+              <div class="faq_icon">
+                <div class="icon_open"><span class="">+</span></div>
+              </div>
+
+            </div>
+
+            <div class="faq_answer_wrapper">
+              <div class="faq_answer_area">
+                <div class="faq_answer">
+                  <p>%2$s</p>
+                </div>
+                <div class="faq_answer_image">
+                  <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
+                </div>
+              </div>
+              <div class="faq_button">
+                <a href="#" class="df_faq_btn">Button</a>
+              </div>
+            </div>
+
+          </div>
+          <div class="df_faq_item">
+
+            <div class="faq_question_wrapper">
+
+              <div class="faq_question_area">
+
+                <div class="faq_question_image">
+                  <div class="image_open"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt="" /></div>
+                </div>
+
+                <div class="faq_question">
+                  <h3>%1$s</h3>
+                </div>
+              </div>
+
+              <div class="faq_icon">
+                <div class="icon_open"><span class="">+</span></div>
+              </div>
+
+            </div>
+
+            <div class="faq_answer_wrapper">
+              <div class="faq_answer_area">
+                <div class="faq_answer">
+                  <p>%2$s</p>
+                </div>
+                <div class="faq_answer_image">
+                  <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
+                </div>
+              </div>
+              <div class="faq_button">
+                <a href="#" class="df_faq_btn">Button</a>
+              </div>
+            </div>
+
+          </div>
+          ',
+            $this->props['question'],
+            $this->props['answer']
         );
 
         return $output;
@@ -643,48 +789,10 @@ class DIFL_FaqItem extends ET_Builder_Module
         return;
     }
 
-    public function df_render_content()
-    {
-        return sprintf(
-            '<div class="df_faq_item active">
-            <div class="faq_question">
-              <div class="faq_question_image">
-                <div class="image_open">
-                  <img src="http://divi2.test/wp-content/uploads/2023/01/faq-demo-icons3.png" alt="" />
-                </div>
-                <div class="image_close">
-                  <img src="#" alt="" />
-                </div>
-              </div>
-              <h5 class="faq_title">%1$s</h5>
-              <div class="faq_icon">
-                <div class="icon_open">
-                  <span class="">+</span>
-                </div>
-                <div class="icon_close">
-                  <span class="">-</span>
-                </div>
-              </div>
-            </div>
+    // public function df_render_content()
+    // {
 
-            <div class="faq_answer">
-              <div class="faq_content_wrapper">
-                <div class="faq_content">
-                  <p>%2$s</p>
-                </div>
-                <div class="faq_answer_image">
-                  <img src="#" alt="" />
-                </div>
-              </div>
-              <div class="faq_button">
-                <a href="#" class=""></a>
-              </div>
-            </div>
-          </div>',
-            $this->props['question'],
-            $this->props['answer']
-        );
-    }
+    // }
 } //Class
 
 new DIFL_FaqItem;

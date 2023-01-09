@@ -618,6 +618,9 @@ class DIFL_FAQ extends ET_Builder_Module
 
     public function render($attrs, $content, $render_slug)
     {
+        // Faq script
+        wp_enqueue_script('df_faq');
+
         // Get all style
         $this->additional_css_styles($render_slug);
 
