@@ -13,6 +13,8 @@ class FaqItem extends Component {
     this.state = {
       toggle: false,
     };
+
+    this.showHideAnswer = this.showHideAnswer.bind(this)
   }
 
   // componentDidMount() {
@@ -33,7 +35,7 @@ class FaqItem extends Component {
     // const height = el.querySelector('.faq_answer_wrapper').scrollHeight;
     this.setState({ toggle: true });
 
-    console.log("test");
+    console.log(this.state.toggle);
   };
 
   static css(props) {
@@ -54,9 +56,7 @@ class FaqItem extends Component {
         <div className="df_faq_item active">
           <div
             className="faq_question_wrapper"
-            onClick={() => {
-              this.setState({ toggle: true });
-            }}
+            onClick={this.showHideAnswer}
           >
             <div className="faq_question_area">
               <div className="faq_question_image">

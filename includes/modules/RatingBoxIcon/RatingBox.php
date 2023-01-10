@@ -935,6 +935,15 @@ class DIFL_RatingBox extends ET_Builder_Module
         $rating_title = "$this->main_css_element .df_rating_title";
         $rating_content = "$this->main_css_element .df_rating_content";
 
+        // Color
+        $fields['rating_color_active'] = array(
+            'color' => "$this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
+        );
+
+        $fields['rating_color_inactive'] = array(
+            'color' => "$this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
+        );
+
         // Background
         $fields = $this->df_background_transition(array(
             'fields'        => $fields,
