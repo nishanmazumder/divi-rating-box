@@ -44,9 +44,6 @@ class RatingBox extends Component {
           declaration: `content: attr(data-icon) !important;`,
         },
       ]);
-
-      console.log("test")
-
       additionalCss.push([
         {
           selector: `%%order_class%% .df_rating_icon span.et-pb-icon`,
@@ -346,15 +343,7 @@ class RatingBox extends Component {
       responsive_d: true,
     };
     const settings = utility.extend(defaults, options);
-    const {
-      props,
-      key,
-      additionalCss,
-      selector,
-      type,
-      css,
-      responsive_d,
-    } = settings;
+    const {props,key,additionalCss,selector,type,css,responsive_d,} = settings;
 
     const desktop = props[key];
     const tablet  = "" !== props[key + "_tablet"] ? props[key + "_tablet"] : undefined;
@@ -407,8 +396,7 @@ class RatingBox extends Component {
         ? props.rating_scale_type !== "" ? parseInt(props.rating_scale_type)
           : 5 : 1;
 
-    const rating_value =
-      rating_scale_type === 5
+    const rating_value = rating_scale_type === 5
         ? props.rating_value_5 <= 5 && props.rating_value_5 >= 0
           ? props.rating_value_5
           : 5
@@ -461,24 +449,24 @@ class RatingBox extends Component {
         ? props.rating_value_5 : props.rating_value_10;
 
     // Show rating number/text
-    const ratingNumber =
-      props.enable_rating_number === "on" ? (
-        props.enable_single_rating !== "on" ? (
-          props.enable_rating_number_bracket === "on" ? (
-            <span className="df_rating_number">
-              <span className="df_rating_bracket">{"("}</span>
-              {`${rating_value} / ${rating_scale_type}`}
-              <span className="df_rating_bracket">{")"}</span>
-            </span>
-          ) : (
-            <span className="df_rating_number">{`${rating_value} / ${rating_scale_type}`}</span>
-          )
-        ) : (
-          <span className="df_rating_number">{rating_value_single}</span>
-        )
-      ) : (
-        ""
-      );
+    let ratingNumber = ""
+    if(props.enable_rating_number === "on"){
+      if(props.enable_single_rating !== "on"){
+        if(props.rating_number_type === "number_with_bracket"){
+          ratingNumber = <span className="df_rating_number">
+            <span className="df_rating_bracket">{"("}</span> {`${rating_value} / ${rating_scale_type}`} <span className="df_rating_bracket">{")"}</span>
+          </span>
+        }else if(props.rating_number_type === "number_without_bracket"){
+          ratingNumber = <span className="df_rating_number">{`${rating_value} / ${rating_scale_type}`}</span>
+        }else{
+          ratingNumber = <span className="df_rating_number">{rating_value_single}</span>
+        }
+      }else{
+        ratingNumber = <span className="df_rating_number">{rating_value_single}</span>
+      }
+    }else{
+      ratingNumber = ""
+    }
 
     // Render icon wrapper
     const iconWrapper = (
@@ -498,10 +486,8 @@ class RatingBox extends Component {
     );
 
     // Rating Title Wrapper
-    const HeadingTag =
-      props.rating_title_tag !== "" ? props.rating_title_tag : "h4";
-    const titleWrapper =
-      props.enable_title === "on" && props.title !== "" ? (
+    const HeadingTag = props.rating_title_tag !== "" ? props.rating_title_tag : "h4";
+    const titleWrapper = props.enable_title === "on" && props.title !== "" ? (
         <HeadingTag className="df_rating_title">
           {props.dynamic.title.hasValue !== ""
             ? utility._renderDynamicContent(props, "title")
@@ -519,8 +505,7 @@ class RatingBox extends Component {
   }
   // Rating Content
   df_render_content() {
-    const content =
-      this.props.enable_content === "on" && this.props.content() !== "" ? (
+    const content = this.props.enable_content === "on" && this.props.content() !== "" ? (
         <div className={"df_rating_content"}>
           {this.props.dynamic.content.hasValue !== ""
             ? utility._renderDynamicContent(this.props, "content")
