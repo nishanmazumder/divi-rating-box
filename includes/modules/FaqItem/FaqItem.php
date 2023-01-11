@@ -35,6 +35,10 @@ class DIFL_FaqItem extends ET_Builder_Module
     {
         $this->name   = esc_html__('FAQ Item', 'divi_flash');
         $this->plural = esc_html__('FAQ Items', 'divi_flash');
+
+        $this->child_title_var          = 'question';
+        // $this->child_title_fallback_var = 'answer';
+
         $this->main_css_element = "%%order_class%%";
         $this->icon_path        =  DIFL_ADMIN_DIR_PATH . 'img/module-icons/rating-box.svg';
     }
@@ -101,26 +105,48 @@ class DIFL_FaqItem extends ET_Builder_Module
         return array(
             'general'   => array(
                 'toggles'      => array(
-                    'content'      => esc_html__('Faq', 'divi_flash'),
+                    'child_faq_content' => [
+                        'title'             => esc_html__('Faq Item', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'default'           => 'question',
+                        'sub_toggles'       => [
+                            'question'   => [
+                                'name'   => esc_html__('Question', 'divi_flash'),
+                            ],
+                            'answer' => [
+                                'name' => esc_html__('Answer', 'divi_flash'),
+                            ],
+                        ],
+                    ],
+                    'child_faq_image'  => [
+                        'title'        => esc_html__('Image', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'sub_toggles'  => [
+                            'close'    => [
+                                'name' => esc_html__('Close', 'divi_flash'),
+                            ],
+                            'open'     => [
+                                'name' => esc_html__('Open', 'divi_flash'),
+                            ],
+                        ],
+                    ],
                 ),
             ),
             'advanced'   => array(
                 'toggles'   => array(
-                    'design_question'                => esc_html__('Question', 'divi_flash'),
+                    'design_question'       => esc_html__('Question', 'divi_flash'),
                     'design_answer'         => esc_html__('Answer', 'divi_flash'),
-                    'design_title'                 => esc_html__('Title Style', 'divi_flash'),
-                    'design_content'               => esc_html__('Content Style', 'divi_flash'),
-                    'design_content_text'       => array(
-                        'title' => esc_html__('Content Text', 'divi_flash'),
+                    'design_answer_text'    => array(
+                        'title'             => esc_html__('Content Text', 'divi_flash'),
                         'tabbed_subtoggles' => true,
                         'sub_toggles'       => $content_sub_toggles,
                     ),
-                    'design_content_heading'       => array(
+                    'design_content_heading' => array(
                         'title' => esc_html__('Content Heading Text', 'divi_flash'),
                         'tabbed_subtoggles' => true,
                         'sub_toggles'       => $heading_sub_toggles,
                     ),
-                    'custom_spacing'        => esc_html__('Custom Spacing', 'divi_flash'),
+                    // 'custom_spacing'        => esc_html__('Custom Spacing', 'divi_flash'),
                 )
             ),
         );
@@ -135,29 +161,203 @@ class DIFL_FaqItem extends ET_Builder_Module
 
     public function get_fields()
     {
-
-        $content = [
+        $faqItem = [
             'question' => array(
                 'label'           => esc_html__('Question', 'divi_flash'),
                 'type'            => 'text',
                 'dynamic_content' => 'text',
                 'option_category' => 'basic_option',
-                'toggle_slug'     => 'content'
+                'toggle_slug'     => 'child_faq_content',
+                'sub_toggle' => 'question'
             ),
             'answer' => array(
                 'label'           => esc_html__('Answer', 'divi_flash'),
                 'type'            => 'tiny_mce',
                 'dynamic_content' => 'text',
                 'option_category' => 'basic_option',
-                'toggle_slug'     => 'content'
+                'toggle_slug'     => 'child_faq_content',
+                'sub_toggle' => 'answer',
             ),
+            'enable_question_image' => array(
+                'label'          => esc_html__('Enable Question Image', 'divi_flash'),
+                'type'           => 'yes_no_button',
+                'default'        => 'off',
+                'options'        => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
+                'toggle_slug'    => 'child_faq_content',
+                'sub_toggle' => 'question',
+            ),
+            'close_question_image' => array(
+                'label'                 => esc_html__('Image', 'divi_flash'),
+                'type'                  => 'upload',
+                'upload_button_text'    => esc_attr__('Upload an image', 'divi_flash'),
+                'choose_text'           => esc_attr__('Choose an Image', 'divi_flash'),
+                'update_text'           => esc_attr__('Set As Image', 'divi_flash'),
+                'toggle_slug'           => 'child_faq_content',
+                'sub_toggle' => 'question',
+                'show_if'        => array(
+                    'enable_question_image'     => 'on',
+                )
+                // 'dynamic_content'    => 'image'
+            ),
+            'close_question_image_alt_text' => array(
+                'label'                 => esc_html__('Image Alt Text', 'divi_flash'),
+                'description'           => esc_html__('This defines the HTML ALT text. A short description of your image can be placed here.', 'divi_flash'),
+                'type'                  => 'text',
+                'toggle_slug'           => 'child_faq_content',
+                'sub_toggle'     => 'question',
+                'show_if'        => array(
+                    'enable_question_image'     => 'on',
+                )
+            ),
+            'open_question_image' => array(
+                'label'                 => esc_html__('Use different image on closing time.', 'divi_flash'),
+                'type'                  => 'upload',
+                'upload_button_text'    => esc_attr__('Upload an image', 'divi_flash'),
+                'choose_text'           => esc_attr__('Choose an Image', 'divi_flash'),
+                'update_text'           => esc_attr__('Set As Image', 'divi_flash'),
+                'toggle_slug'           => 'child_faq_content',
+                'sub_toggle' => 'question',
+                'show_if'        => array(
+                    'enable_question_image'     => 'on',
+                )
+                // 'dynamic_content'    => 'image'
+
+            ),
+            'open_question_image_alt_text' => array(
+                'label'                 => esc_html__('Open Image Alt Text', 'divi_flash'),
+                'description'           => esc_html__('This defines the HTML ALT text. A short description of your image can be placed here.', 'divi_flash'),
+                'type'                  => 'text',
+                'toggle_slug'           => 'child_faq_content',
+                'sub_toggle'            => 'question',
+                'show_if'               => array(
+                    'enable_question_image' => 'on'
+                )
+            ),
+            'enable_answer_image' => array(
+                'label'           => esc_html__('Enable Answer Image', 'divi_flash'),
+                'type'            => 'yes_no_button',
+                'default'         => 'off',
+                'options'         => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
+                'toggle_slug' => 'child_faq_content',
+                'sub_toggle'  => 'answer',
+            ),
+            'answer_image' => array(
+                'label'              => esc_html__('Answer Image', 'divi_flash'),
+                'type'               => 'upload',
+                'upload_button_text' => esc_attr__('Upload an image', 'divi_flash'),
+                'choose_text'        => esc_attr__('Choose an Image', 'divi_flash'),
+                'update_text'        => esc_attr__('Set As Image', 'divi_flash'),
+                'toggle_slug'        => 'child_faq_content',
+                'sub_toggle'         => 'answer',
+                'show_if' => array(
+                    'enable_answer_image' => 'on',
+                )
+                // 'dynamic_content'    => 'image'
+            ),
+            'answer_image_alt_text' => array(
+                'label'                 => esc_html__('Answer Image Alt Text', 'divi_flash'),
+                'description'           => esc_html__('This defines the HTML ALT text. A short description of your image can be placed here.', 'divi_flash'),
+                'type'                  => 'text',
+                'toggle_slug'           => 'child_faq_content',
+                'sub_toggle'            => 'answer',
+                'show_if'               => array(
+                    'enable_answer_image' => 'on'
+                )
+            ),
+            'answer_image_placement' => array(
+                'label'              => esc_html__('Image Placement', 'divi_flash'),
+                'type'               => 'select',
+                'default'            => 'top',
+                'options'            => array(
+                    'top'    => esc_html__('Top', 'divi_flash'),
+                    'bottom' => esc_html__('Bottom', 'divi_flash'),
+                    'left'   => esc_html__('Left', 'divi_flash'),
+                    'right'  => esc_html__('Right', 'divi_flash'),
+                ),
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'child_faq_content',
+                'sub_toggle'      => 'answer',
+                'show_if'         => array(
+                    'enable_answer_image' => 'on',
+                )
+            ),
+            'enable_answer_button' => array(
+                'label'            => esc_html__('Enable Button', 'divi_flash'),
+                'type'             => 'yes_no_button',
+                'default'          => 'off',
+                'options'          => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
+                'toggle_slug'      => 'child_faq_content',
+                'sub_toggle'       => 'answer',
+            ),
+            'button_text' => array(
+                'label'           => esc_html__('Button Text', 'divi_flash'),
+                'type'            => 'text',
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'child_faq_content',
+                'sub_toggle'      => 'answer',
+                'show_if'         => array(
+                    'enable_answer_button' => 'on'
+                )
+            ),
+            'button_url' => array(
+                'label'           => esc_html__('Button URL', 'divi_flash'),
+                'type'            => 'text',
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'child_faq_content',
+                'sub_toggle'      => 'answer',
+                'show_if'         => array(
+                    'enable_answer_button' => 'on'
+                )
+            ),
+            'button_url_new_window' => array(
+                'label'             => esc_html__('Button New tab ', 'divi_flash'),
+                'description'       => esc_html__('Choose whether your link opens in a new window or not', 'divi_flash'),
+                'type'              => 'select',
+                'options'           => array(
+                    'off' => esc_html__('In The Same Window', 'divi_flash'),
+                    'on'  => esc_html__('In The New Tab', 'divi_flash'),
+                ),
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'child_faq_content',
+                'sub_toggle'      => 'answer',
+                'show_if'         => array(
+                    'enable_answer_button' => 'on'
+                )
+            ),
+            // 'button_full_width'  => array(
+            //     'label'             => esc_html__('Enable Button Fullwidth', 'divi_flash'),
+            //     'type'              => 'yes_no_button',
+            //     'options'           => array(
+            //         'off' => esc_html__('Off', 'divi_flash'),
+            //         'on'  => esc_html__('On', 'divi_flash')
+            //     ),
+            //     'default'           => 'off',
+            //     'toggle_slug'       => 'button',
+            //     'tab_slug'        => 'advanced'
+            // ),
+            // 'button_alignment' => array(
+            //     'label'           => esc_html__('Button Alignment', 'divi_flash'),
+            //     'type'            => 'text_align',
+            //     'options'         => et_builder_get_text_orientation_options(array('justified')),
+            //     'toggle_slug'     => 'button',
+            //     'tab_slug'        => 'advanced',
+            //     'mobile_options'  => true,
+            //     'show_if'         => array(
+            //         'button_full_width'     => 'off'
+            //     )
+            // ),
         ];
 
-        return $content;
-
-        // return array_merge(
-        //     $content
-        // );
+        return $faqItem;
     }
 
     /**
@@ -167,321 +367,7 @@ class DIFL_FaqItem extends ET_Builder_Module
      * @since 1.0.0
      */
 
-    public function get_advanced_fields_config()
-    {
-        $advanced_fields = array();
-
-        // Disable fields
-        $advanced_fields['text'] = false;
-
-        $advanced_fields['fonts'] = [
-
-            'rating'   => array(
-                'label'              => esc_html__('Rating', 'divi_flash'),
-                'toggle_slug'        => 'design_rating',
-                'tab_slug'           => 'advanced',
-                'hide_font'          => true,
-                'hide_font_size'     => true,
-                'hide_line_height'   => true,
-                'hide_text_color'    => true,
-                'hide_text_align'    => true,
-                'hide_letter_spacing' => true,
-                'css'      => array(
-                    'main' => "$this->main_css_element .df-rating-icon .et-pb-icon, $this->main_css_element span.df-rating-icon-fill::before",
-                    'hover' => "$this->main_css_element .df-rating-icon .et-pb-icon:hover, $this->main_css_element span.df-rating-icon-fill:hover::before"
-                )
-            ),
-
-            'rating_number'   => array(
-                'label'         => esc_html__('Rating Number', 'divi_flash'),
-                'toggle_slug'   => 'design_rating_number',
-                'tab_slug'        => 'advanced',
-                'hide_line_height'   => true,
-                'hide_text_align'    => true,
-                'font_size' => array(
-                    'default' => '20px',
-                ),
-                'font-weight' => array(
-                    'default' => 'normal'
-                ),
-                'css'      => array(
-                    'main' => "$this->main_css_element span.df-rating-number",
-                    'hover' => "$this->main_css_element span.df-rating-number:hover",
-                )
-            ),
-
-            'title'   => array(
-                'label'         => esc_html__('Title', 'divi_flash'),
-                'toggle_slug'   => 'design_title',
-                'tab_slug'        => 'advanced',
-                'line_height' => array(
-                    'default' => '1.7em',
-                ),
-                'font_size' => array(
-                    'default' => '20px',
-                ),
-                'font-weight' => array(
-                    'default' => 'normal'
-                ),
-                'css'      => array(
-                    'main' => "$this->main_css_element .df-rating-title",
-                    'hover' => "$this->main_css_element .df-rating-title:hover",
-                    'important' => 'all',
-                )
-            ),
-
-            'content'   => array(
-                'label'         => esc_html__('Content', 'divi_flash'),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'   => 'design_content_text',
-                'line_height' => array(
-                    'default' => '1.7em',
-                ),
-                'font_size' => array(
-                    'default' => '14px',
-                ),
-                'font-weight' => array(
-                    'default' => 'normal'
-                ),
-                'css'      => array(
-                    'main' => "$this->main_css_element .df-rating-content",
-                    'hover' => "$this->main_css_element .df-rating-content:hover",
-                    'important' => 'all',
-                ),
-                // Content design
-                'block_elements' => array(
-                    'tabbed_subtoggles' => true,
-                    'bb_icons_support'  => true,
-                    'css'               => array(
-                        'main'  => "$this->main_css_element .df-rating-content",
-                        'hover' => "$this->main_css_element .df-rating-content:hover",
-                    ),
-                ),
-            ),
-        ];
-
-        // Heading Tag
-        $advanced_fields['fonts']['content_heading_1']  = array(
-            'label'       => esc_html__('Heading 1', 'divi_flash'),
-            'font_size'   => array(
-                'default' => absint(et_get_option('body_header_size', '30')) . 'px',
-            ),
-            'font_weight' => array(
-                'default' => '500',
-            ),
-            'line_height' => array(
-                'default' => '1.7',
-            ),
-            'css'         => array(
-                'main'  => "$this->main_css_element .df-rating-content h1",
-                'hover' => "$this->main_css_element .df-rating-content h1:hover",
-            ),
-            'tab_slug'    => 'advanced',
-            'toggle_slug' => 'design_content_heading',
-            'sub_toggle'  => 'h1',
-        );
-        $advanced_fields['fonts']['content_heading_2']  = array(
-            'label'       => esc_html__('Heading 2', 'divi_flash'),
-            'font_size'   => array(
-                'default' => '26px',
-            ),
-            'font_weight' => array(
-                'default' => '500',
-            ),
-            'line_height' => array(
-                'default' => '1.7',
-            ),
-            'css'         => array(
-                'main'  => "$this->main_css_element .df-rating-content h2",
-                'hover' => "$this->main_css_element .df-rating-content h2:hover",
-            ),
-            'tab_slug'    => 'advanced',
-            'toggle_slug' => 'design_content_heading',
-            'sub_toggle'  => 'h2',
-        );
-        $advanced_fields['fonts']['content_heading_3']  = array(
-            'label'       => esc_html__('Heading 3', 'divi_flash'),
-            'font_size'   => array(
-                'default' => '22px',
-            ),
-            'font_weight' => array(
-                'default' => '500',
-            ),
-            'line_height' => array(
-                'default' => '1.7',
-            ),
-            'css'         => array(
-                'main'  => "$this->main_css_element .df-rating-content h3",
-                'hover' => "$this->main_css_element .df-rating-content h3:hover",
-            ),
-            'tab_slug'    => 'advanced',
-            'toggle_slug' => 'design_content_heading',
-            'sub_toggle'  => 'h3',
-        );
-        $advanced_fields['fonts']['content_heading_4']  = array(
-            'label'       => esc_html__('Heading 4', 'divi_flash'),
-            'font_size'   => array(
-                'default' => '18px',
-            ),
-            'font_weight' => array(
-                'default' => '500',
-            ),
-            'line_height' => array(
-                'default' => '1.7',
-            ),
-            'css'         => array(
-                'main'  => "$this->main_css_element .df-rating-content h4",
-                'hover' => "$this->main_css_element .df-rating-content h4:hover",
-            ),
-            'tab_slug'    => 'advanced',
-            'toggle_slug' => 'design_content_heading',
-            'sub_toggle'  => 'h4',
-        );
-        $advanced_fields['fonts']['content_heading_5']  = array(
-            'label'       => esc_html__('Heading 5', 'divi_flash'),
-            'font_size'   => array(
-                'default' => '16px',
-            ),
-            'font_weight' => array(
-                'default' => '500',
-            ),
-            'line_height' => array(
-                'default' => '1.7',
-            ),
-            'css'         => array(
-                'main'  => "$this->main_css_element .df-rating-content h5",
-                'hover' => "$this->main_css_element .df-rating-content h5:hover",
-            ),
-            'tab_slug'    => 'advanced',
-            'toggle_slug' => 'design_content_heading',
-            'sub_toggle'  => 'h5',
-        );
-        $advanced_fields['fonts']['content_heading_6']  = array(
-            'label'       => esc_html__('Heading 6', 'divi_flash'),
-            'font_size'   => array(
-                'default' => '14px',
-            ),
-            'font_weight' => array(
-                'default' => '500',
-            ),
-            'line_height' => array(
-                'default' => '1.7',
-            ),
-            'css'         => array(
-                'main'  => "$this->main_css_element .df-rating-content h6",
-                'hover' => "$this->main_css_element .df-rating-content h6:hover",
-            ),
-            'tab_slug'    => 'advanced',
-            'toggle_slug' => 'design_content_heading',
-            'sub_toggle'  => 'h6',
-        );
-
-        $advanced_fields['borders'] = array(
-            'default'               => array(),
-            'rating_icon_border'         => array(
-                'css'               => array(
-                    'main'  => array(
-                        'border_radii' => "$this->main_css_element .df-rating-icon",
-                        'border_radii_hover' => "$this->main_css_element .df-rating-icon:hover",
-                        'border_styles' => "$this->main_css_element .df-rating-icon",
-                        'border_styles_hover' => "$this->main_css_element .df-rating-icon:hover",
-                    )
-                ),
-                'label_prefix'    => esc_html__('Rating', 'divi_flash'),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_rating',
-            ),
-            'title_border'         => array(
-                'css'               => array(
-                    'main'  => array(
-                        'border_radii' => "$this->main_css_element .df-rating-title",
-                        'border_radii_hover' => "$this->main_css_element .df-rating-title:hover",
-                        'border_styles' => "$this->main_css_element .df-rating-title",
-                        'border_styles_hover' => "$this->main_css_element .df-rating-title:hover",
-                    )
-                ),
-                'label_prefix'    => esc_html__('Title', 'divi_flash'),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_title',
-            ),
-            'content_border'         => array(
-                'css'               => array(
-                    'main'  => array(
-                        'border_radii' => "$this->main_css_element .df-rating-content",
-                        'border_radii_hover' => "$this->main_css_element .df-rating-content:hover",
-                        'border_styles' => "$this->main_css_element .df-rating-content",
-                        'border_styles_hover' => "$this->main_css_element .df-rating-content:hover",
-                    )
-                ),
-                'label_prefix'    => esc_html__('Content', 'divi_flash'),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_content',
-            ),
-        );
-
-        $advanced_fields['box_shadow'] = array(
-            'default'               => true,
-
-            'rating_box_shadow'             => array(
-                'label'    => esc_html__('Rating Box Shadow', 'divi_flash'),
-                'css' => array(
-                    'main' => "$this->main_css_element .df-rating-icon",
-                    'hover' => "$this->main_css_element .df-rating-icon:hover",
-                ),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_rating',
-            ),
-
-            'title_box_shadow'             => array(
-                'label'    => esc_html__('Title Box Shadow', 'divi_flash'),
-                'css' => array(
-                    'main' => "$this->main_css_element .df-rating-title",
-                    'hover' => "$this->main_css_element .df-rating-title:hover",
-                ),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_title',
-            ),
-
-            'content_box_shadow'             => array(
-                'label'    => esc_html__('Content Box Shadow', 'divi_flash'),
-                'css' => array(
-                    'main' => "$this->main_css_element .df-rating-content",
-                    'hover' => "$this->main_css_element .df-rating-content:hover",
-                ),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'design_content',
-            ),
-
-        );
-
-        $advanced_fields['filters'] = array(
-            'child_filters_target' => array(
-                'label'    => esc_html__('Filter', 'divi_flash'),
-                'tab_slug'        => 'advanced',
-                'toggle_slug'     => 'filter',
-                'css' => array(
-                    'main' => "$this->main_css_element .df-rating-box-container",
-                    'hover' => "$this->main_css_element .df-rating-box-container:hover"
-                ),
-            ),
-        );
-
-        $advanced_fields['margin_padding'] = array(
-            'css'   => array(
-                'important' => 'all'
-            )
-        );
-
-        $advanced_fields['max_width'] = array(
-            'css' => array(
-                'main'             => $this->main_css_element,
-                'module_alignment' => "$this->main_css_element.et_pb_module",
-                'important' => 'all'
-            ),
-        );
-
-        return $advanced_fields;
-    }
+    // public function get_advanced_fields_config(){}
 
     /**
      * Declare custom css fields for the module
@@ -491,31 +377,7 @@ class DIFL_FaqItem extends ET_Builder_Module
      * @since 1.0.0
      */
 
-    public function get_custom_css_fields_config()
-    {
-        return array(
-            'rating_css' => array(
-                'label'    => esc_html__('Rating', 'divi_flash'),
-                'selector' => "$this->main_css_element .df-rating-icon .et-pb-icon",
-            ),
-            'rating_before_css' => array(
-                'label'    => esc_html__('Rating Before', 'divi_flash'),
-                'selector' => "$this->main_css_element .df-rating-icon span.df-rating-icon-fill::before",
-            ),
-            'rating_number_css' => array(
-                'label'    => esc_html__('Rating Number', 'divi_flash'),
-                'selector' => "$this->main_css_element .df-rating-number",
-            ),
-            'rating_title_css' => array(
-                'label'    => esc_html__('Rating Title', 'divi_flash'),
-                'selector' => "$this->main_css_element .df-rating-title",
-            ),
-            'rating_content_css' => array(
-                'label'    => esc_html__('Rating Content', 'divi_flash'),
-                'selector' => "$this->main_css_element .df-rating-content",
-            ),
-        );
-    }
+    // public function get_custom_css_fields_config(){}
 
     /**
      * Get CSS fields transition.
@@ -525,83 +387,7 @@ class DIFL_FaqItem extends ET_Builder_Module
      * @since 1.0.0
      */
 
-    public function get_transition_fields_css_props()
-    {
-        $fields = parent::get_transition_fields_css_props();
-
-        $rating_rating_wrapper = "$this->main_css_element .df-rating-wrapper";
-        $rating_icon = "$this->main_css_element .df-rating-icon";
-        $rating_title = "$this->main_css_element .df-rating-title";
-        $rating_content = "$this->main_css_element .df-rating-content";
-
-        // Background
-        $fields = $this->df_background_transition(array(
-            'fields'        => $fields,
-            'key'           => 'rating_bg',
-            'selector'      => $rating_icon
-        ));
-
-        $fields = $this->df_background_transition(array(
-            'fields'        => $fields,
-            'key'           => 'rating_title_bg',
-            'selector'      => $rating_title
-        ));
-
-        $fields = $this->df_background_transition(array(
-            'fields'        => $fields,
-            'key'           => 'rating_content_bg',
-            'selector'      => $rating_content
-        ));
-
-        // Border
-        $fields = $this->df_fix_border_transition(
-            $fields,
-            'rating_wrapper_border',
-            $rating_rating_wrapper
-        );
-
-        $fields = $this->df_fix_border_transition(
-            $fields,
-            'rating_icon_border',
-            $rating_icon
-        );
-
-        $fields = $this->df_fix_border_transition(
-            $fields,
-            'title_border',
-            $rating_title
-        );
-
-        $fields = $this->df_fix_border_transition(
-            $fields,
-            'content_border',
-            $rating_content
-        );
-
-        // Box Shadow
-        $fields = $this->df_fix_box_shadow_transition(
-            $fields,
-            'rating_box_wrapper_shadow',
-            $rating_rating_wrapper
-        );
-        $fields = $this->df_fix_box_shadow_transition(
-            $fields,
-            'rating_box_shadow',
-            $rating_icon
-        );
-        $fields = $this->df_fix_box_shadow_transition(
-            $fields,
-            'title_box_shadow',
-            $rating_title
-        );
-        $fields = $this->df_fix_box_shadow_transition(
-            $fields,
-            'content_box_shadow',
-            $rating_content
-        );
-
-        return $fields;
-    }
+    // public function get_transition_fields_css_props(){}
 
     /**
      * Render module output
@@ -660,114 +446,6 @@ class DIFL_FaqItem extends ET_Builder_Module
             </div>
 
           </div>
-          <div class="df_faq_item">
-
-            <div class="faq_question_wrapper">
-
-              <div class="faq_question_area">
-
-                <div class="faq_question_image">
-                  <div class="image_open"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt="" /></div>
-                </div>
-
-                <div class="faq_question">
-                  <h3>%1$s</h3>
-                </div>
-              </div>
-
-              <div class="faq_icon">
-                <div class="icon_open"><span class="">+</span></div>
-              </div>
-
-            </div>
-
-            <div class="faq_answer_wrapper">
-              <div class="faq_answer_area">
-                <div class="faq_answer">
-                  <p>%2$s</p>
-                </div>
-                <div class="faq_answer_image">
-                  <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
-                </div>
-              </div>
-              <div class="faq_button">
-                <a href="#" class="df_faq_btn">Button</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="df_faq_item">
-
-            <div class="faq_question_wrapper">
-
-              <div class="faq_question_area">
-
-                <div class="faq_question_image">
-                  <div class="image_open"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt="" /></div>
-                </div>
-
-                <div class="faq_question">
-                  <h3>%1$s</h3>
-                </div>
-              </div>
-
-              <div class="faq_icon">
-                <div class="icon_open"><span class="">+</span></div>
-              </div>
-
-            </div>
-
-            <div class="faq_answer_wrapper">
-              <div class="faq_answer_area">
-                <div class="faq_answer">
-                  <p>%2$s</p>
-                </div>
-                <div class="faq_answer_image">
-                  <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
-                </div>
-              </div>
-              <div class="faq_button">
-                <a href="#" class="df_faq_btn">Button</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="df_faq_item">
-
-            <div class="faq_question_wrapper">
-
-              <div class="faq_question_area">
-
-                <div class="faq_question_image">
-                  <div class="image_open"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt="" /></div>
-                </div>
-
-                <div class="faq_question">
-                  <h3>%1$s</h3>
-                </div>
-              </div>
-
-              <div class="faq_icon">
-                <div class="icon_open"><span class="">+</span></div>
-              </div>
-
-            </div>
-
-            <div class="faq_answer_wrapper">
-              <div class="faq_answer_area">
-                <div class="faq_answer">
-                  <p>%2$s</p>
-                </div>
-                <div class="faq_answer_image">
-                  <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
-                </div>
-              </div>
-              <div class="faq_button">
-                <a href="#" class="df_faq_btn">Button</a>
-              </div>
-            </div>
-
-          </div>
           ',
             $this->props['question'],
             $this->props['answer']
@@ -784,10 +462,7 @@ class DIFL_FaqItem extends ET_Builder_Module
      *
      */
 
-    public function additional_css_styles($render_slug)
-    {
-        return;
-    }
+    // public function additional_css_styles($render_slug){}
 
     // public function df_render_content()
     // {

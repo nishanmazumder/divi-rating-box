@@ -57,7 +57,7 @@
 /* .difl_faqitem .icon_open{} */
 /* .difl_faqitem .icon_close{} */
 .difl_faqitem .faq_answer_wrapper {
-  display: none;
+  /* display: none; */
   overflow: hidden;
 }
 
