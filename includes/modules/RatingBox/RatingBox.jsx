@@ -34,7 +34,7 @@ class RatingBox extends Component {
     if (props.enable_custom_icon === "on") {
       additionalCss.push([
         {
-          selector: `%%order_class%% .df_rating_icon .df_rating_icon_empty::after`,
+          selector: `%%order_class%% .df_rating_icon_empty::after`,
           declaration: `display:none !important;`,
         },
       ]);
@@ -45,7 +45,15 @@ class RatingBox extends Component {
         },
       ]);
 
-      // Rating color
+      console.log("test")
+
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df_rating_icon span.et-pb-icon`,
+          declaration: `margin-top: -3px;`,
+        },
+      ]);
+
       utility.process_color({
         props: props,
         key: "rating_color_inactive",
@@ -59,7 +67,7 @@ class RatingBox extends Component {
         props: props,
         key: "rating_color_active",
         additionalCss: additionalCss,
-        selector: "%%order_class%% .df_rating_icon .df_rating_icon_fill::before",
+        selector: "%%order_class%% .df_rating_icon_fill::before",
         type: "color",
         important: true,
       });
@@ -70,7 +78,7 @@ class RatingBox extends Component {
         additionalCss: additionalCss,
         selector: "%%order_class%% .df_rating_icon .df_rating_icon_fill, %%order_class%% .df_rating_icon .df_rating_icon_fill::before",
         type: "color",
-        important: true,
+        important: false,
       });
 
       utility.process_color({
@@ -89,7 +97,7 @@ class RatingBox extends Component {
         props: props,
         key: "rating_color_single",
         additionalCss: additionalCss,
-        selector:"%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before",
+        selector: "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before",
         type: "color",
         important: true,
       });
@@ -100,8 +108,8 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon_size",
       additionalCss: additionalCss,
-      selector:
-        "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before, %%order_class%% .df_rating_icon span.df_rating_icon_empty::after",
+      // prettier-ignore
+      selector: "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before, %%order_class%% .df_rating_icon span.df_rating_icon_empty::after",
       type: "font-size",
       important: true,
     });
@@ -111,8 +119,8 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon_space",
       additionalCss: additionalCss,
-      selector:
-        "%%order_class%% .df_rating_icon span.et-pb-icon:not(:first-child)",
+      // prettier-ignore
+      selector: "%%order_class%% .df_rating_icon span.et-pb-icon:not(:first-child)",
       type: "margin-left",
       unit: "px",
     });
@@ -216,14 +224,14 @@ class RatingBox extends Component {
         additionalCss.push([
           {
             selector: `%%order_class%%  .df_rating_number`,
-            declaration: `margin-left: 5px; margin-top: 3px;`,
+            declaration: `margin-left: 5px;`,
           },
         ]);
       } else {
         additionalCss.push([
           {
             selector: `%%order_class%%  .df_rating_number`,
-            declaration: `margin-right: 5px; margin-top: 3px;`,
+            declaration: `margin-right: 5px;`,
           },
         ]);
       }
@@ -298,7 +306,7 @@ class RatingBox extends Component {
       },
     ]);
 
-    if (props.title_text_align_phone !== "") {
+    if ("" !== props.title_text_align_phone) {
       const title_align_mob = props.title_text_align_phone
         ? props.title_text_align_phone
         : "center";
@@ -311,7 +319,7 @@ class RatingBox extends Component {
       ]);
     }
 
-    if (props.rating_icon_align_phone !== "") {
+    if ("" !== props.rating_icon_align_phone) {
       const rating_align_mob = props.rating_icon_align_phone
         ? props.rating_icon_align_phone
         : "center";
@@ -349,10 +357,8 @@ class RatingBox extends Component {
     } = settings;
 
     const desktop = props[key];
-    const tablet =
-      props[key + "_tablet"] !== "" ? props[key + "_tablet"] : undefined;
-    const phone =
-      props[key + "_phone"] !== "" ? props[key + "_phone"] : undefined;
+    const tablet  = "" !== props[key + "_tablet"] ? props[key + "_tablet"] : undefined;
+    const phone   = "" !== props[key + "_phone"] ? props[key + "_phone"] : undefined;
 
     const get_values = ["center", "left", "right"];
     const set_values = ["center", "start", "end"];
@@ -397,12 +403,9 @@ class RatingBox extends Component {
     const utils = window.ET_Builder.API.Utils;
 
     // Rating scale type
-    const rating_scale_type =
-      props.enable_single_rating === "off"
-        ? props.rating_scale_type !== ""
-          ? parseInt(props.rating_scale_type)
-          : 5
-        : 1;
+    const rating_scale_type = props.enable_single_rating === "off"
+        ? props.rating_scale_type !== "" ? parseInt(props.rating_scale_type)
+          : 5 : 1;
 
     const rating_value =
       rating_scale_type === 5
@@ -414,14 +417,8 @@ class RatingBox extends Component {
         : 10;
 
     // Get only Icon
-    const dynamicIcon = utility.df_collect_dynamic_content(
-      "rating_icon",
-      this.props
-    );
-
-    const icon = props.enable_custom_icon === "on"
-        ? utils.processFontIcon(dynamicIcon)
-        : utils.processFontIcon("&#xe031;||divi||400");
+    const dynamicIcon = utility.df_collect_dynamic_content("rating_icon",this.props);
+    const icon = props.enable_custom_icon === "on" ? utils.processFontIcon(dynamicIcon) : "☆";
 
     // Set Rating Icon
     const rating_icon = [];
@@ -453,11 +450,7 @@ class RatingBox extends Component {
 
       // Render rating loop
       rating_icon.push(
-        <span
-          className={"et-pb-icon " + rating_active_class}
-          key={i}
-          data-icon={icon}
-        >
+        <span className={"et-pb-icon " + rating_active_class} key={i} data-icon={icon}>
           {icon}
         </span>
       );
@@ -465,11 +458,11 @@ class RatingBox extends Component {
 
     // Get single rating value
     const rating_value_single = parseInt(props.rating_scale_type) === 5
-        ? props.rating_value_5
-        : props.rating_value_10;
+        ? props.rating_value_5 : props.rating_value_10;
 
     // Show rating number/text
-    const ratingNumber = props.enable_rating_number === "on" ? (
+    const ratingNumber =
+      props.enable_rating_number === "on" ? (
         props.enable_single_rating !== "on" ? (
           props.enable_rating_number_bracket === "on" ? (
             <span className="df_rating_number">
@@ -505,7 +498,8 @@ class RatingBox extends Component {
     );
 
     // Rating Title Wrapper
-    const HeadingTag = props.rating_title_tag !== "" ? props.rating_title_tag : "h4";
+    const HeadingTag =
+      props.rating_title_tag !== "" ? props.rating_title_tag : "h4";
     const titleWrapper =
       props.enable_title === "on" && props.title !== "" ? (
         <HeadingTag className="df_rating_title">
@@ -513,9 +507,7 @@ class RatingBox extends Component {
             ? utility._renderDynamicContent(props, "title")
             : ""}
         </HeadingTag>
-      ) : (
-        ""
-      );
+      ) : ("");
 
     // Return Rating Icon wrapper
     return (
@@ -527,15 +519,14 @@ class RatingBox extends Component {
   }
   // Rating Content
   df_render_content() {
-    const content = this.props.enable_content === "on" && this.props.content() !== "" ? (
+    const content =
+      this.props.enable_content === "on" && this.props.content() !== "" ? (
         <div className={"df_rating_content"}>
           {this.props.dynamic.content.hasValue !== ""
             ? utility._renderDynamicContent(this.props, "content")
             : ""}
         </div>
-      ) : (
-        ""
-      );
+      ) : ("");
 
     return content;
   }

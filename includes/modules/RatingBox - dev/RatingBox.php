@@ -199,7 +199,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'label'             => esc_html__('Rating Icon', 'divi_flash'),
                 'type'              => 'select_icon',
                 'option_category'  => 'basic_option',
-                'default'           => '☆',
+                'default'           => '&#xe031;||divi||400',
                 'class'             => array('et-pb-font-icon'),
                 'toggle_slug'       => 'rating',
                 'mobile_options'   => true,
@@ -413,7 +413,7 @@ class DIFL_RatingBox extends ET_Builder_Module
             'rating_icon_size' => array(
                 'label'             => esc_html__('Rating Icon Size', 'divi_flash'),
                 'type'              => 'range',
-                'default' => '30',
+                'default'           => '20px',
                 'allowed_units'     => array('px'),
                 'range_settings'    => array(
                     'min'  => '1',
@@ -935,15 +935,6 @@ class DIFL_RatingBox extends ET_Builder_Module
         $rating_title = "$this->main_css_element .df_rating_title";
         $rating_content = "$this->main_css_element .df_rating_content";
 
-        // Color
-        $fields['rating_color_active'] = array(
-            'color' => "$this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
-        );
-
-        $fields['rating_color_inactive'] = array(
-            'color' => "$this->main_css_element .df_rating_icon .df_rating_icon_empty::after",
-        );
-
         // Background
         $fields = $this->df_background_transition(array(
             'fields'        => $fields,
@@ -1032,7 +1023,8 @@ class DIFL_RatingBox extends ET_Builder_Module
         // Schema
         $schema = "";
         if ($this->props['enable_schema'] && $this->props['enable_schema'] === 'on') {
-            $rating_val = $this->props['rating_scale_type'] === "5"
+            $rating_val =
+                $this->props['rating_scale_type'] === "5"
                 ? $this->props['rating_value_5']
                 : $this->props['rating_value_10'];
 
@@ -1166,7 +1158,8 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         // Get only icon
         $enable_rating_icon = $this->props['enable_custom_icon'] === 'on' ? true : false;
-        $get_rating_icon = $this->props['enable_custom_icon'] === 'on' ? et_pb_process_font_icon($this->props['rating_icon']) : et_pb_process_font_icon("&#xe033;||divi||400"); // et_pb_process_font_icon('');
+        $get_rating_icon =
+            $this->props['enable_custom_icon'] === 'on' ? et_pb_process_font_icon($this->props['rating_icon']) : et_pb_process_font_icon("&#xe033;||divi||400"); // et_pb_process_font_icon('');
 
         if ($get_rating_icon && !empty($this->props['rating_icon'])) {
             if (method_exists('ET_Builder_Module_Helper_Style_Processor', 'process_extended_icon')) {
@@ -1247,11 +1240,6 @@ class DIFL_RatingBox extends ET_Builder_Module
         // Custom icon
         if ($enable_rating_icon) {
             ET_Builder_Element::set_style($render_slug, array(
-                'selector' => "$this->main_css_element .df_rating_icon span.et-pb-icon",
-                'declaration' => 'margin-top: -3px;'
-            ));
-
-            ET_Builder_Element::set_style($render_slug, array(
                 'selector' => "$this->main_css_element .df_rating_icon span.df_rating_icon_fill::before",
                 'declaration' => 'content: attr(data-icon) !important;'
             ));
@@ -1261,22 +1249,23 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'declaration' => 'display: none !important;'
             ));
 
+            // Rating color
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_inactive',
                 'type'              => 'color',
-                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_empty",
-                'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_empty",
-                'important' => true,
+                'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon",
+                'important' => false,
             ));
 
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_active',
                 'type'              => 'color',
-                'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon:not(.df_rating_icon_empty), $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
-                'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon:not(.df_rating_icon_empty), $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
-                'important' => false,
+                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
+                'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
+                'important' => true,
             ));
         } else {
             // Rating color
@@ -1284,10 +1273,11 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_active',
                 'type'              => 'color',
-                'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon:not(.df_rating_icon_empty), $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
+                'selector'          => "$this->main_css_element .df_rating_icon .df_rating_icon_fill, $this->main_css_element .df_rating_icon .df_rating_icon_fill::before",
                 'hover'             => "$this->main_css_element .df_rating_icon:hover .df_rating_icon_fill, $this->main_css_element .df_rating_icon:hover .df_rating_icon_fill::before",
-                'important' => false,
+                'important' => true,
             ));
+
             $this->df_process_color(array(
                 'render_slug'       => $render_slug,
                 'slug'              => 'rating_color_inactive',
@@ -1404,13 +1394,16 @@ class DIFL_RatingBox extends ET_Builder_Module
         ) : "";
 
         // Rating Icon only
-        $get_rating_icon =  $this->props['enable_custom_icon'] === 'on' ? et_pb_process_font_icon($this->props['rating_icon']) : "☆";
+        $get_rating_icon =
+            $this->props['enable_custom_icon'] === 'on' ? et_pb_process_font_icon($this->props['rating_icon']) : et_pb_process_font_icon("&#xe031;");
 
         // Rating scale type
-        $rating_scale_type = $this->props['enable_single_rating'] == 'off' ?
+        $rating_scale_type =
+            $this->props['enable_single_rating'] == 'off' ?
             (!empty($this->props['rating_scale_type']) ? $this->props['rating_scale_type'] : 5) : 1;
 
-        $rating_value = $rating_scale_type == 5
+        $rating_value =
+            $rating_scale_type == 5
             ? ($this->props['rating_value_5'] <= 5 && $this->props['rating_value_5'] >= 0
                 ? $this->props['rating_value_5'] : 5) : ($this->props['rating_value_10'] <= 10 && $this->props['rating_value_10'] >= 0
                 ? $this->props['rating_value_10'] : 10);
@@ -1436,7 +1429,8 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         // Get single rating value
-        $rating_value_single = $this->props['rating_scale_type'] === "5"
+        $rating_value_single =
+            $this->props['rating_scale_type'] === "5"
             ? $this->props['rating_value_5']
             : $this->props['rating_value_10'];
 
@@ -1476,9 +1470,10 @@ class DIFL_RatingBox extends ET_Builder_Module
         );
     }
 
-    // Render rating content
+    // Render rating content section
     public function df_render_content()
     {
+        // Rating Content
         $content = $this->props['enable_content'] === 'on' && !empty($this->props['content'])
             ? sprintf(
                 '<div class="df_rating_content">%1$s</div>',

@@ -13,11 +13,9 @@
 }
 .difl_ratingbox .df_rating_icon span.et-pb-icon {
   margin: 0px 2px;
+  margin-top: -5px;
   line-height: 1.7em;
-}
-
-.difl_ratingbox .df_rating_icon span {
-  font-size: 20px;
+  font-size: 30px;
 }
 
 /* Inactive */
@@ -30,9 +28,8 @@
 }
 
 .difl_ratingbox .df_rating_icon span.df_rating_icon_fill::before {
-  content: "\e033";
+  content: "★";
   display: block;
-  font-size: 20px;
   font-family: inherit;
   position: absolute;
   overflow: hidden;
@@ -69,9 +66,8 @@
 }
 
 .difl_ratingbox .df_rating_icon span.df_rating_icon_empty::after {
-  content: "\e031";
+  content: "☆";
   display: block;
-  font-size: 20px;
   font-family: inherit;
   position: absolute;
   overflow: hidden;
@@ -115,6 +111,7 @@
   color: #000;
   margin: 0px 5px;
   line-height: 1.7em;
+  font-size: 20px;
 }
 .df_rating_bracket {
   position: relative;
