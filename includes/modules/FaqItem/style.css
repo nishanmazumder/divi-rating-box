@@ -76,7 +76,7 @@
   padding: 5px 10px;
 }
 
-.difl_faqitem .faq_answer_wrapper.active{
+.difl_faqitem .df_faq_item.active .faq_answer_wrapper{
   display: block !important;
 }
 
