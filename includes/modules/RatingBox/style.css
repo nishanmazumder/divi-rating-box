@@ -113,10 +113,7 @@
   line-height: 1.7em;
   font-size: 20px;
 }
-.df_rating_bracket {
-  position: relative;
-  top: -2px;
-}
+
 /* Title & Content */
 .difl_ratingbox .df_rating_box_container .df_rating_wrapper .df_rating_title {
   font-size: 20px;

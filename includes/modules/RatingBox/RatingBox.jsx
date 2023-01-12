@@ -292,16 +292,17 @@ class RatingBox extends Component {
           },
         ]);
       }
+
+      // (Mobile) Set display type block on mobile
+      additionalCss.push([
+        {
+          selector: `%%order_class%% .df_rating_wrapper`,
+          declaration: `flex-direction: column-reverse !important;`,
+          device: "phone",
+        },
+      ]);
     }
 
-    // (Mobile) Set display type block on mobile
-    additionalCss.push([
-      {
-        selector: `%%order_class%% .df_rating_wrapper`,
-        declaration: `flex-direction: column-reverse !important;`,
-        device: "phone",
-      },
-    ]);
 
     if ("" !== props.title_text_align_phone) {
       const title_align_mob = props.title_text_align_phone
@@ -316,18 +317,17 @@ class RatingBox extends Component {
       ]);
     }
 
-    if ("" !== props.rating_icon_align_phone) {
-      const rating_align_mob = props.rating_icon_align_phone
-        ? props.rating_icon_align_phone
-        : "center";
-      additionalCss.push([
-        {
-          selector: `%%order_class%% .df_rating_icon`,
-          declaration: `width: 100%; justify-content: ${rating_align_mob};`,
-          device: "phone",
-        },
-      ]);
-    }
+    const rating_align_mob = props.rating_icon_align_phone
+      ? props.rating_icon_align_phone
+      : "center";
+    additionalCss.push([
+      {
+        selector: `%%order_class%% .df_rating_icon`,
+        declaration: `width: 100%; justify-content: ${rating_align_mob};`,
+        device: "phone",
+      },
+    ]);
+
 
     return additionalCss;
   }
@@ -339,15 +339,14 @@ class RatingBox extends Component {
       additionalCss: "",
       selector: "",
       type: "",
-      css: "",
-      responsive_d: true,
+      css: ""
     };
     const settings = utility.extend(defaults, options);
-    const {props,key,additionalCss,selector,type,css,responsive_d,} = settings;
+    const {props,key,additionalCss,selector,type,css} = settings;
 
     const desktop = props[key];
-    const tablet  = "" !== props[key + "_tablet"] ? props[key + "_tablet"] : undefined;
-    const phone   = "" !== props[key + "_phone"] ? props[key + "_phone"] : undefined;
+    const tablet  = utility.df_check_values(desktop, props[key + "_tablet"]);
+    const phone  = utility.df_check_values(desktop, props[key + "_phone"]);
 
     const get_values = ["center", "left", "right"];
     const set_values = ["center", "start", "end"];
@@ -357,16 +356,13 @@ class RatingBox extends Component {
       values[get_values[i]] = set_values[i];
     }
 
-    if (responsive_d === true) {
       additionalCss.push([
         {
           selector: selector,
           declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
         },
       ]);
-    }
 
-    if (typeof tablet !== "undefined") {
       additionalCss.push([
         {
           selector: selector,
@@ -374,9 +370,7 @@ class RatingBox extends Component {
           device: "tablet",
         },
       ]);
-    }
 
-    if (typeof phone !== "undefined") {
       additionalCss.push([
         {
           selector: selector,
@@ -384,7 +378,7 @@ class RatingBox extends Component {
           device: "phone",
         },
       ]);
-    }
+
   }
 
   df_render_rating_wrapper() {
@@ -454,7 +448,7 @@ class RatingBox extends Component {
       if(props.enable_single_rating !== "on"){
         if(props.rating_number_type === "number_with_bracket"){
           ratingNumber = <span className="df_rating_number">
-            <span className="df_rating_bracket">{"("}</span> {`${rating_value} / ${rating_scale_type}`} <span className="df_rating_bracket">{")"}</span>
+            {`(${rating_value} / ${rating_scale_type})`}
           </span>
         }else if(props.rating_number_type === "number_without_bracket"){
           ratingNumber = <span className="df_rating_number">{`${rating_value} / ${rating_scale_type}`}</span>

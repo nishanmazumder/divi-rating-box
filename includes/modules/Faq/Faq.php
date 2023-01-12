@@ -159,7 +159,7 @@ class DIFL_FAQ extends ET_Builder_Module
 
         $faq = [
             'faq_layout' => array(
-                'label'          => esc_html__('Layouts', 'divi_flash'),
+                'label'          => esc_html__('Layout Type', 'divi_flash'),
                 'type'           => 'select',
                 'default'        => 'accordion',
                 'options'        => array(
@@ -313,7 +313,7 @@ class DIFL_FAQ extends ET_Builder_Module
     /**
      * Render module output
      *
-     * @param array  $attrs       Rating of unprocessed attributes
+     * @param array  $attrs       FAQ of unprocessed attributes
      * @param string $content     Content being processed
      * @param string $render_slug Slug of module that is used for rendering output
      *
@@ -323,11 +323,12 @@ class DIFL_FAQ extends ET_Builder_Module
 
     public function render($attrs, $content, $render_slug)
     {
-        // Faq script
+        // Scripts
+        // wp_enqueue_script('animejs');
         wp_enqueue_script('df_faq');
 
         // Get all style
-        $this->additional_css_styles($render_slug);
+        // $this->additional_css_styles($render_slug);
 
         // Display frontend
         $output = sprintf(
