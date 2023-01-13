@@ -12,7 +12,7 @@ if (!class_exists('ET_Builder_Element')) {
 
 class DIFL_RatingBox extends ET_Builder_Module
 {
-    public $slug       = 'difl_ratingbox';
+    public $slug       = 'difl_ratingbox_css';
     public $vb_support = 'on';
     use DF_UTLS;
 

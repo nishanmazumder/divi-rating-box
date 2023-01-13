@@ -345,6 +345,7 @@ class RatingBox extends Component {
     const {props,key,additionalCss,selector,type,css} = settings;
 
     const desktop = props[key];
+    // const tablet  = utility.df_check_values(desktop, props[key + "_tablet"]);
     const tablet  = utility.df_check_values(desktop, props[key + "_tablet"]);
     const phone  = utility.df_check_values(desktop, props[key + "_phone"]);
 
