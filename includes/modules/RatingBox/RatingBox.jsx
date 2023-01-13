@@ -307,7 +307,7 @@ class RatingBox extends Component {
     if ("" !== props.title_text_align_phone) {
       const title_align_mob = props.title_text_align_phone
         ? props.title_text_align_phone
-        : "center";
+        : props.title_text_align_tablet;
       additionalCss.push([
         {
           selector: `%%order_class%% .df_rating_title`,
@@ -319,7 +319,7 @@ class RatingBox extends Component {
 
     const rating_align_mob = props.rating_icon_align_phone
       ? props.rating_icon_align_phone
-      : "center";
+      : props.rating_icon_align_tablet;
     additionalCss.push([
       {
         selector: `%%order_class%% .df_rating_icon`,
@@ -327,7 +327,6 @@ class RatingBox extends Component {
         device: "phone",
       },
     ]);
-
 
     return additionalCss;
   }
@@ -345,7 +344,6 @@ class RatingBox extends Component {
     const {props,key,additionalCss,selector,type,css} = settings;
 
     const desktop = props[key];
-    // const tablet  = utility.df_check_values(desktop, props[key + "_tablet"]);
     const tablet  = utility.df_check_values(desktop, props[key + "_tablet"]);
     const phone  = utility.df_check_values(desktop, props[key + "_phone"]);
 
