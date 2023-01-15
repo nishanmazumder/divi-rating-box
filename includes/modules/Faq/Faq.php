@@ -15,6 +15,7 @@ class DIFL_FAQ extends ET_Builder_Module
     public $slug       = 'difl_faq';
     public $child_slug = 'difl_faqitem';
     public $vb_support = 'on';
+
     use DF_UTLS;
 
     protected $module_credits = array(
@@ -113,10 +114,27 @@ class DIFL_FAQ extends ET_Builder_Module
                     'setting'       => esc_html__('Settings', 'divi_flash'),
                     'animation'      => esc_html__('Animation', 'divi_flash'),
                     'schema'         => esc_html__('Schema', 'divi_flash'),
+                    'faq_icon'  => [
+                        'title'        => esc_html__('Icon', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'sub_toggles'  => [
+                            'close'    => [
+                                'name' => esc_html__('Close', 'divi_flash'),
+                            ],
+                            'open'     => [
+                                'name' => esc_html__('Open', 'divi_flash'),
+                            ],
+                            'setting'     => [
+                                'name' => esc_html__('Both', 'divi_flash'),
+                            ]
+                        ],
+                    ],
                 ),
             ),
             'advanced'      => array(
                 'toggles'   => array(
+                    'design_question'               => esc_html__('Question', 'divi_flash'),
+                    'design_answer'                 => esc_html__('Answer Style', 'divi_flash'),
                     'design_faq_icon'  => [
                         'title'        => esc_html__('Icon', 'divi_flash'),
                         'tabbed_subtoggles' => true,
@@ -129,8 +147,6 @@ class DIFL_FAQ extends ET_Builder_Module
                             ]
                         ],
                     ],
-                    'design_question'               => esc_html__('Question', 'divi_flash'),
-                    'design_answer'                 => esc_html__('Answer Style', 'divi_flash'),
                     // 'design_content_text'           => array(
                     //     'title' => esc_html__('Answer Text', 'divi_flash'),
                     //     'tabbed_subtoggles'         => true,
@@ -171,7 +187,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'option_category' => 'basic_option',
                 'toggle_slug'    => 'setting'
             ),
-            'activate_faq_item' => array(
+            'activate_on_first_time' => array(
                 'label'          => esc_html__('Active Item on First Time', 'divi_flash'),
                 'type'           => 'yes_no_button',
                 'default'        => 'off',
@@ -181,7 +197,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 'toggle_slug'    => 'setting'
             ),
-            'activate_faq_item_order' => array(
+            'active_item_order_number' => array(
                 'label'             => esc_html__('Activate Item Order Number', 'divi_flash'),
                 'type'              => 'range',
                 'default'           => '1',
@@ -194,7 +210,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 'toggle_slug'     => 'setting',
                 'show_if'         => array(
-                    'activate_faq_item'     => 'on'
+                    'activate_on_first_time'     => 'on'
                 )
             ),
             'close_faq_icon'        => array(
@@ -203,9 +219,8 @@ class DIFL_FAQ extends ET_Builder_Module
                 'option_category'   => 'basic_option',
                 'default'           => '&#x4b;||divi||400',
                 'class'             => array('et-pb-font-icon'),
-                'toggle_slug'       => 'design_faq_icon',
-                'sub_toggle' => 'close',
-                'tab_slug'        => 'advanced'
+                'toggle_slug'       => 'faq_icon',
+                'sub_toggle' => 'close'
             ),
             'open_faq_icon'         => array(
                 'label'             => esc_html__('Icon', 'divi_flash'),
@@ -213,9 +228,21 @@ class DIFL_FAQ extends ET_Builder_Module
                 'option_category'   => 'basic_option',
                 'default'           => '&#x4c;||divi||400',
                 'class'             => array('et-pb-font-icon'),
-                'toggle_slug'       => 'design_faq_icon',
-                'sub_toggle'        => 'open',
-                'tab_slug'          => 'advanced'
+                'toggle_slug'       => 'faq_icon',
+                'sub_toggle'        => 'open'
+            ),
+            'faq_icon_placement'  => array(
+                'label'          => esc_html__('Icon Placement', 'divi_flash'),
+                'type'           => 'select',
+                'default'        => 'inherit',
+                'options'        => array(
+                    'inherit'     => esc_html__('Right', 'divi_flash'),
+                    'row-reverse' => esc_html__('Left', 'divi_flash'),
+                ),
+                'option_category' => 'basic_option',
+                'toggle_slug'    => 'faq_icon',
+                'sub_toggle'        => 'setting',
+                'mobile_options'   => true,
             ),
             'enable_faq_animation' => array(
                 'label'          => esc_html__('Enable FAQ Toggle Animation', 'divi_flash'),
@@ -236,7 +263,7 @@ class DIFL_FAQ extends ET_Builder_Module
                     'bounce' => esc_html__('Bounce', 'divi_flash'),
                     'fade'   => esc_html__('Fade', 'divi_flash'),
                 ),
-                'option_category'=> 'basic_option',
+                'option_category' => 'basic_option',
                 'toggle_slug'    => 'animation',
                 'show_if'        => array(
                     'enable_faq_animation'     => 'on',
@@ -328,14 +355,82 @@ class DIFL_FAQ extends ET_Builder_Module
         wp_enqueue_script('df_faq');
 
         // Get all style
-        // $this->additional_css_styles($render_slug);
+        $this->additional_css_styles($render_slug);
+
+        // $child_faq = null !== self::get_child_modules('page')['difl_faqitem'] ? self::get_child_modules('page')['difl_faqitem'] : new stdClass;
+
+        // global $df_question_data;
+
+        // print_r($df_question_data);
+
+
+
+
+
+
+        // Schema
+        $schema = "";
+        // {
+        //   "@context": "https://schema.org",
+        //   "@type": "FAQPage",
+        //   "mainEntity": [{
+        //     "@type": "Question",
+        //     "name": "What is the return policy?",
+        //     "acceptedAnswer": {
+        //       "@type": "Answer",
+        //       "text": "<p>Most unopened items in new condition and returned within <b>90 days</b> will receive a refund or exchange. Some items have a modified return policy noted on the receipt or packing slip. Items that are opened or damaged or do not have a receipt may be denied a refund or exchange. Items purchased online or in-store may be returned to any store.</p><p>Online purchases may be returned via a major parcel carrier. <a href=https://example.com/returns> Click here </a> to initiate a return.</p>"
+        //     }
+        //   }
+
+        // echo '<pre>';
+        // print_r($content);
+        // print_r($child_faq->props['question']);
+
+        // foreach ($child_faq as $item) {
+        //     var_dump($item);
+        //  }
+
+        // print_r($child_faq);
+
+
+        if ($this->props['enable_schema'] === 'on') {
+
+            // $questions = $this->child_faq->props['question'];
+            // $answer = $this->child_faq->props['answer'];
+
+            $json = [
+                '@context' => 'https://schema.org',
+                '@type' => 'Rating',
+                'mainEntity' => [
+                    [
+                        '@type' => "Question",
+                        'name' => "Lorem ipshum?",
+                        'acceptedAnswer' => [
+                            '@type' => "Answer",
+                            'name' => "Lorem ipshum",
+                        ]
+                    ],
+                    [
+                        '@type' => "Question",
+                        'name' => "Lorem ipshum?",
+                        'acceptedAnswer' => [
+                            '@type' => "Answer",
+                            'name' => "Lorem ipshum",
+                        ]
+                    ]
+                ]
+
+            ];
+
+            $schema =  '<script type="application/ld+json">' . wp_json_encode($json) . '</script>';
+        }
 
         // Display frontend
         $output = sprintf(
-            '<div class="df_faq_wrapper">
-                 %1$s
-            </div>',
-            $this->content
+            '<div class="df_faq_wrapper">%1$s</div>
+            %2$s',
+            $this->content,
+            $schema
         );
 
         return $output;
@@ -349,7 +444,22 @@ class DIFL_FAQ extends ET_Builder_Module
      *
      */
 
-    // public function additional_css_styles($render_slug){}
+    public function additional_css_styles($render_slug)
+    {
+        // icon placement (+ question wrapper)
+        if ($this->props['faq_icon_placement'] !== 'inherit') {
+            $this->generate_styles(
+                array(
+                    'base_attr_name' => 'faq_icon_placement',
+                    'selector'       => "$this->main_css_element .faq_question_wrapper, $this->main_css_element .faq_question_area",
+                    'css_property'   => 'flex-direction',
+                    'render_slug'    => $render_slug,
+                    'type'           => 'align',
+                    'important'      => true,
+                )
+            );
+        }
+    }
 
     // public function df_render_content(){}
 } //Class

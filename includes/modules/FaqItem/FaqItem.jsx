@@ -15,6 +15,8 @@ class FaqItem extends Component {
     };
 
     this.showHideAnswer = this.showHideAnswer.bind(this)
+
+    console.log(props)
   }
 
   // componentDidMount() {
@@ -29,6 +31,8 @@ class FaqItem extends Component {
   // 		});
   // 	}, 333);
   // }
+
+
 
   showHideAnswer = () => {
     // const el = ReactDOM.findDOMNode(this);

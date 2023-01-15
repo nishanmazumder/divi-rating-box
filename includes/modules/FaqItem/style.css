@@ -71,10 +71,17 @@
 }
 /* .difl_faqitem .faq_button{} */
 
-.difl_faqitem .faq_button a {
+.difl_faqitem .faq_button a{
+  vertical-align: initial;
   background: red;
   color: #fff;
   padding: 5px 10px;
+  font-size: 18px;
+}
+
+.difl_faqitem .et-pb-icon{
+  vertical-align: top;
+  font-size: 21px;
 }
 
 .difl_faqitem .df_faq_item.active .faq_answer_wrapper{
