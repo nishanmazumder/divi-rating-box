@@ -1382,7 +1382,19 @@ class DIFL_RatingBox extends ET_Builder_Module
             ));
         }
 
-        $rating_align_mob = $this->props['rating_icon_align_phone'] ? $this->props['rating_icon_align_phone'] : "center";
+        $rating_align_mob = "";
+        if($this->props['rating_icon_align_phone']){
+            $rating_align_mob = $this->props['rating_icon_align_phone'];
+        }else{
+            if($this->props['rating_icon_align_tablet']){
+                $rating_align_mob = $this->props['rating_icon_align_tablet'];
+            }else{
+                $rating_align_mob = $this->props['rating_icon_align'];
+            }
+        }
+
+        $rating_align_mob = ($this->props['rating_icon_align_phone'] ? $this->props['rating_icon_align_phone']
+                            : $this->props['rating_icon_align_tablet']) ? $this->props['rating_icon_align_tablet'] : $this->props['rating_icon_align'];
         ET_Builder_Element::set_style($render_slug, array(
             'selector'    => "$this->main_css_element .df_rating_icon",
             'declaration' => "width: 100%; justify-content: " . $rating_align_mob . ";",
