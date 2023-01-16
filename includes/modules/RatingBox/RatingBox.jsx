@@ -16,13 +16,6 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df_rating_icon",
     });
 
-    // utility.df_process_bg({
-    //   props: props,
-    //   key: "rating_icon_bg",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .df_rating_icon span.et-pb-icon",
-    // });
-
     utility.df_process_bg({
       props: props,
       key: "rating_title_bg",
@@ -112,7 +105,6 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon_size",
       additionalCss: additionalCss,
-      // prettier-ignore
       selector: "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before, %%order_class%% .df_rating_icon span.df_rating_icon_empty::after",
       type: "font-size",
       important: true,
@@ -123,7 +115,6 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon_space",
       additionalCss: additionalCss,
-      // prettier-ignore
       selector: "%%order_class%% .df_rating_icon span.et-pb-icon:not(:first-child)",
       type: "margin-left",
       unit: "px",
@@ -310,7 +301,6 @@ class RatingBox extends Component {
       ]);
     }
 
-
     if ("" !== props.title_text_align_phone) {
       const title_align_mob = props.title_text_align_phone
         ? props.title_text_align_phone
@@ -334,7 +324,6 @@ class RatingBox extends Component {
         device: "phone",
       },
     ]);
-
 
     return additionalCss;
   }
@@ -363,28 +352,28 @@ class RatingBox extends Component {
       values[get_values[i]] = set_values[i];
     }
 
-      additionalCss.push([
-        {
-          selector: selector,
-          declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
-        },
-      ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
+      },
+    ]);
 
-      additionalCss.push([
-        {
-          selector: selector,
-          declaration: `display: flex; ${type}:${values[tablet]};${css};`,
-          device: "tablet",
-        },
-      ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[tablet]};${css};`,
+        device: "tablet",
+      },
+    ]);
 
-      additionalCss.push([
-        {
-          selector: selector,
-          declaration: `display: flex; ${type}:${values[phone]};${css};`,
-          device: "phone",
-        },
-      ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[phone]};${css};`,
+        device: "phone",
+      },
+    ]);
 
   }
 

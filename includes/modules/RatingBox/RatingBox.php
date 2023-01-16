@@ -409,7 +409,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 ),
                 'toggle_slug'     => 'design_rating',
                 'tab_slug'        => 'advanced',
-                'default' => 'center',
+                'default'         => 'center',
                 'options_icon'    => 'module_align',
                 'mobile_options'  => true,
             ),
@@ -417,7 +417,8 @@ class DIFL_RatingBox extends ET_Builder_Module
             'rating_icon_size' => array(
                 'label'             => esc_html__('Rating Icon Size', 'divi_flash'),
                 'type'              => 'range',
-                'default'           => '30',
+                'default'           => '30px',
+                'default_unit'      => 'px',
                 'allowed_units'     => array('px'),
                 'range_settings'    => array(
                     'min'  => '1',
@@ -434,7 +435,8 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'              => 'range',
                 'hover'             => 'tabs',
                 'responsive'        => true,
-                'default'           => '2px',
+                'default'           => '0px',
+                'default_unit'           => '0px',
                 'allowed_units'     => array('px'),
                 'range_settings'    => array(
                     'min'       => '1',
@@ -496,13 +498,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             'tab_slug'              => 'advanced'
         ));
 
-        // $rating_icon_bg = $this->df_add_bg_field(array(
-        //     'label'                 => 'Rating Icon Background',
-        //     'key'                   => 'rating_icon_bg',
-        //     'toggle_slug'           => 'design_rating',
-        //     'tab_slug'              => 'advanced'
-        // ));
-
         $rating_title_bg = $this->df_add_bg_field(array(
             'label'                 => 'Rating Title Background',
             'key'                   => 'rating_title_bg',
@@ -559,7 +554,6 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         return array_merge(
             $rating_bg,
-            // $rating_icon_bg,
             $rating,
             $rating_title_bg,
             $rating_content_bg,
@@ -966,12 +960,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             'key'           => 'rating_bg',
             'selector'      => $rating_icon
         ));
-
-        // $fields = $this->df_background_transition(array(
-        //     'fields'        => $fields,
-        //     'key'           => 'rating_icon_bg',
-        //     'selector'      => $rating_icon." span.et-pb-icon"
-        // ));
 
         $fields = $this->df_background_transition(array(
             'fields'        => $fields,

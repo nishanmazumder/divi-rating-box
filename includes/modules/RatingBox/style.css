@@ -17,18 +17,10 @@
   flex-wrap: wrap;
   overflow: hidden;
 }
-.difl_ratingbox .df_rating_icon span.et-pb-icon {
-  margin: 0px 2px;
+.difl_ratingbox .df_rating_icon span.et-pb-icon{
   margin-top: -5px;
   line-height: 1em;
   font-size: 30px;
-}
-
-.difl_ratingbox .df_rating_icon span.et-pb-icon:last-child{
-  margin-right: 0px !important;
-}
-.difl_ratingbox .df_rating_icon span.et-pb-icon:first-child{
-  margin-left: 0px !important;
 }
 
 /* Inactive */
