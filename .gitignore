@@ -88,9 +88,9 @@ yarn-error.log*
 /includes/modules/ProductItem
 /includes/utils
 /languages
-!public
-public/*
-!public/js/faq.js
+!/public/
+/public/*
+!/public/js/faq.js
 /scripts
 /styles
 /template
