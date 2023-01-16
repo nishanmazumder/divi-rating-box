@@ -16,6 +16,13 @@ class RatingBox extends Component {
       selector: "%%order_class%% .df_rating_icon",
     });
 
+    // utility.df_process_bg({
+    //   props: props,
+    //   key: "rating_icon_bg",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% .df_rating_icon span.et-pb-icon",
+    // });
+
     utility.df_process_bg({
       props: props,
       key: "rating_title_bg",
@@ -124,7 +131,7 @@ class RatingBox extends Component {
 
     utility.process_margin_padding({
       props: props,
-      key: "rating_box_icon_margin",
+      key: "rating_wrapper_margin",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_rating_icon",
       type: "margin",
@@ -132,7 +139,7 @@ class RatingBox extends Component {
 
     utility.process_margin_padding({
       props: props,
-      key: "rating_box_icon_padding",
+      key: "rating_wrapper_padding",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_rating_icon",
       type: "padding",
@@ -448,10 +455,10 @@ class RatingBox extends Component {
       if(props.enable_single_rating !== "on"){
         if(props.rating_number_type === "number_with_bracket"){
           ratingNumber = <span className="df_rating_number">
-            {`(${rating_value} / ${rating_scale_type})`}
+            {`(${rating_value}/${rating_scale_type})`}
           </span>
         }else if(props.rating_number_type === "number_without_bracket"){
-          ratingNumber = <span className="df_rating_number">{`${rating_value} / ${rating_scale_type}`}</span>
+          ratingNumber = <span className="df_rating_number">{`${rating_value}/${rating_scale_type}`}</span>
         }else{
           ratingNumber = <span className="df_rating_number">{rating_value_single}</span>
         }

@@ -496,6 +496,13 @@ class DIFL_RatingBox extends ET_Builder_Module
             'tab_slug'              => 'advanced'
         ));
 
+        // $rating_icon_bg = $this->df_add_bg_field(array(
+        //     'label'                 => 'Rating Icon Background',
+        //     'key'                   => 'rating_icon_bg',
+        //     'toggle_slug'           => 'design_rating',
+        //     'tab_slug'              => 'advanced'
+        // ));
+
         $rating_title_bg = $this->df_add_bg_field(array(
             'label'                 => 'Rating Title Background',
             'key'                   => 'rating_title_bg',
@@ -516,9 +523,9 @@ class DIFL_RatingBox extends ET_Builder_Module
             )
         ));
 
-        $rating_icon_margin = $this->add_margin_padding(array(
+        $rating_margin = $this->add_margin_padding(array(
             'title'             => 'Rating',
-            'key'               => 'rating_box_icon',
+            'key'               => 'rating_wrapper',
             'toggle_slug'       => 'margin_padding'
         ));
 
@@ -552,12 +559,13 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         return array_merge(
             $rating_bg,
+            // $rating_icon_bg,
             $rating,
             $rating_title_bg,
             $rating_content_bg,
             $content,
             $schema,
-            $rating_icon_margin,
+            $rating_margin,
             $rating_number_margin,
             $rating_title_margin,
             $rating_content_margin
@@ -959,6 +967,12 @@ class DIFL_RatingBox extends ET_Builder_Module
             'selector'      => $rating_icon
         ));
 
+        // $fields = $this->df_background_transition(array(
+        //     'fields'        => $fields,
+        //     'key'           => 'rating_icon_bg',
+        //     'selector'      => $rating_icon." span.et-pb-icon"
+        // ));
+
         $fields = $this->df_background_transition(array(
             'fields'        => $fields,
             'key'           => 'rating_title_bg',
@@ -1085,6 +1099,13 @@ class DIFL_RatingBox extends ET_Builder_Module
             'hover'             => "$this->main_css_element .df_rating_icon:hover"
         ));
 
+        // $this->df_process_bg(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'rating_icon_bg',
+        //     'selector'          => "$this->main_css_element .df_rating_icon span.et-pb-icon",
+        //     'hover'             => "$this->main_css_element .df_rating_icon:hover span.et-pb-icon"
+        // ));
+
         $this->df_process_bg(array(
             'render_slug'       => $render_slug,
             'slug'              => 'rating_title_bg',
@@ -1111,7 +1132,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         $this->set_margin_padding_styles(array(
             'render_slug'       => $render_slug,
-            'slug'              => 'rating_box_icon_margin',
+            'slug'              => 'rating_wrapper_margin',
             'type'              => 'margin',
             'selector'          => "$this->main_css_element .df_rating_icon",
             'hover'             => "$this->main_css_element .df_rating_icon:hover",
@@ -1120,7 +1141,7 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         $this->set_margin_padding_styles(array(
             'render_slug'       => $render_slug,
-            'slug'              => 'rating_box_icon_padding',
+            'slug'              => 'rating_wrapper_padding',
             'type'              => 'padding',
             'selector'          => "$this->main_css_element .df_rating_icon",
             'hover'             => "$this->main_css_element .df_rating_icon:hover",
@@ -1446,13 +1467,13 @@ class DIFL_RatingBox extends ET_Builder_Module
                 if($this->props['enable_single_rating'] !== 'on'){
                     if($this->props['rating_number_type'] === 'number_with_bracket'){
                         $rating_number = sprintf(
-                            '<span class="df_rating_number">(%1$s / %2$s)</span>',
+                            '<span class="df_rating_number">(%1$s/%2$s)</span>',
                             $rating_value,
                             $rating_scale_type
                         );
                     }elseif($this->props['rating_number_type'] === 'number_without_bracket'){
                         $rating_number = sprintf(
-                            '<span class="df_rating_number">%1$s / %2$s</span>',
+                            '<span class="df_rating_number">%1$s/%2$s</span>',
                             $rating_value,
                             $rating_scale_type
                         );
