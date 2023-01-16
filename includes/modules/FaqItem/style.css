@@ -1,3 +1,11 @@
+.difl_faq_0{
+  background: rgb(251, 214, 214);
+}
+
+.difl_faq_1{
+  background: #e2ffc0;
+}
+
 /* Border */
 .difl_faqitem .df_faq_item * {
   border-width: 0px;

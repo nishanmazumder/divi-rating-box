@@ -125,7 +125,7 @@ class DIFL_FAQ extends ET_Builder_Module
                                 'name' => esc_html__('Open', 'divi_flash'),
                             ],
                             'setting'     => [
-                                'name' => esc_html__('Both', 'divi_flash'),
+                                'name' => esc_html__('Settings', 'divi_flash'),
                             ]
                         ],
                     ],
@@ -175,16 +175,25 @@ class DIFL_FAQ extends ET_Builder_Module
 
         $faq = [
             'faq_layout' => array(
-                'label'          => esc_html__('Layout Type', 'divi_flash'),
+                'label'          => esc_html__('FAQ Type', 'divi_flash'),
                 'type'           => 'select',
                 'default'        => 'accordion',
                 'options'        => array(
                     'accordion'  => esc_html__('Accordion', 'divi_flash'),
                     'individual' => esc_html__('Individual', 'divi_flash'),
-                    'plain'      => esc_html__('Plain', 'divi_flash'),
-                    'grid'       => esc_html__('Grid', 'divi_flash'),
+                    'plain'      => esc_html__('Plain', 'divi_flash')
                 ),
                 'option_category' => 'basic_option',
+                'toggle_slug'    => 'setting'
+            ),
+            'faq_layout_grid' => array(
+                'label'          => esc_html__('Use Grid Layout', 'divi_flash'),
+                'type'           => 'yes_no_button',
+                'default'        => 'off',
+                'options'        => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
                 'toggle_slug'    => 'setting'
             ),
             'activate_on_first_time' => array(
@@ -351,22 +360,55 @@ class DIFL_FAQ extends ET_Builder_Module
     public function render($attrs, $content, $render_slug)
     {
         // Scripts
-        // wp_enqueue_script('animejs');
+        wp_enqueue_script('animejs');
         wp_enqueue_script('df_faq');
 
         // Get all style
         $this->additional_css_styles($render_slug);
 
-        // $child_faq = null !== self::get_child_modules('page')['difl_faqitem'] ? self::get_child_modules('page')['difl_faqitem'] : new stdClass;
+        // Display frontend
+        $output = sprintf(
+            '<div class="df_faq_wrapper">%1$s</div>
+            %2$s',
+            $this->content,
+            // $this->df_render_schema()
+            ""
+        );
+
+        return $output;
+    }
+
+    /**
+     *
+     * Add additional css
+     *
+     * @return array
+     *
+     */
+
+    public function additional_css_styles($render_slug)
+    {
+        // icon placement (+ question wrapper)
+        if ($this->props['faq_icon_placement'] !== 'inherit') {
+            $this->generate_styles(
+                array(
+                    'base_attr_name' => 'faq_icon_placement',
+                    'selector'       => "$this->main_css_element .faq_question_wrapper, $this->main_css_element .faq_question_area",
+                    'css_property'   => 'flex-direction',
+                    'render_slug'    => $render_slug,
+                    'type'           => 'align',
+                    'important'      => true,
+                )
+            );
+        }
+    }
+
+    public function df_render_schema(){
+       // $child_faq = null !== self::get_child_modules('page')['difl_faqitem'] ? self::get_child_modules('page')['difl_faqitem'] : new stdClass;
 
         // global $df_question_data;
 
         // print_r($df_question_data);
-
-
-
-
-
 
         // Schema
         $schema = "";
@@ -425,43 +467,8 @@ class DIFL_FAQ extends ET_Builder_Module
             $schema =  '<script type="application/ld+json">' . wp_json_encode($json) . '</script>';
         }
 
-        // Display frontend
-        $output = sprintf(
-            '<div class="df_faq_wrapper">%1$s</div>
-            %2$s',
-            $this->content,
-            $schema
-        );
-
-        return $output;
+        return $schema;
     }
-
-    /**
-     *
-     * Add additional css
-     *
-     * @return array
-     *
-     */
-
-    public function additional_css_styles($render_slug)
-    {
-        // icon placement (+ question wrapper)
-        if ($this->props['faq_icon_placement'] !== 'inherit') {
-            $this->generate_styles(
-                array(
-                    'base_attr_name' => 'faq_icon_placement',
-                    'selector'       => "$this->main_css_element .faq_question_wrapper, $this->main_css_element .faq_question_area",
-                    'css_property'   => 'flex-direction',
-                    'render_slug'    => $render_slug,
-                    'type'           => 'align',
-                    'important'      => true,
-                )
-            );
-        }
-    }
-
-    // public function df_render_content(){}
 } //Class
 
 new DIFL_FAQ;
