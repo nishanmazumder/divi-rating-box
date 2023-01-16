@@ -204,7 +204,10 @@ class DIFL_FAQ extends ET_Builder_Module
                     'off' => esc_html__('Off', 'divi_flash'),
                     'on'  => esc_html__('On', 'divi_flash')
                 ),
-                'toggle_slug'    => 'setting'
+                'toggle_slug'    => 'setting',
+                'show_if_not'     => array(
+                    'faq_layout'     => 'plain',
+                )
             ),
             'active_item_order_number' => array(
                 'label'             => esc_html__('Activate Item Order Number', 'divi_flash'),
@@ -270,7 +273,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'options'        => array(
                     'slide'  => esc_html__('Slide', 'divi_flash'),
                     'bounce' => esc_html__('Bounce', 'divi_flash'),
-                    'fade'   => esc_html__('Fade', 'divi_flash'),
+                    'fade_in'   => esc_html__('Fade', 'divi_flash'),
                 ),
                 'option_category' => 'basic_option',
                 'toggle_slug'    => 'animation',

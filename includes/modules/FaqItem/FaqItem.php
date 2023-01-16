@@ -503,6 +503,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             'faq_layout'               => $this->parent_faq->props['faq_layout'],
             'activate_on_first_time'   => $this->parent_faq->props['activate_on_first_time'],
             'active_item_order_number' => $active_item,
+            'enable_faq_animation'     => $this->parent_faq->props['enable_faq_animation'],
             'faq_animation'            => $this->parent_faq->props['faq_animation'],
             'icon_animation'           => $this->parent_faq->props['enable_icon_animation'],
         ];
