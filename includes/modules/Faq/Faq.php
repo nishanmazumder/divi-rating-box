@@ -320,45 +320,11 @@ class DIFL_FAQ extends ET_Builder_Module
         );
     }
 
-    /**
-     * Declare advanced fields for the module
-     *
-     * @return array[]
-     * @since 1.0.0
-     */
-
     // public function get_advanced_fields_config(){}
-
-    /**
-     * Declare custom css fields for the module
-     *
-     *
-     * @return array[]
-     * @since 1.0.0
-     */
 
     // public function get_custom_css_fields_config(){}
 
-    /**
-     * Get CSS fields transition.
-     *
-     * Add form field options group and background image on the fields list.
-     *
-     * @since 1.0.0
-     */
-
     // public function get_transition_fields_css_props(){}
-
-    /**
-     * Render module output
-     *
-     * @param array  $attrs       FAQ of unprocessed attributes
-     * @param string $content     Content being processed
-     * @param string $render_slug Slug of module that is used for rendering output
-     *
-     * @return string module's rendered output
-     * @since 1.0.0
-     */
 
     public function render($attrs, $content, $render_slug)
     {
@@ -381,18 +347,10 @@ class DIFL_FAQ extends ET_Builder_Module
         return $output;
     }
 
-    /**
-     *
-     * Add additional css
-     *
-     * @return array
-     *
-     */
-
     public function additional_css_styles($render_slug)
     {
         // icon placement (+ question wrapper)
-        if ($this->props['faq_icon_placement'] !== 'inherit') {
+        if ('inherit' !== $this->props['faq_icon_placement']) {
             $this->generate_styles(
                 array(
                     'base_attr_name' => 'faq_icon_placement',
@@ -406,8 +364,9 @@ class DIFL_FAQ extends ET_Builder_Module
         }
     }
 
-    public function df_render_schema(){
-       // $child_faq = null !== self::get_child_modules('page')['difl_faqitem'] ? self::get_child_modules('page')['difl_faqitem'] : new stdClass;
+    public function df_render_schema()
+    {
+        // $child_faq = null !== self::get_child_modules('page')['difl_faqitem'] ? self::get_child_modules('page')['difl_faqitem'] : new stdClass;
 
         // global $df_question_data;
 
