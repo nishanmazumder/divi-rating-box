@@ -142,7 +142,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'type'              => 'range',
                 'default'           => '10',
                 'range_settings'    => array(
-                    'min'       => '1',
+                    'min'       => '0.1',
                     'max'       => '10',
                     'step'      => '0.1',
                     'min_limit' => '0',
