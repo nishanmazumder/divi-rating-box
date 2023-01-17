@@ -87,6 +87,7 @@
 /* .difl_faqitem .faq_button{} */
 
 .difl_faqitem .faq_button a{
+  display: inline-flex;
   vertical-align: initial;
   background: red;
   color: #fff;

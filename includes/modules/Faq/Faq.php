@@ -196,6 +196,92 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 'toggle_slug'    => 'setting'
             ),
+            // 'list_view_type'                 => array(
+            //     'label'            => esc_html__('Layout Type', 'divi_flash'),
+            //     'description'      => esc_html__('Here you can choose icon list layout type.', 'divi_flash'),
+            //     'type'             => 'select',
+            //     'option_category'  => 'layout',
+            //     'options'          => array(
+            //         'list'   => esc_html__('List', 'divi_flash'),
+            //         'inline' => esc_html__('Grid', 'divi_flash'),
+            //     ),
+            //     'tab_slug'         => 'general',
+            //     'toggle_slug'      => 'list_settings',
+            //     'default_on_front' => 'list',
+            //     'mobile_options'   => true,
+            // ),
+            'faq_item_per_column'           => array(
+                'label'             => esc_html__('Layout Columns', 'divi_flash'),
+                'description'       => esc_html__('Here you can choose FAQ item per column.', 'divi_flash'),
+                'type'              => 'range',
+                'range_settings'    => array(
+                    'min'  => '1',
+                    'max'  => '6',
+                    'step' => '1',
+                ),
+                'number_validation' => true,
+                'fixed_range'       => true,
+                'validate_unit'     => true,
+                'allowed_units'     => array(''),
+                'option_category'   => 'layout',
+                'toggle_slug'       => 'setting',
+                'default_on_front'  => '2',
+                'show_if'           => array(
+                    'faq_layout_grid' => 'on',
+                ),
+                'mobile_options'    => true,
+            ),
+            'faq_item_gap'                  => array(
+                'label'            => esc_html__('Item Gap', 'divi_flash'),
+                'description'      => esc_html__('Here you can choose FAQ item gap.', 'divi_flash'),
+                'type'             => 'range',
+                'range_settings'   => array(
+                    'min'  => '1',
+                    'max'  => '100',
+                    'step' => '1',
+                ),
+                'validate_unit'    => true,
+                'allowed_units'    => array('%', 'em', 'rem', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ex', 'vh', 'vw'),
+                'option_category'  => 'layout',
+                'toggle_slug'      => 'setting',
+                // 'default' => '10px',
+                'show_if'           => array(
+                    'faq_layout_grid' => 'on',
+                ),
+                'mobile_options'   => true,
+            ),
+            'faq_item_horizontal_alignment' => array(
+                'label'       => esc_html__('Item Horizontal Alignment', 'divi_flash'),
+                'description' => esc_html__('Here you can choose horizontal alignment for FAQ item.', 'divi_flash'),
+                'type'        => 'select',
+                'options'     => array(
+                    'flex-start' => et_builder_i18n('Left'),
+                    'center'     => et_builder_i18n('Center'),
+                    'flex-end'   => et_builder_i18n('Right')
+                ),
+                'toggle_slug' => 'setting',
+                'show_if'           => array(
+                    'faq_layout_grid' => 'on',
+                )
+            ),
+            'faq_item_equal_width'          => array(
+                'label'            => esc_html__('Apply item equal width', 'divi_flash'),
+                'description'      => esc_html__(
+                    'Here you can choose whether or not item is equal width.',
+                    'divi_flash'
+                ),
+                'type'             => 'yes_no_button',
+                'option_category'  => 'configuration',
+                'default' => 'off',
+                'options'          => array(
+                    'off' => esc_html__('No', 'divi_flash'),
+                    'on'  => esc_html__('Yes', 'divi_flash')
+                ),
+                'toggle_slug'      => 'setting',
+                'show_if'           => array(
+                    'faq_layout_grid' => 'on',
+                ),
+            ),
             'activate_on_first_time' => array(
                 'label'          => esc_html__('Active Item on First Time', 'divi_flash'),
                 'type'           => 'yes_no_button',
@@ -215,7 +301,6 @@ class DIFL_FAQ extends ET_Builder_Module
                 'default'           => '1',
                 'range_settings'    => array(
                     'min'  => '1',
-                    // 'max'  => '10',
                     'step' => '1',
                     'min_limit' => '0',
                     'max_limit' => '10'
@@ -362,6 +447,18 @@ class DIFL_FAQ extends ET_Builder_Module
                 )
             );
         }
+
+        // faq grid layout
+        if('on' === $this->props['faq_layout_grid']){
+            $this->df_iconlist_set_dynamic_grid_columns(
+                array(
+                    'render_slug' => $this->slug,
+                    'slug'        => 'faq_item_per_column',
+                    'selector'    => "$this->main_css_element .df_faq_wrapper",
+                    'type'        => "grid-template-columns",
+                )
+            );
+        }
     }
 
     public function df_render_schema()
@@ -430,6 +527,56 @@ class DIFL_FAQ extends ET_Builder_Module
         }
 
         return $schema;
+    }
+
+    private function df_faq_set_dynamic_grid_columns($options)
+    {
+        $custom_func = static function ($currentValue) {
+            $results       = [];
+            $itemPerColumn = $currentValue !== '' ? (int)$currentValue : 1;
+
+            for ($step = 0; $step < $itemPerColumn; $step++) {
+                $results[] = '1fr';
+            }
+
+            return implode(' ', $results);
+        };
+
+        $default = array(
+            'render_slug' => '',
+            'slug'        => '',
+            'selector'    => '',
+            'type'        => '',
+        );
+        $options = wp_parse_args($options, $default);
+
+        if (array_key_exists($options['slug'], $this->props) && !empty($this->props[$options['slug']])) {
+            $desktop_column = $this->props[$options['slug']];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $custom_func($desktop_column)),
+            ));
+        }
+
+        if (array_key_exists($options['slug'] . '_tablet', $this->props)
+            && !empty($this->props[$options['slug'] . '_tablet'])) {
+            $tablet_column = $this->props[$options['slug'] . '_tablet'];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $custom_func($tablet_column)),
+                'media_query' => self::get_media_query('max_width_980')
+            ));
+        }
+
+        if (array_key_exists($options['slug'] . '_phone', $this->props)
+            && !empty($this->props[$options['slug'] . '_phone'])) {
+            $phone_column = $this->props[$options['slug'] . '_phone'];
+            self::set_style($options['render_slug'], array(
+                'selector'    => $options['selector'],
+                'declaration' => sprintf('%1$s:%2$s;', $options['type'], $custom_func($phone_column)),
+                'media_query' => self::get_media_query('max_width_767')
+            ));
+        }
     }
 } //Class
 
