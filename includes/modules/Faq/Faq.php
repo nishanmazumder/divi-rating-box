@@ -111,9 +111,7 @@ class DIFL_FAQ extends ET_Builder_Module
         return array(
             'general'   => array(
                 'toggles'       => array(
-                    'setting'       => esc_html__('Settings', 'divi_flash'),
-                    'animation'      => esc_html__('Animation', 'divi_flash'),
-                    'schema'         => esc_html__('Schema', 'divi_flash'),
+                    'setting'   => esc_html__('Settings', 'divi_flash'),
                     'faq_icon'  => [
                         'title'        => esc_html__('Icon', 'divi_flash'),
                         'tabbed_subtoggles' => true,
@@ -124,11 +122,13 @@ class DIFL_FAQ extends ET_Builder_Module
                             'open'     => [
                                 'name' => esc_html__('Open', 'divi_flash'),
                             ],
-                            'setting'     => [
+                            'setting'  => [
                                 'name' => esc_html__('Settings', 'divi_flash'),
                             ]
                         ],
                     ],
+                    'schema'         => esc_html__('Schema', 'divi_flash'),
+                    'animation'      => esc_html__('Animation', 'divi_flash')
                 ),
             ),
             'advanced'      => array(
@@ -330,7 +330,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'label'             => esc_html__('Icon', 'divi_flash'),
                 'type'              => 'select_icon',
                 'option_category'   => 'basic_option',
-                'default'           => '&#x4b;||divi||400',
+                'default'           => '&#x4c;||divi||400',
                 'class'             => array('et-pb-font-icon'),
                 'toggle_slug'       => 'faq_icon',
                 'sub_toggle'        => 'close'
@@ -339,7 +339,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'label'             => esc_html__('Icon', 'divi_flash'),
                 'type'              => 'select_icon',
                 'option_category'   => 'basic_option',
-                'default'           => '&#x4c;||divi||400',
+                'default'           => '&#x4b;||divi||400',
                 'class'             => array('et-pb-font-icon'),
                 'toggle_slug'       => 'faq_icon',
                 'sub_toggle'        => 'open'
