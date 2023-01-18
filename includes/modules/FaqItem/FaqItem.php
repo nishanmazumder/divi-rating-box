@@ -455,7 +455,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             $question,
             $answer,
             $button,
-            $button_icon,
+            $button_icon
         );
     }
 
@@ -544,7 +544,6 @@ class DIFL_FaqItem extends ET_Builder_Module
                         'selector'          => "%%order_class%% .faq_button .et-pb-icon"
                     ));
                 }
-
 
         // question image placement
         if ('inherit' !== $this->props['question_image_placement']) {

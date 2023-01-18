@@ -31,6 +31,7 @@
 
 .difl_faqitem .df_faq_item{
   /* display: block; */
+  width: 100%;
   background: #f4f4f4;
 }
 
