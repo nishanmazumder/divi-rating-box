@@ -372,7 +372,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'type'       => 'select',
                 'default'    => 'slide',
                 'options'    => array(
-                    'slide'  => esc_html__('Slide', 'divi_flash'),
+                    'slide_down'  => esc_html__('Slide', 'divi_flash'),
                     'bounce' => esc_html__('Bounce', 'divi_flash'),
                     'fade_in'   => esc_html__('Fade', 'divi_flash'),
                 ),
