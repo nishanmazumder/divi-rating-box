@@ -5,16 +5,19 @@
   border-color: #333;
 }
 
+.df_rating_wrapper{
+  box-sizing: border-box;
+}
+
 /* Icon */
 .difl_ratingbox .df_rating_icon {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
-.difl_ratingbox .df_rating_icon span.et-pb-icon {
-  margin: 0px 2px;
+.difl_ratingbox .df_rating_icon span.et-pb-icon{
   margin-top: -5px;
-  line-height: 1.7em;
+  line-height: 1em;
   font-size: 30px;
 }
 

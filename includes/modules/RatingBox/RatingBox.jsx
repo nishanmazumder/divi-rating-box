@@ -105,7 +105,6 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon_size",
       additionalCss: additionalCss,
-      // prettier-ignore
       selector: "%%order_class%% .df_rating_icon span.et-pb-icon, %%order_class%% .df_rating_icon span.df_rating_icon_fill::before, %%order_class%% .df_rating_icon span.df_rating_icon_empty::after",
       type: "font-size",
       important: true,
@@ -116,7 +115,6 @@ class RatingBox extends Component {
       props: props,
       key: "rating_icon_space",
       additionalCss: additionalCss,
-      // prettier-ignore
       selector: "%%order_class%% .df_rating_icon span.et-pb-icon:not(:first-child)",
       type: "margin-left",
       unit: "px",
@@ -124,7 +122,7 @@ class RatingBox extends Component {
 
     utility.process_margin_padding({
       props: props,
-      key: "rating_box_icon_margin",
+      key: "rating_wrapper_margin",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_rating_icon",
       type: "margin",
@@ -132,7 +130,7 @@ class RatingBox extends Component {
 
     utility.process_margin_padding({
       props: props,
-      key: "rating_box_icon_padding",
+      key: "rating_wrapper_padding",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_rating_icon",
       type: "padding",
@@ -303,7 +301,6 @@ class RatingBox extends Component {
       ]);
     }
 
-
     if ("" !== props.title_text_align_phone) {
       const title_align_mob = props.title_text_align_phone
         ? props.title_text_align_phone
@@ -319,7 +316,7 @@ class RatingBox extends Component {
 
     const rating_align_mob = props.rating_icon_align_phone
       ? props.rating_icon_align_phone
-      : props.rating_icon_align_tablet;
+      : props.rating_icon_align_tablet ? props.rating_icon_align_tablet : props.rating_icon_align;
     additionalCss.push([
       {
         selector: `%%order_class%% .df_rating_icon`,
@@ -355,28 +352,28 @@ class RatingBox extends Component {
       values[get_values[i]] = set_values[i];
     }
 
-      additionalCss.push([
-        {
-          selector: selector,
-          declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
-        },
-      ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
+      },
+    ]);
 
-      additionalCss.push([
-        {
-          selector: selector,
-          declaration: `display: flex; ${type}:${values[tablet]};${css};`,
-          device: "tablet",
-        },
-      ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[tablet]};${css};`,
+        device: "tablet",
+      },
+    ]);
 
-      additionalCss.push([
-        {
-          selector: selector,
-          declaration: `display: flex; ${type}:${values[phone]};${css};`,
-          device: "phone",
-        },
-      ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[phone]};${css};`,
+        device: "phone",
+      },
+    ]);
 
   }
 
@@ -447,10 +444,10 @@ class RatingBox extends Component {
       if(props.enable_single_rating !== "on"){
         if(props.rating_number_type === "number_with_bracket"){
           ratingNumber = <span className="df_rating_number">
-            {`(${rating_value} / ${rating_scale_type})`}
+            {`(${rating_value}/${rating_scale_type})`}
           </span>
         }else if(props.rating_number_type === "number_without_bracket"){
-          ratingNumber = <span className="df_rating_number">{`${rating_value} / ${rating_scale_type}`}</span>
+          ratingNumber = <span className="df_rating_number">{`${rating_value}/${rating_scale_type}`}</span>
         }else{
           ratingNumber = <span className="df_rating_number">{rating_value_single}</span>
         }

@@ -15,6 +15,8 @@ class FaqItem extends Component {
     };
 
     this.showHideAnswer = this.showHideAnswer.bind(this)
+
+    // console.log(props)
   }
 
   // componentDidMount() {
@@ -30,12 +32,14 @@ class FaqItem extends Component {
   // 	}, 333);
   // }
 
+
+
   showHideAnswer = () => {
     // const el = ReactDOM.findDOMNode(this);
     // const height = el.querySelector('.faq_answer_wrapper').scrollHeight;
     this.setState({ toggle: true });
 
-    console.log(this.state.toggle);
+    // console.log(this.state.toggle);
   };
 
   static css(props) {

@@ -86,10 +86,11 @@ yarn-error.log*
 /includes/modules/LogoCarouselItem
 /includes/modules/PostItem
 /includes/modules/ProductItem
-/includes/modules/index.js
 /includes/utils
 /languages
-/public
+!/public/
+/public/*
+!/public/js/faq.js
 /scripts
 /styles
 /template
