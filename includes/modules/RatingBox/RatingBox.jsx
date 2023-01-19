@@ -304,7 +304,7 @@ class RatingBox extends Component {
     if ("" !== props.title_text_align_phone) {
       const title_align_mob = props.title_text_align_phone
         ? props.title_text_align_phone
-        : "center";
+        : props.title_text_align_tablet;
       additionalCss.push([
         {
           selector: `%%order_class%% .df_rating_title`,

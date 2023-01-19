@@ -1307,7 +1307,7 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
 
         if ("" !== $this->props['title_text_align_phone']) {
-            $title_text_align_mob = $this->props['title_text_align_phone'] ? $this->props['title_text_align_phone'] : "center";
+            $title_text_align_mob = $this->props['title_text_align_phone'] ? $this->props['title_text_align_phone'] : $this->props['title_text_align_tablet'];
             ET_Builder_Element::set_style($render_slug, array(
                 'selector'    => "$this->main_css_element .df_rating_title",
                 'declaration' => "width: 100%; margin-right:0px; margin-left:0px; text-align: " . $title_text_align_mob . ";",
