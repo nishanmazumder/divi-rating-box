@@ -360,7 +360,7 @@ class DIFL_FAQ extends ET_Builder_Module
             'enable_faq_animation' => array(
                 'label'          => esc_html__('Enable FAQ Toggle Animation', 'divi_flash'),
                 'type'           => 'yes_no_button',
-                'default'        => 'off',
+                'default'        => 'on',
                 'options'        => array(
                     'off' => esc_html__('Off', 'divi_flash'),
                     'on'  => esc_html__('On', 'divi_flash')
@@ -370,7 +370,7 @@ class DIFL_FAQ extends ET_Builder_Module
             'faq_animation'  => array(
                 'label'      => esc_html__('Toggle Animation', 'divi_flash'),
                 'type'       => 'select',
-                'default'    => 'slide',
+                'default'    => 'slide_down',
                 'options'    => array(
                     'slide_down'  => esc_html__('Slide', 'divi_flash'),
                     'bounce' => esc_html__('Bounce', 'divi_flash'),

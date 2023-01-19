@@ -31,6 +31,7 @@
 
 .difl_faqitem .df_faq_item{
   /* display: block; */
+  overflow: hidden;
   width: 100%;
   background: #f4f4f4;
 }
@@ -41,6 +42,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  overflow: hidden;
   /* box-sizing: border-box; */
 }
 .difl_faqitem .faq_question_area {
@@ -69,6 +71,11 @@
 .difl_faqitem .faq_answer_wrapper {
   /* display: none; */
   overflow: hidden;
+  /* -webkit-transition: height 1s ease;
+  -moz-transition: height 1s ease;
+    -o-transition: height 1s ease;
+   -ms-transition: height 1s ease;
+       transition: height 1s ease; */
 }
 
 .difl_faqitem .faq_answer_area{

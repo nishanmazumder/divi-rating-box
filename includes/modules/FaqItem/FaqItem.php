@@ -166,7 +166,6 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'label'           => esc_html__('Title Tag', 'divi_flash'),
                 'description'     => esc_html__('Choose a tag to display your question.', 'divi_flash'),
                 'type'            => 'select',
-                'option_category' => 'layout',
                 'options'         => array(
                     'h1'   => esc_html__('H1 tag', 'divi_flash'),
                     'h2'   => esc_html__('H2 tag', 'divi_flash'),
@@ -198,6 +197,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'choose_text'           => esc_attr__('Choose an Image', 'divi_flash'),
                 'update_text'           => esc_attr__('Set As Image', 'divi_flash'),
                 'toggle_slug'           => 'child_faq_question',
+                'dynamic_content'    => 'image',
                 'show_if'        => array(
                     'enable_question_image'     => 'on',
                 )
@@ -219,6 +219,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'choose_text'           => esc_attr__('Choose an Image', 'divi_flash'),
                 'update_text'           => esc_attr__('Set As Image', 'divi_flash'),
                 'toggle_slug'           => 'child_faq_question',
+                'dynamic_content'    => 'image',
                 'show_if'        => array(
                     'enable_question_image'     => 'on',
                 )
@@ -275,6 +276,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'choose_text'        => esc_attr__('Choose an Image', 'divi_flash'),
                 'update_text'        => esc_attr__('Set As Image', 'divi_flash'),
                 'toggle_slug'        => 'child_faq_answer',
+                'dynamic_content'    => 'image',
                 'show_if' => array(
                     'enable_answer_image' => 'on',
                 )

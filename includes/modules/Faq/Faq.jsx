@@ -9,7 +9,7 @@ class FAQ extends Component {
   static css(props) {
     var additionalCss = [];
 
-   console.log(props);
+  //  console.log(props);
 
     return additionalCss;
   }
