@@ -232,7 +232,7 @@ class FAQ extends Component {
   render_faq_items = () => {
     const content = this.props.content;
 
-    return content.map((data, i) => {
+    return [].map.call(content, (data, i) => {
       const child_props = data.props.attrs;
       const child_class = "et_pb_module difl_faqitem difl_faqitem_" + i;
 

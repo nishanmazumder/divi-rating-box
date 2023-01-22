@@ -124,7 +124,7 @@ class FaqItem extends Component {
       });
     }
 
-    // console.log(props);
+    console.log(props);
 
     return additionalCss;
   }
@@ -133,7 +133,7 @@ class FaqItem extends Component {
 
     // console.log(this.props)
 
-    return false;
+    return null;
   }
 }
 
