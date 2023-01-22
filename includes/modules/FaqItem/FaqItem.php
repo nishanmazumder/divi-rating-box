@@ -706,18 +706,17 @@ class DIFL_FaqItem extends ET_Builder_Module
 
     public function df_render_faq_toggle_icon()
     {
-        return;
-        // $close_faq_icon = !empty($this->parent_faq->props['close_faq_icon']) ?  esc_attr(et_pb_process_font_icon($this->parent_faq->props['close_faq_icon'])) : '5';
-        // $open_faq_icon = !empty($this->parent_faq->props['open_faq_icon']) ?  esc_attr(et_pb_process_font_icon($this->parent_faq->props['open_faq_icon'])) : '5';
+        $close_faq_icon = !empty($this->parent_faq->props['close_faq_icon']) ?  esc_attr(et_pb_process_font_icon($this->parent_faq->props['close_faq_icon'])) : '5';
+        $open_faq_icon = !empty($this->parent_faq->props['open_faq_icon']) ?  esc_attr(et_pb_process_font_icon($this->parent_faq->props['open_faq_icon'])) : '5';
 
-        // if (!empty($close_faq_icon)) {
-        //     return sprintf(
-        //         '<div class="close_icon"><span class="et-pb-icon">%1$s</span></div>
-        //         <div class="open_icon"><span class="et-pb-icon">%2$s</span></div>',
-        //         $close_faq_icon,
-        //         $open_faq_icon
-        //     );
-        // }
+        if (!empty($close_faq_icon)) {
+            return sprintf(
+                '<div class="close_icon"><span class="et-pb-icon">%1$s</span></div>
+                <div class="open_icon"><span class="et-pb-icon">%2$s</span></div>',
+                $close_faq_icon,
+                $open_faq_icon
+            );
+        }
     }
 
     public function df_render_button()

@@ -43,6 +43,86 @@ class FaqItem extends Component {
   static css(props) {
     var additionalCss = [];
 
+    if ("" !== props.button_font_icon) {
+      utility.process_icon_font_style({
+        props: props,
+        additionalCss: additionalCss,
+        key: "button_font_icon",
+        selector: "%%order_class%% .et-pb-icon.df-faq-button-icon",
+      });
+    }
+
+    // Button icon
+    if ("on" === props.use_button_icon) {
+      utility.process_color({
+        props: props,
+        key: "button_icon_color",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_button a .et-pb-icon",
+        type: "color",
+        // 'important': true
+      });
+
+      utility.process_range_value({
+        props: props,
+        key: "button_icon_size",
+        additionalCss: additionalCss,
+        default: "20px",
+        selector: "%%order_class%% .faq_button .et-pb-icon",
+        type: "font-size",
+      });
+    }
+
+    // question image placement
+    if ("inherit" !== props.question_image_placement) {
+      utility.df_process_string_attr({
+        props: props,
+        key: "question_image_placement",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_question_area",
+        type: "flex-direction",
+        default_value: "row",
+      });
+    }
+
+    // answer image width
+    utility.process_range_value({
+      props: props,
+      key: "answer_image_width",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_image",
+      type: "width",
+    });
+
+    // answer image placement
+    utility.df_process_string_attr({
+      props: props,
+      key: "answer_image_placement",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_area",
+      type: "flex-flow",
+    });
+
+    // button design
+    if ("on" === props.button_full_width) {
+      additionalCss.push([
+        {
+          selector: "%%order_class%% .faq_button a",
+          declaration: "display: block !important;",
+        },
+      ]);
+    }
+
+    if ("off" === props.button_full_width && "" !== props.button_alignment) {
+      utility.df_process_string_attr({
+        props: props,
+        key: "button_alignment",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_button",
+        type: "text-align",
+        default_value: "left",
+      });
+    }
 
     // console.log(props);
 
@@ -50,6 +130,9 @@ class FaqItem extends Component {
   }
 
   render() {
+
+    // console.log(this.props)
+
     return false;
   }
 }

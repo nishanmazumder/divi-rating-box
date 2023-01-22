@@ -32,7 +32,7 @@
 .difl_faqitem .df_faq_item{
   /* display: block; */
   overflow: hidden;
-  width: 100%;
+  /* width: 100%; */
   background: #f4f4f4;
 }
 
@@ -96,6 +96,7 @@
 
 .difl_faqitem .faq_button a{
   display: inline-flex;
+  align-items: center;
   vertical-align: initial;
   background: red;
   color: #fff;

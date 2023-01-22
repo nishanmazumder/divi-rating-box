@@ -19,51 +19,101 @@ class FAQ extends Component {
   static css(props) {
     var additionalCss = [];
 
-    utility.process_icon_font_style({
+    // console.log(props)
+
+    if ("" !== props.close_faq_icon) {
+      utility.process_icon_font_style({
+        props: props,
+        additionalCss: additionalCss,
+        key: "close_faq_icon",
+        selector: "%%order_class%% .faq_icon .close_icon span.et-pb-icon",
+      });
+    }
+
+    if ("" !== props.open_faq_icon) {
+      utility.process_icon_font_style({
+        props: props,
+        additionalCss: additionalCss,
+        key: "open_faq_icon",
+        selector: "%%order_class%% .faq_icon .open_icon span.et-pb-icon",
+      });
+    }
+
+    if ("inherit" !== props.faq_icon_placement) {
+      utility.df_process_string_attr({
+        props: props,
+        key: "faq_icon_placement",
+        additionalCss: additionalCss,
+        selector:
+          "%%order_class%% .faq_question_wrapper, %%order_class%% .faq_question_area",
+        type: "flex-direction",
+        important: false,
+      });
+    }
+
+    // faq grid layout
+    if ("on" === props.faq_layout_grid) {
+      this.df_faq_set_dynamic_grid_columns({
+        props: props,
+        key: "faq_item_per_column",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .df_faq_wrapper",
+        type: "grid-template-columns",
+      });
+
+      // faq item width
+      utility.process_range_value({
+        props: props,
+        key: "faq_item_gap",
+        additionalCss: additionalCss,
+        unit: "px",
+        default: "20",
+        selector: "%%order_class%% .difl_faqitem div.et_pb_module_inner",
+        type: "gap",
+      });
+    }
+
+    // faq item width
+    utility.process_range_value({
       props: props,
+      key: "faq_item_width",
       additionalCss: additionalCss,
-      key: "close_faq_icon",
-      selector: "%%order_class%% .et-pb-icon",
+      default: "50%",
+      selector: "%%order_class%% .difl_faqitem div.et_pb_module_inner",
+      type: "width",
+      important: true,
     });
 
-    utility.process_icon_font_style({
+    if ("on" === props.faq_item_equal_width) {
+      additionalCss.push([
+        {
+          selector: "%%order_class%% .difl_faqitem div.et_pb_module_inner",
+          declaration: `width: 100% !important;`,
+        },
+      ]);
+    }
+
+    utility.df_process_string_attr({
       props: props,
+      key: "faq_item_horizontal_alignment",
       additionalCss: additionalCss,
-      key: "open_faq_icon",
-      selector: "%%order_class%% .et-pb-icon",
+      selector: ".df_faq_wrapper .et_pb_module.difl_faqitem",
+      type: "justify-content",
     });
 
-    utility.process_icon_font_style({
-      props: props,
-      additionalCss: additionalCss,
-      key: "button_font_icon",
-      selector: "%%order_class%% .et-pb-icon",
-    });
+    // List item vertical alignment with default, responsive
+    //   utility.df_process_string_attr({
+    //     'props': props,
+    //     'key': 'faq_item_vertical_alignment',
+    //     'additionalCss': additionalCss,
+    //     'selector': $vertical_alignment_selector,
+    //     'type': 'align-items'
+    // });
 
     //  console.log(props);
 
     return additionalCss;
   }
-
-  render_faq_items = () => {
-    const content = this.props.content;
-
-    return content.map((data, i) => {
-      const child_props = data.props.attrs;
-      const child_class = "et_pb_module difl_faqitem difl_faqitem_" + i;
-
-      return (
-        <div key={i} className={child_class}>
-          <div className="et_pb_module_inner">
-            <div key={child_props.question} className="df_faq_item active">
-              {this.df_faq_question(child_props)}
-              {this.df_faq_answer(child_props)}
-            </div>
-          </div>
-        </div>
-      );
-    });
-  };
 
   // prettier-ignore
   render_button(props) {
@@ -71,7 +121,7 @@ class FAQ extends Component {
     const button_text = props['button_text'] ? <span>{props['button_text'] }</span> : '';
     const button_url = props['button_url'] ? props['button_url'] : '';
     const button_font_icon  = props['button_font_icon'] ? utils.processFontIcon(props['button_font_icon']) : '5';
-    const button_icon_pos   = props['button_icon_placement'];
+    const button_icon_pos   = props['button_icon_placement'] ? props['button_icon_placement'] : 'right';
 
     const button_icon =  'off' !== props['use_button_icon'] ?
         <span className={'et-pb-icon'}>
@@ -117,7 +167,7 @@ class FAQ extends Component {
       </div>
     ) : ("");
 
-    if(props.enable_question_image){
+    if('on' === props.enable_question_image){
       return (
         <div className="faq_question_image">
           {close_image_html} {open_image_html}
@@ -177,14 +227,73 @@ class FAQ extends Component {
       </div>
     );
   };
-   // prettier-ignore
+  // prettier-ignore
+
+  render_faq_items = () => {
+    const content = this.props.content;
+
+    return content.map((data, i) => {
+      const child_props = data.props.attrs;
+      const child_class = "et_pb_module difl_faqitem difl_faqitem_" + i;
+
+      return (
+        <div key={i} className={child_class}>
+          <div className="et_pb_module_inner">
+            <div key={child_props.question} className="df_faq_item active">
+              {this.df_faq_question(child_props)}
+              {this.df_faq_answer(child_props)}
+            </div>
+          </div>
+        </div>
+      );
+    });
+  };
+
+  static df_faq_set_dynamic_grid_columns(options = {}) {
+    const defaults = {
+      props: {},
+      key: "",
+      additionalCss: "",
+      selector: "",
+      type: "grid-template-columns",
+    };
+    const settings = utility.extend(defaults, options);
+    const { props, key, additionalCss, selector, type } = settings;
+
+    const desktop_column = props[key];
+    const tablet = utility.df_check_values(
+      desktop_column,
+      props[key + "_tablet"]
+    );
+    const phone = utility.df_check_values(
+      desktop_column,
+      props[key + "_phone"]
+    );
+
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `${type}:repeat(${desktop_column}, 1fr)};`,
+      },
+    ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `${type}:repeat(${tablet}, 1fr)};`,
+        device: "tablet",
+      },
+    ]);
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `${type}:repeat(${phone}, 1fr)};`,
+        device: "phone",
+      },
+    ]);
+  }
 
   render() {
-    return (
-      <div className="df_faq_wrapper">
-        {this.render_faq_items()}
-      </div>
-    )
+    return <div className="df_faq_wrapper">{this.render_faq_items()}</div>;
   }
 }
 
