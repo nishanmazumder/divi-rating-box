@@ -509,10 +509,8 @@ class DIFL_FaqItem extends ET_Builder_Module
             'enable_faq_animation'     => $this->parent_faq->props['enable_faq_animation'],
             'faq_animation'            => $this->parent_faq->props['faq_animation'],
             'icon_animation'           => $this->parent_faq->props['enable_icon_animation'],
+            'enable_que_img_animation' => $this->parent_faq->props['enable_que_img_animation'],
         ];
-
-        //
-        //
 
         // global $df_question_data;
         // $df_ati_class = ET_Builder_Element::get_module_order_class( $render_slug );

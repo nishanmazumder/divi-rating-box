@@ -372,9 +372,8 @@ class DIFL_FAQ extends ET_Builder_Module
                 'type'       => 'select',
                 'default'    => 'slide_down',
                 'options'    => array(
-                    'slide_down'  => esc_html__('Slide', 'divi_flash'),
-                    'bounce' => esc_html__('Bounce', 'divi_flash'),
-                    'fade_in'   => esc_html__('Fade', 'divi_flash'),
+                    'slide'  => esc_html__('Slide', 'divi_flash'),
+                    'fade'   => esc_html__('Fade', 'divi_flash'),
                 ),
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'animation',
@@ -384,6 +383,16 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'enable_icon_animation' => array(
                 'label'          => esc_html__('Enable Icon Animation', 'divi_flash'),
+                'type'           => 'yes_no_button',
+                'default'        => 'off',
+                'options'        => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
+                'toggle_slug'    => 'animation'
+            ),
+            'enable_que_img_animation' => array(
+                'label'          => esc_html__('Enable Question Image Animation', 'divi_flash'),
                 'type'           => 'yes_no_button',
                 'default'        => 'off',
                 'options'        => array(
