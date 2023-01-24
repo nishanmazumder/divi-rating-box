@@ -7,17 +7,17 @@ import "./style.css";
 class FaqItem extends Component {
   static slug = "difl_faqitem";
 
-  // constructor(props) {
-  //   super(props);
+  constructor(props) {
+    super(props);
 
-  //   // this.state = {
-  //   //   toggle: false,
-  //   // };
+    this.state = {
+      active: false,
+    };
 
-  //   // this.showHideAnswer = this.showHideAnswer.bind(this);
+    // this.showHideAnswer = this.showHideAnswer.bind(this);
 
-  //   // console.log(props)
-  // }
+    // console.log(props)
+  }
 
   // componentDidMount() {
   // 	window.setTimeout(() => {
@@ -41,145 +41,102 @@ class FaqItem extends Component {
   // };
 
   static css(props) {
+
+    console.log(props)
+
     var additionalCss = [];
 
+    if ("" !== props.button_font_icon) {
+      utility.process_icon_font_style({
+        props: props,
+        additionalCss: additionalCss,
+        key: "button_font_icon",
+        selector: "%%order_class%% .et-pb-icon.df-faq-button-icon",
+      });
+    }
 
+    // Button icon
+    if ("on" === props.use_button_icon) {
+      utility.process_color({
+        props: props,
+        key: "button_icon_color",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_button a .et-pb-icon",
+        type: "color",
+        // 'important': true
+      });
 
-    utility.process_icon_font_style({
-      'props'             : props,
-      'additionalCss'     : additionalCss,
-      'key'               : 'button_font_icon',
-      'selector'          : '%%order_class%% .et-pb-icon'
-    })
+      utility.process_range_value({
+        props: props,
+        key: "button_icon_size",
+        additionalCss: additionalCss,
+        default: "20px",
+        selector: "%%order_class%% .faq_button .et-pb-icon",
+        type: "font-size",
+      });
+    }
 
-    console.log(props);
+    // question image placement
+    if ("inherit" !== props.question_image_placement) {
+      utility.df_process_string_attr({
+        props: props,
+        key: "question_image_placement",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_question_area",
+        type: "flex-direction",
+        default_value: "row",
+      });
+    }
+
+    // answer image width
+    utility.process_range_value({
+      props: props,
+      key: "answer_image_width",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_image",
+      type: "width",
+    });
+
+    // answer image placement
+    utility.df_process_string_attr({
+      props: props,
+      key: "answer_image_placement",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_area",
+      type: "flex-flow",
+    });
+
+    // button design
+    if ("on" === props.button_full_width) {
+      additionalCss.push([
+        {
+          selector: "%%order_class%% .faq_button a",
+          declaration: "display: block !important;",
+        },
+      ]);
+    }
+
+    if ("off" === props.button_full_width && "" !== props.button_alignment) {
+      utility.df_process_string_attr({
+        props: props,
+        key: "button_alignment",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_button",
+        type: "text-align",
+        default_value: "left",
+      });
+    }
+
+    // console.log(props);
 
     return additionalCss;
   }
 
-  // prettier-ignore
-  render_button(props) {
-    const utils = window.ET_Builder.API.Utils;
-    const button_text = props['button_text'] ? <span>{props['button_text'] }</span> : '';
-    const button_url = props['button_url'] ? props['button_url'] : '';
-    const button_font_icon  = props['button_font_icon'] ? props['button_font_icon'] : '5';
-    const button_icon_pos   = props['button_icon_placement'];
-
-    const button_icon =  'off' !== props['use_button_icon'] ?
-        <span className={'et-pb-icon'}>
-        {utils.processFontIcon(button_font_icon)}</span>
-     : '';
-
-    if (button_text !== '' || button_url !== '') {
-      return (
-        <div className="faq_button">
-          <a href={button_url}> {button_icon_pos === 'left' ? button_icon : ''} {button_text} {button_icon_pos === 'right' ? button_icon : ''} </a>
-        </div>
-      )
-    } else return '';
-  }
-  // prettier-ignore
-
-  // prettier-ignore
-  render_que_icon = (props, utils) =>{
-    const close_icon_html = props.close_faq_icon ? <div className="close_icon"><span className="">{utils.processFontIcon(props.close_faq_icon)}</span></div> : ""
-    const open_icon_html = props.open_faq_icon ? <div className="close_icon"><span className="">{utils.processFontIcon(props.open_faq_icon)}</span></div> : ""
-
-    return(
-      <div className="faq_icon">
-        {close_icon_html}{open_icon_html}
-      </div>
-    )
-  }
-  // prettier-ignore
-
-  // prettier-ignore
-  render_que_image = (props) => {
-    const close_image_html = props.close_question_image ? (
-      <div className="close_image">
-        <img src={utility._renderDynamicContent(props , 'close_question_image' , false)} alt={props.close_question_image_alt_text} />
-      </div>
-    ) : ("");
-
-    const open_image_html = props.open_question_image ? (
-      <div className="open_image">
-        <img src={utility._renderDynamicContent(props , 'close_question_image' , false)} alt={props.open_question_image_alt_text} />
-      </div>
-    ) : ("");
-
-    if(props.enable_question_image){
-      return (
-        <div className="faq_question_image">
-          {close_image_html} {open_image_html}
-        </div>
-      )
-    }
-
-    return null
-  }
-  // prettier-ignore
-
-  // prettier-ignore
-  df_faq_question = () => {
-    const props = this.props;
-    const utils = window.ET_Builder.API.Utils;
-    const TitleTag = props.question_title_tag ? props.question_title_tag : "h3";
-    const QueImgHtml = this.render_que_image(props);
-    const QueHtml = props.dynamic.question.hasValue ? (
-      <div className="faq_question">
-        <TitleTag>{utility._renderDynamicContent(props, "question")}</TitleTag>
-      </div>
-    ) : ("");
-    const QueIconHtml = this.render_que_icon(props, utils)
-
-    return (
-      <div className="faq_question_wrapper">
-        <div className="faq_question_area">
-          {QueImgHtml}
-          {QueHtml}
-        </div>
-        {QueIconHtml}
-      </div>
-    );
-  };
-  // prettier-ignore
-
-  df_faq_answer = () => {
-    const props = this.props;
-    const AnsHtml = props.dynamic.answer.hasValue  !== '' ? <div className="faq_answer"> {utility._renderDynamicContent(this.props, "answer")} </div> : '';
-    const AnsImgHtml = props.answer_image ? (
-      <div className="faq_answer_image">
-        <img src={utility._renderDynamicContent(props , 'answer_image' , false)} alt={props.answer_image_alt_text} />
-      </div>
-    ) : ("");
-
-   const AnsBtnHtml = this.render_button(this.props)
-
-    return (
-      <div className="faq_answer_wrapper">
-        <div className="faq_answer_area">
-          {AnsHtml}
-          {AnsImgHtml}
-        </div>
-        {AnsBtnHtml}
-      </div>
-    );
-  };
-
   render() {
-    // const props = this.props;
 
-    const FaqItemHtml = (
-      <div className="df_faq_item active">
-        {this.df_faq_question()}
-        {this.df_faq_answer()}
-      </div>
-    );
+    // console.log(this.props)
 
-    {
-      /* {console.log(this.state.toggle)} */
-    }
-    return <>{FaqItemHtml}</>;
+    return null;
   }
 }
 
