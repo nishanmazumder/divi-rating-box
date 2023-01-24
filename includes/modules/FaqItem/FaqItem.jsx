@@ -41,6 +41,9 @@ class FaqItem extends Component {
   // };
 
   static css(props) {
+
+    console.log(props)
+
     var additionalCss = [];
 
     if ("" !== props.button_font_icon) {
@@ -124,14 +127,14 @@ class FaqItem extends Component {
       });
     }
 
-    console.log(props);
+    // console.log(props);
 
     return additionalCss;
   }
 
   render() {
 
-    console.log(this.props)
+    // console.log(this.props)
 
     return null;
   }

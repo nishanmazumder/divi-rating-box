@@ -10,11 +10,19 @@ class FAQ extends Component {
     super(props);
 
     this.render_faq_items = this.render_faq_items.bind(this);
+
+    this.state = {
+      content : []
+    }
   }
 
-  componentDidUpdate() {
-    this.render_faq_items();
+ static getDerivedStateFromProps(props) {
+    return {content : props.content}
   }
+
+  // componentDidUpdate() {
+  //   this.render_faq_items();
+  // }
 
   static css(props) {
     var additionalCss = [];
@@ -230,7 +238,9 @@ class FAQ extends Component {
   // prettier-ignore
 
   render_faq_items = () => {
-    const content = this.props.content;
+    const content = this.state.content;
+
+    // console.log(content)
 
     return [].map.call(content, (data, i) => {
       const child_props = data.props.attrs;
