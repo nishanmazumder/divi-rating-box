@@ -57,8 +57,8 @@ import IconList from './IconList/IconList';
 import IconListItem from './IconListItem/IconListItem';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import RatingBox from './RatingBox/RatingBox';
-import FAQ from './Faq/Faq';
-import FaqItem from './FaqItem/FaqItem';
+import FAQ2 from './Faq2/Faq2';
+import FaqItem2 from './FaqItem2/FaqItem2';
 export default [
     CFSeven,
     WPForms,
@@ -119,6 +119,6 @@ export default [
     IconListItem,
     Breadcrumbs,
     RatingBox,
-    FAQ,
-    FaqItem
+    FAQ2,
+    FaqItem2
 ];
