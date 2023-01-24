@@ -3,7 +3,7 @@ import utility from "../../../scripts/df_scripts/utilities";
 // Internal Dependencies
 import "./style.css";
 
-class FAQ extends Component {
+class Faq extends Component {
   static slug = "difl_faq";
 
   static css(props) {
@@ -25,4 +25,4 @@ class FAQ extends Component {
   }
 }
 
-export default FAQ;
+export default Faq;
