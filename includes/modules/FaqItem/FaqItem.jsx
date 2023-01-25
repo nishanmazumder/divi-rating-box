@@ -7,42 +7,9 @@ import "./style.css";
 class FaqItem extends Component {
   static slug = "difl_faqitem";
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      active: false,
-    };
-
-    // this.showHideAnswer = this.showHideAnswer.bind(this);
-
-    // console.log(props)
-  }
-
-  // componentDidMount() {
-  // 	window.setTimeout(() => {
-  // 		const el = ReactDOM.findDOMNode(this);
-  // 		const height = el.querySelector('.faq_answer_wrapper').scrollHeight;
-
-  //     console.log(height)
-
-  // 		this.setState({
-  // 			height
-  // 		});
-  // 	}, 333);
-  // }
-
-  // showHideAnswer = () => {
-  //   // const el = ReactDOM.findDOMNode(this);
-  //   // const height = el.querySelector('.faq_answer_wrapper').scrollHeight;
-  //   this.setState({ toggle: true });
-
-  //   // console.log(this.state.toggle);
-  // };
-
   static css(props) {
 
-    console.log(props)
+    // console.log(props)
 
     var additionalCss = [];
 

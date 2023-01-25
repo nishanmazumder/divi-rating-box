@@ -39,7 +39,7 @@ class DIFL_FaqItem extends ET_Builder_Module
 
         $this->parent_faq = isset(self::get_parent_modules('page')['difl_faq']) ? self::get_parent_modules('page')['difl_faq'] : new stdClass;
         $this->child_title_var          = 'question';
-        // $this->child_title_fallback_var = 'answer';
+        $this->child_title_fallback_var = 'question_type';
 
         $this->main_css_element = "%%order_class%%";
         $this->icon_path        =  DIFL_ADMIN_DIR_PATH . 'img/module-icons/rating-box.svg';
@@ -344,6 +344,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             'button_text' => array(
                 'label'           => esc_html__('Button Text', 'divi_flash'),
                 'type'            => 'text',
+                'default'          => esc_html__('Button', 'divi_flash'),
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'child_faq_answer',
                 'show_if'         => array(
@@ -353,6 +354,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             'button_url' => array(
                 'label'           => esc_html__('Button URL', 'divi_flash'),
                 'type'            => 'text',
+                'default'          => '#',
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'child_faq_answer',
                 'show_if'         => array(

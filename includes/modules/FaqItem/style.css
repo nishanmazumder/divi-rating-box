@@ -14,8 +14,9 @@
 }
 
 /* FAQ Item*/
-/* .active {
-} */
+.difl_faqitem div.et_pb_module_inner{
+  display: flex;
+}
 
 /* Default Padding */
 .difl_faqitem .faq_question_wrapper,
@@ -103,9 +104,9 @@
   font-size: 18px;
 }
 
-.difl_faqitem .et-pb-icon{
-  vertical-align: initial;
-  font-size: 16px;
+.difl_faqitem .df-faq-button-icon{
+  /* vertical-align: initial; */
+  font-size: 20px;
 }
 
 /* .difl_faqitem .df_faq_item.active .faq_answer_wrapper{
