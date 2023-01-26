@@ -180,7 +180,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'default'          => 'h3'
             ),
             'enable_question_image' => array(
-                'label'          => esc_html__('Enable Image', 'divi_flash'),
+                'label'          => esc_html__('Enable Question Image', 'divi_flash'),
                 'type'           => 'yes_no_button',
                 'default'        => 'off',
                 'options'        => array(
@@ -295,8 +295,8 @@ class DIFL_FaqItem extends ET_Builder_Module
                     'step'      => '1',
                     'min'       => '1',
                     'min_limit' => '1',
-                    'max'       => '500',
-                    'max_limit' => '500'
+                    'max'       => '100',
+                    'max_limit' => '100'
                 ),
                 'toggle_slug'   => 'child_faq_answer',
                 'validate_unit' => true,
@@ -373,7 +373,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 )
             ),
             'button_full_width'     => array(
-                'label'             => esc_html__('Enable Button Fullwidth', 'divi_flash'),
+                'label'             => esc_html__('Enable Button Full Width', 'divi_flash'),
                 'type'              => 'yes_no_button',
                 'options'           => array(
                     'off' => esc_html__('Off', 'divi_flash'),
@@ -725,7 +725,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             'active_item_order_number' => $active_item,
             'enable_faq_animation'     => $this->parent_faq->props['enable_faq_animation'],
             'faq_animation'            => $this->parent_faq->props['faq_animation'],
-            'icon_animation'           => $this->parent_faq->props['enable_icon_animation'],
+            'enable_icon_animation'           => $this->parent_faq->props['enable_icon_animation'],
             'enable_que_img_animation' => $this->parent_faq->props['enable_que_img_animation'],
         ];
 
