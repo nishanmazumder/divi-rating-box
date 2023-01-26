@@ -11,159 +11,125 @@ class Faq extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       isActive: false,
     };
 
-    console.log(this.props);
+    // this.wrapper = React.createRef();
+    this.render_faq_items = this.render_faq_items.bind(this)
   }
 
-  // componentDidUpdate() {
-  //   const getAnswer = this.props.content.props.attrs.answer;
-  //   if ("" !== getAnswer) {
-  //     const answer = getAnswer.replace(/<p>(.*?)<\/p>/, "$1");
-  //     this.setState({ answer: answer });
-  //   }
-  // }
+  componentDidUpdate() {
+    this.activate_item_order();
+    this.render_faq_items()
+  }
 
-  //   module_init() {
-  //     // const _this = this;
-  //     const props = this.props;
+  // prettier-ignore
+  activate_item_order = () => {
+    const parent_class = this.props.moduleInfo.orderClassName;
+    const get_wrapper_classes = $("." + parent_class).find(".df_faq_item");
+    const active_item = "on" === this.props.activate_on_first_time ? this.props.active_item_order_number : 0;
 
-  //     // const unique_module_name = this.getUniqueClass(props.moduleInfo.type);
-  //     const parent_class = props.moduleInfo.orderClassName;
-  //     const get_child_classes = $('.' + parent_class).find('.difl_faqitem')
-  //     const get_child_uniq_class = get_child_classes[0].classList.value.split(" ").filter(function(class_name){
-  //       return class_name.indexOf('difl_faqitem_') !== -1;
-  //     });
-  //     // const child_class = $('.' + parent_class).find('.')
+    if ("on" === this.props.activate_on_first_time) {
+      const active_item_order = ":eq(" + (active_item - 1) + ")";
+      const active_item_selector = "." + get_wrapper_classes[0].classList + active_item_order;
 
-  //     console.log(get_child_uniq_class[0])
+      $(get_wrapper_classes).removeClass("active");
+      $(active_item_selector).removeClass("active");
+      $(active_item_selector).addClass("active");
 
-  //     const active_item = props.activate_on_first_time === 'on' ? props.active_item_order_number : 0;
+    } return;
 
-  //     if ('' !== active_item) {
-  //         const active_item_order = ':eq(' + (active_item - 1) + ')';
-  //         const active_item_selector = '.' + unique_module_name + ' .difl_imageaccordionitem' + active_item_order;
-
-  //         $('.' + unique_module_name + ' .difl_imageaccordionitem').removeClass('df_ia_active');
-  //         $(active_item_selector).addClass("df_ia_active");
-
-  //     } else {
-  //         return;
-  //     }
-  // }
-
-  // getUniqueClass(slug) {
-  //   const selector = '.' + slug + '[data-address="' + this.props.moduleInfo.address + '"]';
-  //   const classesList = document.querySelector(selector).classList;
-
-  //   var unique_module_name = ''
-  //   for (var i = 0; i < classesList.length; i++) {
-  //       var matches = /^"difl_faq"\_(.+)/.exec(classesList[i]);
-
-  //       if (matches != null) {
-  //           unique_module_name = matches[0];
-  //       }
-  //   }
-  //   return unique_module_name;
-  // }
+  }
+  // prettier-ignore
 
   static css(props) {
     var additionalCss = [];
 
     if ("" !== props.close_faq_icon) {
       utility.process_icon_font_style({
-        props: props,
+        props   : props,
         additionalCss: additionalCss,
-        key: "close_faq_icon",
-        selector: "%%order_class%% .faq_icon .close_icon span.et-pb-icon",
+        key     : "close_faq_icon",
+        selector: "%%order_class%% .faq_icon .close_icon span.et-pb-icon"
       });
     }
 
     if ("" !== props.open_faq_icon) {
       utility.process_icon_font_style({
-        props: props,
+        props   : props,
         additionalCss: additionalCss,
-        key: "open_faq_icon",
-        selector: "%%order_class%% .faq_icon .open_icon span.et-pb-icon",
+        key     : "open_faq_icon",
+        selector: "%%order_class%% .faq_icon .open_icon span.et-pb-icon"
       });
     }
 
     if ("inherit" !== props.faq_icon_placement) {
       utility.df_process_string_attr({
-        props: props,
-        key: "faq_icon_placement",
+        props   : props,
+        key     : "faq_icon_placement",
         additionalCss: additionalCss,
-        selector:
-          "%%order_class%% .faq_question_wrapper, %%order_class%% .faq_question_area",
-        type: "flex-direction",
-        important: false,
+        selector: "%%order_class%% .faq_question_wrapper, %%order_class%% .faq_question_area",
+        type    : "flex-direction"
       });
     }
 
     // faq grid layout
     if ("on" === props.faq_layout_grid) {
       this.df_faq_set_dynamic_grid_columns({
-        props: props,
-        key: "faq_item_per_column",
+        props : props,
+        key   : "faq_item_per_column",
         additionalCss: additionalCss,
         selector: "%%order_class%% .df_faq_wrapper",
-        type: "grid-template-columns",
-      });
-
-      // faq item gap
-      utility.process_range_value({
-        props: props,
-        key: "faq_item_gap",
-        additionalCss: additionalCss,
-        selector: "%%order_class%% .df_faq_wrapper",
-        type: "gap",
-        important: true
+        type  : "grid-template-columns"
       });
     }
 
-    // faq item width
+    // faq item gap
     utility.process_range_value({
-      props: props,
-      key: "faq_item_width",
+      props : props,
+      key   : "faq_item_gap",
       additionalCss: additionalCss,
-      default: "50%",
-      selector: "%%order_class%% .difl_faqitem div.et_pb_module_inner",
-      type: "width",
-      important: true,
+      selector: "%%order_class%%.difl_faq .df_faq_wrapper",
+      type  : "gap"
     });
 
+    // faq item width
     if ("on" === props.faq_item_equal_width) {
       additionalCss.push([
         {
           selector: "%%order_class%% .difl_faqitem div.et_pb_module_inner",
-          declaration: `width: 100% !important;`,
+          declaration: `width: 100% !important;`
         },
       ]);
+    }else{
+      utility.process_range_value({
+        props   : props,
+        key     : "faq_item_width",
+        additionalCss: additionalCss,
+        default : "50%",
+        selector: "%%order_class%% .difl_faqitem div.et_pb_module_inner",
+        type    : "width"
+      });
     }
 
     utility.df_process_string_attr({
       props: props,
       key: "faq_item_horizontal_alignment",
       additionalCss: additionalCss,
-      selector: ".df_faq_wrapper .et_pb_module.difl_faqitem",
+      selector: "%%order_class%% .df_faq_wrapper .et_pb_module.difl_faqitem",
       type: "justify-content",
     });
 
-    // List item vertical alignment with default, responsive
-    //   utility.df_process_string_attr({
-    //     'props': props,
-    //     'key': 'faq_item_vertical_alignment',
-    //     'additionalCss': additionalCss,
-    //     'selector': $vertical_alignment_selector,
-    //     'type': 'align-items'
-    // });
+    //output html
 
-    //   .difl_imageaccordion .difl_imageaccordionitem.df_ia_active {
-    //     flex: 10;
-    // }
+    if('on' !== props.output_html){
+      additionalCss.push([
+        {
+          selector: "%%order_class%%.difl_faq .df_faq_wrapper",
+          declaration: "display: none;"
+        }]);
+    }
 
     // FAQ toggle
     // prettier-ignore
@@ -182,22 +148,22 @@ class Faq extends Component {
     additionalCss.push([
       {
         selector: activeAnswrapper,
-        declaration: "display: block;"
-      }
+        declaration: "display: block;",
+      },
     ]);
 
     additionalCss.push([
       {
         selector: activeImgIcon,
-        declaration: "display: block;"
-      }
+        declaration: "display: block;",
+      },
     ]);
 
     additionalCss.push([
       {
         selector: inActiveImgIcon,
-        declaration: "display: none;"
-      }
+        declaration: "display: none;",
+      },
     ]);
 
     return additionalCss;
@@ -243,14 +209,12 @@ class Faq extends Component {
   render_que_image = (props) => {
     const close_image_html = props.close_question_image ? (
       <div className="close_image">
-        {/* <img src={utility._renderDynamicContent(props , 'close_question_image' , false)} alt={props.close_question_image_alt_text} /> */}
         <img src={props.close_question_image} alt={props.close_question_image_alt_text} />
       </div>
     ) : ("");
 
     const open_image_html = props.open_question_image ? (
       <div className="open_image">
-        {/* <img src={utility._renderDynamicContent(props , 'close_question_image' , false)} alt={props.open_question_image_alt_text} /> */}
         <img src={props.open_question_image} alt={props.open_question_image_alt_text} />
       </div>
     ) : ("");
@@ -268,7 +232,7 @@ class Faq extends Component {
   // prettier-ignore
 
   // FAQ toggle
-  handleClick(e) {
+  df_faq_toggle(e) {
     const parent = e.currentTarget.parentNode;
     if($('.df_faq_item').hasClass('active')){
       $('.df_faq_item').removeClass('active')
@@ -286,15 +250,13 @@ class Faq extends Component {
     const utils = window.ET_Builder.API.Utils;
     const TitleTag = child_props.question_title_tag ? child_props.question_title_tag : "h3";
     const QueImgHtml = this.render_que_image(child_props);
+    const QueIconHtml = this.render_que_icon(props, utils)
     const QueHtml = <div className="faq_question">
-        {/* <TitleTag>{utility._renderDynamicContent(child_props, "question")}</TitleTag> */}
           <TitleTag>{child_props.question ? child_props.question : ""}</TitleTag>
         </div>
 
-    const QueIconHtml = this.render_que_icon(props, utils)
-
     return (
-      <div className="faq_question_wrapper" data-key={i} onClick={(e) => this.handleClick(e)}>
+      <div className="faq_question_wrapper" data-key={i} onClick={(e) => this.df_faq_toggle(e)}>
         <div className="faq_question_area">
           {QueImgHtml}
           {QueHtml}
@@ -326,6 +288,8 @@ class Faq extends Component {
 
   render_faq_items = () => {
     const content = this.props.content;
+    const faqType = 'plain' === this.props.faq_layout;
+
     return [].map.call(content, (data, i) => {
       const child_props = data.props.attrs;
       const child_class = "et_pb_module difl_faqitem difl_faqitem_" + i;
@@ -333,7 +297,7 @@ class Faq extends Component {
       return (
         <div key={i} className={child_class}>
           <div className="et_pb_module_inner">
-            <div key={child_props.question} className="df_faq_item">
+            <div key={child_props.question} className={`df_faq_item ${faqType ? 'active' : ""}`}>
               {this.df_faq_question(child_props, i)}
               {this.df_faq_answer(child_props, i)}
             </div>

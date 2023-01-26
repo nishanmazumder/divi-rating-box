@@ -183,10 +183,10 @@ class DIFL_FAQ extends ET_Builder_Module
                     'individual' => esc_html__('Individual', 'divi_flash'),
                     'plain'      => esc_html__('Plain', 'divi_flash')
                 ),
-                'option_category' => 'basic_option',
+                'option_category'=> 'basic_option',
                 'toggle_slug'    => 'setting'
             ),
-            'faq_layout_grid' => array(
+            'faq_layout_grid'    => array(
                 'label'          => esc_html__('Use Grid Layout', 'divi_flash'),
                 'type'           => 'yes_no_button',
                 'default'        => 'off',
@@ -196,20 +196,6 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 'toggle_slug'    => 'setting'
             ),
-            // 'list_view_type'                 => array(
-            //     'label'            => esc_html__('Layout Type', 'divi_flash'),
-            //     'description'      => esc_html__('Here you can choose icon list layout type.', 'divi_flash'),
-            //     'type'             => 'select',
-            //     'option_category'  => 'layout',
-            //     'options'          => array(
-            //         'list'   => esc_html__('List', 'divi_flash'),
-            //         'inline' => esc_html__('Grid', 'divi_flash'),
-            //     ),
-            //     'tab_slug'         => 'general',
-            //     'toggle_slug'      => 'list_settings',
-            //     'default_on_front' => 'list',
-            //     'mobile_options'   => true,
-            // ),
             'faq_item_per_column'   => array(
                 'label'             => esc_html__('Layout Columns', 'divi_flash'),
                 'description'       => esc_html__('Here you can choose FAQ item per column.', 'divi_flash'),
@@ -227,51 +213,46 @@ class DIFL_FAQ extends ET_Builder_Module
                 'toggle_slug'       => 'setting',
                 'default_on_front'  => '2',
                 'show_if'           => array(
-                    'faq_layout_grid' => 'on',
+                    'faq_layout_grid'=> 'on'
                 ),
-                'mobile_options'    => true,
+                'mobile_options'    => true
             ),
-            'faq_item_gap'                  => array(
-                'label'            => esc_html__('Item Gap', 'divi_flash'),
-                'description'      => esc_html__('Here you can choose FAQ item gap.', 'divi_flash'),
-                'type'             => 'range',
-                'range_settings'   => array(
+            'faq_item_gap' => array(
+                'label'             => esc_html__('Item Gap', 'divi_flash'),
+                'description'       => esc_html__('Here you can choose FAQ item gap.', 'divi_flash'),
+                'type'              => 'range',
+                'range_settings'    => array(
                     'min'  => '1',
                     'max'  => '100',
-                    'step' => '1',
+                    'step' => '1'
                 ),
                 'validate_unit'    => true,
                 'allowed_units'    => array('%', 'em', 'rem', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ex', 'vh', 'vw'),
-                // 'option_category'  => 'layout',
                 'toggle_slug'      => 'setting',
                 'default' => '20px',
-                'show_if'          => array(
-                    'faq_layout_grid' => 'on',
-                ),
-                'mobile_options'   => true,
+                'mobile_options'   => true
             ),
             'faq_item_equal_width' => array(
                 'label'            => esc_html__('Apply item equal width', 'divi_flash'),
                 'description'      => esc_html__('Here you can choose whether or not item is equal width.', 'divi_flash'),
                 'type'             => 'yes_no_button',
-                // 'option_category'  => 'configuration',
                 'default'          => 'on',
                 'options'          => array(
                     'on'  => esc_html__('Yes', 'divi_flash'),
                     'off' => esc_html__('No', 'divi_flash')
                 ),
-                'toggle_slug'      => 'setting',
+                'toggle_slug'      => 'setting'
             ),
             'faq_item_width'       => array(
                 'label'            => esc_html__('Item Width', 'divi_flash'),
                 'description'      => esc_html__('Here you can set FAQ item width.', 'divi_flash'),
                 'type'             => 'range',
                 'range_settings'   => array(
-                    'step' => '1',
-                    'min'  => '1',
+                    'step'      => '1',
+                    'min'       => '1',
                     'min_limit' => '1',
-                    'max'  => '100',
-                    'max_limit' => '100',
+                    'max'       => '100',
+                    'max_limit' => '100'
                 ),
                 'toggle_slug'      => 'setting',
                 'validate_unit'    => true,
@@ -281,7 +262,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'show_if'          => array(
                     'faq_item_equal_width' => 'off',
                 ),
-                'mobile_options'   => true,
+                'mobile_options'   => true
             ),
             'faq_item_horizontal_alignment' => array(
                 'label'       => esc_html__('Item Horizontal Alignment', 'divi_flash'),
@@ -296,7 +277,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'show_if'     => array(
                     'faq_item_equal_width' => 'off',
                 ),
-                'mobile_options' => true,
+                'mobile_options' => true
             ),
             'activate_on_first_time' => array(
                 'label'          => esc_html__('Active Item on First Time', 'divi_flash'),
@@ -308,13 +289,13 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 'toggle_slug'    => 'setting',
                 'show_if_not'    => array(
-                    'faq_layout' => 'plain',
+                    'faq_layout' => 'plain'
                 )
             ),
             'active_item_order_number' => array(
                 'label'             => esc_html__('Activate Item Order Number', 'divi_flash'),
                 'type'              => 'range',
-                'default'           => '1',
+                'default'           => '0',
                 'range_settings'    => array(
                     'min'  => '1',
                     'step' => '1',
@@ -323,7 +304,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 'toggle_slug'   => 'setting',
                 'show_if'       => array(
-                    'activate_on_first_time'     => 'on'
+                    'activate_on_first_time' => 'on'
                 )
             ),
             'close_faq_icon'        => array(
@@ -355,7 +336,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'faq_icon',
                 'sub_toggle'      => 'setting',
-                'mobile_options'  => true,
+                'mobile_options'  => true
             ),
             'enable_faq_animation' => array(
                 'label'          => esc_html__('Enable FAQ Toggle Animation', 'divi_flash'),
@@ -378,7 +359,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'animation',
                 'show_if'         => array(
-                    'enable_faq_animation'     => 'on',
+                    'enable_faq_animation'     => 'on'
                 )
             ),
             'enable_icon_animation' => array(
@@ -410,7 +391,7 @@ class DIFL_FAQ extends ET_Builder_Module
                     'off' => esc_html__('Off', 'divi_flash'),
                     'on'  => esc_html__('On', 'divi_flash')
                 ),
-                'toggle_slug'    => 'schema',
+                'toggle_slug'    => 'schema'
             ),
             'output_html' => array(
                 'label'          => esc_html__('Output Structure', 'divi_flash'),
@@ -422,6 +403,9 @@ class DIFL_FAQ extends ET_Builder_Module
                     'on'  => esc_html__('On', 'divi_flash')
                 ),
                 'toggle_slug'    => 'schema',
+                'show_if'         => array(
+                    'enable_schema'     => 'on'
+                )
             )
         ];
 
@@ -435,27 +419,6 @@ class DIFL_FAQ extends ET_Builder_Module
     // public function get_custom_css_fields_config(){}
 
     // public function get_transition_fields_css_props(){}
-
-    public function render($attrs, $content, $render_slug)
-    {
-        // Scripts
-        wp_enqueue_script('animejs');
-        wp_enqueue_script('df_faq');
-
-        // Get all style
-        $this->additional_css_styles($render_slug);
-
-        // Display frontend
-        $output = sprintf(
-            '<div class="df_faq_wrapper">%1$s</div>
-            %2$s',
-            $this->content,
-            // $this->df_render_schema()
-            ""
-        );
-
-        return $output;
-    }
 
     public function additional_css_styles($render_slug)
     {
@@ -471,7 +434,7 @@ class DIFL_FAQ extends ET_Builder_Module
                         'selector'       => "$this->main_css_element .faq_icon .close_icon span.et-pb-icon",
                         'processor'      => array(
                             'ET_Builder_Module_Helper_Style_Processor',
-                            'process_extended_icon',
+                            'process_extended_icon'
                         ),
                     )
                 );
@@ -487,7 +450,7 @@ class DIFL_FAQ extends ET_Builder_Module
                         'selector'       => "$this->main_css_element .faq_icon .open_icon span.et-pb-icon",
                         'processor'      => array(
                             'ET_Builder_Module_Helper_Style_Processor',
-                            'process_extended_icon',
+                            'process_extended_icon'
                         ),
                     )
                 );
@@ -502,8 +465,7 @@ class DIFL_FAQ extends ET_Builder_Module
                     'selector'       => "$this->main_css_element .faq_question_wrapper, $this->main_css_element .faq_question_area",
                     'css_property'   => 'flex-direction',
                     'render_slug'    => $render_slug,
-                    'type'           => 'align',
-                    'important'      => false,
+                    'type'           => 'align'
                 )
             );
         }
@@ -518,19 +480,18 @@ class DIFL_FAQ extends ET_Builder_Module
                     'type'        => "grid-template-columns"
                 )
             );
-
-            $this->df_process_range(
-                array(
-                    'render_slug' => $render_slug,
-                    'slug'        => 'faq_item_gap',
-                    'unit'              => 'px',
-                    'default'           => '20',
-                    'type'        => 'gap',
-                    'selector'    => "$this->main_css_element .df_faq_wrapper",
-                    // 'important'         => true
-                )
-            );
         }
+
+        $this->df_process_range(
+            array(
+                'render_slug' => $render_slug,
+                'slug'        => 'faq_item_gap',
+                'unit'        => 'px',
+                'default'     => '20',
+                'type'        => 'gap',
+                'selector'    => "$this->main_css_element .df_faq_wrapper"
+            )
+        );
 
         // FAQ item width
         $this->df_process_range(
@@ -559,74 +520,44 @@ class DIFL_FAQ extends ET_Builder_Module
                 'type'           => 'align'
             )
         );
+
+        // output html
+        if('on' !== $this->props['output_html']){
+            ET_Builder_Element::set_style($render_slug, array(
+                'selector'    => "$this->main_css_element.difl_faq .df_faq_wrapper",
+                'declaration' => "display: none;"
+            ));
+        }
     }
 
+    // faq schema
     public function df_render_schema()
     {
-        // $child_faq = null !== self::get_child_modules('page')['difl_faqitem'] ? self::get_child_modules('page')['difl_faqitem'] : new stdClass;
+        global $df_faq_schema_data;
 
-        // global $df_question_data;
+        $schema = [
+            "@context" => "https://schema.org",
+            "@type" => "FAQPage",
+            "mainEntity" => [],
+        ];
 
-        // print_r($df_question_data);
-
-        // Schema
-        $schema = "";
-        // {
-        //   "@context": "https://schema.org",
-        //   "@type": "FAQPage",
-        //   "mainEntity": [{
-        //     "@type": "Question",
-        //     "name": "What is the return policy?",
-        //     "acceptedAnswer": {
-        //       "@type": "Answer",
-        //       "text": "<p>Most unopened items in new condition and returned within <b>90 days</b> will receive a refund or exchange. Some items have a modified return policy noted on the receipt or packing slip. Items that are opened or damaged or do not have a receipt may be denied a refund or exchange. Items purchased online or in-store may be returned to any store.</p><p>Online purchases may be returned via a major parcel carrier. <a href=https://example.com/returns> Click here </a> to initiate a return.</p>"
-        //     }
-        //   }
-
-        // echo '<pre>';
-        // print_r($content);
-        // print_r($child_faq->props['question']);
-
-        // foreach ($child_faq as $item) {
-        //     var_dump($item);
-        //  }
-
-        // print_r($child_faq);
-
-
-        if ($this->props['enable_schema'] === 'on') {
-
-            // $questions = $this->child_faq->props['question'];
-            // $answer = $this->child_faq->props['answer'];
-
-            $json = [
-                '@context' => 'https://schema.org',
-                '@type' => 'Rating',
-                'mainEntity' => [
-                    [
-                        '@type' => "Question",
-                        'name' => "Lorem ipshum?",
-                        'acceptedAnswer' => [
-                            '@type' => "Answer",
-                            'name' => "Lorem ipshum",
-                        ]
-                    ],
-                    [
-                        '@type' => "Question",
-                        'name' => "Lorem ipshum?",
-                        'acceptedAnswer' => [
-                            '@type' => "Answer",
-                            'name' => "Lorem ipshum",
-                        ]
-                    ]
-                ]
-
+        foreach ($df_faq_schema_data as $data) {
+            $schema['mainEntity'][] = [
+                "@type" => "Question",
+                "name" => $data['question'],
+                "acceptedAnswer" => [
+                    "@type" => "Answer",
+                    "text" => $data['answer']
+                ],
             ];
-
-            $schema =  '<script type="application/ld+json">' . wp_json_encode($json) . '</script>';
         }
 
-        return $schema;
+        $script = '';
+        if ('on' === $this->props['enable_schema']) {
+            $script = sprintf('<script type="application/ld+json">%1$s</script>', json_encode($schema));
+        }
+
+        return $script;
     }
 
     private function df_faq_set_dynamic_grid_columns($options)
@@ -670,6 +601,26 @@ class DIFL_FAQ extends ET_Builder_Module
                 'media_query' => self::get_media_query('max_width_767')
             ));
         }
+    }
+
+    public function render($attrs, $content, $render_slug)
+    {
+        // Scripts
+        wp_enqueue_script('animejs');
+        wp_enqueue_script('df_faq');
+
+        // Get all style
+        $this->additional_css_styles($render_slug);
+
+        // Display frontend
+        $output = sprintf(
+            '<div class="df_faq_wrapper">%1$s</div>
+            %2$s',
+            $this->content ?? "",
+            $this->df_render_schema() ?? ""
+        );
+
+        return $output;
     }
 } //Class
 

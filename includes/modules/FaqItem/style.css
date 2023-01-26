@@ -14,9 +14,9 @@
 }
 
 /* FAQ Item*/
-.difl_faqitem div.et_pb_module_inner{
+/* .difl_faqitem div.et_pb_module_inner{
   display: flex;
-}
+} */
 
 /* Default Padding */
 .difl_faqitem .faq_question_wrapper,
