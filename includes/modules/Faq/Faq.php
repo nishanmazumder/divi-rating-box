@@ -394,7 +394,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'toggle_slug'    => 'schema'
             ),
             'output_html' => array(
-                'label'          => esc_html__('Output Structure', 'divi_flash'),
+                'label'          => esc_html__('Display FAQ', 'divi_flash'),
                 'description'    => esc_html__('Deactivate this option to hide FAQ. But schema data will generate for SEO purpose.', 'divi_flash'),
                 'type'           => 'yes_no_button',
                 'default'        => 'on',

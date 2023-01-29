@@ -207,6 +207,9 @@ class Faq extends Component {
 
   // prettier-ignore
   render_que_image = (props) => {
+
+    console.log(props)
+
     const close_image_html = props.close_question_image ? (
       <div className="close_image">
         <img src={props.close_question_image} alt={props.close_question_image_alt_text} />
@@ -222,7 +225,7 @@ class Faq extends Component {
     if('on' === props.enable_question_image){
       return (
         <div className="faq_question_image">
-          {close_image_html} {open_image_html}
+          {close_image_html} {'' !== open_image_html ? open_image_html : close_image_html}
         </div>
       )
     }

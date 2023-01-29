@@ -23,7 +23,7 @@
 .difl_faqitem .faq_question_image,
 .difl_faqitem .faq_question,
 .difl_faqitem .faq_icon,
-.difl_faqitem .faq_answer_wrapper,
+/* .difl_faqitem .faq_answer_wrapper, */
 .difl_faqitem .faq_answer,
 .difl_faqitem .faq_answer_image,
 .difl_faqitem .faq_button {
@@ -55,6 +55,14 @@
   height: 45px;
   display: block;
 }
+
+/* .difl_faqitem .open_image,
+.difl_faqitem .close_image,
+.difl_faqitem .close_icon,
+.difl_faqitem .open_icon{
+  transition: all 0.7s linear;
+} */
+
 /* .difl_faqitem .open_image{} */
 /* .difl_faqitem .close_image{} */
 /* .difl_faqitem .faq_question{} */

@@ -587,7 +587,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                     <div class="open_image">%2$s</div>
                 </div>',
                 $this->df_render_faq_image($close_q_img, $this->props['close_question_image_alt_text']),
-                $this->df_render_faq_image($open_q_img, $this->props['open_question_image_alt_text'])
+                $this->df_render_faq_image($open_q_img ? $open_q_img : $close_q_img, $this->props['open_question_image_alt_text'])
             ) : '';
         $que_title_tag = esc_attr($this->props['question_title_tag']);
         $que_html = "" !== $this->props['question'] ?
