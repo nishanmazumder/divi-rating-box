@@ -146,6 +146,7 @@ class DIFL_FAQ extends ET_Builder_Module
                             ]
                         ],
                     ],
+                    // 'design_que_img'  => esc_html__('Question Image', 'divi_flash'),
                     'design_answer'          => esc_html__('Answer Style', 'divi_flash'),
                     'design_answer_text'     => array(
                         'title'              => esc_html__('Answer Text', 'divi_flash'),
@@ -503,6 +504,58 @@ class DIFL_FAQ extends ET_Builder_Module
             )
         ];
 
+        $faq_que_img = [
+            'que_img_size'             => array (
+                'label'             => esc_html__( 'Question Image Size', 'divi_flash' ),
+				'type'              => 'range',
+				'option_category'   => 'font_option',
+				'toggle_slug'       => 'design_que_img',
+				'tab_slug'          => 'advanced',
+				'default'           => '45px',
+				'default_unit'      => 'px',
+				'range_settings' => array(
+					'min'  => '1',
+					'max'  => '120',
+					'step' => '1',
+                ),
+				'mobile_options'    => true,
+				// 'depends_show_if'   => 'on',
+				'responsive'        => true
+            )
+        ];
+
+        $open_que_img_bg = $this->df_add_bg_field(array(
+            'label'           => 'Image Background',
+            'key'             => 'open_que_img_bg',
+            'toggle_slug'     => 'design_que_img',
+            'sub_toggle'      => 'open',
+            'tab_slug'        => 'advanced'
+        ));
+
+        $close_que_img_bg = $this->df_add_bg_field(array(
+            'label'           => 'Image Background',
+            'key'             => 'close_que_img_bg',
+            'toggle_slug'     => 'design_que_img',
+            'sub_toggle'      => 'close',
+            'tab_slug'        => 'advanced'
+        ));
+
+        $open_que_icon_bg = $this->df_add_bg_field(array(
+            'label'           => 'Icon Background',
+            'key'             => 'open_que_icon_bg',
+            'toggle_slug'     => 'design_faq_icon',
+            'sub_toggle'      => 'open',
+            'tab_slug'        => 'advanced'
+        ));
+
+        $close_que_icon_bg = $this->df_add_bg_field(array(
+            'label'           => 'Icon Background',
+            'key'             => 'close_que_icon_bg',
+            'toggle_slug'     => 'design_faq_icon',
+            'sub_toggle'      => 'close',
+            'tab_slug'        => 'advanced'
+        ));
+
         $faq_animation = [
             'enable_faq_animation' => array(
                 'label'          => esc_html__('Enable FAQ Toggle Animation', 'divi_flash'),
@@ -556,7 +609,12 @@ class DIFL_FAQ extends ET_Builder_Module
             $faq,
             $close_faq_icon,
             $open_faq_icon,
-            $faq_animation
+            $faq_animation,
+            $faq_que_img,
+            $open_que_img_bg,
+            $close_que_img_bg,
+            $open_que_icon_bg,
+            $close_que_icon_bg
         );
     }
 
