@@ -133,7 +133,7 @@ class Faq extends Component {
 
     // FAQ toggle
     // prettier-ignore
-    const inactiveWrappers = "%%order_class%%  .df_faq_item .faq_answer_wrapper, %%order_class%%  .df_faq_item .open_icon, %%order_class%%  .df_faq_item .open_image";
+    const inactiveElments = "%%order_class%%  .df_faq_item .faq_answer_wrapper, %%order_class%% .df_faq_item .open_icon, %%order_class%% .df_faq_item .open_image";
     const activeAnswrapper = "%%order_class%%  .df_faq_item.active .faq_answer_wrapper";
     const activeImgIcon = "%%order_class%%  .df_faq_item.active .open_icon, %%order_class%% .df_faq_item.active .open_image";
     const inActiveImgIcon = "%%order_class%%  .df_faq_item.active .close_icon, %%order_class%% .df_faq_item.active .close_image";
@@ -141,7 +141,7 @@ class Faq extends Component {
 
     additionalCss.push([
       {
-        selector: inactiveWrappers,
+        selector: inactiveElments,
         declaration: "display: none;"
       }]);
 
@@ -165,6 +165,29 @@ class Faq extends Component {
         declaration: "display: none;",
       },
     ]);
+
+    // if('' === props.open_question_image){
+
+    //   // console.log("empty")
+
+    //   additionalCss.push([
+    //     {
+    //       selector: "%%order_class%% .df_faq_item.active .close_image",
+    //       declaration: "display: block !important;"
+    //     },
+    //   ]);
+    // }else{
+
+    //   console.log("not empty")
+
+    //   additionalCss.push([
+    //     {
+    //       selector: "%%order_class%% .df_faq_item.active .close_image",
+    //       declaration: "display: none !important;"
+    //     },
+    //   ]);
+
+    // }
 
     return additionalCss;
   }
@@ -207,25 +230,27 @@ class Faq extends Component {
 
   // prettier-ignore
   render_que_image = (props) => {
-
-    console.log(props)
+    const close_image = '' !== props.close_question_image ? props.close_question_image : ""
+    const close_img_alt_txt = '' !== props.close_que_img_alt_txt ? props.close_que_img_alt_txt : ""
+    const open_image = '' !== props.open_question_image ? props.open_question_image : ""
+    const open_img_alt_txt= '' !== props.open_que_img_alt_txt ? props.open_que_img_alt_txt : ""
 
     const close_image_html = props.close_question_image ? (
       <div className="close_image">
-        <img src={props.close_question_image} alt={props.close_question_image_alt_text} />
+        <img src={close_image} alt={close_img_alt_txt} />
       </div>
     ) : ("");
 
     const open_image_html = props.open_question_image ? (
       <div className="open_image">
-        <img src={props.open_question_image} alt={props.open_question_image_alt_text} />
+        <img src={open_image} alt={open_img_alt_txt} />
       </div>
     ) : ("");
 
     if('on' === props.enable_question_image){
       return (
         <div className="faq_question_image">
-          {close_image_html} {'' !== open_image_html ? open_image_html : close_image_html}
+           {close_image_html} {open_image_html}
         </div>
       )
     }

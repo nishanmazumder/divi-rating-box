@@ -200,7 +200,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                     'enable_question_image' => 'on'
                 )
             ),
-            'close_question_image_alt_text' => array(
+            'close_que_img_alt_txt' => array(
                 'label'                 => esc_html__('Image Alt Text', 'divi_flash'),
                 'description'           => esc_html__('This defines the HTML ALT text. A short description of your image can be placed here.', 'divi_flash'),
                 'default'               => 'Close image ALT text',
@@ -221,8 +221,8 @@ class DIFL_FaqItem extends ET_Builder_Module
                     'enable_question_image' => 'on'
                 )
             ),
-            'open_question_image_alt_text' => array(
-                'label'        => esc_html__('Closing Image Alt Text', 'divi_flash'),
+            'open_que_img_alt_txt' => array(
+                'label'        => esc_html__('Open Image Alt Text', 'divi_flash'),
                 'description'  => esc_html__('This defines the HTML ALT text. A short description of your image can be placed here.', 'divi_flash'),
                 'default'      => 'Open image ALT text',
                 'type'         => 'text',
@@ -579,15 +579,17 @@ class DIFL_FaqItem extends ET_Builder_Module
     public function df_render_question()
     {
         $close_q_img = !empty($this->props['close_question_image']) ? $this->props['close_question_image'] : "";
-        $open_q_img = !empty($this->props['open_question_image']) ? $this->props['open_question_image'] : "";
+        $close_q_img_alt = !empty($this->props['close_que_img_alt_txt']) ? $this->props['close_que_img_alt_txt'] : "";
+        $open_q_img = !empty($this->props['open_question_image']) ? $this->props['open_question_image'] : $close_q_img;
+        $open_q_img_alt = !empty($this->props['open_que_img_alt_txt']) ? $this->props['open_que_img_alt_txt'] : $close_q_img_alt;
         $que_img_html = 'on' === $this->props['enable_question_image'] ?
             sprintf(
                 '<div class="faq_question_image">
                     <div class="close_image">%1$s</div>
                     <div class="open_image">%2$s</div>
                 </div>',
-                $this->df_render_faq_image($close_q_img, $this->props['close_question_image_alt_text']),
-                $this->df_render_faq_image($open_q_img ? $open_q_img : $close_q_img, $this->props['open_question_image_alt_text'])
+                $this->df_render_faq_image($close_q_img, $close_q_img_alt),
+                $this->df_render_faq_image($open_q_img, $open_q_img_alt)
             ) : '';
         $que_title_tag = esc_attr($this->props['question_title_tag']);
         $que_html = "" !== $this->props['question'] ?

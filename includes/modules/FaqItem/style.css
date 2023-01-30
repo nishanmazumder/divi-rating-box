@@ -14,11 +14,6 @@
 }
 
 /* FAQ Item*/
-/* .difl_faqitem div.et_pb_module_inner{
-  display: flex;
-} */
-
-/* Default Padding */
 .difl_faqitem .faq_question_wrapper,
 .difl_faqitem .faq_question_image,
 .difl_faqitem .faq_question,
@@ -56,11 +51,13 @@
   display: block;
 }
 
-/* .difl_faqitem .open_image,
-.difl_faqitem .close_image,
-.difl_faqitem .close_icon,
-.difl_faqitem .open_icon{
-  transition: all 0.7s linear;
+/* img{
+  max-width: fit-content;
+}
+
+.difl_faqitem .faq_question_image img{
+  width: 45px;
+  height: 45px;
 } */
 
 /* .difl_faqitem .open_image{} */
