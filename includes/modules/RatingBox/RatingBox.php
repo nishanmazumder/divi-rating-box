@@ -447,21 +447,7 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'show_if'         => array(
                     'enable_content'     => 'on'
                 )
-            ),
-            'content_text_align'  => array(
-                'label'           => esc_html__('Content Alignment', 'divi_flash'),
-                'description'     => esc_html__('This controls how your text is aligned within the module.','divi_flash'),
-                'type'            => 'text_align',
-                'options'         => et_builder_get_text_orientation_options(
-                    array('justified'),
-                    array('justify' => 'Justified')
-                ),
-                'toggle_slug'     => 'design_content',
-                'tab_slug'        => 'advanced',
-                'default'         => 'center',
-                'mobile_options'  => true,
             )
-            // design_content
         ];
 
         $schema = [
@@ -1120,16 +1106,6 @@ class DIFL_RatingBox extends ET_Builder_Module
             'selector'          => "$this->main_css_element .df_rating_content",
             'hover'             => "$this->main_css_element .df_rating_content:hover",
             'important'         => true
-        ));
-
-        // Content align
-        $this->df_process_string_attr(array(
-            'render_slug'           => $render_slug,
-            'slug'                  => 'content_text_align',
-            'type'                  => 'text-align',
-            'selector'              => "%%order_class%% .df_rating_content",
-            'default'               => 'center',
-            'important'             => true
         ));
 
         // Get only icon
