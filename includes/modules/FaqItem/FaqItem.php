@@ -594,9 +594,9 @@ class DIFL_FaqItem extends ET_Builder_Module
         $que_title_tag = esc_attr($this->props['question_title_tag']);
         $que_html = "" !== $this->props['question'] ?
             sprintf(
-                '<div class="faq_question"><%1$s>%2$s</%1$s></div>',
+                '<div class="faq_question"><%1$s class="faq_question_title">%2$s</%1$s></div>',
                 et_pb_process_header_level($que_title_tag, 'h3'),
-                $this->props['question']
+                $this->props['question'] ? $this->props['question'] : ""
             ) : '';
         $icon_html =  sprintf(
             '<div class="faq_icon">%1$s</div>',

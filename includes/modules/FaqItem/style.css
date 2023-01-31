@@ -71,6 +71,7 @@
 .difl_faqitem .faq_icon span {
   color: #000;
   font-size: 24px;
+  vertical-align: middle;
 }
 /* .difl_faqitem .close_icon{} */
 /* .difl_faqitem .open_icon{} */
@@ -90,6 +91,15 @@
 }
 .difl_faqitem .faq_answer{
   width: 100%;
+}
+
+.difl_faqitem .faq_answer p{
+  padding-bottom: 0px;
+}
+
+.difl_faqitem .faq_answer ul{
+  list-style-position: inside;
+  padding: 0px;
 }
 
 .difl_faqitem .faq_answer_image{

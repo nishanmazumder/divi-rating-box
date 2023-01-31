@@ -16,12 +16,12 @@ class Faq extends Component {
     };
 
     // this.wrapper = React.createRef();
-    this.render_faq_items = this.render_faq_items.bind(this)
+    this.render_faq_items = this.render_faq_items.bind(this);
   }
 
   componentDidUpdate() {
     this.activate_item_order();
-    this.render_faq_items()
+    this.render_faq_items();
   }
 
   // prettier-ignore
@@ -45,6 +45,46 @@ class Faq extends Component {
 
   static css(props) {
     var additionalCss = [];
+
+
+    console.log(props)
+
+    utility.process_color({
+      props: props,
+      key: "faq_icon_bg",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_icon",
+      type: "color",
+      important: false
+    });
+
+    utility.process_color({
+      props: props,
+      key: "faq_icon_bg_active",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .df_faq_item.active .faq_icon",
+      type: "color",
+      important: false
+    });
+
+    utility.process_color({
+      props: props,
+      key: "que_img_bg",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_image",
+      type: "color",
+      important: false
+    });
+
+    utility.process_color({
+      props: props,
+      key: "que_img_bg_active",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .df_faq_item.active .faq_question_image",
+      type: "color",
+      important: false
+    });
+
 
     if ("" !== props.close_faq_icon) {
       utility.process_icon_font_style({
@@ -280,7 +320,7 @@ class Faq extends Component {
     const QueImgHtml = this.render_que_image(child_props);
     const QueIconHtml = this.render_que_icon(props, utils)
     const QueHtml = <div className="faq_question">
-          <TitleTag>{child_props.question ? child_props.question : ""}</TitleTag>
+          <TitleTag className="faq_question_title">{child_props.question ? child_props.question : ""}</TitleTag>
         </div>
 
     return (
@@ -297,8 +337,8 @@ class Faq extends Component {
 
   // prettier-ignore
   df_faq_answer = (child_props, i) => {
-    const Answer = child_props.answer ? (child_props.answer).replace(/<p>(.*?)<\/p>/, "$1") : child_props.answer
-    const AnsHtml = '' !== child_props.answer ? <div className="faq_answer"> {Answer} </div> : "";
+    const AnsHtml = '' !== child_props.answer ? <div dangerouslySetInnerHTML={{__html: child_props.answer}} className="faq_answer" />: "";
+
     const AnsBtnHtml = this.render_button(child_props)
     const AnsImgHtml = child_props.answer_image ? (<div className="faq_answer_image"><img src={child_props.answer_image} alt={child_props.answer_image_alt_text} /></div>) : ("");
 

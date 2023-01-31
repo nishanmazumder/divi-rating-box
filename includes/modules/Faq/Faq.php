@@ -113,7 +113,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'toggles'       => array(
                     'setting'   => esc_html__('Settings', 'divi_flash'),
                     'faq_icon'  => [
-                        'title'        => esc_html__('Icon', 'divi_flash'),
+                        'title' => esc_html__('Icon', 'divi_flash'),
                         'tabbed_subtoggles' => true,
                         'sub_toggles'  => [
                             'close'    => [
@@ -133,20 +133,60 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'advanced'      => array(
                 'toggles'   => array(
-                    'design_question'  => esc_html__('Question', 'divi_flash'),
-                    'design_que_img'  => [
-                        'title'        => esc_html__('Question Image', 'divi_flash'),
+                    'design_question'  => [
+                        'title'        => esc_html__('Question Style', 'divi_flash'),
                         'tabbed_subtoggles' => true,
                         'sub_toggles'  => [
-                            'close_img'    => [
+                            'static'   => [
+                                'name' => esc_html__('Static', 'divi_flash'),
+                            ],
+                            'active'   => [
+                                'name' => esc_html__('Active', 'divi_flash'),
+                            ]
+                        ]
+                    ],
+                    'design_question_text'=> [
+                        'title'        => esc_html__('Question Text', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'sub_toggles'  => [
+                            'static'   => [
+                                'name' => esc_html__('Static', 'divi_flash'),
+                            ],
+                            'active'   => [
+                                'name' => esc_html__('Active', 'divi_flash'),
+                            ]
+                        ]
+                    ],
+                    'design_faq_icon'  => [
+                        'title'        => esc_html__('Question Icon', 'divi_flash'),
+                        'tabbed_subtoggles'  => true,
+                        'sub_toggles'  => [
+                            'wrapper'  => [
+                                'name' => esc_html__('Wrapper', 'divi_flash'),
+                            ],
+                            'close_icon'=> [
                                 'name' => esc_html__('Close', 'divi_flash'),
                             ],
-                            'open_img'     => [
+                            'open_icon'=> [
                                 'name' => esc_html__('Open', 'divi_flash'),
                             ]
                         ],
                     ],
-                    // 'design_que_img'  => esc_html__('Question Image', 'divi_flash'),
+                    'design_que_img'   => [
+                        'title'        => esc_html__('Question Image', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'sub_toggles'  => [
+                            'wrapper'  => [
+                                'name' => esc_html__('Wrapper', 'divi_flash'),
+                            ],
+                            'close'    => [
+                                'name' => esc_html__('Close', 'divi_flash'),
+                            ],
+                            'open'     => [
+                                'name' => esc_html__('Open', 'divi_flash'),
+                            ]
+                        ]
+                    ],
                     'design_answer'          => esc_html__('Answer Style', 'divi_flash'),
                     'design_answer_text'     => array(
                         'title'              => esc_html__('Answer Text', 'divi_flash'),
@@ -158,19 +198,7 @@ class DIFL_FAQ extends ET_Builder_Module
                         'tabbed_subtoggles'  => true,
                         'sub_toggles'        => $heading_sub_toggles,
                     ),
-                    'design_faq_icon'  => [
-                        'title'        => esc_html__('Icon', 'divi_flash'),
-                        'tabbed_subtoggles' => true,
-                        'sub_toggles'  => [
-                            'close_icon'    => [
-                                'name' => esc_html__('Close', 'divi_flash'),
-                            ],
-                            'open_icon'     => [
-                                'name' => esc_html__('Open', 'divi_flash'),
-                            ]
-                        ],
-                    ],
-                    'custom_spacing'         => esc_html__('Custom Spacing', 'divi_flash'),
+                    'custom_spacing'   => esc_html__('Custom Spacing', 'divi_flash'),
                 )
             ),
         );
@@ -196,7 +224,7 @@ class DIFL_FAQ extends ET_Builder_Module
                     'individual' => esc_html__('Individual', 'divi_flash'),
                     'plain'      => esc_html__('Plain', 'divi_flash')
                 ),
-                'option_category'=> 'basic_option',
+                'option_category' => 'basic_option',
                 'toggle_slug'    => 'setting'
             ),
             'faq_layout_grid'    => array(
@@ -226,7 +254,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'toggle_slug'       => 'setting',
                 'default_on_front'  => '2',
                 'show_if'           => array(
-                    'faq_layout_grid'=> 'on'
+                    'faq_layout_grid' => 'on'
                 ),
                 'mobile_options'    => true
             ),
@@ -347,6 +375,29 @@ class DIFL_FAQ extends ET_Builder_Module
             )
         ];
 
+        $faq_icon = [
+            'faq_icon_bg' => array(
+                'label'             => esc_html__('Close Wrapper Background', 'divi_flash'),
+                'type'              => 'color-alpha',
+                'toggle_slug'       => 'design_faq_icon',
+                'sub_toggle'        => 'wrapper',
+                'tab_slug'          => 'advanced',
+                'hover'             => 'tabs',
+                'option_category'   => 'basic_option',
+                'default'           => '#E02B20'
+            ),
+            'faq_icon_bg_active' => array(
+                'label'             => esc_html__('Open Wrapper Background', 'divi_flash'),
+                'type'              => 'color-alpha',
+                'toggle_slug'       => 'design_faq_icon',
+                'sub_toggle'        => 'wrapper',
+                'tab_slug'          => 'advanced',
+                'hover'             => 'tabs',
+                'option_category'   => 'basic_option',
+                'default'           => '#E02B20'
+            )
+        ];
+
         $close_faq_icon = [
             'close_faq_icon'        => array(
                 'label'             => esc_html__('Icon', 'divi_flash'),
@@ -358,64 +409,33 @@ class DIFL_FAQ extends ET_Builder_Module
                 'sub_toggle'        => 'close'
             ),
 
-            'close_icon_color'            => array (
-				'default'           => "#2ea3f2",
-				'label'             => esc_html__( 'Icon Color', 'divi_flash' ),
-				'type'              => 'color-alpha',
-				'description'       => esc_html__( 'Here you can define a custom color for your icon.', 'divi_flash' ),
-				// 'depends_show_if'   => 'on',
+            'close_icon_color'      => array(
+                'default'           => "#2ea3f2",
+                'label'             => esc_html__('Icon Color', 'divi_flash'),
+                'type'              => 'color-alpha',
+                'description'       => esc_html__('Here you can define a custom color for your icon.', 'divi_flash'),
                 'toggle_slug'       => 'design_faq_icon',
                 'sub_toggle'        => 'close_icon',
-				'tab_slug'          => 'advanced',
+                'tab_slug'          => 'advanced',
                 'hover'             => 'tabs'
-            ),
-            'active_close_icon_color'     => array (
-				// 'default'           => "#2ea3f2",
-				'label'             => esc_html__( 'Active Icon Color', 'divi_flash' ),
-				'type'              => 'color-alpha',
-				'description'       => esc_html__( 'Here you can define a custom color for your active icon.', 'divi_flash' ),
-				// 'depends_show_if'   => 'on',
-                'toggle_slug'       => 'design_faq_icon',
-                'sub_toggle'        => 'close_icon',
-				'tab_slug'          => 'advanced',
-                'hover'             => 'tabs'
-            ),
-            'close_icon_size'             => array (
-                'label'             => esc_html__( 'Icon Size', 'divi_flash' ),
-				'type'              => 'range',
-				'option_category'   => 'font_option',
-				'toggle_slug'       => 'design_faq_icon',
-                'sub_toggle'        => 'close_icon',
-				'tab_slug'          => 'advanced',
-				'default'           => '40px',
-				'default_unit'      => 'px',
-				'range_settings' => array(
-					'min'  => '1',
-					'max'  => '120',
-					'step' => '1',
-                ),
-				'mobile_options'    => true,
-				// 'depends_show_if'   => 'on',
-				'responsive'        => true
             ),
 
-            'active_close_icon_size'             => array (
-                'label'             => esc_html__( 'Active Icon Size', 'divi_flash' ),
-				'type'              => 'range',
-				'option_category'   => 'font_option',
-				'toggle_slug'       => 'design_faq_icon',
+            'close_icon_size'             => array(
+                'label'             => esc_html__('Icon Size', 'divi_flash'),
+                'type'              => 'range',
+                'option_category'   => 'font_option',
+                'toggle_slug'       => 'design_faq_icon',
                 'sub_toggle'        => 'close_icon',
-				'tab_slug'          => 'advanced',
-				// 'default'           => '40px',
-				'default_unit'      => 'px',
-				'range_settings' => array(
-					'min'  => '1',
-					'max'  => '120',
-					'step' => '1',
+                'tab_slug'          => 'advanced',
+                'default'           => '40px',
+                'default_unit'      => 'px',
+                'range_settings' => array(
+                    'min'  => '1',
+                    'max'  => '120',
+                    'step' => '1',
                 ),
-				'mobile_options'    => true,
-				// 'depends_show_if'   => 'on',
-				'responsive'        => true
+                'mobile_options'    => true,
+                'responsive'        => true
             ),
 
             'faq_icon_placement'  => array(
@@ -443,135 +463,96 @@ class DIFL_FAQ extends ET_Builder_Module
                 'toggle_slug'       => 'faq_icon',
                 'sub_toggle'        => 'open'
             ),
-            'open_icon_color'            => array (
-				'default'           => "#2ea3f2",
-				'label'             => esc_html__( 'Icon Color', 'divi_flash' ),
-				'type'              => 'color-alpha',
-				'description'       => esc_html__( 'Here you can define a custom color for your icon.', 'divi_flash' ),
-				'depends_show_if'   => 'on',
+            'open_icon_color'       => array(
+                'default'           => "#2ea3f2",
+                'label'             => esc_html__('Icon Color', 'divi_flash'),
+                'type'              => 'color-alpha',
+                'description'       => esc_html__('Here you can define a custom color for your icon.', 'divi_flash'),
+                'depends_show_if'   => 'on',
                 'toggle_slug'       => 'design_faq_icon',
                 'sub_toggle'        => 'open_icon',
-				'tab_slug'          => 'advanced',
+                'tab_slug'          => 'advanced',
                 'hover'             => 'tabs'
             ),
-            'active_open_icon_color'     => array (
-				// 'default'           => "#2ea3f2",
-				'label'             => esc_html__( 'Active Icon Color', 'divi_flash' ),
-				'type'              => 'color-alpha',
-				'description'       => esc_html__( 'Here you can define a custom color for your active icon.', 'divi_flash' ),
-				// 'depends_show_if'   => 'on',
+            'open_icon_size'        => array(
+                'label'             => esc_html__('Icon Size', 'divi_flash'),
+                'type'              => 'range',
+                'option_category'   => 'font_option',
                 'toggle_slug'       => 'design_faq_icon',
                 'sub_toggle'        => 'open_icon',
-				'tab_slug'          => 'advanced',
-                'hover'             => 'tabs'
-            ),
-            'open_icon_size'             => array (
-                'label'             => esc_html__( 'Icon Size', 'divi_flash' ),
-				'type'              => 'range',
-				'option_category'   => 'font_option',
-				'toggle_slug'       => 'design_faq_icon',
-                'sub_toggle'        => 'open_icon',
-				'tab_slug'          => 'advanced',
-				'default'           => '40px',
-				'default_unit'      => 'px',
-				'range_settings' => array(
-					'min'  => '1',
-					'max'  => '120',
-					'step' => '1',
+                'tab_slug'          => 'advanced',
+                'default'           => '40px',
+                'default_unit'      => 'px',
+                'range_settings'    => array(
+                    'min'  => '1',
+                    'max'  => '120',
+                    'step' => '1',
                 ),
-				'mobile_options'    => true,
-				// 'depends_show_if'   => 'on',
-				'responsive'        => true
-            ),
-
-            'active_open_icon_size'             => array (
-                'label'             => esc_html__( 'Active Icon Size', 'divi_flash' ),
-				'type'              => 'range',
-				'option_category'   => 'font_option',
-				'toggle_slug'       => 'design_faq_icon',
-                'sub_toggle'        => 'open_icon',
-				'tab_slug'          => 'advanced',
-				// 'default'           => '40px',
-				'default_unit'      => 'px',
-				'range_settings' => array(
-					'min'  => '1',
-					'max'  => '120',
-					'step' => '1',
-                ),
-				'mobile_options'    => true,
-				// 'depends_show_if'   => 'on',
-				'responsive'        => true
+                'mobile_options'    => true,
+                'responsive'        => true
             )
         ];
 
         $faq_que_img = [
-            'close_que_img_size'             => array (
-                'label'             => esc_html__( 'Image Size', 'divi_flash' ),
-				'type'              => 'range',
-				'toggle_slug'       => 'design_que_img',
-                'sub_toggle'        => 'close_img',
-				'tab_slug'          => 'advanced',
-				'default'           => '45px',
-				'default_unit'      => 'px',
-				'range_settings' => array(
-					'min'  => '1',
-					// 'max'  => '120',
-					'step' => '1'
-                ),
-				'mobile_options'    => true,
-				// 'depends_show_if'   => 'on',
-				'responsive'        => true
+            'que_img_bg'    => array(
+                'label'           => esc_html__('Close Wrapper Background', 'divi_flash'),
+                'type'            => 'color-alpha',
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'wrapper',
+                'tab_slug'        => 'advanced',
+                'hover'           => 'tabs',
+                'option_category' => 'basic_option',
+                'default'         => '#E02B20'
             ),
-            'open_que_img_size'     => array (
-                'label'             => esc_html__('Image Size', 'divi_flash'),
-				'type'              => 'range',
-				'toggle_slug'       => 'design_que_img',
-                'sub_toggle'        => 'open_img',
-				'tab_slug'          => 'advanced',
-				'default'           => '45px',
-				'default_unit'      => 'px',
-				'range_settings' => array(
-					'min'  => '1',
-					// 'max'  => '120',
-					'step' => '1'
+            'que_img_bg_active' => array(
+                'label'           => esc_html__('Open Wrapper Background', 'divi_flash'),
+                'type'            => 'color-alpha',
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'wrapper',
+                'tab_slug'        => 'advanced',
+                'hover'           => 'tabs',
+                'option_category' => 'basic_option',
+                'default'         => '#E02B20'
+            ),
+        ];
+
+        $close_faq_que_img = [
+            'close_que_img_size'  => array(
+                'label'           => esc_html__('Image Size', 'divi_flash'),
+                'type'            => 'range',
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'close',
+                'tab_slug'        => 'advanced',
+                'default'         => '45px',
+                'default_unit'    => 'px',
+                'range_settings'  => array(
+                    'min'  => '1',
+                    // 'max'  => '120',
+                    'step' => '1'
                 ),
-				'mobile_options'    => true,
-				// 'depends_show_if'   => 'on',
-				'responsive'        => true
+                'mobile_options'  => true,
+                'responsive'      => true
             )
         ];
 
-        $open_que_img_bg = $this->df_add_bg_field(array(
-            'label'           => 'Image Background',
-            'key'             => 'open_que_img_bg',
-            'toggle_slug'     => 'design_que_img',
-            'sub_toggle'      => 'open_img',
-            'tab_slug'        => 'advanced'
-        ));
-
-        $close_que_img_bg = $this->df_add_bg_field(array(
-            'label'           => 'Image Background',
-            'key'             => 'close_que_img_bg',
-            'toggle_slug'     => 'design_que_img',
-            'sub_toggle'      => 'close_img',
-            'tab_slug'        => 'advanced'
-        ));
-
-        $open_que_icon_bg = $this->df_add_bg_field(array(
-            'label'           => 'Icon Background',
-            'key'             => 'open_que_icon_bg',
-            'toggle_slug'     => 'design_faq_icon',
-            'sub_toggle'      => 'open_icon',
-            'tab_slug'        => 'advanced'
-        ));
-
-        $close_que_icon_bg = $this->df_add_bg_field(array(
-            'label'           => 'Icon Background',
-            'key'             => 'close_que_icon_bg',
-            'toggle_slug'     => 'design_faq_icon',
-            'sub_toggle'      => 'close_icon',
-            'tab_slug'        => 'advanced'
-        ));
+        $open_faq_que_img = [
+            'open_que_img_size'   => array(
+                'label'           => esc_html__('Image Size', 'divi_flash'),
+                'type'            => 'range',
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'open',
+                'tab_slug'        => 'advanced',
+                'default'         => '45px',
+                'default_unit'    => 'px',
+                'range_settings'  => array(
+                    'min'  => '1',
+                    // 'max'  => '120',
+                    'step' => '1'
+                ),
+                'mobile_options'  => true,
+                'responsive'      => true
+            )
+        ];
 
         $faq_animation = [
             'enable_faq_animation' => array(
@@ -595,7 +576,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'option_category' => 'basic_option',
                 'toggle_slug'     => 'animation',
                 'show_if'         => array(
-                    'enable_faq_animation'     => 'on'
+                    'enable_faq_animation' => 'on'
                 )
             ),
             'enable_icon_animation' => array(
@@ -618,20 +599,17 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 'toggle_slug'    => 'animation'
             )
-            ];
-
-
+        ];
 
         return array_merge(
             $faq,
+            $faq_icon,
             $close_faq_icon,
             $open_faq_icon,
             $faq_animation,
             $faq_que_img,
-            $open_que_img_bg,
-            $close_que_img_bg,
-            $open_que_icon_bg,
-            $close_que_icon_bg
+            $close_faq_que_img,
+            $open_faq_que_img
         );
     }
 
@@ -641,10 +619,12 @@ class DIFL_FAQ extends ET_Builder_Module
         $advanced_fields['text'] = false;
 
         $advanced_fields['fonts'] = [
-            'question'         => array(
-                'label'        => esc_html__('Question', 'divi_flash'),
-                'toggle_slug'  => 'design_question',
+            'question_text'         => array(
+                // 'label'        => esc_html__('Question', 'divi_flash'),
+                'toggle_slug'  => 'design_question_text',
+                'sub_toggle'   => 'static',
                 'tab_slug'     => 'advanced',
+                'hide_text_align' => true,
                 'font_size'    => array(
                     'default'  => '22px',
                 ),
@@ -652,16 +632,34 @@ class DIFL_FAQ extends ET_Builder_Module
                     'default'  => 'normal'
                 ),
                 'css'       => array(
-                    'main'  => "$this->main_css_element .faq_question_wrapper .faq_question",
-                    'hover' => "$this->main_css_element .faq_question_wrapper .faq_question:hover",
-                    'important' => 'all',
+                    'main'  => "$this->main_css_element .faq_question .faq_question_title",
+                    'hover' => "$this->main_css_element .faq_question:hover .faq_question_title",
+                    'important' => 'all'
                 )
             ),
 
-            'design_answer_text'   => array(
-                'label'       => esc_html__('Answer', 'divi_flash'),
+            'active_design_question_text'  => array(
+                // 'label'        => esc_html__('Active Question', 'divi_flash'),
+                'toggle_slug'  => 'design_question_text',
+                'sub_toggle'   => 'active',
+                'tab_slug'     => 'advanced',
+                'hide_text_align' => true,
+                'font_size'    => array(
+                    'default'  => '22px',
+                ),
+                'font-weight'  => array(
+                    'default'  => 'normal'
+                ),
+                'css'       => array(
+                    'main'  => "$this->main_css_element .df_faq_item.active .faq_question .faq_question_title",
+                    'hover' => "$this->main_css_element .df_faq_item.active .faq_question:hover .faq_question_title",
+                    'important' => 'all'
+                )
+            ),
+
+            'design_answer_text' => array(
+                // 'label'       => esc_html__('Answer', 'divi_flash'),
                 'toggle_slug' => 'design_answer_text',
-                'sub_toggle'  => 'p',
                 'tab_slug'    => 'advanced',
                 'line_height' => array(
                     'default' => '1.7em',
@@ -673,9 +671,9 @@ class DIFL_FAQ extends ET_Builder_Module
                     'default' => 'normal'
                 ),
                 'css'       => array(
-                    'main'  => "$this->main_css_element .faq_answer_wrapper .faq_answer p",
-                    'hover' => "$this->main_css_element .faq_answer_wrapper .faq_answer p:hover",
-                    'important' => 'all',
+                    'main'  => "$this->main_css_element .faq_answer_wrapper .faq_answer_area .faq_answer",
+                    'hover' => "$this->main_css_element .faq_answer_wrapper .faq_answer_area .faq_answer",
+                    'important' => 'all'
                 ),
                 // answer design
                 'block_elements' => array(
@@ -708,7 +706,7 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'toggle_slug' => 'design_answer_heading',
             'tab_slug'    => 'advanced',
-            'sub_toggle'  => 'h1',
+            'sub_toggle'  => 'h1'
         );
         $advanced_fields['fonts']['content_heading_2']  = array(
             'label'       => esc_html__('Heading 2', 'divi_flash'),
@@ -727,7 +725,7 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'tab_slug'    => 'advanced',
             'toggle_slug' => 'design_answer_heading',
-            'sub_toggle'  => 'h2',
+            'sub_toggle'  => 'h2'
         );
         $advanced_fields['fonts']['content_heading_3']  = array(
             'label'       => esc_html__('Heading 3', 'divi_flash'),
@@ -746,7 +744,7 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'toggle_slug' => 'design_answer_heading',
             'tab_slug'    => 'advanced',
-            'sub_toggle'  => 'h3',
+            'sub_toggle'  => 'h3'
         );
         $advanced_fields['fonts']['content_heading_4']  = array(
             'label'       => esc_html__('Heading 4', 'divi_flash'),
@@ -765,7 +763,7 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'toggle_slug' => 'design_answer_heading',
             'tab_slug'    => 'advanced',
-            'sub_toggle'  => 'h4',
+            'sub_toggle'  => 'h4'
         );
         $advanced_fields['fonts']['content_heading_5']  = array(
             'label'       => esc_html__('Heading 5', 'divi_flash'),
@@ -784,7 +782,7 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'toggle_slug' => 'design_answer_heading',
             'tab_slug'    => 'advanced',
-            'sub_toggle'  => 'h5',
+            'sub_toggle'  => 'h5'
         );
         $advanced_fields['fonts']['content_heading_6']  = array(
             'label'       => esc_html__('Heading 6', 'divi_flash'),
@@ -803,114 +801,229 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             'toggle_slug' => 'design_answer_heading',
             'tab_slug'    => 'advanced',
-            'sub_toggle'  => 'h6',
+            'sub_toggle'  => 'h6'
         );
 
+        $advanced_fields['borders'] = array(
+            'default'            => array(),
+            'que_wrapper_border' => array(
+                'css'            => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_wrapper",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_wrapper:hover",
+                        'border_styles'      => "$this->main_css_element .faq_question_wrapper",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_wrapper:hover",
+                    )
+                ),
+                'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question',
+                'sub_toggle'      => 'static',
+                'tab_slug'        => 'advanced'
+            ),
+            'active_que_wrapper_border'      => array(
+                'css'       => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_question_wrapper",
+                        'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_question_wrapper:hover",
+                        'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_question_wrapper",
+                        'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_question_wrapper:hover",
+                    )
+                ),
+                'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question',
+                'sub_toggle'      => 'active',
+                'tab_slug'        => 'advanced'
+            ),
+            'que_text_border'     => array(
+                'css'      => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_title",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_title:hover",
+                        'border_styles'      => "$this->main_css_element .faq_question_title",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_title:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question_text',
+                'sub_toggle'      => 'static',
+                'tab_slug'        => 'advanced'
+            ),
+            'active_que_text_border' => array(
+                'css'  => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_question_title",
+                        'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_question_title:hover",
+                        'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_question_title",
+                        'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_question_title:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question_text',
+                'sub_toggle'      => 'active',
+                'tab_slug'        => 'advanced'
+            ),
+            'que_img_wrapper_border'    => array(
+                'css'      => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_image",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_image:hover",
+                        'border_styles'      => "$this->main_css_element .faq_question_image",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_image:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'wrapper',
+                'tab_slug'        => 'advanced'
+            ),
+            // 'que_img_wrapper_border_active'    => array(
+            //     'css'      => array(
+            //         'main' => array(
+            //             'border_radii'       => "$this->main_css_element .faq_question_image",
+            //             'border_radii_hover' => "$this->main_css_element .faq_question_image:hover",
+            //             'border_styles'      => "$this->main_css_element .faq_question_image",
+            //             'border_styles_hover' => "$this->main_css_element .faq_question_image:hover",
+            //         )
+            //     ),
+            //     // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+            //     'toggle_slug'     => 'design_que_img',
+            //     'sub_toggle'      => 'wrapper',
+            //     'tab_slug'        => 'advanced'
+            // ),
+            'que_img_border' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_image img",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_image:hover img",
+                        'border_styles'      => "$this->main_css_element .faq_question_image img",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_image:hover img",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'close',
+                'tab_slug'        => 'advanced'
+            ),
+            'que_img_border_active' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_question_image img",
+                        'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_question_image:hover img",
+                        'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_question_image img",
+                        'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_question_image:hover img",
+                    )
+                ),
+                'label_prefix'    => esc_html__('Active', 'divi_flash'),
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'open',
+                'tab_slug'        => 'advanced'
+            ),
+            'que_icon_wrapper_border' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_icon",
+                        'border_radii_hover' => "$this->main_css_element .faq_icon:hover",
+                        'border_styles'      => "$this->main_css_element .faq_icon",
+                        'border_styles_hover' => "$this->main_css_element .faq_icon:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_faq_icon',
+                'sub_toggle'      => 'wrapper',
+                'tab_slug'        => 'advanced'
+            ),
+            // 'que_icon_wrapper_border_active' => array(
+            //     'css' => array(
+            //         'main' => array(
+            //             'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_icon",
+            //             'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_icon:hover",
+            //             'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_icon",
+            //             'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_icon:hover",
+            //         )
+            //     ),
+            //     'label_prefix'    => esc_html__('Active', 'divi_flash'),
+            //     'toggle_slug'     => 'design_faq_icon',
+            //     'sub_toggle'      => 'wrapper',
+            //     'tab_slug'        => 'advanced'
+            // ),
+            // 'que_icon_border'    => array(
+            //     'css'      => array(
+            //         'main' => array(
+            //             'border_radii'       => "$this->main_css_element .faq_icon span.et-pb-icon",
+            //             'border_radii_hover' => "$this->main_css_element .faq_icon span.et-pb-icon:hover",
+            //             'border_styles'      => "$this->main_css_element .faq_icon span.et-pb-icon",
+            //             'border_styles_hover' => "$this->main_css_element .faq_icon span.et-pb-icon:hover",
+            //         )
+            //     ),
+            //     // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+            //     'toggle_slug'     => 'design_faq_icon',
+            //     'sub_toggle'      => '',
+            //     'tab_slug'        => 'advanced'
+            // ),
+            'ans_wrapper_border' => array(
+                'css' => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .faq_answer_wrapper",
+                        'border_radii_hover' => "$this->main_css_element .faq_answer_wrapper:hover",
+                        'border_styles'      => "$this->main_css_element .faq_answer_wrapper",
+                        'border_styles_hover' => "$this->main_css_element .faq_answer_wrapper:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_answer',
+                'tab_slug'        => 'advanced'
+            ),
+        );
 
+        $advanced_fields['box_shadow'] = array(
+            'default'           => true,
 
-        // $advanced_fields['borders'] = array(
-        //     'default'               => array(),
-        //     'rating_icon_border'    => array(
-        //         'css'               => array(
-        //             'main'  => array(
-        //                 'border_radii'       => "$this->main_css_element .df_rating_icon",
-        //                 'border_radii_hover' => "$this->main_css_element .df_rating_icon:hover",
-        //                 'border_styles'      => "$this->main_css_element .df_rating_icon",
-        //                 'border_styles_hover' => "$this->main_css_element .df_rating_icon:hover",
-        //             )
-        //         ),
-        //         'label_prefix'    => esc_html__('Rating', 'divi_flash'),
-        //         'toggle_slug'     => 'design_rating',
-        //         'tab_slug'        => 'advanced',
-        //     ),
-        //     'title_border'        => array(
-        //         'css' => array(
-        //             'main'  => array(
-        //                 'border_radii'       => "$this->main_css_element .df_rating_title",
-        //                 'border_radii_hover' => "$this->main_css_element .df_rating_title:hover",
-        //                 'border_styles'      => "$this->main_css_element .df_rating_title",
-        //                 'border_styles_hover' => "$this->main_css_element .df_rating_title:hover",
-        //             )
-        //         ),
-        //         'label_prefix'    => esc_html__('Title', 'divi_flash'),
-        //         'toggle_slug'     => 'design_title',
-        //         'tab_slug'        => 'advanced',
-        //     ),
-        //     'content_border'      => array(
-        //         'css'             => array(
-        //             'main'  => array(
-        //                 'border_radii'       => "$this->main_css_element .df_rating_content",
-        //                 'border_radii_hover' => "$this->main_css_element .df_rating_content:hover",
-        //                 'border_styles'      => "$this->main_css_element .df_rating_content",
-        //                 'border_styles_hover' => "$this->main_css_element .df_rating_content:hover",
-        //             )
-        //         ),
-        //         'label_prefix'    => esc_html__('Content', 'divi_flash'),
-        //         'toggle_slug'     => 'design_content',
-        //         'tab_slug'        => 'advanced',
-        //     ),
-        // );
+            'que_wrapper_box_shadow' => array(
+                // 'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
+                'css' => array(
+                    'main'  => "$this->main_css_element .faq_question_wrapper",
+                    'hover' => "$this->main_css_element .faq_question_wrapper:hover",
+                ),
+                'toggle_slug'   => 'design_question',
+                'sub_toggle'    => 'wrapper',
+                'tab_slug'      => 'advanced',
+            ),
+            'ans_wrapper_box_shadow' => array(
+                // 'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
+                'css' => array(
+                    'main'  => "$this->main_css_element .faq_answer_wrapper",
+                    'hover' => "$this->main_css_element .faq_answer_wrapper:hover",
+                ),
+                'toggle_slug'  => 'design_answer',
+                'tab_slug'     => 'advanced',
+            )
+        );
 
-        // $advanced_fields['box_shadow'] = array(
-        //     'default'           => true,
+        $advanced_fields['filters'] = array(
+            'child_filters_target' => array(
+                'label' => esc_html__('Filter', 'divi_flash'),
+                'toggle_slug'      => 'filter',
+                'tab_slug'         => 'advanced',
+                'css' => array(
+                    'main'  => "$this->main_css_element .df_rating_box_container",
+                    'hover' => "$this->main_css_element .df_rating_box_container:hover"
+                ),
+            ),
+        );
 
-        //     'rating_box_shadow' => array(
-        //         'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
-        //         'css'           => array(
-        //             'main'  => "$this->main_css_element .df_rating_icon",
-        //             'hover' => "$this->main_css_element .df_rating_icon:hover",
-        //         ),
-        //         'toggle_slug'   => 'design_rating',
-        //         'tab_slug'      => 'advanced',
-        //     ),
+        $advanced_fields['margin_padding'] = array(
+            'css'   => array(
+                'important' => 'all'
+            )
+        );
 
-        //     'title_box_shadow'   => array(
-        //         'label'          => esc_html__('Title Box Shadow', 'divi_flash'),
-        //         'css' => array(
-        //             'main'  => "$this->main_css_element .df_rating_title",
-        //             'hover' => "$this->main_css_element .df_rating_title:hover",
-        //         ),
-        //         'toggle_slug'    => 'design_title',
-        //         'tab_slug'       => 'advanced',
-        //     ),
-
-        //     'content_box_shadow' => array(
-        //         'label'          => esc_html__('Content Box Shadow', 'divi_flash'),
-        //         'css' => array(
-        //             'main'  => "$this->main_css_element .df_rating_content",
-        //             'hover' => "$this->main_css_element .df_rating_content:hover",
-        //         ),
-        //         'toggle_slug'    => 'design_content',
-        //         'tab_slug'       => 'advanced',
-        //     ),
-
-        // );
-
-        // $advanced_fields['filters'] = array(
-        //     'child_filters_target' => array(
-        //         'label'    => esc_html__('Filter', 'divi_flash'),
-        //         'toggle_slug'     => 'filter',
-        //         'tab_slug'        => 'advanced',
-        //         'css' => array(
-        //             'main'  => "$this->main_css_element .df_rating_box_container",
-        //             'hover' => "$this->main_css_element .df_rating_box_container:hover"
-        //         ),
-        //     ),
-        // );
-
-        // $advanced_fields['margin_padding'] = array(
-        //     'css'   => array(
-        //         'important' => 'all'
-        //     )
-        // );
-
-        // $advanced_fields['max_width'] = array(
-        //     'css' => array(
-        //         'main'             => $this->main_css_element,
-        //         'module_alignment' => "$this->main_css_element.et_pb_module",
-        //         'important' => 'all'
-        //     ),
-        // );
+        $advanced_fields['max_width'] = array(
+            'css' => array(
+                'main'             => $this->main_css_element,
+                'module_alignment' => "$this->main_css_element.et_pb_module",
+                'important' => 'all'
+            ),
+        );
 
         return $advanced_fields;
     }
@@ -956,14 +1069,49 @@ class DIFL_FAQ extends ET_Builder_Module
             }
         }
 
-        $this->df_process_bg(
+        $this->df_process_color(
             array(
                 'render_slug' => $render_slug,
-                'slug'        => 'open_que_img_bg',
-                'selector'    => "$this->main_css_element .faq_question_image",
-                'hover'       => "$this->main_css_element .faq_question_image:hover",
+                'slug'        => 'faq_icon_bg',
+                'type'        => 'color',
+                'selector'    => "$this->main_css_element .faq_icon",
+                'hover'       => "$this->main_css_element .faq_icon:hover"
             )
         );
+
+        $this->df_process_color(
+            array(
+                'render_slug' => $render_slug,
+                'slug'        => 'faq_icon_bg_active',
+                'type'        => 'color',
+                'selector'    => "$this->main_css_element .df_faq_item.active .faq_icon",
+                'hover'       => "$this->main_css_element .df_faq_item.active .faq_icon:hover"
+            )
+        );
+
+        $this->df_process_color(
+            array(
+                'render_slug' => $render_slug,
+                'slug'        => 'que_img_bg',
+                'type'        => 'color',
+                'selector'    => "$this->main_css_element .faq_question_image",
+                'hover'       => "$this->main_css_element .faq_question_image:hover"
+            )
+        );
+
+        $this->df_process_color(
+            array(
+                'render_slug' => $render_slug,
+                'slug'        => 'que_img_bg_active',
+                'type'        => 'color',
+                'selector'    => "$this->main_css_element .df_faq_item.active .faq_question_image",
+                'hover'       => "$this->main_css_element .df_faq_item.active .faq_question_image:hover"
+            )
+        );
+
+
+
+
 
         // icon placement (+ question wrapper)
         if ('inherit' !== $this->props['faq_icon_placement']) {
@@ -1030,7 +1178,7 @@ class DIFL_FAQ extends ET_Builder_Module
         );
 
         // output html
-        if('on' !== $this->props['output_html']){
+        if ('on' !== $this->props['output_html']) {
             ET_Builder_Element::set_style($render_slug, array(
                 'selector'    => "$this->main_css_element.difl_faq .df_faq_wrapper",
                 'declaration' => "display: none;"
