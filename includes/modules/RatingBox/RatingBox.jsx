@@ -302,9 +302,7 @@ class RatingBox extends Component {
     }
 
     if ("" !== props.title_text_align_phone) {
-      const title_align_mob = props.title_text_align_phone
-        ? props.title_text_align_phone
-        : props.title_text_align_tablet;
+      const title_align_mob = props.title_text_align_phone ? props.title_text_align_phone : props.title_text_align_tablet;
       additionalCss.push([
         {
           selector: `%%order_class%% .df_rating_title`,
@@ -314,8 +312,7 @@ class RatingBox extends Component {
       ]);
     }
 
-    const rating_align_mob = props.rating_icon_align_phone
-      ? props.rating_icon_align_phone
+    const rating_align_mob = props.rating_icon_align_phone ? props.rating_icon_align_phone
       : props.rating_icon_align_tablet ? props.rating_icon_align_tablet : props.rating_icon_align;
     additionalCss.push([
       {
@@ -435,8 +432,7 @@ class RatingBox extends Component {
     }
 
     // Get single rating value
-    const rating_value_single = parseInt(props.rating_scale_type) === 5
-        ? props.rating_value_5 : props.rating_value_10;
+    const rating_value_single = parseInt(props.rating_scale_type) === 5 ? props.rating_value_5 : props.rating_value_10;
 
     // Show rating number/text
     let ratingNumber = ""
@@ -459,19 +455,10 @@ class RatingBox extends Component {
     }
 
     // Render icon wrapper
+    const isLeftNum = props.rating_number_placement_left_right === "left" ? true : false
     const iconWrapper = (
       <div className={"df_rating_icon"}>
-        {props.rating_number_placement_left_right === "left" ? (
-          <>
-            {ratingNumber}
-            {rating_icon}
-          </>
-        ) : (
-          <>
-            {rating_icon}
-            {ratingNumber}
-          </>
-        )}
+        {isLeftNum ? ratingNumber : ""} {rating_icon} {!isLeftNum ? ratingNumber : ""}
       </div>
     );
 
@@ -479,9 +466,7 @@ class RatingBox extends Component {
     const HeadingTag = props.rating_title_tag !== "" ? props.rating_title_tag : "h4";
     const titleWrapper = props.enable_title === "on" && props.title !== "" ? (
         <HeadingTag className="df_rating_title">
-          {props.dynamic.title.hasValue !== ""
-            ? utility._renderDynamicContent(props, "title")
-            : ""}
+          {props.dynamic.title.hasValue !== ""? utility._renderDynamicContent(props, "title") : ""}
         </HeadingTag>
       ) : ("");
 
@@ -497,9 +482,7 @@ class RatingBox extends Component {
   df_render_content() {
     const content = this.props.enable_content === "on" && this.props.content() !== "" ? (
         <div className={"df_rating_content"}>
-          {this.props.dynamic.content.hasValue !== ""
-            ? utility._renderDynamicContent(this.props, "content")
-            : ""}
+          {this.props.dynamic.content.hasValue !== "" ? utility._renderDynamicContent(this.props, "content") : ""}
         </div>
       ) : ("");
 

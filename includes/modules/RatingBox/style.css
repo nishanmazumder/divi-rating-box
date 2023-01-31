@@ -117,4 +117,5 @@
 
 .difl_ratingbox .df_rating_box_container .df_rating_content ul{
   list-style-position: inside;
+  padding: 0px;
 }
