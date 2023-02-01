@@ -472,26 +472,26 @@ class DIFL_FaqItem extends ET_Builder_Module
             )
         );
 
-        $ans_button_bg = $this->df_add_bg_field(array(
-            'label'                 => 'Background',
-            'key'                   => 'ans_button_bg',
-            'toggle_slug'           => 'design_button',
-            'tab_slug'              => 'advanced'
-        ));
+        // $ans_button_bg = $this->df_add_bg_field(array(
+        //     'label'                 => 'Background',
+        //     'key'                   => 'ans_button_bg',
+        //     'toggle_slug'           => 'design_button',
+        //     'tab_slug'              => 'advanced'
+        // ));
 
-        $ans_btn_margin = $this->add_margin_padding(array(
-            'title'         => 'Answer Button',
-            'key'           => 'ans_button',
-            'toggle_slug'   => 'design_button'
-        ));
+        // $ans_btn_margin = $this->add_margin_padding(array(
+        //     'title'         => 'Answer Button',
+        //     'key'           => 'ans_button',
+        //     'toggle_slug'   => 'design_button'
+        // ));
 
         return array_merge(
             $question,
             $answer,
             $button,
             $button_icon,
-            $ans_button_bg,
-            $ans_btn_margin
+            // $ans_button_bg,
+            // $ans_btn_margin
         );
     }
 

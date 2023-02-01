@@ -580,19 +580,42 @@ class DIFL_FAQ extends ET_Builder_Module
                 'hover'           => 'tabs',
                 'option_category' => 'basic_option',
                 'default'         => '#fbfbfb'
-            ),
+            )
         ];
 
-        // $faq_ans_btn = [
-        //     'button_icon_color' => array(
-        //         'label'             => esc_html__('Button Icon Color', 'divi_flash'),
-        //         'type'              => 'color-alpha',
-        //         'description'       => esc_html__('Here you can define a custom color for your icon.', 'divi_flash'),
-        //         'toggle_slug'       => 'design_button',
-        //         'tab_slug'          => 'advanced',
-        //         'hover'             => 'tabs'
-        //     )
-        // ];
+        $faq_ans_btn = [
+            'button_text_color' => array(
+                'label'             => esc_html__('Button Color', 'divi_flash'),
+                'type'              => 'color-alpha',
+                'description'       => esc_html__('Here you can define a custom color for button text.', 'divi_flash'),
+                'toggle_slug'       => 'design_button',
+                'tab_slug'          => 'advanced',
+                'hover'             => 'tabs'
+                ),
+            // 'button_icon_size' => array(
+            //     'label'             => esc_html__('Button Icon Size', 'divi_flash'),
+            //     'type'              => 'range',
+            //     'toggle_slug'       => 'design_button',
+            //     'tab_slug'          => 'advanced',
+            //     'default'           => '20px',
+            //     'allowed_units'     => array('px'),
+            //     'range_settings'    => array(
+            //         'min'  => '0',
+            //         'max'  => '100',
+            //         'step' => '1'
+            //     ),
+            //     'responsive'        => true,
+            //     'mobile_options'    => true
+            // ),
+            // 'button_icon_color' => array(
+            //     'label'             => esc_html__('Button Icon Color', 'divi_flash'),
+            //     'type'              => 'color-alpha',
+            //     'description'       => esc_html__('Here you can define a custom color for your icon.', 'divi_flash'),
+            //     'toggle_slug'       => 'design_button',
+            //     'tab_slug'          => 'advanced',
+            //     'hover'             => 'tabs'
+            // )
+        ];
 
         $faq_animation = [
             'enable_faq_animation' => array(
@@ -720,6 +743,7 @@ class DIFL_FAQ extends ET_Builder_Module
             $ans_wrapper_margin,
             $ans_text_margin,
             $ans_button_bg,
+            $faq_ans_btn,
             $ans_btn_margin
         );
     }
@@ -795,7 +819,24 @@ class DIFL_FAQ extends ET_Builder_Module
                         'hover' => "$this->main_css_element .faq_answer_wrapper:hover .faq_answer",
                     ),
                 ),
-            )
+            ),
+            'ans_button'         => array(
+                // 'label'        => esc_html__('Question', 'divi_flash'),
+                'toggle_slug'  => 'design_button',
+                'tab_slug'     => 'advanced',
+                'hide_text_align' => true,
+                'font_size'    => array(
+                    'default'  => '18px',
+                ),
+                'font-weight'  => array(
+                    'default'  => 'normal'
+                ),
+                'css'       => array(
+                    'main'  => "$this->main_css_element .faq_button a",
+                    'hover' => "$this->main_css_element faq_button a:hover",
+                    'important' => 'all'
+                )
+            ),
 
         ];
 
@@ -1082,6 +1123,19 @@ class DIFL_FAQ extends ET_Builder_Module
                 ),
                 // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
                 'toggle_slug'     => 'design_answer',
+                'tab_slug'        => 'advanced'
+            ),
+            'ans_button_border' => array(
+                'css' => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .faq_button a",
+                        'border_radii_hover' => "$this->main_css_element .faq_button a:hover",
+                        'border_styles'      => "$this->main_css_element .faq_button",
+                        'border_styles_hover' => "$this->main_css_element .faq_button a:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_button',
                 'tab_slug'        => 'advanced'
             ),
         );

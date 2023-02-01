@@ -104,8 +104,8 @@
 .difl_faqitem .faq_button a{
   display: inline-flex;
   vertical-align: initial;
-  background: red;
-  color: #fff;
+  background: #ffd7ff;
+  color: #ff83ef;
   padding: 5px 10px;
   font-size: 18px;
 }
