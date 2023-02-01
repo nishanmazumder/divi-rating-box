@@ -760,6 +760,9 @@ class DIFL_FAQ extends ET_Builder_Module
                 'sub_toggle'   => 'static',
                 'tab_slug'     => 'advanced',
                 'hide_text_align' => true,
+                'line_height' => array(
+                    'default' => '1.5em',
+                ),
                 'font_size'    => array(
                     'default'  => '22px',
                 ),
@@ -824,7 +827,9 @@ class DIFL_FAQ extends ET_Builder_Module
                 // 'label'        => esc_html__('Question', 'divi_flash'),
                 'toggle_slug'  => 'design_button',
                 'tab_slug'     => 'advanced',
-                'hide_text_align' => true,
+                'line_height' => array(
+                    'default' => '1.5em',
+                ),
                 'font_size'    => array(
                     'default'  => '18px',
                 ),
@@ -1130,7 +1135,7 @@ class DIFL_FAQ extends ET_Builder_Module
                     'main'  => array(
                         'border_radii'       => "$this->main_css_element .faq_button a",
                         'border_radii_hover' => "$this->main_css_element .faq_button a:hover",
-                        'border_styles'      => "$this->main_css_element .faq_button",
+                        'border_styles'      => "$this->main_css_element .faq_button a",
                         'border_styles_hover' => "$this->main_css_element .faq_button a:hover",
                     )
                 ),
