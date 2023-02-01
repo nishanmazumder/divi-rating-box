@@ -45,9 +45,8 @@
   display: flex;
   align-items: center;
 }
-.difl_faqitem .faq_question_image {
-  width: 45px;
-  height: 45px;
+.difl_faqitem .faq_question_image img{
+  max-width: 45px;
   display: block;
 }
 
@@ -71,7 +70,7 @@
 .difl_faqitem .faq_icon span {
   color: #000;
   font-size: 24px;
-  vertical-align: middle;
+  vertical-align: sub;
 }
 /* .difl_faqitem .close_icon{} */
 /* .difl_faqitem .open_icon{} */

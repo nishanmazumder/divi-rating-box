@@ -51,11 +51,34 @@ class Faq extends Component {
 
     utility.process_color({
       props: props,
+      key: "que_wrapper_bg",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_wrapper",
+      type: "background-color"
+    });
+
+    utility.process_color({
+      props: props,
+      key: "active_que_wrapper_bg",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .df_faq_item.active .faq_question_wrapper",
+      type: "background-color"
+    });
+
+    utility.process_color({
+      props: props,
+      key: "ans_wrapper_bg",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_wrapper",
+      type: "background-color"
+    });
+
+    utility.process_color({
+      props: props,
       key: "faq_icon_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_icon",
-      type: "color",
-      important: false
+      type: "background-color"
     });
 
     utility.process_color({
@@ -63,8 +86,7 @@ class Faq extends Component {
       key: "faq_icon_bg_active",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_item.active .faq_icon",
-      type: "color",
-      important: false
+      type: "background-color"
     });
 
     utility.process_color({
@@ -72,8 +94,7 @@ class Faq extends Component {
       key: "que_img_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_question_image",
-      type: "color",
-      important: false
+      type: "background-color"
     });
 
     utility.process_color({
@@ -81,10 +102,72 @@ class Faq extends Component {
       key: "que_img_bg_active",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_item.active .faq_question_image",
-      type: "color",
-      important: false
+      type: "background-color"
     });
 
+    utility.process_color({
+      props: props,
+      key: "close_icon_color",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .close_icon span.et-pb-icon",
+      type: "color"
+    });
+
+    utility.process_range_value({
+      props: props,
+      key: "close_icon_size",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .close_icon span.et-pb-icon",
+      type: "font-size"
+    });
+
+    utility.process_color({
+      props: props,
+      key: "open_icon_color",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .open_icon span.et-pb-icon",
+      type: "color"
+    });
+
+    utility.process_range_value({
+      props: props,
+      key: "open_icon_size",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .open_icon span.et-pb-icon",
+      type: "font-size"
+    });
+
+    utility.process_range_value({
+      props: props,
+      key: "close_que_img_size",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .close_image img",
+      type: "max-width"
+    });
+
+    utility.process_range_value({
+      props: props,
+      key: "open_que_img_size",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .open_image img",
+      type: "max-width"
+    });
+
+    utility.process_margin_padding({
+      props: props,
+      key: "que_wrapper_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_wrapper",
+      type: "margin",
+    });
+
+    utility.process_margin_padding({
+      props: props,
+      key: "que_wrapper_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_wrapper",
+      type: "padding",
+    });
 
     if ("" !== props.close_faq_icon) {
       utility.process_icon_font_style({

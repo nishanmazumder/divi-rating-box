@@ -8,7 +8,6 @@ class FaqItem extends Component {
   static slug = "difl_faqitem";
 
   static css(props) {
-
     // console.log(props)
 
     var additionalCss = [];
@@ -100,7 +99,6 @@ class FaqItem extends Component {
   }
 
   render() {
-
     // console.log(this.props)
 
     return null;
