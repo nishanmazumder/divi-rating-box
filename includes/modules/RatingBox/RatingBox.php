@@ -173,7 +173,6 @@ class DIFL_RatingBox extends ET_Builder_Module
                 'default'          => '☆',
                 'class'            => array('et-pb-font-icon'),
                 'toggle_slug'      => 'rating',
-                'mobile_options'   => true,
                 'show_if'          => array(
                     'enable_custom_icon'     => 'on',
                 )

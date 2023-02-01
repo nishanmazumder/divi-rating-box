@@ -1,11 +1,3 @@
-.difl_faq_0{
-  background: rgb(251, 214, 214);
-}
-
-.difl_faq_1{
-  background: #e2ffc0;
-}
-
 /* Border */
 .difl_faqitem .df_faq_item * {
   border-width: 0px;
@@ -67,10 +59,10 @@
   padding-bottom: 0px;
 }
 /* .difl_faqitem .faq_icon{} */
-.difl_faqitem .faq_icon span {
+.difl_faqitem .faq_icon span.et-pb-icon {
+  display: block;
   color: #000;
   font-size: 24px;
-  vertical-align: sub;
 }
 /* .difl_faqitem .close_icon{} */
 /* .difl_faqitem .open_icon{} */

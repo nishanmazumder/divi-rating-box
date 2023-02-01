@@ -472,11 +472,26 @@ class DIFL_FaqItem extends ET_Builder_Module
             )
         );
 
+        $ans_button_bg = $this->df_add_bg_field(array(
+            'label'                 => 'Background',
+            'key'                   => 'ans_button_bg',
+            'toggle_slug'           => 'design_button',
+            'tab_slug'              => 'advanced'
+        ));
+
+        $ans_btn_margin = $this->add_margin_padding(array(
+            'title'         => 'Answer Button',
+            'key'           => 'ans_button',
+            'toggle_slug'   => 'design_button'
+        ));
+
         return array_merge(
             $question,
             $answer,
             $button,
-            $button_icon
+            $button_icon,
+            $ans_button_bg,
+            $ans_btn_margin
         );
     }
 
@@ -688,7 +703,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             '<span class="et-pb-icon df-faq-button-icon">%1$s</span>',
             $button_font_icon !== '' ? esc_attr(et_pb_process_font_icon($button_font_icon)) : '5'
         ) : '';
-        if ($text !== '' || $url !== '') {
+        if ('on' === $this->props['enable_answer_button']) {
             return sprintf(
                 '<div class="faq_button">
                     <a href="%1$s" %3$s data-icon="5">%5$s <span>%2$s</span> %4$s</a>

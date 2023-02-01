@@ -50,123 +50,218 @@ class Faq extends Component {
     console.log(props)
 
     utility.process_color({
-      props: props,
-      key: "que_wrapper_bg",
+      props   : props,
+      key     : "que_wrapper_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_question_wrapper",
-      type: "background-color"
+      type    : "background-color"
     });
 
     utility.process_color({
-      props: props,
-      key: "active_que_wrapper_bg",
+      props   : props,
+      key     : "active_que_wrapper_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_item.active .faq_question_wrapper",
-      type: "background-color"
+      type    : "background-color"
     });
 
     utility.process_color({
-      props: props,
-      key: "ans_wrapper_bg",
+      props   : props,
+      key     : "ans_wrapper_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_answer_wrapper",
-      type: "background-color"
+      type    : "background-color"
     });
 
     utility.process_color({
-      props: props,
-      key: "faq_icon_bg",
+      props   : props,
+      key     : "faq_icon_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_icon",
-      type: "background-color"
+      type    : "background-color"
     });
 
     utility.process_color({
-      props: props,
-      key: "faq_icon_bg_active",
+      props   : props,
+      key     : "faq_icon_bg_active",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_item.active .faq_icon",
-      type: "background-color"
+      type    : "background-color"
     });
 
     utility.process_color({
-      props: props,
-      key: "que_img_bg",
+      props   : props,
+      key     : "que_img_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_question_image",
-      type: "background-color"
+      type    : "background-color"
     });
 
     utility.process_color({
-      props: props,
-      key: "que_img_bg_active",
+      props   : props,
+      key     : "que_img_bg_active",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_item.active .faq_question_image",
-      type: "background-color"
+      type    : "background-color"
     });
 
     utility.process_color({
-      props: props,
-      key: "close_icon_color",
+      props   : props,
+      key     : "close_icon_color",
       additionalCss: additionalCss,
       selector: "%%order_class%% .close_icon span.et-pb-icon",
-      type: "color"
+      type    : "color"
     });
 
     utility.process_range_value({
-      props: props,
-      key: "close_icon_size",
+      props   : props,
+      key     : "close_icon_size",
       additionalCss: additionalCss,
       selector: "%%order_class%% .close_icon span.et-pb-icon",
-      type: "font-size"
+      type    : "font-size"
     });
 
     utility.process_color({
-      props: props,
-      key: "open_icon_color",
+      props   : props,
+      key     : "open_icon_color",
       additionalCss: additionalCss,
       selector: "%%order_class%% .open_icon span.et-pb-icon",
-      type: "color"
+      type    : "color"
+    });
+
+    utility.df_process_bg({
+      'props'             : props,
+      'additionalCss'     : additionalCss,
+      'key'               : 'ans_button_bg',
+      'selector'          : '%%order_class%% .faq_button a'
     });
 
     utility.process_range_value({
-      props: props,
-      key: "open_icon_size",
+      props   : props,
+      key     : "open_icon_size",
       additionalCss: additionalCss,
       selector: "%%order_class%% .open_icon span.et-pb-icon",
-      type: "font-size"
+      type    : "font-size"
     });
 
     utility.process_range_value({
-      props: props,
-      key: "close_que_img_size",
+      props   : props,
+      key     : "close_que_img_size",
       additionalCss: additionalCss,
       selector: "%%order_class%% .close_image img",
-      type: "max-width"
+      type    : "max-width"
     });
 
     utility.process_range_value({
-      props: props,
-      key: "open_que_img_size",
+      props   : props,
+      key     : "open_que_img_size",
       additionalCss: additionalCss,
       selector: "%%order_class%% .open_image img",
-      type: "max-width"
+      type    : "max-width"
     });
 
     utility.process_margin_padding({
-      props: props,
-      key: "que_wrapper_margin",
+      props   : props,
+      key     : "faq_wrapper_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper",
-      type: "margin",
+      selector: "%%order_class%%",
+      type    : "margin"
     });
 
     utility.process_margin_padding({
-      props: props,
-      key: "que_wrapper_padding",
+      props   : props,
+      key     : "faq_wrapper_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%%",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "que_wrapper_margin",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_question_wrapper",
-      type: "padding",
+      type    : "margin"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "que_wrapper_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_wrapper",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "que_text_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_title",
+      type    : "margin"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "que_icon_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_icon",
+      type    : "margin"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "que_icon_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_icon",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "que_img_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_image",
+      type    : "margin"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "que_img_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_question_image",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_wrapper_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_wrapper",
+      type    : "margin"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_wrapper_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_wrapper",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_button_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_button a",
+      type    : "margin"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_button_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_button a:hover",
+      type    : "padding"
     });
 
     if ("" !== props.close_faq_icon) {
@@ -200,21 +295,21 @@ class Faq extends Component {
     // faq grid layout
     if ("on" === props.faq_layout_grid) {
       this.df_faq_set_dynamic_grid_columns({
-        props : props,
-        key   : "faq_item_per_column",
+        props   : props,
+        key     : "faq_item_per_column",
         additionalCss: additionalCss,
         selector: "%%order_class%% .df_faq_wrapper",
-        type  : "grid-template-columns"
+        type    : "grid-template-columns"
       });
     }
 
     // faq item gap
     utility.process_range_value({
-      props : props,
-      key   : "faq_item_gap",
+      props   : props,
+      key     : "faq_item_gap",
       additionalCss: additionalCss,
       selector: "%%order_class%%.difl_faq .df_faq_wrapper",
-      type  : "gap"
+      type    : "gap"
     });
 
     // faq item width
@@ -237,11 +332,11 @@ class Faq extends Component {
     }
 
     utility.df_process_string_attr({
-      props: props,
-      key: "faq_item_horizontal_alignment",
+      props   : props,
+      key     : "faq_item_horizontal_alignment",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_wrapper .et_pb_module.difl_faqitem",
-      type: "justify-content",
+      type    : "justify-content",
     });
 
     //output html
