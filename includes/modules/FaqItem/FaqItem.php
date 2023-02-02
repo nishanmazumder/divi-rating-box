@@ -109,19 +109,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'toggles'      => array(
                     'child_faq_question'       => esc_html__('Question', 'divi_flash'),
                     'child_faq_answer'               => esc_html__('Answer', 'divi_flash'),
-                    // 'child_faq_button'               => esc_html__('Button', 'divi_flash'),
-                    // 'child_faq_image'  => [
-                    //     'title'        => esc_html__('Image', 'divi_flash'),
-                    //     'tabbed_subtoggles' => true,
-                    //     'sub_toggles'  => [
-                    //         'close'    => [
-                    //             'name' => esc_html__('Close', 'divi_flash'),
-                    //         ],
-                    //         'open'     => [
-                    //             'name' => esc_html__('Open', 'divi_flash'),
-                    //         ],
-                    //     ],
-                    // ],
+                    'child_faq_setting'               => esc_html__('Settings', 'divi_flash')
                 ),
             ),
             'advanced'   => array(
@@ -327,6 +315,24 @@ class DIFL_FaqItem extends ET_Builder_Module
             )
         ];
 
+        $setting = [
+            'disable_faq_item' => array(
+                'label'            => esc_html__('Hide ', 'divi_flash'),
+                'type'              => 'multiple_checkboxes',
+                'options'           => [
+                    "desktop"   => "Desktop",
+                    "mobile"   => "Mobile"
+                ],
+                // 'options'          => array(
+                //     'off' => esc_html__('Off', 'divi_flash'),
+                //     'on'  => esc_html__('On', 'divi_flash')
+                // ),
+                // 'default'          => 'off',
+
+                'toggle_slug'      => 'child_faq_setting'
+            )
+        ];
+
         $button = [
             'enable_answer_button' => array(
                 'label'            => esc_html__('Enable Button', 'divi_flash'),
@@ -488,6 +494,7 @@ class DIFL_FaqItem extends ET_Builder_Module
         return array_merge(
             $question,
             $answer,
+            $setting,
             $button,
             $button_icon,
             // $ans_button_bg,
