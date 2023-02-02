@@ -17,7 +17,7 @@ class FaqItem extends Component {
         props: props,
         additionalCss: additionalCss,
         key: "button_font_icon",
-        selector: "%%order_class%% .et-pb-icon.df-faq-button-icon",
+        selector: "%%order_class%% .et-pb-icon.faq_button_icon",
       });
     }
 

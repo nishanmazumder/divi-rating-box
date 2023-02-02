@@ -510,7 +510,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                     'render_slug'    => $render_slug,
                     'base_attr_name' => 'button_font_icon',
                     'important'      => true,
-                    'selector'       => '%%order_class%% .et-pb-icon.df-faq-button-icon',
+                    'selector'       => '%%order_class%% .et-pb-icon.faq_button_icon',
                     'processor'      => array(
                         'ET_Builder_Module_Helper_Style_Processor',
                         'process_extended_icon'
@@ -700,7 +700,7 @@ class DIFL_FaqItem extends ET_Builder_Module
 
         // Button icon
         $button_icon = $this->props['use_button_icon'] !== 'off' ? sprintf(
-            '<span class="et-pb-icon df-faq-button-icon">%1$s</span>',
+            '<span class="et-pb-icon faq_button_icon">%1$s</span>',
             $button_font_icon !== '' ? esc_attr(et_pb_process_font_icon($button_font_icon)) : '5'
         ) : '';
         if ('on' === $this->props['enable_answer_button']) {

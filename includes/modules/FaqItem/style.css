@@ -104,7 +104,7 @@
 
 .difl_faqitem .faq_button a{
   display: inline-flex;
-  vertical-align: initial;
+  align-items: center;
   background: #ffd7ff;
   color: #ff83ef;
   padding: 5px 10px;
@@ -112,7 +112,7 @@
   line-height: 1.5em;
 }
 
-.difl_faqitem .df-faq-button-icon{
+.difl_faqitem .faq_button_icon{
   /* vertical-align: initial; */
   font-size: 20px;
 }

@@ -46,31 +46,27 @@ class Faq extends Component {
   static css(props) {
     var additionalCss = [];
 
-
     console.log(props)
 
-    utility.process_color({
-      props   : props,
-      key     : "que_wrapper_bg",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper",
-      type    : "background-color"
+    utility.df_process_bg({
+      props          : props,
+      additionalCss  : additionalCss,
+      key            : 'que_wrapper_bg',
+      selector       : '%%order_class%% .faq_question_wrapper'
     });
 
-    utility.process_color({
-      props   : props,
-      key     : "active_que_wrapper_bg",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .df_faq_item.active .faq_question_wrapper",
-      type    : "background-color"
+    utility.df_process_bg({
+      props          : props,
+      additionalCss  : additionalCss,
+      key            : 'active_que_wrapper_bg',
+      selector       : '%%order_class%% .df_faq_item.active .faq_question_wrapper'
     });
 
-    utility.process_color({
-      props   : props,
-      key     : "ans_wrapper_bg",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper",
-      type    : "background-color"
+    utility.df_process_bg({
+      props          : props,
+      additionalCss  : additionalCss,
+      key            : 'ans_wrapper_bg',
+      selector       : '%%order_class%% .faq_answer_wrapper'
     });
 
     utility.process_color({
@@ -83,7 +79,7 @@ class Faq extends Component {
 
     utility.process_color({
       props   : props,
-      key     : "faq_icon_bg_active",
+      key     : "active_faq_icon_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_item.active .faq_icon",
       type    : "background-color"
@@ -99,7 +95,7 @@ class Faq extends Component {
 
     utility.process_color({
       props   : props,
-      key     : "que_img_bg_active",
+      key     : "active_que_img_bg",
       additionalCss: additionalCss,
       selector: "%%order_class%% .df_faq_item.active .faq_question_image",
       type    : "background-color"
@@ -130,10 +126,34 @@ class Faq extends Component {
     });
 
     utility.df_process_bg({
-      'props'             : props,
-      'additionalCss'     : additionalCss,
-      'key'               : 'ans_button_bg',
-      'selector'          : '%%order_class%% .faq_button a'
+      props          : props,
+      additionalCss  : additionalCss,
+      key            : 'ans_button_bg',
+      selector       : '%%order_class%% .faq_button a'
+    });
+
+    utility.process_color({
+      props   : props,
+      key     : "button_text_color",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_button a",
+      type    : "color"
+    });
+
+    utility.process_color({
+      props   : props,
+      key     : "button_icon_color",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_button_icon",
+      type    : "color"
+    });
+
+    utility.process_range_value({
+      props   : props,
+      key     : "button_icon_size",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_button_icon",
+      type    : "font-size"
     });
 
     utility.process_range_value({
@@ -419,7 +439,7 @@ class Faq extends Component {
     const button_icon_pos   = props.button_icon_placement ? props.button_icon_placement : 'right';
 
     const button_icon =  'on' === props.use_button_icon ?
-        <span className={'et-pb-icon df-faq-button-icon'}>
+        <span className={'et-pb-icon faq_button_icon'}>
         {button_font_icon}</span>
      : '';
 
