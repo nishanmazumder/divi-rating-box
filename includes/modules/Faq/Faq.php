@@ -705,8 +705,6 @@ class DIFL_FAQ extends ET_Builder_Module
             'toggle_slug'   => 'design_button'
         ));
 
-
-
         return array_merge(
             $faq,
             $faq_que_icon,
@@ -724,8 +722,7 @@ class DIFL_FAQ extends ET_Builder_Module
             $ans_text_margin,
             $ans_button_bg,
             $faq_ans_btn,
-            $ans_btn_margin,
-            // $check_button_bg
+            $ans_btn_margin
         );
     }
 
@@ -1049,7 +1046,7 @@ class DIFL_FAQ extends ET_Builder_Module
                         'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_question_image:hover img",
                     )
                 ),
-                'label_prefix'    => esc_html__('Active', 'divi_flash'),
+                // 'label_prefix'    => esc_html__('Active', 'divi_flash'),
                 'toggle_slug'     => 'design_que_img',
                 'sub_toggle'      => 'open',
                 'tab_slug'        => 'advanced'
@@ -1263,7 +1260,6 @@ class DIFL_FAQ extends ET_Builder_Module
         $fields = $this->df_fix_box_shadow_transition($fields, 'que_wrapper_box_shadow', $que_wrapper);
         $fields = $this->df_fix_box_shadow_transition($fields, 'ans_wrapper_box_shadow', $ans_wrapper);
 
-
         return $fields;
     }
 
@@ -1313,7 +1309,6 @@ class DIFL_FAQ extends ET_Builder_Module
         );
     }
 
-
     public function additional_css_styles($render_slug)
     {
         if (method_exists('ET_Builder_Module_Helper_Style_Processor', 'process_extended_icon')) {
@@ -1350,7 +1345,6 @@ class DIFL_FAQ extends ET_Builder_Module
                 );
             }
         }
-
 
         $this->df_process_bg(
             array(
