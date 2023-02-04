@@ -13,9 +13,27 @@
   });
 
   function callEventFunction(parent_class, settings, index) {
+    let parent_uniq_class = document.querySelectorAll('.'+ parent_class);
+
+    // console.log(parent_uniq_class)
+
+    [].forEach.call(parent_uniq_class, function(el, index){
+      let all_images = parent_uniq_class[0].querySelectorAll('.open_image');
+      // all_images.style.display = "none";
+      console.log(all_images)
+    })
+
+
+
+    // let all_images = parent_uniq_class[0].querySelectorAll('.open_image');
+
+    // all_images[0].style.display = "none";
+
+    // console.log(all_images)
+
     // hide icon & image default
-    $("." + parent_class).find(".open_image").hide();
-    $("." + parent_class).find(".open_icon").hide();
+    // $("." + parent_class).find(".open_image").hide();
+    // $("." + parent_class).find(".open_icon").hide();
 
     const itemSelector = $("." + parent_class).find(".df_faq_item");
     const question = $("." + parent_class).find(".faq_question_wrapper");
@@ -36,6 +54,7 @@
 
     // faq toggle calss add/remove
     "plain" === faq_layout ? itemSelector.addClass("active") : ""; // plain
+
     if (itemSelector.hasClass("active")) {
       itemSelector.find(answer).show();
     }
