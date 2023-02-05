@@ -736,7 +736,7 @@ class DIFL_FaqItem extends ET_Builder_Module
             }
             return $single_devices;
         }
-        return;
+        return "";
     }
 
     public function render($attrs, $content, $render_slug)
@@ -758,6 +758,10 @@ class DIFL_FaqItem extends ET_Builder_Module
         $data_settings = [
             'disable_faq_item' => $this->df_multicheck_value($this->props['disable_faq_item']),
         ];
+
+        // echo '<pre>';
+
+        // print_r($this->df_multicheck_value($this->props['disable_faq_item']));
 
         $output = sprintf(
             '<div class="df_faq_item" data-settings=\'%3$s\'>

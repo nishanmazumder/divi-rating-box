@@ -9,33 +9,24 @@
 
     // get data settings
     const mainWrapper = parent.querySelector(".df_faq_wrapper");
-    const settings_global = JSON.parse(mainWrapper.dataset.settings);
+    const settings = JSON.parse(mainWrapper.dataset.settings); // global settings
 
-    // get child ele
+    // get child wrapper
     const itemWrapper = parent.querySelectorAll(".difl_faqitem");
 
+    // Active faq item order number
+    if ("on" === settings.activate_on_first_time && !!settings.active_item_order_number) {
+      itemWrapper[settings.active_item_order_number - 1].classList.add('active')
+    }
 
+    // hide item on devices
+    itemWrapper.forEach(child => hide_faq_items(child));
 
-    [].forEach.call(itemWrapper, function(child, index){
-
-      const child_class = child.classList.value.split(" ").filter(function(class_name) {
-        return class_name.indexOf("difl_faq_") !== -1;
-      });
-
-
-      console.log(child_class)
-
-      // active_order_item();
-      hide_faq_items(child) // hide item on devices
-    })
-
-    console.log(itemWrapper)
-
-    callEventFunction(parent_class[0], settings_global, index);
+    callEventFunction(parent_class[0], settings);
 
   });
 
-  function callEventFunction(parent_class, settings, index) {
+  function callEventFunction(parent_class, settings) {
 
     // hide icon & image default
     $("." + parent_class).find(".open_image").hide();
@@ -51,12 +42,7 @@
     const img_duration = 'on' === settings.enable_que_img_animation ? 500 : 0
     const icon_duration = 'on' === settings.enable_icon_animation ? 500 : 0
 
-    // Active faq item order number
-    if ("on" === settings.activate_on_first_time && "" !== settings.active_item_order_number) {
-      const active_item_order = ":eq(" + (settings.active_item_order_number - 1) + ")";
-      const itemSelected = $("." + parent_class).find(".df_faq_item" + active_item_order);
-      itemSelected.addClass("active");
-    }
+
 
     // faq toggle calss add/remove
     "plain" === faq_layout ? itemSelector.addClass("active") : ""; // plain
@@ -122,23 +108,22 @@
   // Hide FAQ items
   function hide_faq_items(child_class){
     const itemInner = child_class.querySelector('.df_faq_item')
-    const settings_item = JSON.parse(itemInner.dataset.settings);
+    const settings = JSON.parse(itemInner.dataset.settings); // child settings
 
-    // asynchronous issue
-    // if (window.matchMedia('(max-width: 767px)').matches) {
-    //   console.log("tablet")
-    // }
+    if(!!settings){
+      if('on' === settings.disable_faq_item.desktop){
+        child_class.classList.add("df_hide_desktop")
+      }
 
-    if('on' === settings_item.disable_faq_item.desktop){
-      child_class.classList.add("df_hide_desktop")
+      if('on' === settings.disable_faq_item.tablet){
+        child_class.classList.add("df_hide_tablet")
+      }
+
+      if('on' === settings.disable_faq_item.mobile){
+        child_class.classList.add("df_hide_mobile")
+      }
     }
 
-    if('on' === settings_item.disable_faq_item.tablet){
-      child_class.classList.add("df_hide_tablet")
-    }
-
-    if('on' === settings_item.disable_faq_item.mobile){
-      child_class.classList.add("df_hide_mobile")
-    }
+    return null
   } // hide_faq_items
 })(jQuery);

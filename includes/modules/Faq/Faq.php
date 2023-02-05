@@ -1786,7 +1786,7 @@ class DIFL_FAQ extends ET_Builder_Module
         // Get all style
         $this->additional_css_styles($render_slug);
 
-        $active_item = 'on' === $this->props['activate_on_first_time'] ? $this->props['active_item_order_number'] : '1';
+        $active_item = 'on' === $this->props['activate_on_first_time'] ? $this->props['active_item_order_number'] : 0;
 
         $data_settings = [
             'faq_layout'               => $this->props['faq_layout'],
