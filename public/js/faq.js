@@ -3,6 +3,7 @@
   const difl_faq = document.querySelectorAll(".difl_faq");
   [].forEach.call(difl_faq, function(parent, index) {
 
+    // get parent unique class
     const parent_class = parent.classList.value.split(" ").filter(function(class_name) {
       return class_name.indexOf("difl_faq_") !== -1;
     });
@@ -22,6 +23,7 @@
     // hide item on devices
     itemWrapper.forEach(child => hide_faq_items(child));
 
+    // call function
     callEventFunction(parent_class[0], settings);
 
   });
