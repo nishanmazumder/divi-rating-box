@@ -1786,12 +1786,25 @@ class DIFL_FAQ extends ET_Builder_Module
         // Get all style
         $this->additional_css_styles($render_slug);
 
+        $active_item = 'on' === $this->props['activate_on_first_time'] ? $this->props['active_item_order_number'] : '1';
+
+        $data_settings = [
+            'faq_layout'               => $this->props['faq_layout'],
+            'activate_on_first_time'   => $this->props['activate_on_first_time'],
+            'active_item_order_number' => $active_item,
+            'enable_faq_animation'     => $this->props['enable_faq_animation'],
+            'faq_animation'            => $this->props['faq_animation'],
+            'enable_icon_animation'    => $this->props['enable_icon_animation'],
+            'enable_que_img_animation' => $this->props['enable_que_img_animation']
+        ];
+
         // Display frontend
         $output = sprintf(
-            '<div class="df_faq_wrapper">%1$s</div>
+            '<div class="df_faq_wrapper" data-settings=\'%3$s\'>%1$s</div>
             %2$s',
             $this->content ?? "",
-            $this->df_render_schema() ?? ""
+            $this->df_render_schema() ?? "",
+            json_encode($data_settings)
         );
 
         return $output;

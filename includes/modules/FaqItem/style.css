@@ -121,3 +121,28 @@
   display: block !important;
 } */
 
+/* FAQ Hide */
+.difl_faqitem.df_hide_desktop{
+  display: none !important;
+}
+@media only screen and (max-width: 980px) {
+  .difl_faqitem.df_hide_desktop{
+    display: block !important;
+  }
+  .difl_faqitem.df_hide_tablet{
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .difl_faqitem.df_hide_desktop{
+    display: block !important;
+  }
+  .difl_faqitem.df_hide_tablet{
+    display: block !important;
+  }
+  .difl_faqitem.df_hide_mobile{
+    display: none !important;
+  }
+}
+

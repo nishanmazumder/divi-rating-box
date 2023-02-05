@@ -276,10 +276,10 @@ class DIFL_FaqItem extends ET_Builder_Module
                     'enable_answer_image' => 'on'
                 )
             ),
-            'answer_image_width'=> array(
+            'answer_image_width' => array(
                 'label'         => esc_html__('Image Width', 'divi_flash'),
                 'type'          => 'range',
-                'range_settings'=> array(
+                'range_settings' => array(
                     'step'      => '1',
                     'min'       => '1',
                     'min_limit' => '1',
@@ -317,18 +317,13 @@ class DIFL_FaqItem extends ET_Builder_Module
 
         $setting = [
             'disable_faq_item' => array(
-                'label'            => esc_html__('Hide ', 'divi_flash'),
-                'type'              => 'multiple_checkboxes',
-                'options'           => [
-                    "desktop"   => "Desktop",
+                'label'        => esc_html__('Hide FAQ Item ', 'divi_flash'),
+                'type'         => 'multiple_checkboxes',
+                'options'      => [
+                    "desktop"  => "Desktop",
+                    "tablet"   => "Tablet",
                     "mobile"   => "Mobile"
                 ],
-                // 'options'          => array(
-                //     'off' => esc_html__('Off', 'divi_flash'),
-                //     'on'  => esc_html__('On', 'divi_flash')
-                // ),
-                // 'default'          => 'off',
-
                 'toggle_slug'      => 'child_faq_setting'
             )
         ];
@@ -726,6 +721,23 @@ class DIFL_FaqItem extends ET_Builder_Module
         }
     }
 
+    // set checkbox value to devices
+    public function df_multicheck_value($cehckbox_values)
+    {
+        $get_cehckbox_values = !empty($cehckbox_values) ? $cehckbox_values : "";
+        $checkbox_values = explode("|", $get_cehckbox_values);
+        $responsive = array_combine(['desktop', 'tablet', 'mobile'], $checkbox_values);
+        $single_devices = [];
+
+        foreach ($responsive as $key => $value) {
+            if ($value === "on") {
+                $single_devices[$key] = $value;
+            }
+        }
+
+        return $single_devices;
+    }
+
     public function render($attrs, $content, $render_slug)
     {
         // Scripts
@@ -742,15 +754,8 @@ class DIFL_FaqItem extends ET_Builder_Module
         $df_faq_schema_data[$df_faq_class]['answer'] = wp_strip_all_tags($this->props['answer']);
 
         // JS data
-        $active_item = 'on' === $this->parent_faq->props['activate_on_first_time'] ? $this->parent_faq->props['active_item_order_number'] : '1';
         $data_settings = [
-            'faq_layout'               => $this->parent_faq->props['faq_layout'],
-            'activate_on_first_time'   => $this->parent_faq->props['activate_on_first_time'],
-            'active_item_order_number' => $active_item,
-            'enable_faq_animation'     => $this->parent_faq->props['enable_faq_animation'],
-            'faq_animation'            => $this->parent_faq->props['faq_animation'],
-            'enable_icon_animation'           => $this->parent_faq->props['enable_icon_animation'],
-            'enable_que_img_animation' => $this->parent_faq->props['enable_que_img_animation'],
+            'disable_faq_item' => $this->df_multicheck_value($this->props['disable_faq_item']),
         ];
 
         $output = sprintf(

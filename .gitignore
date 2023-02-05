@@ -92,7 +92,7 @@ yarn-error.log*
 /public/*
 !public/js
 /public/js/*
-!public/js/faq.js
+!public/js/faq*
 /scripts
 /styles
 /template
