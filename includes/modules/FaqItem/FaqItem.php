@@ -724,18 +724,19 @@ class DIFL_FaqItem extends ET_Builder_Module
     // set checkbox value to devices
     public function df_multicheck_value($cehckbox_values)
     {
-        $get_cehckbox_values = !empty($cehckbox_values) ? $cehckbox_values : "";
-        $checkbox_values = explode("|", $get_cehckbox_values);
-        $responsive = array_combine(['desktop', 'tablet', 'mobile'], $checkbox_values);
-        $single_devices = [];
+        if (!empty($cehckbox_values)) {
+            $values = explode("|", $cehckbox_values);
+            $devices = ['desktop', 'tablet', 'mobile'];
+            $single_devices = [];
 
-        foreach ($responsive as $key => $value) {
-            if ($value === "on") {
-                $single_devices[$key] = $value;
+            for ($i = 0; $i < count($values); $i++) {
+                if ("on" === $values[$i]) {
+                    $single_devices[$devices[$i]] = $values[$i];
+                }
             }
+            return $single_devices;
         }
-
-        return $single_devices;
+        return;
     }
 
     public function render($attrs, $content, $render_slug)

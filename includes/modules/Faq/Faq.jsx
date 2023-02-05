@@ -558,9 +558,11 @@ class Faq extends Component {
 
     return [].map.call(content, (data, i) => {
       const child_props = data.props.attrs;
+
       const disable_item_class = this.df_multicheck_value(child_props)
 
       const child_class = `et_pb_module difl_faqitem difl_faqitem_${i} ${disable_item_class}`;
+      // const child_class = `et_pb_module difl_faqitem difl_faqitem_${i}`;
 
       return (
         <div key={i} className={child_class}>
@@ -575,25 +577,41 @@ class Faq extends Component {
     });
   };
 
-  df_multicheck_value = (props) =>{
-    const get_cehckbox_values = "" !== props.disable_faq_item ? props.disable_faq_item : "";
-    const checkbox_values = get_cehckbox_values.split("|")
-    const responsive = ['desktop', 'tablet', 'mobile']
-    const single_devices = []
-    let responsive_classes = ""
+  df_multicheck_value = (props) => {
 
-    for(let i = 0; i<=checkbox_values.length; i++){
-      if("on" === checkbox_values[i]){
-        single_devices[responsive[i]] = checkbox_values[i]
+    if (!!props.disable_faq_item) {
+      const values = props.disable_faq_item.split("|");
+      const responsive = ["desktop", "tablet", "mobile"];
+      const devices = [];
+      let classes = "";
+
+      for (let i = 0; i <= values.length; i++) {
+        if ("on" === values[i]) {
+          devices[responsive[i]] = values[i];
+        }
       }
+
+      classes += "on" === devices.desktop ? "df_hide_desktop " : "";
+      classes += "on" === devices.tablet ? "df_hide_tablet " : "";
+      classes += "on" === devices.mobile ? "df_hide_mobile " : "";
+
+      // "on" === single_devices.desktop
+      //   ? (responsive_classes += "df_hide_desktop ")
+      //   : (responsive_classes += "");
+
+      // "on" === single_devices.tablet
+      //   ? (responsive_classes += "df_hide_tablet ")
+      //   : (responsive_classes += "");
+
+      // "on" === single_devices.mobile
+      //   ? (responsive_classes += "df_hide_mobile ")
+      //   : (responsive_classes += "");
+
+      return classes;
+    } else {
+      return "";
     }
-
-    "on" === single_devices.desktop ? responsive_classes += "df_hide_desktop ": responsive_classes += "";
-    "on" === single_devices.tablet ?  responsive_classes += "df_hide_tablet " : responsive_classes += "";
-    "on" === single_devices.mobile ?  responsive_classes += "df_hide_mobile ": responsive_classes += "";
-
-    return responsive_classes
-  }
+  };
 
   static df_faq_set_dynamic_grid_columns(options = {}) {
     const defaults = {

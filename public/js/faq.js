@@ -1,61 +1,41 @@
 (function($) {
-  // # have to make const
 
   const difl_faq = document.querySelectorAll(".difl_faq");
-  [].forEach.call(difl_faq, function(ele, index) {
-    const parent_class = ele.classList.value.split(" ").filter(function(class_name) {
+  [].forEach.call(difl_faq, function(parent, index) {
+
+    const parent_class = parent.classList.value.split(" ").filter(function(class_name) {
       return class_name.indexOf("difl_faq_") !== -1;
     });
 
-    // console.log
-
-    const mainWrapper = ele.querySelector(".df_faq_wrapper");
-
-    const itemWrapper = ele.querySelectorAll(".difl_faqitem");
-
-    // get child class
-    [].forEach.call(itemWrapper, function(ele, index){
-      // const child_class = ele.closest('.difl_faqitem').classList.value.split(" ").filter(function(class_name) {
-      //   return class_name.indexOf("difl_faqitem_") !== -1;
-      // });
-
-      // console.log(ele)
-
-      // const child_class = ele.closest('.difl_faqitem')
-      hide_faq_items(ele)
-    })
-
-    // console.log(itemWrapper)
-
-
-
+    // get data settings
+    const mainWrapper = parent.querySelector(".df_faq_wrapper");
     const settings_global = JSON.parse(mainWrapper.dataset.settings);
 
-    callEventFunction(parent_class[0], settings_global, index);
+    // get child ele
+    const itemWrapper = parent.querySelectorAll(".difl_faqitem");
 
+
+
+    [].forEach.call(itemWrapper, function(child, index){
+
+      const child_class = child.classList.value.split(" ").filter(function(class_name) {
+        return class_name.indexOf("difl_faq_") !== -1;
+      });
+
+
+      console.log(child_class)
+
+      // active_order_item();
+      hide_faq_items(child) // hide item on devices
+    })
+
+    console.log(itemWrapper)
+
+    callEventFunction(parent_class[0], settings_global, index);
 
   });
 
   function callEventFunction(parent_class, settings, index) {
-    // let parent_uniq_class = document.querySelectorAll('.'+ parent_class);
-
-    // console.log(parent_uniq_class)
-
-    // [].forEach.call(parent_uniq_class, function(el, index){
-    //   let all_images = parent_uniq_class[0].querySelectorAll('.open_image');
-    //   // all_images.style.display = "none";
-    //   console.log(all_images)
-    // })
-
-
-
-
-
-    // let all_images = parent_uniq_class[0].querySelectorAll('.open_image');
-
-    // all_images[0].style.display = "none";
-
-
 
     // hide icon & image default
     $("." + parent_class).find(".open_image").hide();
@@ -160,5 +140,5 @@
     if('on' === settings_item.disable_faq_item.mobile){
       child_class.classList.add("df_hide_mobile")
     }
-  }
+  } // hide_faq_items
 })(jQuery);
