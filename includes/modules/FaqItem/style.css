@@ -17,7 +17,7 @@
   padding: 5px;
 }
 
-.difl_faqitem .df_faq_item{
+.difl_faqitem .df_faq_item {
   /* display: block; */
   overflow: hidden;
   width: 100%;
@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
 }
-.difl_faqitem .faq_question_image img{
+.difl_faqitem .faq_question_image img {
   max-width: 45px;
   display: block;
 }
@@ -51,10 +51,10 @@
   height: 45px;
 } */
 
-.difl_faqitem .open_image,
+/* .difl_faqitem .open_image,
 .difl_faqitem .close_image{
   transition: all 0.5s linear;
-}
+} */
 /* .difl_faqitem .close_icon{} */
 /* .difl_faqitem .open_icon{} */
 /* .difl_faqitem .faq_question{} */
@@ -80,24 +80,24 @@
        transition: height 1s ease; */
 }
 
-.difl_faqitem .faq_answer_area{
+.difl_faqitem .faq_answer_area {
   display: flex;
   flex-flow: column;
 }
-.difl_faqitem .faq_answer{
+.difl_faqitem .faq_answer {
   width: 100%;
 }
 
-.difl_faqitem .faq_answer p{
+.difl_faqitem .faq_answer p {
   padding-bottom: 0px;
 }
 
-.difl_faqitem .faq_answer ul{
+.difl_faqitem .faq_answer ul {
   list-style-position: inside;
   padding: 0px;
 }
 
-.difl_faqitem .faq_answer_image{
+.difl_faqitem .faq_answer_image {
   width: 100%;
 }
 .difl_faqitem .faq_answer_image img {
@@ -105,7 +105,7 @@
 }
 /* .difl_faqitem .faq_button{} */
 
-.difl_faqitem .faq_button a{
+.difl_faqitem .faq_button a {
   display: inline-flex;
   align-items: center;
   background: #ffd7ff;
@@ -115,7 +115,7 @@
   line-height: 1.5em;
 }
 
-.difl_faqitem .faq_button_icon{
+.difl_faqitem .faq_button_icon {
   /* vertical-align: initial; */
   font-size: 20px;
 }
@@ -125,27 +125,26 @@
 } */
 
 /* FAQ Hide */
-.difl_faqitem.df_hide_desktop{
+.difl_faqitem.df_hide_desktop {
   display: none !important;
 }
 @media only screen and (max-width: 980px) {
-  .difl_faqitem.df_hide_desktop{
+  .difl_faqitem.df_hide_desktop {
     display: block !important;
   }
-  .difl_faqitem.df_hide_tablet{
+  .difl_faqitem.df_hide_tablet {
     display: none !important;
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .difl_faqitem.df_hide_desktop{
+  .difl_faqitem.df_hide_desktop {
     display: block !important;
   }
-  .difl_faqitem.df_hide_tablet{
+  .difl_faqitem.df_hide_tablet {
     display: block !important;
   }
-  .difl_faqitem.df_hide_mobile{
+  .difl_faqitem.df_hide_mobile {
     display: none !important;
   }
 }
-

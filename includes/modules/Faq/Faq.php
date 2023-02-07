@@ -583,7 +583,7 @@ class DIFL_FAQ extends ET_Builder_Module
                     'off' => esc_html__('Off', 'divi_flash'),
                     'on'  => esc_html__('On', 'divi_flash')
                 ),
-                'toggle_slug'    => 'animation'
+                'toggle_slug'=> 'animation'
             ),
             'faq_animation'  => array(
                 'label'      => esc_html__('Toggle Animation', 'divi_flash'),
@@ -618,7 +618,53 @@ class DIFL_FAQ extends ET_Builder_Module
                     'on'  => esc_html__('On', 'divi_flash')
                 ),
                 'toggle_slug'    => 'animation'
-            )
+            ),
+            'enable_reveal_animation' => array(
+                'label'          => esc_html__('Enable Reveal Animation', 'divi_flash'),
+                'type'           => 'yes_no_button',
+                'default'        => 'off',
+                'options'        => array(
+                    'off' => esc_html__('Off', 'divi_flash'),
+                    'on'  => esc_html__('On', 'divi_flash')
+                ),
+                'toggle_slug'    => 'animation'
+            ),
+            'reveal_animation_type' => array(
+                'label'             => esc_html__('Reveal Animation Type', 'divi_flash'),
+                'type'              => 'select',
+                'default'           => 'fade_in',
+                'options'           => array(
+                    'slide_left'    => esc_html__('Slide Left', 'divi_flash'),
+                    'slide_right'   => esc_html__('Slide Right', 'divi_flash'),
+                    'slide_up'      => esc_html__('Slide Up', 'divi_flash'),
+                    'slide_down'    => esc_html__('Slide Down', 'divi_flash'),
+                    'fade_in'       => esc_html__('Fade', 'divi_flash'),
+                    'zoom_left'     => esc_html__('Zoom Left', 'divi_flash'),
+                    'zoom_center'   => esc_html__('Zoom Center', 'divi_flash'),
+                    'zoom_right'    => esc_html__('Zoom Right', 'divi_flash'),
+                ),
+                'toggle_slug'       => 'animation',
+                'show_if'           => array(
+                    'enable_reveal_animation' => 'on'
+                )
+            ),
+            // 'reveal_animation_duration' => array (
+            //     'label'             => esc_html__( 'Animation Duration', 'divi_flash' ),
+			// 	'type'              => 'range',
+			// 	'tab_slug'          => 'general',
+			// 	'toggle_slug'       => 'animation',
+			// 	'default'           => '200',
+            //     'unitless'          => true,
+			// 	'range_settings'    => array(
+			// 		'min'  => '1',
+			// 		'max'  => '1000',
+			// 		'step' => '1',
+            //     ),
+            //     'toggle_slug' => 'animation',
+            //     'show_if'     => array(
+            //         'enable_reveal_animation' => 'on'
+            //     )
+            // ),
         ];
 
         $que_wrapper_bg = $this->df_add_bg_field(array(
@@ -1795,7 +1841,9 @@ class DIFL_FAQ extends ET_Builder_Module
             'enable_faq_animation'     => $this->props['enable_faq_animation'],
             'faq_animation'            => $this->props['faq_animation'],
             'enable_icon_animation'    => $this->props['enable_icon_animation'],
-            'enable_que_img_animation' => $this->props['enable_que_img_animation']
+            'enable_que_img_animation' => $this->props['enable_que_img_animation'],
+            'enable_reveal_animation'  => $this->props['enable_reveal_animation'],
+            'reveal_animation_type'    => $this->props['reveal_animation_type'],
         ];
 
         // Display frontend
