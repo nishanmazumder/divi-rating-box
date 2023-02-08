@@ -699,7 +699,6 @@ class DIFL_FAQ extends ET_Builder_Module
                 'label'       => 'Background',
                 'key'         => 'ans_button_bg',
                 'toggle_slug' => 'design_button',
-                'color'       => true,
                 'tab_slug'    => 'advanced'
             )
         );
