@@ -30,14 +30,14 @@ class FaqItem extends Component {
       props   : props,
       additionalCss: additionalCss,
       key     : 'ans_wrapper_bg',
-      selector: '%%order_class%% .df_faq_item .faq_answer_wrapper'
+      selector: '%%order_class%% div.faq_answer_wrapper'
     });
 
     utility.process_color({
       props   : props,
       key     : "faq_icon_bg",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .faq_icon",
+      selector: "%%order_class%% div.faq_icon",
       type    : "background-color"
     });
 
@@ -53,7 +53,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_img_bg",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .faq_question_image",
+      selector: "%%order_class%% div.faq_question_image",
       type    : "background-color"
     });
 
@@ -69,7 +69,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "close_icon_color",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .close_icon span.et-pb-icon",
+      selector: "%%order_class%% div.close_icon span.et-pb-icon",
       type    : "color"
     });
 
@@ -77,7 +77,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "open_icon_color",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .open_icon span.et-pb-icon",
+      selector: "%%order_class%% div.open_icon span.et-pb-icon",
       type    : "color"
     });
 
@@ -85,14 +85,14 @@ class FaqItem extends Component {
       props   : props,
       additionalCss : additionalCss,
       key     : 'ans_button_bg',
-      selector: '%%order_class%% .faq_answer_wrapper .faq_button a'
+      selector: '%%order_class%% div.faq_button a'
     });
 
     utility.process_color({
       props   : props,
       key     : "button_text_color",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper .faq_button a",
+      selector: "%%order_class%% div.faq_button a",
       type    : "color"
     });
 
@@ -100,7 +100,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "button_icon_color",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper .faq_button_icon",
+      selector: "%%order_class%% div.faq_button_icon",
       type    : "color"
     });
 
@@ -108,7 +108,7 @@ class FaqItem extends Component {
       props   : props,
       key: "faq_wrapper_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%%",
+      selector: "%%order_class%%.div",
       type    : "margin",
     });
 
@@ -116,7 +116,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "faq_wrapper_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%%.et_pb_module  ",
+      selector: "%%order_class%%.div ",
       type    : "padding",
     });
 
@@ -124,7 +124,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_wrapper_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df_faq_item .faq_question_wrapper",
+      selector: "%%order_class%% div.faq_question_wrapper",
       type    : "margin",
     });
 
@@ -132,7 +132,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_wrapper_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df_faq_item .faq_question_wrapper",
+      selector: "%%order_class%% div.faq_question_wrapper",
       type    : "padding",
     });
 
@@ -140,7 +140,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_text_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .faq_question_title",
+      selector: "%%order_class%% div.faq_question_title",
       type    : "margin",
     });
 
@@ -148,7 +148,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_icon_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .faq_icon",
+      selector: "%%order_class%% div.faq_icon",
       type    : "margin",
     });
 
@@ -156,7 +156,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_icon_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .faq_icon",
+      selector: "%%order_class%% div.faq_icon",
       type    : "padding",
     });
 
@@ -164,7 +164,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_img_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .faq_question_image",
+      selector: "%%order_class%% div.faq_question_image",
       type    : "margin",
     });
 
@@ -172,7 +172,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "que_img_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_question_wrapper .faq_question_image",
+      selector: "%%order_class%% div.faq_question_image",
       type    : "padding",
     });
 
@@ -180,7 +180,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "ans_wrapper_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df_faq_item .faq_answer_wrapper",
+      selector: "%%order_class%% div.faq_answer_wrapper",
       type    : "margin",
     });
 
@@ -188,7 +188,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "ans_wrapper_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df_faq_item .faq_answer_wrapper",
+      selector: "%%order_class%% div.faq_answer_wrapper",
       type    : "padding",
     });
 
@@ -196,7 +196,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "ans_text_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper .faq_answer",
+      selector: "%%order_class%% div.faq_answer",
       type    : "padding",
     });
 
@@ -204,7 +204,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "ans_img_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper .faq_answer_image",
+      selector: "%%order_class%% div.faq_answer_image",
       type    : "padding",
     });
 
@@ -212,7 +212,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "ans_button_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper .faq_button a",
+      selector: "%%order_class%% div.faq_button a",
       type    : "margin",
     });
 
@@ -220,7 +220,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "ans_button_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper .faq_button a",
+      selector: "%%order_class%% div.faq_button a",
       type    : "padding",
     });
 
@@ -229,8 +229,7 @@ class FaqItem extends Component {
         props: props,
         additionalCss: additionalCss,
         key  : "button_font_icon",
-        selector:
-          "%%order_class%% .faq_answer_wrapper .et-pb-icon.faq_button_icon",
+        selector: "%%order_class%% .faq_answer_wrapper .et-pb-icon",
       });
     }
 
