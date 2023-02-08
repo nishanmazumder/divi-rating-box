@@ -107,27 +107,81 @@ class DIFL_FaqItem extends ET_Builder_Module
         return array(
             'general'   => array(
                 'toggles'      => array(
-                    'child_faq_question'       => esc_html__('Question', 'divi_flash'),
-                    'child_faq_answer'               => esc_html__('Answer', 'divi_flash'),
-                    'child_faq_setting'               => esc_html__('Settings', 'divi_flash')
+                    'child_faq_question'    => esc_html__('Question', 'divi_flash'),
+                    'child_faq_answer'      => esc_html__('Answer', 'divi_flash'),
+                    'child_faq_setting'     => esc_html__('Settings', 'divi_flash')
                 ),
             ),
             'advanced'   => array(
                 'toggles'   => array(
-                    'design_question'       => esc_html__('Question', 'divi_flash'),
-                    'design_answer'         => esc_html__('Answer', 'divi_flash'),
-                    'design_answer_text'    => array(
-                        'title'             => esc_html__('Answer Text', 'divi_flash'),
+                    'design_question'  => esc_html__('Question Style', 'divi_flash'),
+                    'design_question_active'  => esc_html__('Open Question Style', 'divi_flash'),
+                    'design_question_text' => [
+                        'title'        => esc_html__('Question Text', 'divi_flash'),
                         'tabbed_subtoggles' => true,
-                        'sub_toggles'       => $content_sub_toggles,
+                        'sub_toggles'  => [
+                            'close'   => [
+                                'name' => esc_html__('Close', 'divi_flash'),
+                            ],
+                            'open'   => [
+                                'name' => esc_html__('Open', 'divi_flash'),
+                            ]
+                        ]
+                    ],
+                    'design_faq_icon'  => [
+                        'title'        => esc_html__('Question Icon', 'divi_flash'),
+                        'tabbed_subtoggles'  => true,
+                        'sub_toggles'  => [
+                            'wrapper'  => [
+                                'name' => esc_html__('Wrapper', 'divi_flash'),
+                            ],
+                            'close' => [
+                                'name' => esc_html__('Close', 'divi_flash'),
+                            ],
+                            'open'  => [
+                                'name' => esc_html__('Open', 'divi_flash'),
+                            ]
+                        ],
+                    ],
+                    'design_que_img'   => [
+                        'title'        => esc_html__('Question Image', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'sub_toggles'  => [
+                            'wrapper'  => [
+                                'name' => esc_html__('Wrapper', 'divi_flash'),
+                            ],
+                            'close'    => [
+                                'name' => esc_html__('Close', 'divi_flash'),
+                            ],
+                            'open'     => [
+                                'name' => esc_html__('Open', 'divi_flash'),
+                            ]
+                        ]
+                    ],
+                    'design_answer'          => esc_html__('Answer Style', 'divi_flash'),
+                    'design_answer_text'     => array(
+                        'title'              => esc_html__('Answer Text', 'divi_flash'),
+                        'tabbed_subtoggles'  => true,
+                        'sub_toggles'        => $content_sub_toggles,
                     ),
-                    'design_answer_heading' => array(
+                    'design_answer_heading'  => array(
                         'title' => esc_html__('Answer Heading Text', 'divi_flash'),
-                        'tabbed_subtoggles' => true,
-                        'sub_toggles'       => $heading_sub_toggles,
+                        'tabbed_subtoggles'  => true,
+                        'sub_toggles'        => $heading_sub_toggles,
                     ),
-                    'design_button'         => esc_html__('Button', 'divi_flash'),
-                    // 'custom_spacing'        => esc_html__('Custom Spacing', 'divi_flash'),
+                    'design_button'          => esc_html__('Button', 'divi_flash'),
+                    'margin_padding'   => [
+                        'title'        => esc_html__('FAQ Spacing', 'divi_flash'),
+                        'tabbed_subtoggles' => true,
+                        'sub_toggles'  => [
+                            'wrapper'  => [
+                                'name' => esc_html__('Wrapper', 'divi_flash'),
+                            ],
+                            'content'  => [
+                                'name' => esc_html__('Content', 'divi_flash'),
+                            ]
+                        ]
+                    ]
                 )
             ),
         );
@@ -473,18 +527,71 @@ class DIFL_FaqItem extends ET_Builder_Module
             )
         );
 
-        // $ans_button_bg = $this->df_add_bg_field(array(
-        //     'label'                 => 'Background',
-        //     'key'                   => 'ans_button_bg',
-        //     'toggle_slug'           => 'design_button',
-        //     'tab_slug'              => 'advanced'
-        // ));
+        $faq_wrapper_margin = $this->add_margin_padding(array(
+            'title'         => 'FAQ Wrapper',
+            'key'           => 'faq_wrapper',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'wrapper'
+        ));
 
-        // $ans_btn_margin = $this->add_margin_padding(array(
-        //     'title'         => 'Answer Button',
-        //     'key'           => 'ans_button',
-        //     'toggle_slug'   => 'design_button'
-        // ));
+        $que_wrapper_margin = $this->add_margin_padding(array(
+            'title'         => 'Question Wrapper',
+            'key'           => 'que_wrapper',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'wrapper'
+        ));
+
+
+        $que_text_margin = $this->add_margin_padding(array(
+            'title'      => 'Question Text',
+            'key'            => 'que_text',
+            'option'         => 'margin',
+            'toggle_slug'    => 'margin_padding',
+            'sub_toggle'     => 'content'
+        ));
+
+        $icon_wrapper_margin = $this->add_margin_padding(array(
+            'title'         => 'Question Icon',
+            'key'           => 'que_icon',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'content'
+        ));
+
+        $que_img_margin = $this->add_margin_padding(array(
+            'title'         => 'Question Image',
+            'key'           => 'que_img',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'content'
+        ));
+
+        $ans_wrapper_margin = $this->add_margin_padding(array(
+            'title'         => 'Answer Wrapper',
+            'key'           => 'ans_wrapper',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'wrapper'
+        ));
+
+        $ans_text_padding = $this->add_margin_padding(array(
+            'title'         => 'Answer Text',
+            'key'           => 'ans_text',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'content',
+            'option'        => 'padding',
+        ));
+
+        $ans_img_padding = $this->add_margin_padding(array(
+            'title'         => 'Answer Image',
+            'key'           => 'ans_img',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'content',
+            'option'        => 'padding',
+        ));
+
+        $ans_btn_margin = $this->add_margin_padding(array(
+            'title'         => 'Answer Button',
+            'key'           => 'ans_button',
+            'toggle_slug'   => 'design_button'
+        ));
 
         return array_merge(
             $question,
@@ -492,19 +599,720 @@ class DIFL_FaqItem extends ET_Builder_Module
             $setting,
             $button,
             $button_icon,
-            // $ans_button_bg,
-            // $ans_btn_margin
+            $faq_wrapper_margin,
+            $que_wrapper_margin,
+            $que_text_margin,
+            $icon_wrapper_margin,
+            $que_img_margin,
+            $ans_wrapper_margin,
+            $ans_text_padding,
+            $ans_img_padding,
+            $ans_btn_margin
         );
     }
 
-    // public function get_advanced_fields_config(){}
+    public function get_advanced_fields_config()
+    {
+        $advanced_fields = array();
+        $advanced_fields['text'] = false;
 
-    // public function get_custom_css_fields_config(){}
+        $advanced_fields['fonts'] = [
+            'question_text'         => array(
+                // 'label'        => esc_html__('Question', 'divi_flash'),
+                'toggle_slug'  => 'design_question_text',
+                'sub_toggle'   => 'close',
+                'tab_slug'     => 'advanced',
+                'hide_text_align' => true,
+                'line_height' => array(
+                    'default' => '1.5em',
+                ),
+                'font_size'    => array(
+                    'default'  => '22px',
+                ),
+                'font-weight'  => array(
+                    'default'  => 'normal'
+                ),
+                'css'       => array(
+                    'main'  => "$this->main_css_element .faq_question .faq_question_title",
+                    'hover' => "$this->main_css_element .faq_question:hover .faq_question_title",
+                    'important' => 'all'
+                )
+            ),
 
-    // public function get_transition_fields_css_props(){}
+            'active_design_question_text'  => array(
+                // 'label'        => esc_html__('Active Question', 'divi_flash'),
+                'toggle_slug'  => 'design_question_text',
+                'sub_toggle'   => 'open',
+                'tab_slug'     => 'advanced',
+                'hide_text_align' => true,
+                'font_size'    => array(
+                    'default'  => '22px',
+                ),
+                'font-weight'  => array(
+                    'default'  => 'normal'
+                ),
+                'css'       => array(
+                    'main'  => "$this->main_css_element .df_faq_item.active .faq_question .faq_question_title",
+                    'hover' => "$this->main_css_element .df_faq_item.active .faq_question:hover .faq_question_title",
+                    'important' => 'all'
+                )
+            ),
+
+            'design_answer_text' => array(
+                // 'label'       => esc_html__('Answer', 'divi_flash'),
+                'toggle_slug' => 'design_answer_text',
+                'tab_slug'    => 'advanced',
+                'line_height' => array(
+                    'default' => '1.7em',
+                ),
+                'font_size'   => array(
+                    'default' => '14px',
+                ),
+                'font-weight' => array(
+                    'default' => 'normal'
+                ),
+                'css'       => array(
+                    'main'  => "$this->main_css_element .faq_answer_wrapper .faq_answer_area .faq_answer",
+                    'hover' => "$this->main_css_element .faq_answer_wrapper .faq_answer_area .faq_answer",
+                    'important' => 'all'
+                ),
+                // answer design
+                'block_elements' => array(
+                    'tabbed_subtoggles' => true,
+                    'bb_icons_support'  => true,
+                    'css'               => array(
+                        'main'  => "$this->main_css_element .faq_answer_wrapper .faq_answer",
+                        'hover' => "$this->main_css_element .faq_answer_wrapper:hover .faq_answer",
+                    ),
+                ),
+            ),
+            'ans_button'         => array(
+                // 'label'        => esc_html__('Question', 'divi_flash'),
+                'toggle_slug'  => 'design_button',
+                'tab_slug'     => 'advanced',
+                'line_height' => array(
+                    'default' => '1.5em',
+                ),
+                'font_size'    => array(
+                    'default'  => '18px',
+                ),
+                'font-weight'  => array(
+                    'default'  => 'normal'
+                ),
+                'css'       => array(
+                    'main'  => "$this->main_css_element .faq_button a",
+                    'hover' => "$this->main_css_element faq_button a:hover",
+                    'important' => 'all'
+                )
+            ),
+
+        ];
+
+        // Heading Tag
+        $advanced_fields['fonts']['content_heading_1']  = array(
+            'label'       => esc_html__('Heading 1', 'divi_flash'),
+            'font_size'   => array(
+                'default' => absint(et_get_option('body_header_size', '30')) . 'px',
+            ),
+            'font_weight' => array(
+                'default' => '500',
+            ),
+            'line_height' => array(
+                'default' => '1.7',
+            ),
+            'css'         => array(
+                'main'    => "$this->main_css_element .faq_answer_wrapper .faq_answer h1",
+                'hover'   => "$this->main_css_element .faq_answer_wrapper .faq_answer h1:hover",
+            ),
+            'toggle_slug' => 'design_answer_heading',
+            'tab_slug'    => 'advanced',
+            'sub_toggle'  => 'h1'
+        );
+        $advanced_fields['fonts']['content_heading_2']  = array(
+            'label'       => esc_html__('Heading 2', 'divi_flash'),
+            'font_size'   => array(
+                'default' => '26px',
+            ),
+            'font_weight' => array(
+                'default' => '500',
+            ),
+            'line_height' => array(
+                'default' => '1.7',
+            ),
+            'css'         => array(
+                'main'    => "$this->main_css_element .faq_answer_wrapper .faq_answer h2",
+                'hover'   => "$this->main_css_element .faq_answer_wrapper .faq_answer h2:hover",
+            ),
+            'tab_slug'    => 'advanced',
+            'toggle_slug' => 'design_answer_heading',
+            'sub_toggle'  => 'h2'
+        );
+        $advanced_fields['fonts']['content_heading_3']  = array(
+            'label'       => esc_html__('Heading 3', 'divi_flash'),
+            'font_size'   => array(
+                'default' => '22px',
+            ),
+            'font_weight' => array(
+                'default' => '500',
+            ),
+            'line_height' => array(
+                'default' => '1.7',
+            ),
+            'css'         => array(
+                'main'    => "$this->main_css_element .faq_answer_wrapper .faq_answer h3",
+                'hover'   => "$this->main_css_element .faq_answer_wrapper .faq_answer h3:hover",
+            ),
+            'toggle_slug' => 'design_answer_heading',
+            'tab_slug'    => 'advanced',
+            'sub_toggle'  => 'h3'
+        );
+        $advanced_fields['fonts']['content_heading_4']  = array(
+            'label'       => esc_html__('Heading 4', 'divi_flash'),
+            'font_size'   => array(
+                'default' => '18px',
+            ),
+            'font_weight' => array(
+                'default' => '500',
+            ),
+            'line_height' => array(
+                'default' => '1.7',
+            ),
+            'css'         => array(
+                'main'    => "$this->main_css_element .faq_answer_wrapper .faq_answer h4",
+                'hover'   => "$this->main_css_element .faq_answer_wrapper .faq_answer h4:hover",
+            ),
+            'toggle_slug' => 'design_answer_heading',
+            'tab_slug'    => 'advanced',
+            'sub_toggle'  => 'h4'
+        );
+        $advanced_fields['fonts']['content_heading_5']  = array(
+            'label'       => esc_html__('Heading 5', 'divi_flash'),
+            'font_size'   => array(
+                'default' => '16px',
+            ),
+            'font_weight' => array(
+                'default' => '500',
+            ),
+            'line_height' => array(
+                'default' => '1.7',
+            ),
+            'css'         => array(
+                'main'    => "$this->main_css_element .faq_answer_wrapper .faq_answer h5",
+                'hover'   => "$this->main_css_element .faq_answer_wrapper .faq_answer h5:hover",
+            ),
+            'toggle_slug' => 'design_answer_heading',
+            'tab_slug'    => 'advanced',
+            'sub_toggle'  => 'h5'
+        );
+        $advanced_fields['fonts']['content_heading_6']  = array(
+            'label'       => esc_html__('Heading 6', 'divi_flash'),
+            'font_size'   => array(
+                'default' => '14px',
+            ),
+            'font_weight' => array(
+                'default' => '500',
+            ),
+            'line_height' => array(
+                'default' => '1.7',
+            ),
+            'css'         => array(
+                'main'    => "$this->main_css_element .faq_answer_wrapper .faq_answer h6",
+                'hover'   => "$this->main_css_element .faq_answer_wrapper .faq_answer h6:hover",
+            ),
+            'toggle_slug' => 'design_answer_heading',
+            'tab_slug'    => 'advanced',
+            'sub_toggle'  => 'h6'
+        );
+
+        $advanced_fields['borders'] = array(
+            'default'            => array(),
+            'que_wrapper_border' => array(
+                'css'            => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_wrapper",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_wrapper:hover",
+                        'border_styles'      => "$this->main_css_element .faq_question_wrapper",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_wrapper:hover",
+                    )
+                ),
+                'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question',
+                'tab_slug'        => 'advanced'
+            ),
+            'active_que_wrapper_border'      => array(
+                'css'       => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_question_wrapper",
+                        'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_question_wrapper:hover",
+                        'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_question_wrapper",
+                        'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_question_wrapper:hover",
+                    )
+                ),
+                'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question_active',
+                'tab_slug'        => 'advanced'
+            ),
+            'que_text_border'     => array(
+                'css'      => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_title",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_title:hover",
+                        'border_styles'      => "$this->main_css_element .faq_question_title",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_title:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question_text',
+                'sub_toggle'      => 'close',
+                'tab_slug'        => 'advanced'
+            ),
+            'active_que_text_border' => array(
+                'css'  => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_question_title",
+                        'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_question_title:hover",
+                        'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_question_title",
+                        'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_question_title:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_question_text',
+                'sub_toggle'      => 'open',
+                'tab_slug'        => 'advanced'
+            ),
+            'que_img_wrapper_border'    => array(
+                'css'      => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_image",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_image:hover",
+                        'border_styles'      => "$this->main_css_element .faq_question_image",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_image:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'wrapper',
+                'tab_slug'        => 'advanced'
+            ),
+            // 'que_img_wrapper_border_active'    => array(
+            //     'css'      => array(
+            //         'main' => array(
+            //             'border_radii'       => "$this->main_css_element .faq_question_image",
+            //             'border_radii_hover' => "$this->main_css_element .faq_question_image:hover",
+            //             'border_styles'      => "$this->main_css_element .faq_question_image",
+            //             'border_styles_hover' => "$this->main_css_element .faq_question_image:hover",
+            //         )
+            //     ),
+            //     // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+            //     'toggle_slug'     => 'design_que_img',
+            //     'sub_toggle'      => 'wrapper',
+            //     'tab_slug'        => 'advanced'
+            // ),
+            'que_img_border' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_question_image img",
+                        'border_radii_hover' => "$this->main_css_element .faq_question_image:hover img",
+                        'border_styles'      => "$this->main_css_element .faq_question_image img",
+                        'border_styles_hover' => "$this->main_css_element .faq_question_image:hover img",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'close',
+                'tab_slug'        => 'advanced'
+            ),
+            'active_que_img_border' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_question_image img",
+                        'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_question_image:hover img",
+                        'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_question_image img",
+                        'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_question_image:hover img",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Active', 'divi_flash'),
+                'toggle_slug'     => 'design_que_img',
+                'sub_toggle'      => 'open',
+                'tab_slug'        => 'advanced'
+            ),
+            'que_icon_wrapper_border' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_icon",
+                        'border_radii_hover' => "$this->main_css_element .faq_icon:hover",
+                        'border_styles'      => "$this->main_css_element .faq_icon",
+                        'border_styles_hover' => "$this->main_css_element .faq_icon:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_faq_icon',
+                'sub_toggle'      => 'wrapper',
+                'tab_slug'        => 'advanced'
+            ),
+            // 'que_icon_wrapper_border_active' => array(
+            //     'css' => array(
+            //         'main' => array(
+            //             'border_radii'       => "$this->main_css_element .df_faq_item.active .faq_icon",
+            //             'border_radii_hover' => "$this->main_css_element .df_faq_item.active .faq_icon:hover",
+            //             'border_styles'      => "$this->main_css_element .df_faq_item.active .faq_icon",
+            //             'border_styles_hover' => "$this->main_css_element .df_faq_item.active .faq_icon:hover",
+            //         )
+            //     ),
+            //     'label_prefix'    => esc_html__('Active', 'divi_flash'),
+            //     'toggle_slug'     => 'design_faq_icon',
+            //     'sub_toggle'      => 'wrapper',
+            //     'tab_slug'        => 'advanced'
+            // ),
+            // 'que_icon_border'    => array(
+            //     'css'      => array(
+            //         'main' => array(
+            //             'border_radii'       => "$this->main_css_element .faq_icon span.et-pb-icon",
+            //             'border_radii_hover' => "$this->main_css_element .faq_icon span.et-pb-icon:hover",
+            //             'border_styles'      => "$this->main_css_element .faq_icon span.et-pb-icon",
+            //             'border_styles_hover' => "$this->main_css_element .faq_icon span.et-pb-icon:hover",
+            //         )
+            //     ),
+            //     // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+            //     'toggle_slug'     => 'design_faq_icon',
+            //     'sub_toggle'      => '',
+            //     'tab_slug'        => 'advanced'
+            // ),
+            'ans_wrapper_border' => array(
+                'css' => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .faq_answer_wrapper",
+                        'border_radii_hover' => "$this->main_css_element .faq_answer_wrapper:hover",
+                        'border_styles'      => "$this->main_css_element .faq_answer_wrapper",
+                        'border_styles_hover' => "$this->main_css_element .faq_answer_wrapper:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_answer',
+                'tab_slug'        => 'advanced'
+            ),
+            'ans_button_border' => array(
+                'css' => array(
+                    'main'  => array(
+                        'border_radii'       => "$this->main_css_element .faq_button a",
+                        'border_radii_hover' => "$this->main_css_element .faq_button a:hover",
+                        'border_styles'      => "$this->main_css_element .faq_button a",
+                        'border_styles_hover' => "$this->main_css_element .faq_button a:hover",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_button',
+                'tab_slug'        => 'advanced'
+            ),
+        );
+
+        $advanced_fields['box_shadow'] = array(
+            'default'           => true,
+
+            'que_wrapper_box_shadow' => array(
+                // 'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
+                'css' => array(
+                    'main'  => "$this->main_css_element .faq_question_wrapper",
+                    'hover' => "$this->main_css_element .faq_question_wrapper:hover",
+                ),
+                'toggle_slug'   => 'design_question',
+                'tab_slug'      => 'advanced',
+            ),
+            'active_que_wrapper_box_shadow' => array(
+                // 'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
+                'css' => array(
+                    'main'  => "$this->main_css_element .df_faq_item.active .faq_question_wrapper",
+                    'hover' => "$this->main_css_element .df_faq_item.active .faq_question_wrapper:hover",
+                ),
+                'toggle_slug'   => 'design_question_active',
+                'tab_slug'      => 'advanced',
+            ),
+            'ans_wrapper_box_shadow' => array(
+                // 'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
+                'css' => array(
+                    'main'  => "$this->main_css_element .faq_answer_wrapper",
+                    'hover' => "$this->main_css_element .faq_answer_wrapper:hover",
+                ),
+                'toggle_slug'  => 'design_answer',
+                'tab_slug'     => 'advanced',
+            )
+        );
+
+        $advanced_fields['filters'] = array(
+            'child_filters_target' => array(
+                'label' => esc_html__('Filter', 'divi_flash'),
+                'toggle_slug'      => 'filter',
+                'tab_slug'         => 'advanced',
+                'css' => array(
+                    'main'  => "$this->main_css_element .df_rating_box_container",
+                    'hover' => "$this->main_css_element .df_rating_box_container:hover"
+                ),
+            ),
+        );
+
+        $advanced_fields['margin_padding'] = array(
+            'css'   => array(
+                'important' => 'all'
+            )
+        );
+
+        $advanced_fields['max_width'] = array(
+            'css' => array(
+                'main'             => $this->main_css_element,
+                'module_alignment' => "$this->main_css_element.et_pb_module",
+                'important' => 'all'
+            ),
+        );
+
+        return $advanced_fields;
+    }
+
+    public function get_transition_fields_css_props()
+    {
+        $fields = parent::get_transition_fields_css_props();
+        $faq_wrapper = "$this->main_css_element .difl_faq";
+        $que_wrapper = "$this->main_css_element .faq_question_wrapper";
+        $active_que_wrapper = "$this->main_css_element .df_faq_item.active .faq_question_wrapper";
+
+        $faq_que_text = "$this->main_css_element .faq_question_title";
+        $active_faq_que_text = "$this->main_css_element .df_faq_item.active .faq_question_title";
+
+        $icon_wrapper = "$this->main_css_element .faq_icon";
+        $active_icon_wrapper = "$this->main_css_element .df_faq_item.active .faq_icon";
+        $close_que_icon = "$this->main_css_element .faq_icon .close_icon span.et-pb-icon";
+        $open_que_icon = "$this->main_css_element .faq_icon .open_icon span.et-pb-icon";
+
+        $que_img_wrapper_bg = "$this->main_css_element .faq_question_image";
+        $active_que_img_wrapper_bg = "$this->main_css_element .df_faq_item.active .faq_question_image";
+        $que_img = "$this->main_css_element .faq_question_image img";
+        $active_que_img = "$this->main_css_element .df_faq_item.active .faq_question_image img";
+
+        $ans_wrapper = "$this->main_css_element .faq_answer_wrapper";
+        $ans_button = "$this->main_css_element .faq_button a";
+        $ans_button_icon = "$this->main_css_element .faq_button_icon";
+
+        // Color
+        $fields['close_icon_color']  = array('color' => $close_que_icon);
+        $fields['open_icon_color']   = array('color' => $open_que_icon);
+        $fields['button_text_color'] = array('color' => $ans_button);
+        $fields['button_icon_color'] = array('color' => $ans_button_icon);
+
+        // Background
+        $fields = $this->df_background_transition(array(
+            'fields'        => $fields,
+            'key'           => 'que_wrapper_bg',
+            'selector'      => $que_wrapper
+        ));
+
+        $fields = $this->df_background_transition(array(
+            'fields'        => $fields,
+            'key'           => 'active_que_wrapper_bg',
+            'selector'      => $active_que_wrapper
+        ));
+
+        $fields['faq_icon_bg']        = array('background-color' => $icon_wrapper);
+        $fields['active_faq_icon_bg'] = array('background-color' => $active_icon_wrapper);
+        $fields['que_img_bg']         = array('background-color' => $que_img_wrapper_bg);
+        $fields['active_que_img_bg']  = array('background-color' => $active_que_img_wrapper_bg);
+
+        $fields = $this->df_background_transition(array(
+            'fields'        => $fields,
+            'key'           => 'ans_wrapper_bg',
+            'selector'      => $ans_wrapper
+        ));
+
+        $fields = $this->df_background_transition(array(
+            'fields'        => $fields,
+            'key'           => 'ans_button_bg',
+            'selector'      => $ans_button
+        ));
+
+        // Border
+        $fields = $this->df_fix_border_transition($fields, 'que_wrapper_border', $que_wrapper);
+        $fields = $this->df_fix_border_transition($fields, 'active_que_wrapper_border', $active_que_wrapper);
+        $fields = $this->df_fix_border_transition($fields, 'que_text_border', $faq_que_text);
+        $fields = $this->df_fix_border_transition($fields, 'active_que_text_border', $active_faq_que_text);
+        $fields = $this->df_fix_border_transition($fields, 'que_img_wrapper_border', $que_img_wrapper_bg);
+        $fields = $this->df_fix_border_transition($fields, 'que_img_border', $que_img);
+        $fields = $this->df_fix_border_transition($fields, 'active_que_img_border', $active_que_img);
+        $fields = $this->df_fix_border_transition($fields, 'que_icon_wrapper_border', $icon_wrapper);
+        $fields = $this->df_fix_border_transition($fields, 'ans_wrapper_border', $ans_wrapper);
+        $fields = $this->df_fix_border_transition($fields, 'ans_button_border', $ans_button);
+
+        // Box Shadow
+        $fields = $this->df_fix_box_shadow_transition($fields, 'que_wrapper_box_shadow', $que_wrapper);
+        $fields = $this->df_fix_box_shadow_transition($fields, 'ans_wrapper_box_shadow', $ans_wrapper);
+
+        //Spacing
+        $fields['faq_wrapper_margin'] = array('margin' => $faq_wrapper);
+        $fields['faq_wrapper_padding'] = array('padding' => $faq_wrapper);
+        $fields['que_wrapper_margin'] = array('margin' => $que_wrapper);
+        $fields['que_wrapper_padding'] = array('padding' => $que_wrapper);
+        $fields['que_text_margin'] = array('margin' => $faq_que_text);
+        $fields['que_text_padding'] = array('padding' => $faq_que_text);
+        $fields['que_icon_margin'] = array('margin' => $icon_wrapper);
+        $fields['que_icon_padding'] = array('padding' => $icon_wrapper);
+        $fields['que_img_margin'] = array('margin' => $que_img);
+        $fields['que_img_padding'] = array('padding' => $que_img);
+        $fields['ans_wrapper_margin'] = array('margin' => $ans_wrapper);
+        $fields['ans_wrapper_padding'] = array('padding' => $ans_wrapper);
+        $fields['ans_text_padding'] = array('padding' => "$this->main_css_element .faq_answer");
+        $fields['ans_img_padding'] = array('padding' => "$this->main_css_element .faq_answer_image");
+        $fields['ans_button_margin'] = array('margin' => $ans_button);
+        $fields['ans_button_padding'] = array('padding' => $ans_button);
+
+        return $fields;
+    }
 
     public function additional_css_styles($render_slug)
     {
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'faq_wrapper_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .difl_faq",
+            'hover'             => "$this->main_css_element .difl_faq:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'faq_wrapper_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .difl_faq",
+            'hover'             => "$this->main_css_element .difl_faq:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'que_wrapper_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .faq_question_wrapper",
+            'hover'             => "$this->main_css_element .faq_question_wrapper:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'que_wrapper_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_question_wrapper",
+            'hover'             => "$this->main_css_element .faq_question_wrapper:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'que_text_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .faq_question_title",
+            'hover'             => "$this->main_css_element .faq_question_title:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'que_icon_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .faq_icon",
+            'hover'             => "$this->main_css_element .faq_icon:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'que_icon_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_icon",
+            'hover'             => "$this->main_css_element .faq_icon",
+            'important'         => false
+        ));
+
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'que_img_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .faq_question_image ",
+            'hover'             => "$this->main_css_element .faq_question_image:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'que_img_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_question_image",
+            'hover'             => "$this->main_css_element .faq_question_image:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_wrapper_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .faq_answer_wrapper",
+            'hover'             => "$this->main_css_element .faq_answer_wrapper:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_wrapper_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_answer_wrapper",
+            'hover'             => "$this->main_css_element .faq_answer_wrapper:hover",
+            'important'         => false
+        ));
+
+        // $this->set_margin_padding_styles(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'ans_text_margin',
+        //     'type'              => 'margin',
+        //     'selector'          => "$this->main_css_element .faq_answer_wrapper",
+        //     'hover'             => "$this->main_css_element .faq_answer_wrapper:hover",
+        //     'important'         => false
+        // ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_text_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_answer",
+            'hover'             => "$this->main_css_element .faq_answer:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_img_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_answer_image",
+            'hover'             => "$this->main_css_element .faq_answer_image:hover",
+            'important'         => false
+        ));
+
+        //  ans_button
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_button_margin',
+            'type'              => 'margin',
+            'selector'          => "$this->main_css_element .faq_button a",
+            'hover'             => "$this->main_css_element .faq_button a:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_button_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_button a",
+            'hover'             => "$this->main_css_element .faq_button a:hover",
+            'important'         => false
+        ));
+
         if ('on' === $this->props['use_button_icon']) {
             $this->generate_styles(
                 array(

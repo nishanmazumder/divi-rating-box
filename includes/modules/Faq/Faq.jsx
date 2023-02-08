@@ -270,6 +270,22 @@ class Faq extends Component {
 
     utility.process_margin_padding({
       props   : props,
+      key     : "ans_text_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_img_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_image",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
       key     : "ans_button_margin",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_button a",
@@ -280,7 +296,7 @@ class Faq extends Component {
       props   : props,
       key     : "ans_button_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_button a:hover",
+      selector: "%%order_class%% .faq_button a",
       type    : "padding"
     });
 
@@ -578,7 +594,6 @@ class Faq extends Component {
   };
 
   df_multicheck_value = (props) => {
-
     if (!!props.disable_faq_item) {
       const values = props.disable_faq_item.split("|");
       const responsive = ["desktop", "tablet", "mobile"];

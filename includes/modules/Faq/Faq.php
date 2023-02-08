@@ -583,7 +583,7 @@ class DIFL_FAQ extends ET_Builder_Module
                     'off' => esc_html__('Off', 'divi_flash'),
                     'on'  => esc_html__('On', 'divi_flash')
                 ),
-                'toggle_slug'=> 'animation'
+                'toggle_slug' => 'animation'
             ),
             'faq_animation'  => array(
                 'label'      => esc_html__('Toggle Animation', 'divi_flash'),
@@ -650,15 +650,15 @@ class DIFL_FAQ extends ET_Builder_Module
             ),
             // 'reveal_animation_duration' => array (
             //     'label'             => esc_html__( 'Animation Duration', 'divi_flash' ),
-			// 	'type'              => 'range',
-			// 	'tab_slug'          => 'general',
-			// 	'toggle_slug'       => 'animation',
-			// 	'default'           => '200',
+            // 	'type'              => 'range',
+            // 	'tab_slug'          => 'general',
+            // 	'toggle_slug'       => 'animation',
+            // 	'default'           => '200',
             //     'unitless'          => true,
-			// 	'range_settings'    => array(
-			// 		'min'  => '1',
-			// 		'max'  => '1000',
-			// 		'step' => '1',
+            // 	'range_settings'    => array(
+            // 		'min'  => '1',
+            // 		'max'  => '1000',
+            // 		'step' => '1',
             //     ),
             //     'toggle_slug' => 'animation',
             //     'show_if'     => array(
@@ -717,7 +717,7 @@ class DIFL_FAQ extends ET_Builder_Module
             'sub_toggle'     => 'content'
         ));
 
-        $que_icon_margin = $this->add_margin_padding(array(
+        $icon_wrapper_margin = $this->add_margin_padding(array(
             'title'         => 'Question Icon',
             'key'           => 'que_icon',
             'toggle_slug'   => 'margin_padding',
@@ -738,11 +738,20 @@ class DIFL_FAQ extends ET_Builder_Module
             'sub_toggle'    => 'wrapper'
         ));
 
-        $ans_text_margin = $this->add_margin_padding(array(
+        $ans_text_padding = $this->add_margin_padding(array(
             'title'         => 'Answer Text',
             'key'           => 'ans_text',
             'toggle_slug'   => 'margin_padding',
-            'sub_toggle'    => 'content'
+            'sub_toggle'    => 'content',
+            'option'        => 'padding',
+        ));
+
+        $ans_img_padding = $this->add_margin_padding(array(
+            'title'         => 'Answer Image',
+            'key'           => 'ans_img',
+            'toggle_slug'   => 'margin_padding',
+            'sub_toggle'    => 'content',
+            'option'        => 'padding',
         ));
 
         $ans_btn_margin = $this->add_margin_padding(array(
@@ -762,10 +771,11 @@ class DIFL_FAQ extends ET_Builder_Module
             $faq_wrapper_margin,
             $que_wrapper_margin,
             $que_text_margin,
-            $que_icon_margin,
+            $icon_wrapper_margin,
             $que_img_margin,
             $ans_wrapper_margin,
-            $ans_text_margin,
+            $ans_text_padding,
+            $ans_img_padding,
             $ans_button_bg,
             $faq_ans_btn,
             $ans_btn_margin
@@ -1231,7 +1241,7 @@ class DIFL_FAQ extends ET_Builder_Module
     public function get_transition_fields_css_props()
     {
         $fields = parent::get_transition_fields_css_props();
-
+        $faq_wrapper = "$this->main_css_element .difl_faq";
         $que_wrapper = "$this->main_css_element .faq_question_wrapper";
         $active_que_wrapper = "$this->main_css_element .df_faq_item.active .faq_question_wrapper";
 
@@ -1245,19 +1255,17 @@ class DIFL_FAQ extends ET_Builder_Module
 
         $que_img_wrapper_bg = "$this->main_css_element .faq_question_image";
         $active_que_img_wrapper_bg = "$this->main_css_element .df_faq_item.active .faq_question_image";
-
         $que_img = "$this->main_css_element .faq_question_image img";
         $active_que_img = "$this->main_css_element .df_faq_item.active .faq_question_image img";
 
         $ans_wrapper = "$this->main_css_element .faq_answer_wrapper";
-
-        $ans_button_text = "$this->main_css_element .faq_button a";
+        $ans_button = "$this->main_css_element .faq_button a";
         $ans_button_icon = "$this->main_css_element .faq_button_icon";
 
         // Color
         $fields['close_icon_color']  = array('color' => $close_que_icon);
         $fields['open_icon_color']   = array('color' => $open_que_icon);
-        $fields['button_text_color'] = array('color' => $ans_button_text);
+        $fields['button_text_color'] = array('color' => $ans_button);
         $fields['button_icon_color'] = array('color' => $ans_button_icon);
 
         // Background
@@ -1287,7 +1295,7 @@ class DIFL_FAQ extends ET_Builder_Module
         $fields = $this->df_background_transition(array(
             'fields'        => $fields,
             'key'           => 'ans_button_bg',
-            'selector'      => $ans_button_text
+            'selector'      => $ans_button
         ));
 
         // Border
@@ -1300,11 +1308,29 @@ class DIFL_FAQ extends ET_Builder_Module
         $fields = $this->df_fix_border_transition($fields, 'active_que_img_border', $active_que_img);
         $fields = $this->df_fix_border_transition($fields, 'que_icon_wrapper_border', $icon_wrapper);
         $fields = $this->df_fix_border_transition($fields, 'ans_wrapper_border', $ans_wrapper);
-        $fields = $this->df_fix_border_transition($fields, 'ans_button_border', $ans_button_text);
+        $fields = $this->df_fix_border_transition($fields, 'ans_button_border', $ans_button);
 
         // Box Shadow
         $fields = $this->df_fix_box_shadow_transition($fields, 'que_wrapper_box_shadow', $que_wrapper);
         $fields = $this->df_fix_box_shadow_transition($fields, 'ans_wrapper_box_shadow', $ans_wrapper);
+
+        //Spacing
+        $fields['faq_wrapper_margin'] = array('margin' => $faq_wrapper);
+        $fields['faq_wrapper_padding'] = array('padding' => $faq_wrapper);
+        $fields['que_wrapper_margin'] = array('margin' => $que_wrapper);
+        $fields['que_wrapper_padding'] = array('padding' => $que_wrapper);
+        $fields['que_text_margin'] = array('margin' => $faq_que_text);
+        $fields['que_text_padding'] = array('padding' => $faq_que_text);
+        $fields['que_icon_margin'] = array('margin' => $icon_wrapper);
+        $fields['que_icon_padding'] = array('padding' => $icon_wrapper);
+        $fields['que_img_margin'] = array('margin' => $que_img);
+        $fields['que_img_padding'] = array('padding' => $que_img);
+        $fields['ans_wrapper_margin'] = array('margin' => $ans_wrapper);
+        $fields['ans_wrapper_padding'] = array('padding' => $ans_wrapper);
+        $fields['ans_text_padding'] = array('padding' => "$this->main_css_element .faq_answer");
+        $fields['ans_img_padding'] = array('padding' => "$this->main_css_element .faq_answer_image");
+        $fields['ans_button_margin'] = array('margin' => $ans_button);
+        $fields['ans_button_padding'] = array('padding' => $ans_button);
 
         return $fields;
     }
@@ -1655,6 +1681,33 @@ class DIFL_FAQ extends ET_Builder_Module
             'type'              => 'padding',
             'selector'          => "$this->main_css_element .faq_answer_wrapper",
             'hover'             => "$this->main_css_element .faq_answer_wrapper:hover",
+            'important'         => false
+        ));
+
+        // $this->set_margin_padding_styles(array(
+        //     'render_slug'       => $render_slug,
+        //     'slug'              => 'ans_text_margin',
+        //     'type'              => 'margin',
+        //     'selector'          => "$this->main_css_element .faq_answer_wrapper",
+        //     'hover'             => "$this->main_css_element .faq_answer_wrapper:hover",
+        //     'important'         => false
+        // ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_text_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_answer",
+            'hover'             => "$this->main_css_element .faq_answer:hover",
+            'important'         => false
+        ));
+
+        $this->set_margin_padding_styles(array(
+            'render_slug'       => $render_slug,
+            'slug'              => 'ans_img_padding',
+            'type'              => 'padding',
+            'selector'          => "$this->main_css_element .faq_answer_image",
+            'hover'             => "$this->main_css_element .faq_answer_image:hover",
             'important'         => false
         ));
 
