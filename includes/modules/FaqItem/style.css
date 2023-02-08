@@ -19,7 +19,7 @@
 
 .difl_faqitem .df_faq_item {
   /* display: block; */
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 100%;
   background: #f4f4f4;
 }
@@ -71,13 +71,7 @@
 }
 
 .difl_faqitem .faq_answer_wrapper {
-  /* display: none; */
   overflow: hidden;
-  /* -webkit-transition: height 1s ease;
-  -moz-transition: height 1s ease;
-    -o-transition: height 1s ease;
-   -ms-transition: height 1s ease;
-       transition: height 1s ease; */
 }
 
 .difl_faqitem .faq_answer_area {
@@ -86,10 +80,6 @@
 }
 .difl_faqitem .faq_answer {
   width: 100%;
-}
-
-.difl_faqitem .faq_answer p {
-  padding-bottom: 0px;
 }
 
 .difl_faqitem .faq_answer ul {
@@ -138,10 +128,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .difl_faqitem.df_hide_desktop {
-    display: block !important;
-  }
-  .difl_faqitem.df_hide_tablet {
+  .difl_faqitem.df_hide_desktop, .difl_faqitem.df_hide_tablet {
     display: block !important;
   }
   .difl_faqitem.df_hide_mobile {

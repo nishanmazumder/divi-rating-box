@@ -68,17 +68,18 @@ function df_faq_function(parent_class, settings) {
   question.forEach((ele) => {
     ele.addEventListener("click", function() {
       if ("plain" === faq_layout) return;
-      const isActive = this.parentElement.classList.contains("active");
       const this_answer = this.nextElementSibling;
       if ("individual" === faq_layout) {
         this.parentElement.classList.toggle("active");
       } else if ("accordion" === faq_layout) {
-        if (isActive) return;
+        if (this.parentElement.classList.contains("active")) return;
         wrapper.querySelectorAll(".df_faq_item").forEach((ele) => {
           ele.classList.remove("active");
         });
         this_answer.parentElement.classList.add("active");
       }
+
+      const isActive = this.parentElement.classList.contains("active");
 
       // individual
       if ("individual" === faq_layout) {
