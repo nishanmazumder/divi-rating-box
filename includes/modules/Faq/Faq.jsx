@@ -265,17 +265,9 @@ class Faq extends Component {
 
     // utility.process_margin_padding({
     //   props   : props,
-    //   key     : "ans_wrapper_margin",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .faq_answer_wrapper",
-    //   type    : "margin"
-    // });
-
-    // utility.process_margin_padding({
-    //   props   : props,
     //   key     : "ans_wrapper_padding",
     //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .faq_answer_wrapper",
+    //   selector: "%%order_class%% .df_faq_item .faq_answer_wrapper",
     //   type    : "padding"
     // });
 
@@ -293,6 +285,14 @@ class Faq extends Component {
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_answer_image",
       type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_btn_icon_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_button_icon",
+      type    : "margin"
     });
 
     utility.process_margin_padding({

@@ -185,14 +185,6 @@ class FaqItem extends Component {
 
     // utility.process_margin_padding({
     //   props   : props,
-    //   key     : "ans_wrapper_margin",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% div.faq_answer_wrapper",
-    //   type    : "margin",
-    // });
-
-    // utility.process_margin_padding({
-    //   props   : props,
     //   key     : "ans_wrapper_padding",
     //   additionalCss: additionalCss,
     //   selector: "%%order_class%% div.faq_answer_wrapper",
@@ -204,7 +196,7 @@ class FaqItem extends Component {
       key     : "ans_text_padding",
       additionalCss: additionalCss,
       selector: "%%order_class%% div.faq_answer",
-      type    : "padding",
+      type    : "padding"
     });
 
     utility.process_margin_padding({
@@ -212,7 +204,15 @@ class FaqItem extends Component {
       key     : "ans_img_padding",
       additionalCss: additionalCss,
       selector: "%%order_class%% div.faq_answer_image",
-      type    : "padding",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_btn_icon_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% div.faq_button_icon",
+      type    : "margin"
     });
 
     utility.process_margin_padding({
@@ -220,7 +220,7 @@ class FaqItem extends Component {
       key     : "ans_button_margin",
       additionalCss: additionalCss,
       selector: "%%order_class%% div.faq_button a",
-      type    : "margin",
+      type    : "margin"
     });
 
     utility.process_margin_padding({
@@ -228,8 +228,9 @@ class FaqItem extends Component {
       key     : "ans_button_padding",
       additionalCss: additionalCss,
       selector: "%%order_class%% div.faq_button a",
-      type    : "padding",
+      type    : "padding"
     });
+
 
     if ("" !== props.button_font_icon) {
       utility.process_icon_font_style({
@@ -301,7 +302,7 @@ class FaqItem extends Component {
       ]);
     }
 
-    if ("off" === props.button_full_width && "" !== props.button_alignment) {
+    if ("on" !== props.button_full_width && "" !== props.button_alignment) {
       utility.df_process_string_attr({
         props: props,
         key: "button_alignment",

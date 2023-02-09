@@ -9,8 +9,7 @@
 .difl_faqitem .faq_question_wrapper,
 .difl_faqitem .faq_question_image,
 .difl_faqitem .faq_question,
-.difl_faqitem .faq_icon,
-.difl_faqitem .faq_answer_wrapper{
+.difl_faqitem .faq_icon{
   padding: 5px;
 }
 
@@ -94,16 +93,19 @@
 
 .difl_faqitem .faq_button a {
   display: inline-flex;
-  align-items: center;
+  /* align-items: center; */
+  overflow: hidden;
+  vertical-align: top;
   background: #666;
   color: #fff;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
   font-size: 18px;
   line-height: 1.5em;
 }
 
 .difl_faqitem .faq_button_icon {
   /* vertical-align: initial; */
+  vertical-align: top;
   font-size: 20px;
 }
 
