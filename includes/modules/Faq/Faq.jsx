@@ -24,49 +24,44 @@ class Faq extends Component {
     this.render_faq_items();
   }
 
-  // prettier-ignore
-  activate_item_order = () => {
-    const parent_class = this.props.moduleInfo.orderClassName;
-    const get_wrapper_classes = $("." + parent_class).find(".df_faq_item");
-    const active_item = "on" === this.props.activate_on_first_time ? this.props.active_item_order_number : 0;
-
-    if ("on" === this.props.activate_on_first_time) {
-      const active_item_order = ":eq(" + (active_item - 1) + ")";
-      const active_item_selector = "." + get_wrapper_classes[0].classList + active_item_order;
-
-      $(get_wrapper_classes).removeClass("active");
-      $(active_item_selector).removeClass("active");
-      $(active_item_selector).addClass("active");
-
-    } return;
-
-  }
-  // prettier-ignore
-
   static css(props) {
     var additionalCss = [];
 
     // console.log(props)
 
     utility.df_process_bg({
-      props          : props,
-      additionalCss  : additionalCss,
-      key            : 'que_wrapper_bg',
-      selector       : '%%order_class%% .faq_question_wrapper'
+      props    : props,
+      additionalCss: additionalCss,
+      key      : 'faq_wrapper_bg',
+      selector : '%%order_class%%'
     });
 
     utility.df_process_bg({
-      props          : props,
-      additionalCss  : additionalCss,
-      key            : 'active_que_wrapper_bg',
-      selector       : '%%order_class%% .df_faq_item.active .faq_question_wrapper'
+      props    : props,
+      additionalCss: additionalCss,
+      key      : 'faq_item_wrapper_bg',
+      selector : '%%order_class%% .df_faq_item'
     });
 
     utility.df_process_bg({
-      props          : props,
-      additionalCss  : additionalCss,
-      key            : 'ans_wrapper_bg',
-      selector       : '%%order_class%% .faq_answer_wrapper'
+      props    : props,
+      additionalCss: additionalCss,
+      key      : 'que_wrapper_bg',
+      selector : '%%order_class%% .faq_question_wrapper'
+    });
+
+    utility.df_process_bg({
+      props   : props,
+      additionalCss: additionalCss,
+      key     : 'active_que_wrapper_bg',
+      selector: '%%order_class%% .df_faq_item.active .faq_question_wrapper'
+    });
+
+    utility.df_process_bg({
+      props   : props,
+      additionalCss : additionalCss,
+      key     : 'ans_wrapper_bg',
+      selector: '%%order_class%% .faq_answer_wrapper'
     });
 
     utility.process_color({
@@ -198,6 +193,22 @@ class Faq extends Component {
 
     utility.process_margin_padding({
       props   : props,
+      key     : "faq_item_wrapper_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .df_faq_item",
+      type    : "margin"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "faq_item_wrapper_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .df_faq_item",
+      type    : "padding"
+    });
+
+    utility.process_margin_padding({
+      props   : props,
       key     : "que_wrapper_margin",
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_question_wrapper",
@@ -252,21 +263,21 @@ class Faq extends Component {
       type    : "padding"
     });
 
-    utility.process_margin_padding({
-      props   : props,
-      key     : "ans_wrapper_margin",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper",
-      type    : "margin"
-    });
+    // utility.process_margin_padding({
+    //   props   : props,
+    //   key     : "ans_wrapper_margin",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% .faq_answer_wrapper",
+    //   type    : "margin"
+    // });
 
-    utility.process_margin_padding({
-      props   : props,
-      key     : "ans_wrapper_padding",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_wrapper",
-      type    : "padding"
-    });
+    // utility.process_margin_padding({
+    //   props   : props,
+    //   key     : "ans_wrapper_padding",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% .faq_answer_wrapper",
+    //   type    : "padding"
+    // });
 
     utility.process_margin_padding({
       props   : props,
@@ -445,6 +456,25 @@ class Faq extends Component {
 
     return additionalCss;
   }
+
+    // prettier-ignore
+    activate_item_order = () => {
+      const parent_class = this.props.moduleInfo.orderClassName;
+      const get_wrapper_classes = $("." + parent_class).find(".df_faq_item");
+      const active_item = "on" === this.props.activate_on_first_time ? this.props.active_item_order_number : 0;
+
+      if ("on" === this.props.activate_on_first_time) {
+        const active_item_order = ":eq(" + (active_item - 1) + ")";
+        const active_item_selector = "." + get_wrapper_classes[0].classList + active_item_order;
+
+        $(get_wrapper_classes).removeClass("active");
+        $(active_item_selector).removeClass("active");
+        $(active_item_selector).addClass("active");
+
+      } return;
+
+    }
+    // prettier-ignore
 
   // prettier-ignore
   render_button(props) {

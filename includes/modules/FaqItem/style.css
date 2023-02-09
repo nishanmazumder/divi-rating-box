@@ -10,10 +10,7 @@
 .difl_faqitem .faq_question_image,
 .difl_faqitem .faq_question,
 .difl_faqitem .faq_icon,
-/* .difl_faqitem .faq_answer_wrapper, */
-.difl_faqitem .faq_answer,
-.difl_faqitem .faq_answer_image,
-.difl_faqitem .faq_button {
+.difl_faqitem .faq_answer_wrapper{
   padding: 5px;
 }
 

@@ -13,6 +13,13 @@ class FaqItem extends Component {
     var additionalCss = [];
 
     utility.df_process_bg({
+      props    : props,
+      additionalCss: additionalCss,
+      key      : 'faq_item_wrapper_bg',
+      selector : '%%order_class%% div.df_faq_item'
+    });
+
+    utility.df_process_bg({
       props   : props,
       additionalCss: additionalCss,
       key     : 'que_wrapper_bg',
@@ -23,7 +30,7 @@ class FaqItem extends Component {
       props   : props,
       additionalCss: additionalCss,
       key     : 'active_que_wrapper_bg',
-      selector: '%%order_class%% div.df_faq_item.active .faq_question_wrapper'
+      selector: '%%order_class%% div.df_faq_item.active div.faq_question_wrapper'
     });
 
     utility.df_process_bg({
@@ -106,17 +113,17 @@ class FaqItem extends Component {
 
     utility.process_margin_padding({
       props   : props,
-      key: "faq_wrapper_margin",
+      key: "faq_item_wrapper_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%%.div",
+      selector: "%%order_class%% div.df_faq_item",
       type    : "margin",
     });
 
     utility.process_margin_padding({
       props   : props,
-      key     : "faq_wrapper_padding",
+      key     : "faq_item_wrapper_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%%.div ",
+      selector: "%%order_class%% div.df_faq_item ",
       type    : "padding",
     });
 
@@ -176,21 +183,21 @@ class FaqItem extends Component {
       type    : "padding",
     });
 
-    utility.process_margin_padding({
-      props   : props,
-      key     : "ans_wrapper_margin",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% div.faq_answer_wrapper",
-      type    : "margin",
-    });
+    // utility.process_margin_padding({
+    //   props   : props,
+    //   key     : "ans_wrapper_margin",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% div.faq_answer_wrapper",
+    //   type    : "margin",
+    // });
 
-    utility.process_margin_padding({
-      props   : props,
-      key     : "ans_wrapper_padding",
-      additionalCss: additionalCss,
-      selector: "%%order_class%% div.faq_answer_wrapper",
-      type    : "padding",
-    });
+    // utility.process_margin_padding({
+    //   props   : props,
+    //   key     : "ans_wrapper_padding",
+    //   additionalCss: additionalCss,
+    //   selector: "%%order_class%% div.faq_answer_wrapper",
+    //   type    : "padding",
+    // });
 
     utility.process_margin_padding({
       props   : props,
