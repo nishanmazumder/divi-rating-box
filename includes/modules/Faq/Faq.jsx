@@ -329,6 +329,17 @@ class Faq extends Component {
       });
     }
 
+    if ('on' === props.disable_faq_icon) {
+      additionalCss.push([
+        {
+          selector: "%%order_class%% .faq_icon",
+          declaration: `display: none;`
+        },
+      ]);
+    }
+
+
+    // icon placement (+ question wrapper)
     if ("inherit" !== props.faq_icon_placement) {
       utility.df_process_string_attr({
         props   : props,
@@ -338,6 +349,15 @@ class Faq extends Component {
         type    : "flex-direction"
       });
     }
+
+    // alignment - flex - space-bet
+      utility.df_process_string_attr({
+        props   : props,
+        key     : "faq_que_alignment",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_question_wrapper",
+        type    : "justify-content"
+      });
 
     // faq grid layout
     if ("on" === props.faq_layout_grid) {
