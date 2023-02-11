@@ -224,7 +224,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'default'        => 'accordion',
                 'options'        => array(
                     'accordion'  => esc_html__('Accordion', 'divi_flash'),
-                    'toggle'     => esc_html__('Toggle', 'divi_flash'),
+                    'individual' => esc_html__('Individual', 'divi_flash'),
                     'plain'      => esc_html__('Plain', 'divi_flash')
                 ),
                 'option_category' => 'basic_option',
@@ -379,7 +379,7 @@ class DIFL_FAQ extends ET_Builder_Module
         ];
 
         $faq_que_align = [
-            'faq_que_alignment' => array(
+            'faq_que_alignment'=> array(
                 'label'        => esc_html__('Question Alignment', 'divi_flash'),
                 'type'         => 'select',
                 'default'      => 'default',
@@ -617,7 +617,7 @@ class DIFL_FAQ extends ET_Builder_Module
             'faq_animation'  => array(
                 'label'      => esc_html__('Toggle Animation', 'divi_flash'),
                 'type'       => 'select',
-                'default'    => 'slide',
+                'default'    => 'slide_down',
                 'options'    => array(
                     'slide'  => esc_html__('Slide', 'divi_flash'),
                     'fade'   => esc_html__('Fade', 'divi_flash'),

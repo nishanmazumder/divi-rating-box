@@ -69,7 +69,7 @@ function df_faq_function(parent_class, settings) {
     ele.addEventListener("click", function() {
       if ("plain" === faq_layout) return;
       const this_answer = this.nextElementSibling;
-      if ("toggle" === faq_layout) {
+      if ("individual" === faq_layout) {
         this.parentElement.classList.toggle("active");
       } else if ("accordion" === faq_layout) {
         if (this.parentElement.classList.contains("active")) return;
@@ -81,16 +81,17 @@ function df_faq_function(parent_class, settings) {
 
       const isActive = this.parentElement.classList.contains("active");
 
-      // toggle
-      if ("toggle" === faq_layout) {
+      // individual
+      if ("individual" === faq_layout) {
         if ("on" === settings.enable_faq_animation) {
-          if ("slide" === settings.faq_animation) {
-            df_faq_toggle_anime(this_answer, isActive);
+          if (isActive) {
+            "fade" === settings.faq_animation
+              ? this_answer.fadeToggle(500, "linear")
+              : df_faq_slidedown(this_answer);
           } else {
-            this_answer.fadeToggle(500, "linear");
-            //df_faq_toggle_defrault2
-
-            // console.log("fade animation");
+            "fade" === settings.faq_animation
+              ? this_answer.fadeToggle(500, "linear")
+              : df_faq_slideup(this_answer);
           }
         } else {
           console.log("disable animation!");
@@ -104,11 +105,10 @@ function df_faq_function(parent_class, settings) {
             df_faq_slideup(el);
           }); // slideup global
 
-          if ("slide" === settings.faq_animation) {
-            // df_faq_slidedown(this_answer);
-            df_faq_toggle_anime(this_answer, isActive, "accordion");
-          } else {
+          if ("fade" === settings.faq_animation) {
             this_answer.fadeIn(500, "linear");
+          } else {
+            df_faq_slidedown(this_answer);
           }
         }
       }
@@ -139,6 +139,49 @@ function df_faq_function(parent_class, settings) {
       }
     }); // click
   });
+
+  function df_anime_rotate_ele(wrapper, close, open, isActive) {
+    const rotate = window.anime({
+      targets: wrapper,
+      rotate: {
+        value: "+=1turn",
+        duration: 250,
+        easing: "linear",
+      },
+      scale: [2, 1],
+      opacity: [0, 1],
+      duration: 250,
+      delay: 0,
+      easing: "linear",
+    });
+
+    rotate.play();
+    rotate.update = function() {
+      df_faq_default_display(close, open, isActive);
+    };
+
+    // rotate.complete = function () {
+    //   rotate.reverse();
+    // }
+  }
+}
+
+function df_faq_default_display(close, open, isActive) {
+  if (isActive) {
+    close.style.display = "none";
+    open.style.display = "block";
+  } else {
+    open.style.display = "none";
+    close.style.display = "block";
+  }
+}
+
+function df_faq_default_toggle(wrapper, isActive) {
+  if (isActive) {
+    wrapper.style.height = "100%";
+  } else {
+    wrapper.style.display = 0;
+  }
 }
 
 // Hide FAQ items
@@ -162,25 +205,19 @@ function hide_faq_items(child_class) {
 } // hide_faq_items
 
 // FAQ Animation data
-function df_faq_toggle_anime(answerWrapper, isActive) {
-  // get height
+function df_faq_slidedown(answerWrapper) {
   answerWrapper.style.height = "100%";
   const answerHeight = answerWrapper.clientHeight;
   answerWrapper.style.height = 0;
 
-  const object = {
+  window.anime({
     targets: answerWrapper,
-    direction: isActive ? "reverse" : "normal",
     easing: "linear",
     duration: 250,
-    height: [0, answerHeight],
-  };
-
-  // var anime_config = Object.assign(object, animation[settings.faq_animation]);
-
-  if (window.anime) {
-    window.anime(object);
-  }
+    endDelay: 0,
+    delay: 0,
+    height: answerHeight,
+  });
 }
 
 function df_faq_slideup(answerWrapper) {
@@ -194,53 +231,6 @@ function df_faq_slideup(answerWrapper) {
   });
 }
 
-function df_anime_rotate_ele(wrapper, close, open, isActive) {
-  const rotate = window.anime({
-    targets: wrapper,
-    rotate: {
-      value: "+=1turn",
-      duration: 250,
-      easing: "linear",
-    },
-    scale: [2, 1],
-    opacity: [0, 1],
-    duration: 250,
-    delay: 0,
-    easing: "linear",
-  });
-
-  rotate.play();
-  rotate.update = function() {
-    df_faq_default_display(close, open, isActive);
-  };
-
-  rotate.complete = function() {
-    // rotate.reverse();
-
-    if (wrapper.closest(".df_faq_item").classList.contains("active")) {
-      console.log("true");
-    }
-  };
-}
-
-function df_faq_default_display(close, open, isActive) {
-  if (isActive) {
-    close.style.display = "none";
-    open.style.display = "block";
-  } else {
-    open.style.display = "none";
-    close.style.display = "block";
-  }
-}
-
-function df_faq_default_toggle(wrapper, isActive) {
-  if (isActive) {
-    wrapper.style.height = "100%";
-  } else {
-    wrapper.style.display = 0;
-  }
-}
-
 function df_faq_anime_content(selector, reveal_animation) {
   const object = {
     targets: selector,
@@ -249,6 +239,8 @@ function df_faq_anime_content(selector, reveal_animation) {
     duration: 250,
     delay: anime.stagger(250),
     endDelay: 1,
+
+    // height: height > 0 ? [0, height] : 0,
   };
 
   var anime_config = Object.assign(object, animations[reveal_animation]);
