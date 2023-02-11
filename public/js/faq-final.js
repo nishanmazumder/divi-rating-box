@@ -68,26 +68,30 @@ function df_faq_function(parent_class, settings) {
   question.forEach((ele) => {
     ele.addEventListener("click", function() {
       if ("plain" === faq_layout) return;
-      const isActive = this.parentElement.classList.contains("active");
       const this_answer = this.nextElementSibling;
       if ("individual" === faq_layout) {
         this.parentElement.classList.toggle("active");
       } else if ("accordion" === faq_layout) {
-        if (isActive) return;
+        if (this.parentElement.classList.contains("active")) return;
         wrapper.querySelectorAll(".df_faq_item").forEach((ele) => {
           ele.classList.remove("active");
         });
         this_answer.parentElement.classList.add("active");
       }
 
+      const isActive = this.parentElement.classList.contains("active");
+
       // individual
       if ("individual" === faq_layout) {
         if ("on" === settings.enable_faq_animation) {
-          if ("slide" === settings.faq_animation) {
-            df_faq_toggle_anime(this_answer, isActive);
+          if (isActive) {
+            "fade" === settings.faq_animation
+              ? this_answer.fadeToggle(500, "linear")
+              : df_faq_slidedown(this_answer);
           } else {
-            this_answer.fadeToggle(500, "linear");
-            //df_faq_toggle_defrault2
+            "fade" === settings.faq_animation
+              ? this_answer.fadeToggle(500, "linear")
+              : df_faq_slideup(this_answer);
           }
         } else {
           console.log("disable animation!");
@@ -201,25 +205,30 @@ function hide_faq_items(child_class) {
 } // hide_faq_items
 
 // FAQ Animation data
-function df_faq_toggle_anime(answerWrapper, isActive) {
-  // get height
+function df_faq_slidedown(answerWrapper) {
   answerWrapper.style.height = "100%";
   const answerHeight = answerWrapper.clientHeight;
   answerWrapper.style.height = 0;
 
-  const object = {
+  window.anime({
     targets: answerWrapper,
-    direction: isActive ? "reverse" : "normal",
     easing: "linear",
     duration: 250,
-    height: [0, answerHeight],
-  };
+    endDelay: 0,
+    delay: 0,
+    height: answerHeight,
+  });
+}
 
-  // var anime_config = Object.assign(object, animation[settings.faq_animation]);
-
-  if (window.anime) {
-    window.anime(object);
-  }
+function df_faq_slideup(answerWrapper) {
+  window.anime({
+    targets: answerWrapper,
+    easing: "linear",
+    duration: 250,
+    endDelay: 0,
+    delay: 0,
+    height: 0,
+  });
 }
 
 function df_faq_anime_content(selector, reveal_animation) {
