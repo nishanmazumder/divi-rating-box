@@ -378,24 +378,6 @@ class DIFL_FAQ extends ET_Builder_Module
             )
         ];
 
-        $faq_que_align = [
-            'faq_que_alignment'=> array(
-                'label'        => esc_html__('Question Alignment', 'divi_flash'),
-                'type'         => 'select',
-                'default'      => 'default',
-                'options'      => array(
-                    'space-between' => esc_html__('Default', 'divi_flash'),
-                    'left'     => esc_html__('Left', 'divi_flash'),
-                    'center'   => esc_html__('Center', 'divi_flash'),
-                    'right'    => esc_html__('Right', 'divi_flash'),
-                ),
-                'option_category' => 'basic_option',
-                'toggle_slug'     => 'design_question',
-                'sub_toggle'      => 'setting',
-                'mobile_options'  => true
-            ),
-        ];
-
         $faq_que_icon = [
             'faq_icon_bg' => array(
                 'label'          => esc_html__('Close Wrapper Background', 'divi_flash'),
@@ -453,17 +435,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'mobile_options'  => true,
                 'responsive'      => true
             ),
-            'disable_faq_icon' => array(
-                'label'            => esc_html__('Disable Icon', 'divi_flash'),
-                'type'             => 'yes_no_button',
-                'default'          => 'off',
-                'options'          => array(
-                    'off' => esc_html__('Off', 'divi_flash'),
-                    'on'  => esc_html__('On', 'divi_flash')
-                ),
-                'toggle_slug'      => 'faq_icon',
-                'sub_toggle'       => 'setting'
-            ),
+
             'faq_icon_placement'  => array(
                 'label'           => esc_html__('Icon Placement', 'divi_flash'),
                 'type'            => 'select',
@@ -816,7 +788,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'key'           => 'ans_text',
                 'toggle_slug'   => 'margin_padding',
                 'sub_toggle'    => 'content',
-                'default_padding' => '5px|5px|5px|5px',
+                'default_padding'=> '5px|5px|5px|5px',
                 'option'        => 'padding',
             )
         );
@@ -839,7 +811,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'toggle_slug'   => 'design_button',
                 'tab_slug'      => 'advanced',
                 'option'        => 'margin',
-                'default_margin' => '5px|5px|5px|5px'
+                'default_margin'=> '5px|5px|5px|5px'
             )
         );
 
@@ -849,13 +821,12 @@ class DIFL_FAQ extends ET_Builder_Module
                 'key'           => 'ans_button',
                 'toggle_slug'   => 'design_button',
                 'tab_slug'      => 'advanced',
-                'default_margin' => '5px|5px|5px|5px'
+                'default_margin'=> '5px|5px|5px|5px'
             )
         );
 
         return array_merge(
             $faq,
-            $faq_que_align,
             $faq_que_icon,
             $faq_que_img,
             $faq_animation,
@@ -1908,13 +1879,6 @@ class DIFL_FAQ extends ET_Builder_Module
             )
         );
 
-        if ('on' === $this->props['disable_faq_icon']) {
-            ET_Builder_Element::set_style($render_slug, array(
-                'selector'    => "$this->main_css_element .faq_icon",
-                'declaration' => 'display: none;'
-            ));
-        }
-
         // icon placement (+ question wrapper)
         if ('inherit' !== $this->props['faq_icon_placement']) {
             $this->generate_styles(
@@ -1928,21 +1892,9 @@ class DIFL_FAQ extends ET_Builder_Module
             );
         }
 
-
-        // alignment - flex - space-bet
-        $this->generate_styles(
-            array(
-                'base_attr_name' => 'faq_que_alignment',
-                'selector'       => "$this->main_css_element .faq_question_wrapper",
-                'css_property'   => 'justify-content',
-                'render_slug'    => $render_slug,
-                'type'           => 'align'
-            )
-        );
-
         // faq grid layout
         if ('on' === $this->props['faq_layout_grid']) {
-            $this->df_faq_set_grid_columns(
+            $this->df_faq_set_dynamic_grid_columns(
                 array(
                     'render_slug' => $this->slug,
                     'slug'        => 'faq_item_per_column',
@@ -2030,7 +1982,7 @@ class DIFL_FAQ extends ET_Builder_Module
         return $script;
     }
 
-    private function df_faq_set_grid_columns($options)
+    private function df_faq_set_dynamic_grid_columns($options)
     {
         $default = array(
             'render_slug' => '',
