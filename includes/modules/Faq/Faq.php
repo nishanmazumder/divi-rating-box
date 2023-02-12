@@ -224,7 +224,7 @@ class DIFL_FAQ extends ET_Builder_Module
                 'default'        => 'accordion',
                 'options'        => array(
                     'accordion'  => esc_html__('Accordion', 'divi_flash'),
-                    'individual' => esc_html__('Individual', 'divi_flash'),
+                    'toggle'     => esc_html__('Toggle', 'divi_flash'),
                     'plain'      => esc_html__('Plain', 'divi_flash')
                 ),
                 'option_category' => 'basic_option',
@@ -619,7 +619,7 @@ class DIFL_FAQ extends ET_Builder_Module
             'faq_animation'  => array(
                 'label'      => esc_html__('Toggle Animation', 'divi_flash'),
                 'type'       => 'select',
-                'default'    => 'slide_down',
+                'default'    => 'slide',
                 'options'    => array(
                     'slide'  => esc_html__('Slide', 'divi_flash'),
                     'fade'   => esc_html__('Fade', 'divi_flash'),
@@ -630,25 +630,54 @@ class DIFL_FAQ extends ET_Builder_Module
                     'enable_faq_animation' => 'on'
                 )
             ),
-            'enable_icon_animation' => array(
-                'label'          => esc_html__('Enable Icon Animation', 'divi_flash'),
-                'type'           => 'yes_no_button',
-                'default'        => 'off',
-                'options'        => array(
-                    'off' => esc_html__('Off', 'divi_flash'),
-                    'on'  => esc_html__('On', 'divi_flash')
+            // 'enable_icon_animation' => array(
+            //     'label'          => esc_html__('Enable Icon Animation', 'divi_flash'),
+            //     'type'           => 'yes_no_button',
+            //     'default'        => 'off',
+            //     'options'        => array(
+            //         'off' => esc_html__('Off', 'divi_flash'),
+            //         'on'  => esc_html__('On', 'divi_flash')
+            //     ),
+            //     'toggle_slug'    => 'animation'
+            // ),
+            'icon_animation'  => array(
+                'label'      => esc_html__('Icon Animation Type', 'divi_flash'),
+                'type'       => 'select',
+                'default'    => 'fade_in',
+                'options'    => array(
+                    'fade_in'=> esc_html__('Fade', 'divi_flash'),
+                    'scale'  => esc_html__('Scale', 'divi_flash'),
+                    'rotate' => esc_html__('Rotate', 'divi_flash'),
+                    'default' => esc_html__('No Animation', 'divi_flash')
                 ),
-                'toggle_slug'    => 'animation'
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'animation'
             ),
-            'enable_que_img_animation' => array(
-                'label'          => esc_html__('Enable Question Image Animation', 'divi_flash'),
-                'type'           => 'yes_no_button',
-                'default'        => 'off',
-                'options'        => array(
-                    'off' => esc_html__('Off', 'divi_flash'),
-                    'on'  => esc_html__('On', 'divi_flash')
+            // 'enable_que_img_animation' => array(
+            //     'label'          => esc_html__('Enable Question Image Animation', 'divi_flash'),
+            //     'type'           => 'yes_no_button',
+            //     'default'        => 'off',
+            //     'options'        => array(
+            //         'off' => esc_html__('Off', 'divi_flash'),
+            //         'on'  => esc_html__('On', 'divi_flash')
+            //     ),
+            //     'toggle_slug'    => 'animation'
+            // ),
+            'que_img_animation'  => array(
+                'label'      => esc_html__('Image Animation Type', 'divi_flash'),
+                'type'       => 'select',
+                'default'    => 'fade_in',
+                'options'    => array(
+                    'fade_in'=> esc_html__('Fade', 'divi_flash'),
+                    'scale'  => esc_html__('Scale', 'divi_flash'),
+                    'rotate' => esc_html__('Rotate', 'divi_flash'),
+                    'default' => esc_html__('No Animation', 'divi_flash')
                 ),
-                'toggle_slug'    => 'animation'
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'animation',
+                // 'show_if'         => array(
+                //     'enable_que_img_animation' => 'on'
+                // )
             ),
             'enable_reveal_animation' => array(
                 'label'          => esc_html__('Enable Reveal Animation', 'divi_flash'),
@@ -2110,8 +2139,10 @@ class DIFL_FAQ extends ET_Builder_Module
             'active_item_order_number' => $active_item,
             'enable_faq_animation'     => $this->props['enable_faq_animation'],
             'faq_animation'            => $this->props['faq_animation'],
-            'enable_icon_animation'    => $this->props['enable_icon_animation'],
-            'enable_que_img_animation' => $this->props['enable_que_img_animation'],
+            // 'enable_icon_animation'    => $this->props['enable_icon_animation'],
+            'icon_animation'           => $this->props['icon_animation'],
+            // 'enable_que_img_animation' => $this->props['enable_que_img_animation'],
+            'que_img_animation'        => $this->props['que_img_animation'],
             'enable_reveal_animation'  => $this->props['enable_reveal_animation'],
             'reveal_animation_type'    => $this->props['reveal_animation_type'],
         ];
