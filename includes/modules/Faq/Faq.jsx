@@ -41,6 +41,7 @@ class Faq extends Component {
       additionalCss: additionalCss,
       key: "faq_item_wrapper_bg",
       selector: "%%order_class%% .df_faq_item",
+      important: true,
     });
 
     utility.df_process_bg({

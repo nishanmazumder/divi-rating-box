@@ -12,12 +12,12 @@ class FaqItem extends Component {
 
     var additionalCss = [];
 
-    utility.df_process_bg({
-      props    : props,
-      additionalCss: additionalCss,
-      key      : 'faq_item_wrapper_bg',
-      selector : '%%order_class%% div.df_faq_item'
-    });
+    // utility.df_process_bg({
+    //   props    : props,
+    //   additionalCss: additionalCss,
+    //   key      : 'faq_item_wrapper_bg',
+    //   selector : '%%order_class%% div.df_faq_item'
+    // });
 
     utility.df_process_bg({
       props   : props,

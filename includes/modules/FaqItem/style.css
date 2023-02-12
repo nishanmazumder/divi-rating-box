@@ -6,12 +6,12 @@
 }
 
 /* FAQ Item*/
-.difl_faqitem .faq_question_wrapper,
+/* .difl_faqitem .faq_question_wrapper,
 .difl_faqitem .faq_question_image,
 .difl_faqitem .faq_question,
 .difl_faqitem .faq_icon{
   padding: 5px;
-}
+} */
 
 .difl_faqitem .df_faq_item {
   /* display: block; */
@@ -31,7 +31,7 @@
 }
 .difl_faqitem .faq_question_area {
   display: flex;
-  align-items: center;
+  align-items: start;
 }
 .difl_faqitem .faq_question_image img {
   max-width: 45px;
