@@ -70,39 +70,26 @@ function df_faq_function(parent_class, settings) {
         wrapper.querySelectorAll(".df_faq_item").forEach((ele) => {
           ele.classList.remove("active");
         });
-
         this_answer.parentElement.classList.add("active");
       }
 
       const isActive = _this.parentElement.classList.contains("active");
-
       if ("toggle" === faq_layout) {
-        if ("on" === settings.enable_faq_animation) {
-          if (isActive) {
-            "fade" === settings.faq_animation
-              ? this_answer.fadeToggle(500, "linear")
-              : df_faq_slidedown(this_answer);
-          } else {
-            "fade" === settings.faq_animation
-              ? this_answer.fadeToggle(500, "linear")
-              : df_faq_slideup(this_answer);
-          }
+        if ("none" !== settings.faq_animation) {
+          isActive
+            ? df_faq_slidedown(this_answer, settings)
+            : df_faq_slideup(this_answer, settings);
         } else {
           df_faq_default_toggle(this_answer, isActive);
         }
       }
 
       if ("accordion" === faq_layout) {
-        if ("on" === settings.enable_faq_animation) {
+        if ("none" !== settings.faq_animation) {
           answer.forEach((el) => {
-            df_faq_slideup(el);
+            df_faq_slideup(el, settings);
           });
-
-          if ("fade" === settings.faq_animation) {
-            this_answer.fadeIn(500, "linear");
-          } else {
-            df_faq_slidedown(this_answer);
-          }
+          df_faq_slidedown(this_answer, settings);
         } else {
           answer.forEach((el) => {
             el.style.height = 0;
@@ -114,28 +101,24 @@ function df_faq_function(parent_class, settings) {
       const imgWrapper = _this.querySelector(".faq_question_image");
       const close_img = _this.querySelector(".close_image");
       const open_img = _this.querySelector(".open_image");
-      if ("default" !== settings.que_img_animation) {
+      if ("none" !== settings.que_img_animation) {
         df_animation_image(
           imgWrapper,
           close_img,
           open_img,
           isActive,
           settings.que_img_animation,
-          "accordion" === faq_layout ? "accordion" : ""
+          "accordion" === faq_layout ? "accordion" : "",
+          itemWrapper
         );
       } else {
         if ("accordion" === faq_layout) {
-          itemWrapper.forEach((el) => {
-            const close_imgs = el.querySelector(".close_image");
-            const open_imgs = el.querySelector(".open_image");
-            if (el.classList.contains("active")) {
-              _this.querySelector(".open_image").style.display = "block";
-              _this.querySelector(".close_image").style.display = "none";
-            } else {
-              close_imgs.style.display = "block";
-              open_imgs.style.display = "none";
-            }
-          });
+          df_faq_default_acc_display(
+            itemWrapper,
+            _this,
+            ".close_image",
+            ".open_image"
+          );
         } else {
           df_faq_default_display(close_img, open_img, isActive);
         }
@@ -144,71 +127,57 @@ function df_faq_function(parent_class, settings) {
       const iconWrapper = _this.querySelector(".faq_icon");
       const close_icon = _this.querySelector(".close_icon");
       const open_icon = _this.querySelector(".open_icon");
-      if ("default" !== settings.icon_animation) {
+      if ("none" !== settings.icon_animation) {
         df_animation_icon(
           iconWrapper,
           close_icon,
           open_icon,
           isActive,
           settings.icon_animation,
-          "accordion" === faq_layout ? "accordion" : ""
+          "accordion" === faq_layout ? "accordion" : "",
+          itemWrapper
         );
       } else {
         if ("accordion" === faq_layout) {
-          itemWrapper.forEach((el) => {
-            const close_icons = el.querySelector(".close_icon");
-            const open_icons = el.querySelector(".open_icon");
-            if (el.classList.contains("active")) {
-              _this.querySelector(".open_icon").style.display = "block";
-              _this.querySelector(".close_icon").style.display = "none";
-            } else {
-              close_icons.style.display = "block";
-              open_icons.style.display = "none";
-            }
-          });
+          df_faq_default_acc_display(
+            itemWrapper,
+            _this,
+            ".close_icon",
+            ".open_icon"
+          );
         } else {
           df_faq_default_display(close_icon, open_icon, isActive);
         }
       }
-      if ("on" === settings.enable_reveal_animation) {
-        df_faq_anime_content(this_answer, settings.reveal_animation_type);
+      if ("none" !== settings.enable_reveal_animation) {
+        df_faq_anime_content(this_answer, settings);
       }
     });
   });
-
-  function df_animation_image(
-    wrapper,
-    close,
-    open,
-    isActive,
-    type,
-    layout = ""
-  ) {
-    const object = {
-      targets: wrapper,
-      duration: 250,
-      delay: 0,
-      easing: "linear",
-      update: function() {
-        df_faq_default_display(close, open, isActive, layout);
-      },
-    };
-
-    const anime_config = Object.assign(object, animations[type]);
-    if (window.anime) {
-      window.anime(anime_config);
-    }
-  }
 }
 
-function df_animation_icon(wrapper, close, open, isActive, type, layout = "") {
+function df_faq_default_acc_display(itemWrapper, current, close, open) {
+  itemWrapper.forEach((el) => {
+    const close_els = el.querySelector(close);
+    const open_els = el.querySelector(open);
+    if (el.classList.contains("active")) {
+      current.querySelector(close).style.display = "none";
+      current.querySelector(open).style.display = "block";
+    } else {
+      close_els.style.display = "block";
+      open_els.style.display = "none";
+    }
+  });
+}
+
+function df_animation_image(wrapper, close, open, isActive, type, layout = "", itemWrapper) {
   const object = {
     targets: wrapper,
     duration: 250,
     delay: 0,
     easing: "linear",
     update: function() {
-      df_faq_default_display(close, open, isActive, layout);
+      df_faq_default_display(close, open, isActive, layout, itemWrapper);
     },
   };
 
@@ -218,10 +187,37 @@ function df_animation_icon(wrapper, close, open, isActive, type, layout = "") {
   }
 }
 
-function df_faq_default_display(close, open, isActive, layout = "") {
+function df_animation_icon(wrapper, close, open, isActive, type, layout = "", itemWrapper) {
+  const object = {
+    targets: wrapper,
+    duration: 250,
+    delay: 0,
+    easing: "linear",
+    update: function() {
+      df_faq_default_display(close, open, isActive, layout, itemWrapper);
+    },
+  };
+
+  const anime_config = Object.assign(object, animations[type]);
+  if (window.anime) {
+    window.anime(anime_config);
+  }
+}
+
+function df_faq_default_display(close, open, isActive, layout = "", itemWrapper="") {
   if ("accordion" === layout) {
-    const activeWrapper = document.querySelectorAll(".df_faq_item");
-    activeWrapper.forEach((el) => {
+    // const itemWrapper = document.querySelectorAll(".df_faq_item");
+
+    // df_faq_default_acc_display(
+    //   itemWrapper,
+    //   _this,
+    //   ".close_icon",
+    //   ".open_icon"
+    // );
+
+    // df_faq_default_acc_display(itemWrapper, current, close, open)
+
+    itemWrapper.forEach((el) => {
       el.querySelector(".close_image").style.display = "block";
       el.querySelector(".open_image").style.display = "none";
       el.querySelector(".close_icon").style.display = "block";
@@ -274,43 +270,54 @@ function hide_faq_items(child_class) {
 } // hide_faq_items
 
 // FAQ Animation data
-function df_faq_slidedown(answerWrapper) {
+function df_faq_slidedown(answerWrapper, settings) {
   answerWrapper.style.height = "100%";
   const answerHeight = answerWrapper.clientHeight;
   answerWrapper.style.height = 0;
 
-  window.anime({
-    targets: answerWrapper,
-    easing: "linear",
-    duration: 250,
-    endDelay: 0,
-    delay: 0,
-    height: answerHeight,
-  });
-}
-
-function df_faq_slideup(answerWrapper) {
-  window.anime({
-    targets: answerWrapper,
-    easing: "linear",
-    duration: 250,
-    endDelay: 0,
-    delay: 0,
-    height: 0,
-  });
-}
-
-function df_faq_anime_content(selector, reveal_animation) {
   const object = {
-    targets: selector,
+    targets: answerWrapper,
+    easing: "linear",
+    duration: settings.faq_anime_duration,
+    height: answerHeight,
+  };
+
+  if (window.anime) {
+    window.anime(Object.assign(object, animations[settings.faq_animation]));
+  }
+}
+
+function df_faq_slideup(answerWrapper, settings) {
+  const object = {
+    targets: answerWrapper,
+    easing: "linear",
+    duration: settings.faq_anime_duration,
+    height: 0,
+  };
+
+  if (window.anime) {
+    window.anime(Object.assign(object, animations[settings.faq_animation]));
+  }
+}
+
+function df_faq_anime_content(selector, settings) {
+  let content = selector.firstElementChild.firstElementChild;
+  let image = selector.firstElementChild.lastElementChild;
+  let button = selector.lastElementChild;
+
+  const object = {
+    targets: [content, image, button],
     direction: "alternate",
     easing: "linear",
-    duration: 250,
-    delay: anime.stagger(250),
+    duration: settings.content_anime_duration,
+    delay: anime.stagger(settings.content_anime_duration),
     endDelay: 1,
   };
 
-  var anime_config = Object.assign(object, animations[reveal_animation]);
+  var anime_config = Object.assign(
+    object,
+    animations[settings.content_animation_type]
+  );
   if (window.anime) {
     window.anime(anime_config);
   }
@@ -333,8 +340,12 @@ const animations = {
     opacity: ["1", "0"],
     translateY: ["0", "100px"],
   },
-  fade_in: {
+  slide: {},
+  fade: {
     opacity: [0, 1],
+  },
+  fade_in: {
+    opacity: [1, 0],
   },
   rotate: {
     rotate: "+=1turn",
