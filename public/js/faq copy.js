@@ -1,30 +1,20 @@
 const difl_faq = document.querySelectorAll(".difl_faq");
 [].forEach.call(difl_faq, function(parent, index) {
-  // get parent unique class
   const parent_class = parent.classList.value
     .split(" ")
     .filter(function(class_name) {
       return class_name.indexOf("difl_faq_") !== -1;
     });
-
-  // get data settings
   const mainWrapper = parent.querySelector(".df_faq_wrapper");
   const settings = JSON.parse(mainWrapper.dataset.settings); // global settings
-
-  // get child wrapper
   const itemWrapper = parent.querySelectorAll(".difl_faqitem");
-
-  // 2 Active faq item order number
-  // prettier-ignore
-  if (!!settings.active_item_order_number && "on" === settings.activate_on_first_time) {
-      itemWrapper[settings.active_item_order_number - 1].classList.add( "active");
-    }
-  // prettier-ignore
-
-  // faq trigger
+  if (
+    !!settings.active_item_order_number &&
+    "on" === settings.activate_on_first_time
+  ) {
+    itemWrapper[settings.active_item_order_number - 1].classList.add("active");
+  }
   df_faq_function(parent_class[0], settings);
-
-  // hide item on devices
   itemWrapper.forEach((child) => {
     hide_faq_items(child);
   });
@@ -32,13 +22,12 @@ const difl_faq = document.querySelectorAll(".difl_faq");
 
 function df_faq_function(parent_class, settings) {
   const wrapper = document.querySelector("." + parent_class);
-  const que_img_open = wrapper.querySelectorAll(".open_image");
-  const que_icon_open = wrapper.querySelectorAll(".open_icon");
+  const itemWrapper = wrapper.querySelectorAll(".df_faq_item");
 
-  que_img_open.forEach((el) => {
+  wrapper.querySelectorAll(".open_image").forEach((el) => {
     el.style.display = "none";
   });
-  que_icon_open.forEach((el) => {
+  wrapper.querySelectorAll(".open_icon").forEach((el) => {
     el.style.display = "none";
   });
 
@@ -46,11 +35,7 @@ function df_faq_function(parent_class, settings) {
   answer.forEach((el) => {
     el.style.height = 0;
   });
-
-  // prettier-ignore
-  const faq_layout = "" !== settings.faq_layout ? settings.faq_layout : "accordion";
-
-  // faq toggle calss add/remove
+  const faq_layout = "" !== settings.faq_layout ? settings.faq_layout : "";
   const itemSelector = wrapper.querySelectorAll(".df_faq_item");
   if ("plain" === faq_layout) {
     itemSelector.forEach((ele) => {
@@ -58,31 +43,40 @@ function df_faq_function(parent_class, settings) {
       if (ele.classList.contains("active")) {
         answer.forEach((el) => {
           el.style.height = "100%";
+          el.previousElementSibling.querySelector(
+            ".close_image"
+          ).style.display = "none";
+          el.previousElementSibling.querySelector(".open_image").style.display =
+            "block";
+          el.previousElementSibling.querySelector(".close_icon").style.display =
+            "none";
+          el.previousElementSibling.querySelector(".open_icon").style.display =
+            "block";
         });
       }
     });
   }
 
-  // faq click
   const question = wrapper.querySelectorAll(".faq_question_wrapper");
   question.forEach((ele) => {
     ele.addEventListener("click", function() {
+      const _this = this;
       if ("plain" === faq_layout) return;
-      const this_answer = this.nextElementSibling;
-      if ("individual" === faq_layout) {
-        this.parentElement.classList.toggle("active");
+      const this_answer = _this.nextElementSibling;
+      if ("toggle" === faq_layout) {
+        _this.parentElement.classList.toggle("active");
       } else if ("accordion" === faq_layout) {
-        if (this.parentElement.classList.contains("active")) return;
+        if (_this.parentElement.classList.contains("active")) return;
         wrapper.querySelectorAll(".df_faq_item").forEach((ele) => {
           ele.classList.remove("active");
         });
+
         this_answer.parentElement.classList.add("active");
       }
 
-      const isActive = this.parentElement.classList.contains("active");
+      const isActive = _this.parentElement.classList.contains("active");
 
-      // individual
-      if ("individual" === faq_layout) {
+      if ("toggle" === faq_layout) {
         if ("on" === settings.enable_faq_animation) {
           if (isActive) {
             "fade" === settings.faq_animation
@@ -94,85 +88,160 @@ function df_faq_function(parent_class, settings) {
               : df_faq_slideup(this_answer);
           }
         } else {
-          console.log("disable animation!");
+          df_faq_default_toggle(this_answer, isActive);
         }
       }
 
-      // accordion
       if ("accordion" === faq_layout) {
         if ("on" === settings.enable_faq_animation) {
           answer.forEach((el) => {
             df_faq_slideup(el);
-          }); // slideup global
+          });
 
           if ("fade" === settings.faq_animation) {
             this_answer.fadeIn(500, "linear");
           } else {
             df_faq_slidedown(this_answer);
           }
+        } else {
+          answer.forEach((el) => {
+            el.style.height = 0;
+          });
+          df_faq_default_toggle(this_answer, isActive);
         }
       }
 
-      // img animation
-      const imgWrapper = this.querySelector(".faq_question_image");
-      const close_img = this.querySelector(".close_image");
-      const open_img = this.querySelector(".open_image");
-      if ("on" === settings.enable_que_img_animation) {
-        df_anime_rotate_ele(imgWrapper, close_img, open_img, isActive);
+      const imgWrapper = _this.querySelector(".faq_question_image");
+      const close_img = _this.querySelector(".close_image");
+      const open_img = _this.querySelector(".open_image");
+      if ("default" !== settings.que_img_animation) {
+        df_animation_image(
+          imgWrapper,
+          close_img,
+          open_img,
+          isActive,
+          settings.que_img_animation,
+          "accordion" === faq_layout ? "accordion" : ""
+        );
       } else {
-        df_faq_default_display(close_img, open_img, isActive);
+        if ("accordion" === faq_layout) {
+          itemWrapper.forEach((el) => {
+            const close_imgs = el.querySelector(".close_image");
+            const open_imgs = el.querySelector(".open_image");
+            if (el.classList.contains("active")) {
+              _this.querySelector(".open_image").style.display = "block";
+              _this.querySelector(".close_image").style.display = "none";
+            } else {
+              close_imgs.style.display = "block";
+              open_imgs.style.display = "none";
+            }
+          });
+        } else {
+          df_faq_default_display(close_img, open_img, isActive);
+        }
       }
 
-      // icon animation
-      const iconWrapper = this.querySelector(".faq_icon");
-      const close_icon = this.querySelector(".close_icon");
-      const open_icon = this.querySelector(".open_icon");
-      if ("on" === settings.enable_icon_animation) {
-        df_anime_rotate_ele(iconWrapper, close_icon, open_icon, isActive);
+      const iconWrapper = _this.querySelector(".faq_icon");
+      const close_icon = _this.querySelector(".close_icon");
+      const open_icon = _this.querySelector(".open_icon");
+      if ("default" !== settings.icon_animation) {
+        df_animation_icon(
+          iconWrapper,
+          close_icon,
+          open_icon,
+          isActive,
+          settings.icon_animation,
+          "accordion" === faq_layout ? "accordion" : ""
+        );
       } else {
-        df_faq_default_display(close_icon, open_icon, isActive);
+        if ("accordion" === faq_layout) {
+          itemWrapper.forEach((el) => {
+            const close_icons = el.querySelector(".close_icon");
+            const open_icons = el.querySelector(".open_icon");
+            if (el.classList.contains("active")) {
+              _this.querySelector(".open_icon").style.display = "block";
+              _this.querySelector(".close_icon").style.display = "none";
+            } else {
+              close_icons.style.display = "block";
+              open_icons.style.display = "none";
+            }
+          });
+        } else {
+          df_faq_default_display(close_icon, open_icon, isActive);
+        }
       }
-
-      // content reveal animation
       if ("on" === settings.enable_reveal_animation) {
         df_faq_anime_content(this_answer, settings.reveal_animation_type);
       }
-    }); // click
+    });
   });
 
-  function df_anime_rotate_ele(wrapper, close, open, isActive) {
-    const rotate = window.anime({
+  function df_animation_image(
+    wrapper,
+    close,
+    open,
+    isActive,
+    type,
+    layout = ""
+  ) {
+    const object = {
       targets: wrapper,
-      rotate: {
-        value: "+=1turn",
-        duration: 250,
-        easing: "linear",
-      },
-      scale: [2, 1],
-      opacity: [0, 1],
       duration: 250,
       delay: 0,
       easing: "linear",
-    });
-
-    rotate.play();
-    rotate.update = function() {
-      df_faq_default_display(close, open, isActive);
+      update: function() {
+        df_faq_default_display(close, open, isActive, layout);
+      },
     };
 
-    // rotate.complete = function () {
-    //   rotate.reverse();
-    // }
+    const anime_config = Object.assign(object, animations[type]);
+    if (window.anime) {
+      window.anime(anime_config);
+    }
   }
 }
 
-function df_faq_default_display(close, open, isActive) {
-  if (isActive) {
-    close.style.display = "none";
-    open.style.display = "block";
+function df_animation_icon(wrapper, close, open, isActive, type, layout = "") {
+  const object = {
+    targets: wrapper,
+    duration: 250,
+    delay: 0,
+    easing: "linear",
+    update: function() {
+      df_faq_default_display(close, open, isActive, layout);
+    },
+  };
+
+  const anime_config = Object.assign(object, animations[type]);
+  if (window.anime) {
+    window.anime(anime_config);
+  }
+}
+
+function df_faq_default_display(close, open, isActive, layout = "") {
+  if ("accordion" === layout) {
+    const activeWrapper = document.querySelectorAll(".df_faq_item");
+    activeWrapper.forEach((el) => {
+      el.querySelector(".close_image").style.display = "block";
+      el.querySelector(".open_image").style.display = "none";
+      el.querySelector(".close_icon").style.display = "block";
+      el.querySelector(".open_icon").style.display = "none";
+
+      if (el.classList.contains("active")) {
+        el.querySelector(".close_image").style.display = "none";
+        el.querySelector(".open_image").style.display = "block";
+        el.querySelector(".close_icon").style.display = "none";
+        el.querySelector(".open_icon").style.display = "block";
+      }
+    });
   } else {
-    open.style.display = "none";
-    close.style.display = "block";
+    if (isActive) {
+      close.style.display = "none";
+      open.style.display = "block";
+    } else {
+      open.style.display = "none";
+      close.style.display = "block";
+    }
   }
 }
 
@@ -180,7 +249,7 @@ function df_faq_default_toggle(wrapper, isActive) {
   if (isActive) {
     wrapper.style.height = "100%";
   } else {
-    wrapper.style.display = 0;
+    wrapper.style.height = 0;
   }
 }
 
@@ -239,12 +308,9 @@ function df_faq_anime_content(selector, reveal_animation) {
     duration: 250,
     delay: anime.stagger(250),
     endDelay: 1,
-
-    // height: height > 0 ? [0, height] : 0,
   };
 
   var anime_config = Object.assign(object, animations[reveal_animation]);
-
   if (window.anime) {
     window.anime(anime_config);
   }
@@ -268,24 +334,27 @@ const animations = {
     translateY: ["0", "100px"],
   },
   fade_in: {
-    opacity: ["0", "1"],
+    opacity: [0, 1],
+  },
+  rotate: {
+    rotate: "+=1turn",
+  },
+  scale: {
+    scale: [2, 1],
   },
   zoom_left: {
     opacity: ["1", "0"],
     scale: ["1", ".5"],
     transformOrigin: ["0% 50%", "0% 50%"],
-    // duration: 200
   },
   zoom_center: {
     opacity: ["1", "0"],
     scale: ["1", ".5"],
     transformOrigin: ["50% 50%", "50% 50%"],
-    // duration: 200
   },
   zoom_right: {
     opacity: ["1", "0"],
     scale: ["1", ".5"],
     transformOrigin: ["100% 50%", "100% 50%"],
-    // duration: 200
   },
 };
