@@ -189,7 +189,7 @@ class DIFL_FAQ extends ET_Builder_Module
                         'tabbed_subtoggles' => true,
                         'sub_toggles'  => $heading_sub_toggles,
                     ),
-                    'design_button'    => esc_html__('Button', 'divi_flash'),
+                    'design_button'    => esc_html__('Answer Button', 'divi_flash'),
                     'margin_padding'   => [
                         'title'        => esc_html__('Custom Spacing', 'divi_flash'),
                         'tabbed_subtoggles' => true,

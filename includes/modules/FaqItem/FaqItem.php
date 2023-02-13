@@ -169,10 +169,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                         'tabbed_subtoggles' => true,
                         'sub_toggles'       => $heading_sub_toggles,
                     ),
-                    'design_button'    => esc_html__('Button', 'divi_flash'),
-                    // 'design_background'     => esc_html__('FAQ Background', 'divi_flash'),
-                    // 'design_border'       => esc_html__('Border', 'divi_flash'),
-                    // 'design_box_shadow'     => esc_html__('Box Shadow', 'divi_flash'),
+                    'design_button'    => esc_html__('Answer Button', 'divi_flash'),
                     'margin_padding'   => [
                         'title'        => esc_html__('Custom Spacing', 'divi_flash'),
                         'tabbed_subtoggles' => true,
@@ -599,15 +596,6 @@ class DIFL_FaqItem extends ET_Builder_Module
             )
         ];
 
-        // $faq_item_wrapper_bg = $this->df_add_bg_field(
-        //     array(
-        //         'label'        => 'FAQ Item Background',
-        //         'key'          => 'faq_item_wrapper_bg',
-        //         'toggle_slug'  => 'design_background',
-        //         'tab_slug'     => 'general'
-        //     )
-        // );
-
         $que_wrapper_bg = $this->df_add_bg_field(array(
             'label'            => 'Wrapper Background',
             'key'              => 'que_wrapper_bg',
@@ -672,17 +660,6 @@ class DIFL_FaqItem extends ET_Builder_Module
             'toggle_slug'   => 'margin_padding',
             'sub_toggle'    => 'content'
         ));
-
-        // $ans_wrapper_padding = $this->add_margin_padding(
-        //     array(
-        //         'title'         => 'Answer Wrapper',
-        //         'key'           => 'ans_wrapper',
-        //         'toggle_slug'   => 'margin_padding',
-        //         'sub_toggle'    => 'wrapper',
-        //         'default_padding' => '5px',
-        //         'option'        => 'padding',
-        //     )
-        // );
 
         $ans_text_padding = $this->add_margin_padding(
             array(

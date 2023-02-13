@@ -7,7 +7,7 @@
 
 /* FAQ Item*/
 .difl_faqitem .df_faq_item {
-  width: 100%;
+  max-width: 550px;
   background: #f4f4f4;
 }
 
@@ -89,6 +89,9 @@
 }
 
 /* FAQ Hide */
+.df_content_props {
+  display: none;
+}
 .difl_faqitem.df_hide_desktop {
   display: none !important;
 }

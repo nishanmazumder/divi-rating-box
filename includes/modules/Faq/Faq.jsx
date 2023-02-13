@@ -27,7 +27,7 @@ class Faq extends Component {
   static css(props) {
     var additionalCss = [];
 
-    // console.log(props)
+    console.log(props);
 
     utility.df_process_bg({
       props: props,
@@ -486,7 +486,7 @@ class Faq extends Component {
         additionalCss: additionalCss,
         selector: "%%order_class%% .faq_button",
         type: "text-align",
-        default_value: "left"
+        default_value: "left",
       });
     }
 
@@ -599,9 +599,9 @@ class Faq extends Component {
     const TitleTag = child_props.question_title_tag ? child_props.question_title_tag : "h3";
     const QueImgHtml = this.render_que_image(child_props);
     const QueIconHtml = this.render_que_icon(props, utils)
-    const QueHtml = <div className="faq_question">
-          <TitleTag className="faq_question_title">{child_props.question ? child_props.question : ""}</TitleTag>
-        </div>
+    const QueHtml = child_props.question ? <div className="faq_question">
+          <TitleTag className="faq_question_title">{child_props.question}</TitleTag>
+        </div>  : "";
 
     return (
       <div className="faq_question_wrapper" data-key={i} onClick={(e) => this.df_faq_toggle(e)}>
@@ -640,13 +640,12 @@ class Faq extends Component {
 
     return [].map.call(content, (data, i) => {
       const child_props = data.props.attrs;
-
       const disable_item_class = this.df_multicheck_value(child_props)
-
       const child_class = `et_pb_module difl_faqitem difl_faqitem_${i} ${disable_item_class}`;
       // const child_class = `et_pb_module difl_faqitem difl_faqitem_${i}`;
 
       return (
+
         <div key={i} className={child_class}>
           <div className="et_pb_module_inner">
             <div key={child_props.question} className={`df_faq_item ${faqType ? 'active' : ""}`}>
@@ -675,18 +674,6 @@ class Faq extends Component {
       classes += "on" === devices.desktop ? "df_hide_desktop " : "";
       classes += "on" === devices.tablet ? "df_hide_tablet " : "";
       classes += "on" === devices.mobile ? "df_hide_mobile " : "";
-
-      // "on" === single_devices.desktop
-      //   ? (responsive_classes += "df_hide_desktop ")
-      //   : (responsive_classes += "");
-
-      // "on" === single_devices.tablet
-      //   ? (responsive_classes += "df_hide_tablet ")
-      //   : (responsive_classes += "");
-
-      // "on" === single_devices.mobile
-      //   ? (responsive_classes += "df_hide_mobile ")
-      //   : (responsive_classes += "");
 
       return classes;
     } else {
@@ -741,7 +728,9 @@ class Faq extends Component {
     return (
       <div className="df_faq_wrapper">
         {this.render_faq_items()}
-        {0 !== this.props.content.length ? this.props.content : ""}
+        <div className="df_content_props">
+          {0 !== this.props.content.length ? this.props.content : ""}
+        </div>
       </div>
     );
   }
