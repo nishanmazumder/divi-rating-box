@@ -478,6 +478,18 @@ class Faq extends Component {
 
     // }
 
+    // button design
+    if ("" !== props.button_alignment) {
+      utility.df_process_string_attr({
+        props: props,
+        key: "button_alignment",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_button",
+        type: "text-align",
+        default_value: "left"
+      });
+    }
+
     return additionalCss;
   }
 

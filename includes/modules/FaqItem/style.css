@@ -17,6 +17,7 @@
   align-items: center;
   cursor: pointer;
   overflow: hidden;
+  transition: all .5s;
 }
 .difl_faqitem .faq_question_area {
   display: flex;

@@ -306,7 +306,7 @@ function df_faq_anime_content(selector, settings) {
   let button = selector.lastElementChild;
 
   const object = {
-    targets: [content, image, button],
+    targets: [button, image, content],
     direction: "alternate",
     easing: "linear",
     duration: settings.content_anime_duration,

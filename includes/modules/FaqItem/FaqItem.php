@@ -399,8 +399,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'toggle_slug'    => 'design_faq_icon',
                 'sub_toggle'     => 'close',
                 'tab_slug'       => 'advanced',
-                'hover'          => 'tabs',
-                'default'        => "#b8b9bb"
+                'hover'          => 'tabs'
             ),
 
             'open_icon_color'    => array(
@@ -411,8 +410,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'toggle_slug'    => 'design_faq_icon',
                 'sub_toggle'     => 'open',
                 'tab_slug'       => 'advanced',
-                'hover'          => 'tabs',
-                'default'        => "#666",
+                'hover'          => 'tabs'
             )
         ];
 
@@ -492,6 +490,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'default'         => 'off',
                 'toggle_slug'     => 'design_button',
                 'tab_slug'        => 'advanced',
+                'mobile_options'  => true,
                 'show_if'         => array(
                     'enable_answer_button' => 'on'
                 )
@@ -791,7 +790,6 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'toggle_slug'  => 'design_question_text',
                 'sub_toggle'   => 'open',
                 'tab_slug'     => 'advanced',
-                'hide_text_align' => true,
                 'font_size'    => array(
                     'default'  => '22px',
                 ),
@@ -837,7 +835,6 @@ class DIFL_FaqItem extends ET_Builder_Module
                 // 'label'        => esc_html__('Question', 'divi_flash'),
                 'toggle_slug' => 'design_button',
                 'tab_slug'    => 'advanced',
-                'hide_text_align' => true,
                 'line_height' => array(
                     'default' => '1.5em',
                 ),
@@ -1357,7 +1354,56 @@ class DIFL_FaqItem extends ET_Builder_Module
 
         return $fields;
     }
+    // public function get_custom_css_fields_config()
+    // {
 
+    //     return array(
+    //         'que_wrapper_css' => array(
+    //             'label'    => esc_html__('Question Wrapper', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_question_wrapper",
+    //         ),
+    //         'que_text_css' => array(
+    //             'label'    => esc_html__('Question Text', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_question_wrapper div.faq_question_title",
+    //         ),
+    //         'close_que_icon_css' => array(
+    //             'label'    => esc_html__('Close Question Icon', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_question_wrapper div.close_icon .et-pb-icon",
+    //         ),
+    //         'open_que_icon_css' => array(
+    //             'label'    => esc_html__('Open Question Icon', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_question_wrapper div.open_icon .et-pb-icon",
+    //         ),
+    //         'close_que_img_css' => array(
+    //             'label'    => esc_html__('Close Question Image', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_question_wrapper div.close_image img",
+    //         ),
+    //         'open_que_img_css' => array(
+    //             'label'    => esc_html__('Open Question Image', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_question_wrapper div.open_image img",
+    //         ),
+    //         'ans_wrapper_css' => array(
+    //             'label'    => esc_html__('Answer Wrapper', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_answer_wrapper",
+    //         ),
+    //         'ans_text_css' => array(
+    //             'label'    => esc_html__('Answer Text', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_answer_wrapper div.faq_answer",
+    //         ),
+    //         'ans_img_css'  => array(
+    //             'label'    => esc_html__('Answer Image', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_answer_wrapper div.faq_answer_image img",
+    //         ),
+    //         'ans_button_css'  => array(
+    //             'label'    => esc_html__('Answer Button', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_answer_wrapper div.faq_button a",
+    //         ),
+    //         'ans_btn_icon_css'  => array(
+    //             'label'    => esc_html__('Answer Button Icon', 'divi_flash'),
+    //             'selector' => "$this->main_css_element div.faq_answer_wrapper div.faq_button span.et-pb-icon",
+    //         )
+    //     );
+    // }
     public function additional_css_styles($render_slug)
     {
         // $this->df_process_bg(
@@ -1724,7 +1770,7 @@ class DIFL_FaqItem extends ET_Builder_Module
         // button design
         if ('on' === $this->props['button_full_width']) {
             ET_Builder_Element::set_style($render_slug, array(
-                'selector'    => "$this->main_css_element .faq_button a",
+                'selector'    => "$this->main_css_element div.faq_button a",
                 'declaration' => 'display: block !important;'
             ));
         }
@@ -1734,8 +1780,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'render_slug' => $render_slug,
                 'slug'        => 'button_alignment',
                 'type'        => 'text-align',
-                'selector'    => "%%order_class%% .faq_button",
-                'default'     => 'left'
+                'selector'    => "%%order_class%% div.faq_button"
             ));
         }
     }

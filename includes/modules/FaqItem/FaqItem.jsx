@@ -76,7 +76,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "close_icon_color",
       additionalCss: additionalCss,
-      selector: "%%order_class%% div.close_icon span.et-pb-icon",
+      selector: "%%order_class%% div.faq_icon div.close_icon .et-pb-icon",
       type    : "color"
     });
 
@@ -84,7 +84,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "open_icon_color",
       additionalCss: additionalCss,
-      selector: "%%order_class%% div.open_icon span.et-pb-icon",
+      selector: "%%order_class%% div.faq_icon div.open_icon .et-pb-icon",
       type    : "color"
     });
 
@@ -296,7 +296,7 @@ class FaqItem extends Component {
     if ("on" === props.button_full_width) {
       additionalCss.push([
         {
-          selector: "%%order_class%% .faq_button a",
+          selector: "%%order_class%% div.faq_button a",
           declaration: "display: block !important;",
         },
       ]);
@@ -307,9 +307,8 @@ class FaqItem extends Component {
         props: props,
         key: "button_alignment",
         additionalCss: additionalCss,
-        selector: "%%order_class%% .faq_button",
-        type: "text-align",
-        default_value: "left",
+        selector: "%%order_class%% div.faq_button",
+        type: "text-align"
       });
     }
 
