@@ -169,6 +169,7 @@ class DIFL_FaqItem extends ET_Builder_Module
                         'tabbed_subtoggles' => true,
                         'sub_toggles'       => $heading_sub_toggles,
                     ),
+                    'design_answer_img'=> esc_html__('Answer Image', 'divi_flash'),
                     'design_button'    => esc_html__('Answer Button', 'divi_flash'),
                     'margin_padding'   => [
                         'title'        => esc_html__('Custom Spacing', 'divi_flash'),
@@ -1128,6 +1129,19 @@ class DIFL_FaqItem extends ET_Builder_Module
                 'toggle_slug'     => 'design_answer',
                 'tab_slug'        => 'advanced'
             ),
+            'ans_img_border' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element div.faq_answer_image img",
+                        'border_radii_hover' => "$this->main_css_element div.faq_answer_image:hover img",
+                        'border_styles'      => "$this->main_css_element div.faq_answer_image img",
+                        'border_styles_hover' => "$this->main_css_element div.faq_answer_image:hover img",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_answer_img',
+                'tab_slug'        => 'advanced'
+            ),
             'ans_button_border' => array(
                 'css' => array(
                     'main'  => array(
@@ -1187,6 +1201,15 @@ class DIFL_FaqItem extends ET_Builder_Module
                     'hover' => "$this->main_css_element div.faq_answer_wrapper:hover",
                 ),
                 'toggle_slug'  => 'design_answer',
+                'tab_slug'     => 'advanced',
+            ),
+            'ans_img_box_shadow' => array(
+                // 'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
+                'css' => array(
+                    'main'  => "$this->main_css_element div.faq_answer_image",
+                    'hover' => "$this->main_css_element div.faq_answer_image:hover",
+                ),
+                'toggle_slug'  => 'design_answer_img',
                 'tab_slug'     => 'advanced',
             )
         );
@@ -1303,12 +1326,13 @@ class DIFL_FaqItem extends ET_Builder_Module
         $fields = $this->df_fix_border_transition($fields, 'active_que_img_border', $active_que_img);
         $fields = $this->df_fix_border_transition($fields, 'que_icon_wrapper_border', $icon_wrapper);
         $fields = $this->df_fix_border_transition($fields, 'ans_wrapper_border', $ans_wrapper);
+        $fields = $this->df_fix_border_transition($fields, 'ans_img_border', "$this->main_css_element div.faq_answer_image img");
         $fields = $this->df_fix_border_transition($fields, 'ans_button_border', $ans_button);
 
         // Box Shadow
-        // $fields = $this->df_fix_border_transition($fields, 'faq_item_box_shadow', "$this->main_css_element .df_faq_item");
-        $fields = $this->df_fix_box_shadow_transition($fields, 'ans_wrapper_box_shadow', $ans_wrapper);
         $fields = $this->df_fix_box_shadow_transition($fields, 'que_wrapper_box_shadow', $que_wrapper);
+        $fields = $this->df_fix_box_shadow_transition($fields, 'ans_wrapper_box_shadow', $ans_wrapper);
+        $fields = $this->df_fix_box_shadow_transition($fields, 'ans_img_box_shadow', "$this->main_css_element div.faq_answer_image");
 
         //Spacing
         $fields['faq_item_wrapper_margin']  = array('margin'  => "$this->main_css_element .df_faq_item");
@@ -1766,7 +1790,7 @@ class DIFL_FaqItem extends ET_Builder_Module
         $close_q_img_alt = !empty($this->props['close_que_img_alt_txt']) ? $this->props['close_que_img_alt_txt'] : "";
         $open_q_img = !empty($this->props['open_question_image']) ? $this->props['open_question_image'] : $close_q_img;
         $open_q_img_alt = !empty($this->props['open_que_img_alt_txt']) ? $this->props['open_que_img_alt_txt'] : $close_q_img_alt;
-        $que_img_html = 'on' === $this->props['enable_question_image'] ?
+        $que_img_html = 'on' === $this->props['enable_question_image'] && (!empty($this->props['close_question_image']) || !empty($this->props['open_question_image'])) ?
             sprintf(
                 '<div class="faq_question_image">
                     <div class="close_image">%1$s</div>

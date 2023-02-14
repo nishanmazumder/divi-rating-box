@@ -203,7 +203,7 @@ class FaqItem extends Component {
       props   : props,
       key     : "ans_img_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% div.faq_answer_image",
+      selector: "%%order_class%% div.faq_answer_image img",
       type    : "padding"
     });
 

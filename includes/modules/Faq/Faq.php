@@ -112,7 +112,7 @@ class DIFL_FAQ extends ET_Builder_Module
             'general'   => array(
                 'toggles'       => array(
                     'setting'   => esc_html__('Settings', 'divi_flash'),
-                    'que_setting'   => esc_html__('Settings', 'divi_flash'),
+                    'que_setting'   => esc_html__('Question Settings', 'divi_flash'),
                     // 'faq_icon'  => [
                     //     'title' => esc_html__('Icon', 'divi_flash'),
                     //     'tabbed_subtoggles' => true,
@@ -190,7 +190,7 @@ class DIFL_FAQ extends ET_Builder_Module
                         'tabbed_subtoggles' => true,
                         'sub_toggles'  => $heading_sub_toggles,
                     ),
-                    // 'design_answer_img'     => esc_html__('Answer Image', 'divi_flash'),
+                    'design_answer_img'=> esc_html__('Answer Image', 'divi_flash'),
                     'design_button'    => esc_html__('Answer Button', 'divi_flash'),
                     'margin_padding'   => [
                         'title'        => esc_html__('Custom Spacing', 'divi_flash'),
@@ -374,6 +374,20 @@ class DIFL_FAQ extends ET_Builder_Module
                     'disable_faq_icon' => 'off'
                 )
             ),
+            'faq_que_alignment' => array(
+                'label'        => esc_html__('Question Layout Type', 'divi_flash'),
+                'type'         => 'select',
+                'default'      => 'space-between',
+                'options'      => array(
+                    'space-between' => esc_html__('Default', 'divi_flash'),
+                    'left'     => esc_html__('Left', 'divi_flash'),
+                    'center'   => esc_html__('Center', 'divi_flash'),
+                    'right'    => esc_html__('Right', 'divi_flash'),
+                ),
+                'option_category' => 'basic_option',
+                'toggle_slug'     => 'que_setting',
+                'mobile_options'  => true
+            ),
             'enable_schema'      => array(
                 'label'          => esc_html__('Enable Schema', 'divi_flash'),
                 'description'    => esc_html__('Activate this option to output the schema data for SEO purposes.', 'divi_flash'),
@@ -399,24 +413,6 @@ class DIFL_FAQ extends ET_Builder_Module
                     'enable_schema' => 'on'
                 )
             )
-        ];
-
-        $faq_que_align = [
-            'faq_que_alignment' => array(
-                'label'        => esc_html__('Question Alignment', 'divi_flash'),
-                'type'         => 'select',
-                'default'      => 'space-between',
-                'options'      => array(
-                    'space-between' => esc_html__('Default', 'divi_flash'),
-                    'left'     => esc_html__('Left', 'divi_flash'),
-                    'center'   => esc_html__('Center', 'divi_flash'),
-                    'right'    => esc_html__('Right', 'divi_flash'),
-                ),
-                'option_category' => 'basic_option',
-                'toggle_slug'     => 'design_question',
-                'tab_slug'        => 'advanced',
-                'mobile_options'  => true
-            ),
         ];
 
         $faq_que_icon = [
@@ -927,7 +923,6 @@ class DIFL_FAQ extends ET_Builder_Module
 
         return array_merge(
             $faq,
-            $faq_que_align,
             $faq_que_icon,
             $faq_que_img,
             $faq_animation,
@@ -1344,6 +1339,19 @@ class DIFL_FAQ extends ET_Builder_Module
                 'toggle_slug'     => 'design_answer',
                 'tab_slug'        => 'advanced'
             ),
+            'ans_img_border' => array(
+                'css' => array(
+                    'main' => array(
+                        'border_radii'       => "$this->main_css_element .faq_answer_image img",
+                        'border_radii_hover' => "$this->main_css_element .faq_answer_image:hover img",
+                        'border_styles'      => "$this->main_css_element .faq_answer_image img",
+                        'border_styles_hover' => "$this->main_css_element .faq_answer_image:hover img",
+                    )
+                ),
+                // 'label_prefix'    => esc_html__('Wrapper', 'divi_flash'),
+                'toggle_slug'     => 'design_answer_img',
+                'tab_slug'        => 'advanced'
+            ),
             'ans_button_border' => array(
                 'css' => array(
                     'main'  => array(
@@ -1397,6 +1405,15 @@ class DIFL_FAQ extends ET_Builder_Module
                     'hover' => "$this->main_css_element .faq_answer_wrapper:hover",
                 ),
                 'toggle_slug'  => 'design_answer',
+                'tab_slug'     => 'advanced',
+            ),
+            'ans_img_box_shadow' => array(
+                // 'label'         => esc_html__('Rating Box Shadow', 'divi_flash'),
+                'css' => array(
+                    'main'  => "$this->main_css_element .faq_answer_image",
+                    'hover' => "$this->main_css_element .faq_answer_image:hover",
+                ),
+                'toggle_slug'  => 'design_answer_img',
                 'tab_slug'     => 'advanced',
             )
         );
@@ -1524,11 +1541,13 @@ class DIFL_FAQ extends ET_Builder_Module
         $fields = $this->df_fix_border_transition($fields, 'active_que_img_border', $active_que_img);
         $fields = $this->df_fix_border_transition($fields, 'que_icon_wrapper_border', $icon_wrapper);
         $fields = $this->df_fix_border_transition($fields, 'ans_wrapper_border', $ans_wrapper);
+        $fields = $this->df_fix_border_transition($fields, 'ans_img_border', "$this->main_css_element .faq_answer_image img");
         $fields = $this->df_fix_border_transition($fields, 'ans_button_border', $ans_button);
 
         // Box Shadow
         $fields = $this->df_fix_box_shadow_transition($fields, 'que_wrapper_box_shadow', "$this->main_css_element .df_faq_item");
         $fields = $this->df_fix_box_shadow_transition($fields, 'que_wrapper_box_shadow', $que_wrapper);
+        $fields = $this->df_fix_box_shadow_transition($fields, 'ans_img_box_shadow', "$this->main_css_element .faq_answer_image");
         $fields = $this->df_fix_box_shadow_transition($fields, 'ans_wrapper_box_shadow', $ans_wrapper);
 
         //Spacing
