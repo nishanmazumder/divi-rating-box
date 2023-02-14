@@ -339,10 +339,10 @@ class Faq extends Component {
       ]);
     }
 
-    if ("inherit" !== props.faq_icon_placement) {
+    if ("inherit" !== props.faq_que_swap) {
       utility.df_process_string_attr({
         props: props,
-        key: "faq_icon_placement",
+        key: "faq_que_swap",
         additionalCss: additionalCss,
         selector:
           "%%order_class%% .faq_question_wrapper, %%order_class%% .faq_question_area",

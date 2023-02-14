@@ -101,7 +101,7 @@ function df_faq_function(parent_class, settings) {
       const imgWrapper = _this.querySelector(".faq_question_image");
       const close_img = _this.querySelector(".close_image");
       const open_img = _this.querySelector(".open_image");
-      if ("none" !== settings.que_img_animation) {
+      if ("none" !== settings.que_img_animation && close_img) {
         df_animation_image(
           imgWrapper,
           close_img,
@@ -112,7 +112,7 @@ function df_faq_function(parent_class, settings) {
           itemWrapper
         );
       } else {
-        if ("accordion" === faq_layout) {
+        if ("accordion" === faq_layout && close_img) {
           df_faq_default_acc_display(
             itemWrapper,
             _this,
@@ -120,14 +120,15 @@ function df_faq_function(parent_class, settings) {
             ".open_image"
           );
         } else {
-          df_faq_default_display(close_img, open_img, isActive);
+          if(!close_img) return
+          df_faq_default_display(close_img, open_img, isActive)
         }
       }
 
       const iconWrapper = _this.querySelector(".faq_icon");
       const close_icon = _this.querySelector(".close_icon");
       const open_icon = _this.querySelector(".open_icon");
-      if ("none" !== settings.icon_animation) {
+      if ("none" !== settings.icon_animation && close_icon) {
         df_animation_icon(
           iconWrapper,
           close_icon,
@@ -138,7 +139,7 @@ function df_faq_function(parent_class, settings) {
           itemWrapper
         );
       } else {
-        if ("accordion" === faq_layout) {
+        if ("accordion" === faq_layout && close_icon) {
           df_faq_default_acc_display(
             itemWrapper,
             _this,
@@ -146,6 +147,7 @@ function df_faq_function(parent_class, settings) {
             ".open_icon"
           );
         } else {
+          if(!close_icon) return
           df_faq_default_display(close_icon, open_icon, isActive);
         }
       }
@@ -157,9 +159,12 @@ function df_faq_function(parent_class, settings) {
 }
 
 function df_faq_default_acc_display(itemWrapper, current, close, open) {
+  if(!close) return
   itemWrapper.forEach((el) => {
     const close_els = el.querySelector(close);
     const open_els = el.querySelector(open);
+
+    if(!close_els) return
     if (el.classList.contains("active")) {
       current.querySelector(close).style.display = "none";
       current.querySelector(open).style.display = "block";
@@ -206,7 +211,6 @@ function df_animation_icon(wrapper, close, open, isActive, type, layout = "", it
 
 function df_faq_default_display(close, open, isActive, layout = "", itemWrapper="") {
   if ("accordion" === layout) {
-    // const itemWrapper = document.querySelectorAll(".df_faq_item");
 
     // df_faq_default_acc_display(
     //   itemWrapper,
@@ -214,8 +218,6 @@ function df_faq_default_display(close, open, isActive, layout = "", itemWrapper=
     //   ".close_icon",
     //   ".open_icon"
     // );
-
-    // df_faq_default_acc_display(itemWrapper, current, close, open)
 
     itemWrapper.forEach((el) => {
       el.querySelector(".close_image").style.display = "block";
@@ -230,7 +232,10 @@ function df_faq_default_display(close, open, isActive, layout = "", itemWrapper=
         el.querySelector(".open_icon").style.display = "block";
       }
     });
+
   } else {
+    if(!close) return
+
     if (isActive) {
       close.style.display = "none";
       open.style.display = "block";

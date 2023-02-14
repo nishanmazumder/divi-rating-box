@@ -17,7 +17,6 @@
   align-items: center;
   cursor: pointer;
   overflow: hidden;
-  transition: all .5s;
 }
 .difl_faqitem .faq_question_area {
   display: flex;
@@ -51,6 +50,7 @@
 
 .difl_faqitem .faq_answer_wrapper {
   overflow: hidden;
+  box-sizing: content-box;
 }
 
 .difl_faqitem .faq_answer_area {
