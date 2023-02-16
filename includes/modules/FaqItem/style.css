@@ -6,60 +6,42 @@
 }
 
 /* FAQ Item*/
-.difl_faqitem .faq_question_wrapper,
-.difl_faqitem .faq_question_image,
-.difl_faqitem .faq_question,
-.difl_faqitem .faq_icon{
-  padding: 5px;
-}
-
 .difl_faqitem .df_faq_item {
-  /* display: block; */
-  /* overflow: hidden; */
-  width: 100%;
+  max-width: 550px;
   background: #f4f4f4;
 }
 
-/* .difl_faqitem .df_faq_item{} */
 .difl_faqitem .faq_question_wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   overflow: hidden;
-  /* box-sizing: border-box; */
 }
 .difl_faqitem .faq_question_area {
   display: flex;
-  align-items: center;
+  align-items: start;
 }
 .difl_faqitem .faq_question_image img {
   max-width: 45px;
   display: block;
 }
 
-/* img{
-  max-width: fit-content;
+/* .difl_faqitem.active .open_image,
+.difl_faqitem.active .open_icon{
+  opacity: 0;
 }
 
-.difl_faqitem .faq_question_image img{
-  width: 45px;
-  height: 45px;
+.close_image, .open_image, .close_icon, .open_icon{
+  transition: .6s;
 } */
 
-/* .difl_faqitem .open_image,
-.difl_faqitem .close_image{
-  transition: all 0.5s linear;
-} */
-/* .difl_faqitem .close_icon{} */
-/* .difl_faqitem .open_icon{} */
-/* .difl_faqitem .faq_question{} */
 .difl_faqitem .faq_question_title,
 .difl_faqitem .faq_answer p {
   padding-bottom: 0px;
   line-height: 1.5em;
 }
-/* .difl_faqitem .faq_icon{} */
+
 .difl_faqitem .faq_icon span.et-pb-icon {
   display: block;
   color: #000;
@@ -68,6 +50,7 @@
 
 .difl_faqitem .faq_answer_wrapper {
   overflow: hidden;
+  box-sizing: content-box;
 }
 
 .difl_faqitem .faq_answer_area {
@@ -89,31 +72,26 @@
 .difl_faqitem .faq_answer_image img {
   display: block;
 }
-/* .difl_faqitem .faq_button{} */
 
 .difl_faqitem .faq_button a {
   display: inline-flex;
-  /* align-items: center; */
   overflow: hidden;
   vertical-align: top;
   background: #666;
   color: #fff;
-  /* padding: 5px 10px; */
   font-size: 18px;
   line-height: 1.5em;
 }
 
 .difl_faqitem .faq_button_icon {
-  /* vertical-align: initial; */
   vertical-align: top;
   font-size: 20px;
 }
 
-/* .difl_faqitem .df_faq_item.active .faq_answer_wrapper{
-  display: block !important;
-} */
-
 /* FAQ Hide */
+.df_content_props {
+  display: none;
+}
 .difl_faqitem.df_hide_desktop {
   display: none !important;
 }
