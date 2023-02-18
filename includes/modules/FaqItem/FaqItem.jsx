@@ -8,16 +8,7 @@ class FaqItem extends Component {
   static slug = "difl_faqitem";
 
   static css(props) {
-    // console.log(props)
-
     var additionalCss = [];
-
-    // utility.df_process_bg({
-    //   props    : props,
-    //   additionalCss: additionalCss,
-    //   key      : 'faq_item_wrapper_bg',
-    //   selector : '%%order_class%% div.df_faq_item'
-    // });
 
     utility.df_process_bg({
       props   : props,
@@ -37,7 +28,7 @@ class FaqItem extends Component {
       props   : props,
       additionalCss: additionalCss,
       key     : 'ans_wrapper_bg',
-      selector: '%%order_class%% div.faq_answer_wrapper'
+      selector: '%%order_class%% div.faq_answer_area'
     });
 
     utility.process_color({
@@ -183,13 +174,21 @@ class FaqItem extends Component {
       type    : "padding",
     });
 
-    // utility.process_margin_padding({
-    //   props   : props,
-    //   key     : "ans_wrapper_padding",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% div.faq_answer_wrapper",
-    //   type    : "padding",
-    // });
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_wrapper_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% div.faq_answer_wrapper div.faq_answer_area",
+      type    : "margin",
+    });
+
+    utility.process_margin_padding({
+      props   : props,
+      key     : "ans_wrapper_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% div.faq_answer_wrapper div.faq_answer_area",
+      type    : "padding",
+    });
 
     utility.process_margin_padding({
       props   : props,
@@ -288,7 +287,7 @@ class FaqItem extends Component {
       props: props,
       key  : "answer_image_placement",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .faq_answer_area",
+      selector: "%%order_class%% .faq_content",
       type : "flex-flow",
     });
 
@@ -311,8 +310,6 @@ class FaqItem extends Component {
         type: "text-align"
       });
     }
-
-    // console.log(props);
 
     return additionalCss;
   }

@@ -997,7 +997,7 @@ class DIFL_RatingBox extends ET_Builder_Module
         }
         // Display frontend
         $output = sprintf(
-            '%3$s
+                '%3$s
                 <div class="df_rating_box_container">
                 %1$s
                 %2$s
@@ -1316,21 +1316,11 @@ class DIFL_RatingBox extends ET_Builder_Module
             ));
         }
 
-        $rating_align_mob = "";
-
-        if (!empty($this->props['rating_icon_align_phone'])) {
-            $rating_align_mob = $this->props['rating_icon_align_phone'];
-        } else {
-            if (!empty($this->props['rating_icon_align_tablet'])) {
-                $rating_align_mob = $this->props['rating_icon_align_tablet'];
-            } else {
-                $rating_align_mob = $this->props['rating_icon_align'];
-            }
-        }
-
+        $rating_align_mob = ($this->props['rating_icon_align_phone'] ? $this->props['rating_icon_align_phone']
+                            : $this->props['rating_icon_align_tablet']) ? $this->props['rating_icon_align_tablet'] : $this->props['rating_icon_align'];
         ET_Builder_Element::set_style($render_slug, array(
             'selector'    => "$this->main_css_element .df_rating_icon",
-            'declaration' => "width: fit-content; justify-content: " . $rating_align_mob . ";",
+            'declaration' => "width: 100%; justify-content: " . $rating_align_mob . ";",
             'media_query' => self::get_media_query('max_width_767')
         ));
     } // Css
@@ -1344,8 +1334,7 @@ class DIFL_RatingBox extends ET_Builder_Module
         $title = $this->props['enable_title'] === 'on' && !empty($this->props['title']) ? sprintf(
             '<%1$s class="df_rating_title">%2$s</%1$s>',
             $title_tag,
-            $this->props['title']
-        ) : "";
+            $this->props['title']) : "";
 
         // Rating Icon only
         $get_rating_icon =  $this->props['enable_custom_icon'] === 'on' ? et_pb_process_font_icon($this->props['rating_icon']) : "☆";
@@ -1384,27 +1373,27 @@ class DIFL_RatingBox extends ET_Builder_Module
 
         // Show rating number
         $rating_number = '';
-        if ($this->props['enable_rating_number'] === 'on') {
-            if ($this->props['enable_single_rating'] !== 'on') {
-                if ($this->props['rating_number_type'] === 'number_with_bracket') {
+        if($this->props['enable_rating_number'] === 'on'){
+            if($this->props['enable_single_rating'] !== 'on'){
+                if($this->props['rating_number_type'] === 'number_with_bracket'){
                     $rating_number = sprintf(
                         '<span class="df_rating_number">(%1$s/%2$s)</span>',
                         $rating_value,
                         $rating_scale_type
                     );
-                } elseif ($this->props['rating_number_type'] === 'number_without_bracket') {
+                }elseif($this->props['rating_number_type'] === 'number_without_bracket'){
                     $rating_number = sprintf(
                         '<span class="df_rating_number">%1$s/%2$s</span>',
                         $rating_value,
                         $rating_scale_type
                     );
-                } else {
+                }else{
                     $rating_number = sprintf('<span class="df_rating_number">%1$s</span>', $rating_value_single);
                 }
-            } else {
+            }else{
                 $rating_number = sprintf('<span class="df_rating_number">%1$s</span>', $rating_value_single);
             }
-        } else {
+        }else{
             $rating_number = '';
         }
 

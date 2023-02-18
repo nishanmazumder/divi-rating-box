@@ -1,11 +1,9 @@
-/* Border */
 .difl_faqitem .df_faq_item * {
   border-width: 0px;
   border-style: solid;
   border-color: #333;
 }
 
-/* FAQ Item*/
 .difl_faqitem .df_faq_item {
   max-width: 550px;
   background: #f4f4f4;
@@ -14,7 +12,6 @@
 .difl_faqitem .faq_question_wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   cursor: pointer;
   overflow: hidden;
 }
@@ -26,15 +23,6 @@
   max-width: 45px;
   display: block;
 }
-
-/* .difl_faqitem.active .open_image,
-.difl_faqitem.active .open_icon{
-  opacity: 0;
-}
-
-.close_image, .open_image, .close_icon, .open_icon{
-  transition: .6s;
-} */
 
 .difl_faqitem .faq_question_title,
 .difl_faqitem .faq_answer p {
@@ -53,7 +41,7 @@
   box-sizing: content-box;
 }
 
-.difl_faqitem .faq_answer_area {
+.difl_faqitem .faq_content {
   display: flex;
   flex-flow: column;
 }
@@ -85,10 +73,9 @@
 
 .difl_faqitem .faq_button_icon {
   vertical-align: top;
-  font-size: 20px;
+  font-size: 18px;
 }
 
-/* FAQ Hide */
 .df_content_props {
   display: none;
 }

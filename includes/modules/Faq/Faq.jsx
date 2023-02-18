@@ -8,21 +8,36 @@ import "./style.css";
 
 class Faq extends Component {
   static slug = "difl_faq";
+  _isMounted = false;
 
   constructor(props) {
     super(props);
     this.state = {
-      isActive: false,
+      loading: true,
+      isActive: false
     };
 
-    // this.wrapper = React.createRef();
+    this.wrapper = React.createRef();
     this.render_faq_items = this.render_faq_items.bind(this);
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+    if (this.state.loading === true) {
+        this.setState({ loading: false })
+    }
+}
+
   componentDidUpdate() {
-    this.activate_item_order();
-    this.render_faq_items();
+    this.df_active_item();
+    if (this.props.activate_on_first_time === 'on') {
+      this.render_faq_items();
+    }
   }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+}
 
   static css(props) {
     var additionalCss = [];
@@ -40,7 +55,7 @@ class Faq extends Component {
       props: props,
       additionalCss: additionalCss,
       key: "faq_item_wrapper_bg",
-      selector: "%%order_class%% .df_faq_item",
+      selector: "%%order_class%% .difl_faqitem .df_faq_item",
       important: true,
     });
 
@@ -62,7 +77,7 @@ class Faq extends Component {
       props: props,
       additionalCss: additionalCss,
       key: "ans_wrapper_bg",
-      selector: "%%order_class%% .faq_answer_wrapper",
+      selector: "%%order_class%% .faq_answer_area",
     });
 
     utility.process_color({
@@ -196,7 +211,7 @@ class Faq extends Component {
       props: props,
       key: "faq_item_wrapper_margin",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df_faq_item",
+      selector: "%%order_class%% .difl_faqitem .df_faq_item",
       type: "margin",
     });
 
@@ -204,7 +219,7 @@ class Faq extends Component {
       props: props,
       key: "faq_item_wrapper_padding",
       additionalCss: additionalCss,
-      selector: "%%order_class%% .df_faq_item",
+      selector: "%%order_class%% .difl_faqitem .df_faq_item",
       type: "padding",
     });
 
@@ -264,13 +279,21 @@ class Faq extends Component {
       type: "padding",
     });
 
-    // utility.process_margin_padding({
-    //   props   : props,
-    //   key     : "ans_wrapper_padding",
-    //   additionalCss: additionalCss,
-    //   selector: "%%order_class%% .df_faq_item .faq_answer_wrapper",
-    //   type    : "padding"
-    // });
+    utility.process_margin_padding({
+      props: props,
+      key: "ans_wrapper_margin",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_area",
+      type: "margin",
+    });
+
+    utility.process_margin_padding({
+      props: props,
+      key: "ans_wrapper_padding",
+      additionalCss: additionalCss,
+      selector: "%%order_class%% .faq_answer_area",
+      type: "padding",
+    });
 
     utility.process_margin_padding({
       props: props,
@@ -344,8 +367,7 @@ class Faq extends Component {
         props: props,
         key: "faq_que_swap",
         additionalCss: additionalCss,
-        selector:
-          "%%order_class%% .faq_question_wrapper, %%order_class%% .faq_question_area",
+        selector: "%%order_class%% .faq_question_wrapper",
         type: "flex-direction",
       });
     }
@@ -357,6 +379,16 @@ class Faq extends Component {
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_question_wrapper",
       type: "justify-content",
+    });
+
+    // alignment - vertical
+    utility.df_process_string_attr({
+      props: props,
+      key: "faq_que_vertical_alignment",
+      additionalCss: additionalCss,
+      selector:
+        "%%order_class%% .faq_question_wrapper, %%order_class%% .faq_question_area",
+      type: "align-items",
     });
 
     // faq grid layout
@@ -407,7 +439,6 @@ class Faq extends Component {
     });
 
     //output html
-
     if ("on" !== props.output_html) {
       additionalCss.push([
         {
@@ -419,7 +450,7 @@ class Faq extends Component {
 
     // FAQ toggle
     // prettier-ignore
-    const inactiveElments = "%%order_class%%  .df_faq_item .faq_answer_wrapper, %%order_class%% .df_faq_item .open_icon, %%order_class%% .df_faq_item .open_image";
+    const inactiveElments  = "%%order_class%%  .df_faq_item .faq_answer_wrapper, %%order_class%% .df_faq_item .open_icon, %%order_class%% .df_faq_item .open_image";
     const activeAnswrapper =
       "%%order_class%%  .df_faq_item.active .faq_answer_wrapper";
     const activeImgIcon =
@@ -493,26 +524,26 @@ class Faq extends Component {
     return additionalCss;
   }
 
-  // prettier-ignore
-  activate_item_order = () => {
-      const parent_class = this.props.moduleInfo.orderClassName;
-      const get_wrapper_classes = $("." + parent_class).find(".df_faq_item");
-      const active_item = "on" === this.props.activate_on_first_time ? this.props.active_item_order_number : 0;
-
-      if ("on" === this.props.activate_on_first_time) {
-        const active_item_order = ":eq(" + (active_item - 1) + ")";
-        const active_item_selector = "." + get_wrapper_classes[0].classList + active_item_order;
-
-        $(get_wrapper_classes).removeClass("active");
-        $(active_item_selector).removeClass("active");
-        $(active_item_selector).addClass("active");
-
-      } return;
-
+  df_active_item = () => {
+    if (this.state.loading === true) {
+      this.setState({ loading: false })
+      return;
     }
-  // prettier-ignore
 
-  // prettier-ignore
+    const parent_class = this.props.moduleInfo.orderClassName;
+    const active_item = this.props.activate_on_first_time === 'on' ? this.props.active_item_order_number : 1;
+    const allItems = document.querySelectorAll('.' + parent_class + ' .difl_faqitem .df_faq_item')
+    const activeItem = document.querySelectorAll('.' + parent_class + ' .difl_faqitem .df_faq_item')[active_item - 1]
+
+    if (this.props.activate_on_first_time === 'on') {
+      allItems.forEach(ele => {ele.classList.remove('active')});
+      activeItem.classList.add('active')
+    } else {
+      allItems.forEach(ele => {ele.classList.remove('active')});
+      return
+    }
+  }
+
   render_button(props) {
     const utils = window.ET_Builder.API.Utils;
     const button_text = props.button_text ? <span>{props.button_text }</span> : 'Button';
@@ -533,9 +564,6 @@ class Faq extends Component {
       )
     }
 
-  // prettier-ignore
-
-  // prettier-ignore
   render_que_icon = (props, utils) =>{
     const close_icon_html = props.close_faq_icon ? <div className="close_icon"><span className="et-pb-icon">{utils.processFontIcon(props.close_faq_icon)}</span></div> : ""
     const open_icon_html = props.open_faq_icon ? <div className="open_icon"><span className="et-pb-icon">{utils.processFontIcon(props.open_faq_icon)}</span></div> : ""
@@ -546,9 +574,7 @@ class Faq extends Component {
       </div>
     )
   }
-  // prettier-ignore
 
-  // prettier-ignore
   render_que_image = (props) => {
     const close_image = '' !== props.close_question_image ? props.close_question_image : ""
     const close_img_alt_txt = '' !== props.close_que_img_alt_txt ? props.close_que_img_alt_txt : ""
@@ -577,22 +603,24 @@ class Faq extends Component {
 
     return null
   }
-  // prettier-ignore
 
-  // FAQ toggle
   df_faq_toggle(e) {
+    if('plain' === this.props.faq_layout) return
     const parent = e.currentTarget.parentNode;
-    if($('.df_faq_item').hasClass('active')){
-      $('.df_faq_item').removeClass('active')
-    }
-    parent.classList.add('active');
+    const parent_class = this.props.moduleInfo.orderClassName;
 
-    this.setState(prvState => ({
-      isActive : !prvState.isActive,
-    }))
+    const parent_wrapper = document.querySelector(`.${parent_class}`)
+    const wrapper = parent_wrapper.querySelectorAll('.df_faq_item')
+
+    wrapper.forEach(el => {
+      if(el.classList.contains("active")){
+        el.classList.remove("active")
+      }
+    });
+
+    parent.classList.add("active")
 }
 
-  // prettier-ignore
   df_faq_question = (child_props, i) => {
     const props = this.props
     const utils = window.ET_Builder.API.Utils;
@@ -613,9 +641,7 @@ class Faq extends Component {
       </div>
     );
   };
-  // prettier-ignore
 
-  // prettier-ignore
   df_faq_answer = (child_props, i) => {
     const AnsHtml = '' !== child_props.answer ? <div dangerouslySetInnerHTML={{__html: child_props.answer}} className="faq_answer" />: "";
 
@@ -625,30 +651,27 @@ class Faq extends Component {
     return (
       <div className="faq_answer_wrapper" data-key={i}>
         <div className="faq_answer_area">
-          {AnsHtml}
-          {AnsImgHtml}
+          <div className="faq_content">
+            {AnsHtml}
+            {AnsImgHtml}
+          </div>
+          {AnsBtnHtml}
         </div>
-        {AnsBtnHtml}
       </div>
     );
   };
-  // prettier-ignore
 
   render_faq_items = () => {
     const content = this.props.content;
-    const faqType = 'plain' === this.props.faq_layout;
-
     return [].map.call(content, (data, i) => {
       const child_props = data.props.attrs;
       const disable_item_class = this.df_multicheck_value(child_props)
       const child_class = `et_pb_module difl_faqitem difl_faqitem_${i} ${disable_item_class}`;
-      // const child_class = `et_pb_module difl_faqitem difl_faqitem_${i}`;
 
       return (
-
         <div key={i} className={child_class}>
           <div className="et_pb_module_inner">
-            <div key={child_props.question} className={`df_faq_item ${faqType ? 'active' : ""}`}>
+            <div key={child_props.question} className={`df_faq_item`}>
               {this.df_faq_question(child_props, i)}
               {this.df_faq_answer(child_props, i)}
             </div>
@@ -726,11 +749,14 @@ class Faq extends Component {
 
   render() {
     return (
-      <div className="df_faq_wrapper">
-        {this.render_faq_items()}
-        <div className="df_content_props">
-          {0 !== this.props.content.length ? this.props.content : ""}
-        </div>
+      <div className="df_faq_wrapper" ref={this.wrapper}>
+        {this.state.loading === false ?
+          <React.Fragment>
+            {this.render_faq_items()}
+            <div className="df_content_props">
+              {0 !== this.props.content.length ? this.props.content : ""}
+            </div>
+        </React.Fragment> : <React.Fragment>Loading</React.Fragment>}
       </div>
     );
   }
