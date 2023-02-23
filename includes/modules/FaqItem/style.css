@@ -5,8 +5,8 @@
 }
 
 .difl_faqitem .df_faq_item {
-  max-width: 550px;
-  background: #f4f4f4;
+  background-color: #fff;
+  border: 1px solid #D6D6D6;
 }
 
 .difl_faqitem .faq_question_wrapper {
@@ -54,12 +54,12 @@
   padding: 0px;
 }
 
-.difl_faqitem .faq_answer_image {
+/* .difl_faqitem .faq_answer_image {
   width: 100%;
-}
-.difl_faqitem .faq_answer_image img {
+} */
+/* .difl_faqitem .faq_answer_image img {
   display: block;
-}
+} */
 
 .difl_faqitem .faq_button a {
   display: inline-flex;
@@ -82,6 +82,7 @@
 .difl_faqitem.df_hide_desktop {
   display: none !important;
 }
+
 @media only screen and (max-width: 980px) {
   .difl_faqitem.df_hide_desktop {
     display: block !important;

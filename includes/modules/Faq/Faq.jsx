@@ -29,9 +29,9 @@ class Faq extends Component {
 }
 
   componentDidUpdate() {
-    this.df_active_item();
+    // this.render_faq_items()
     if (this.props.activate_on_first_time === 'on') {
-      this.render_faq_items();
+      this.df_active_item();
     }
   }
 
@@ -41,8 +41,6 @@ class Faq extends Component {
 
   static css(props) {
     var additionalCss = [];
-
-    console.log(props);
 
     utility.df_process_bg({
       props: props,
@@ -62,7 +60,7 @@ class Faq extends Component {
     utility.df_process_bg({
       props: props,
       additionalCss: additionalCss,
-      key: "que_wrapper_bg",
+      key: "default_que_wrapper_bg",
       selector: "%%order_class%% .faq_question_wrapper",
     });
 
@@ -451,12 +449,9 @@ class Faq extends Component {
     // FAQ toggle
     // prettier-ignore
     const inactiveElments  = "%%order_class%%  .df_faq_item .faq_answer_wrapper, %%order_class%% .df_faq_item .open_icon, %%order_class%% .df_faq_item .open_image";
-    const activeAnswrapper =
-      "%%order_class%%  .df_faq_item.active .faq_answer_wrapper";
-    const activeImgIcon =
-      "%%order_class%%  .df_faq_item.active .open_icon, %%order_class%% .df_faq_item.active .open_image";
-    const inActiveImgIcon =
-      "%%order_class%%  .df_faq_item.active .close_icon, %%order_class%% .df_faq_item.active .close_image";
+    const activeAnswrapper = "%%order_class%%  .df_faq_item.active .faq_answer_wrapper";
+    const activeImgIcon = "%%order_class%%  .df_faq_item.active .open_icon, %%order_class%% .df_faq_item.active .open_image";
+    const inActiveImgIcon = "%%order_class%%  .df_faq_item.active .close_icon, %%order_class%% .df_faq_item.active .close_image";
     // prettier-ignore
 
     additionalCss.push([
@@ -486,29 +481,6 @@ class Faq extends Component {
       },
     ]);
 
-    // if('' === props.open_question_image){
-
-    //   // console.log("empty")
-
-    //   additionalCss.push([
-    //     {
-    //       selector: "%%order_class%% .df_faq_item.active .close_image",
-    //       declaration: "display: block !important;"
-    //     },
-    //   ]);
-    // }else{
-
-    //   console.log("not empty")
-
-    //   additionalCss.push([
-    //     {
-    //       selector: "%%order_class%% .df_faq_item.active .close_image",
-    //       declaration: "display: none !important;"
-    //     },
-    //   ]);
-
-    // }
-
     // button design
     if ("" !== props.button_alignment) {
       utility.df_process_string_attr({
@@ -533,15 +505,20 @@ class Faq extends Component {
     const parent_class = this.props.moduleInfo.orderClassName;
     const active_item = this.props.activate_on_first_time === 'on' ? this.props.active_item_order_number : 1;
     const allItems = document.querySelectorAll('.' + parent_class + ' .difl_faqitem .df_faq_item')
-    const activeItem = document.querySelectorAll('.' + parent_class + ' .difl_faqitem .df_faq_item')[active_item - 1]
 
-    if (this.props.activate_on_first_time === 'on') {
-      allItems.forEach(ele => {ele.classList.remove('active')});
-      activeItem.classList.add('active')
-    } else {
-      allItems.forEach(ele => {ele.classList.remove('active')});
-      return
+    if(this.props.active_item_order_number <= allItems.length){
+        const activeItem = document.querySelectorAll('.' + parent_class + ' .difl_faqitem .df_faq_item')[active_item - 1]
+
+        if (this.props.activate_on_first_time === 'on') {
+            allItems.forEach(ele => {ele.classList.remove('active')});
+            activeItem.classList.add('active')
+          } else {
+            allItems.forEach(ele => {ele.classList.remove('active')});
+            return
+          }
     }
+
+    return
   }
 
   render_button(props) {
@@ -581,6 +558,11 @@ class Faq extends Component {
     const open_image = '' !== props.open_question_image ? props.open_question_image : ""
     const open_img_alt_txt= '' !== props.open_que_img_alt_txt ? props.open_que_img_alt_txt : ""
 
+    const que_img_revert =
+    <div className="open_image">
+        <img src={close_image} alt={close_img_alt_txt} />
+    </div>
+
     const close_image_html = props.close_question_image ? (
       <div className="close_image">
         <img src={close_image} alt={close_img_alt_txt} />
@@ -591,7 +573,7 @@ class Faq extends Component {
       <div className="open_image">
         <img src={open_image} alt={open_img_alt_txt} />
       </div>
-    ) : ("");
+    ) :  que_img_revert;
 
     if('on' === props.enable_question_image){
       return (
@@ -671,7 +653,7 @@ class Faq extends Component {
       return (
         <div key={i} className={child_class}>
           <div className="et_pb_module_inner">
-            <div key={child_props.question} className={`df_faq_item`}>
+            <div key={child_props.question} className={`df_faq_item`} ref={this.wrapper}>
               {this.df_faq_question(child_props, i)}
               {this.df_faq_answer(child_props, i)}
             </div>
@@ -749,7 +731,7 @@ class Faq extends Component {
 
   render() {
     return (
-      <div className="df_faq_wrapper" ref={this.wrapper}>
+      <div className="df_faq_wrapper">
         {this.state.loading === false ?
           <React.Fragment>
             {this.render_faq_items()}

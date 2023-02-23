@@ -13,7 +13,7 @@ class FaqItem extends Component {
     utility.df_process_bg({
       props   : props,
       additionalCss: additionalCss,
-      key     : 'que_wrapper_bg',
+      key     : 'default_que_wrapper_bg',
       selector: '%%order_class%% div.df_faq_item .faq_question_wrapper'
     });
 
@@ -280,7 +280,26 @@ class FaqItem extends Component {
       additionalCss: additionalCss,
       selector: "%%order_class%% .faq_answer_image",
       type: "width",
+      default_value: '100',
+      unit: 'px'
     });
+
+    if('row-reverse' === props.answer_image_placement || 'row' === props.answer_image_placement){
+      additionalCss.push([
+        {
+          selector: "%%order_class%% .faq_content",
+          declaration: "align-items: start;",
+        },
+      ]);
+    }else{
+      this.df_set_flex_position({
+        props: props,
+        key: "answer_image_alignment",
+        additionalCss: additionalCss,
+        selector: "%%order_class%% .faq_content",
+        type: "align-items",
+      });
+    }
 
     // answer image placement
     utility.df_process_string_attr({
@@ -314,49 +333,56 @@ class FaqItem extends Component {
     return additionalCss;
   }
 
-  render() {
-    // console.log(this.props)
+  static df_set_flex_position(options = {}) {
+    const defaults = {
+      props: {},
+      key: "",
+      additionalCss: "",
+      selector: "",
+      type: "",
+      css: ""
+    };
+    const settings = utility.extend(defaults, options);
+    const {props,key,additionalCss,selector,type,css} = settings;
 
-    return null;
+    const desktop = props[key];
+    const tablet  = utility.df_check_values(desktop, props[key + "_tablet"]);
+    const phone  = utility.df_check_values(desktop, props[key + "_phone"]);
+
+    const get_values = ["center", "left", "right"];
+    const set_values = ["center", "start", "end"];
+    const values = {};
+
+    for (let i in get_values) {
+      values[get_values[i]] = set_values[i];
+    }
+
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[desktop]}; ${css};`,
+      },
+    ]);
+
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[tablet]};${css};`,
+        device: "tablet",
+      },
+    ]);
+
+    additionalCss.push([
+      {
+        selector: selector,
+        declaration: `display: flex; ${type}:${values[phone]};${css};`,
+        device: "phone",
+      },
+    ]);
+
   }
+
+  render() {return null;}
 }
 
 export default FaqItem;
-
-{
-  // Structure
-  // <div className="df_faq_item active">
-  //   <div className="faq_question_wrapper" onClick={this.showHideAnswer}>
-  //     <div className="faq_question_area">
-  //       <div className="faq_question_image">
-  //         <div className="close_image"><img src="http://divi2.test/wp-content/uploads/2022/12/icon-256x256-1.png" alt=""/></div>
-  //         {/* <div className="open_image"><img src="#" alt="" /></div> */}
-  //       </div>
-  //       <div className="faq_question">
-  //         <h3>{question}</h3>
-  //       </div>
-  //     </div>
-  //     <div className="faq_icon">
-  //       <div className="close_icon"> <span className="">+</span> </div>
-  //       {/* <div className="open_icon"><span className="et-pb-icon">-</span></div> */}
-  //     </div>
-  //   </div>
-  //   <div className="faq_answer_wrapper">
-  //     <div className="faq_answer_area">
-  //       <div className="faq_answer">
-  //         <p>{answer}</p>
-  //       </div>
-  //       <div className="faq_answer_image">
-  //         {/* prettier-ignore */}
-  //         <img src="http://divi2.test/wp-content/uploads/2022/12/covid-donate.jpg" alt="" />
-  //       </div>
-  //     </div>
-  //     <div className="faq_button">
-  //       <a href="#" className="">
-  //         <span>button</span>
-  //         <span>icon</span>
-  //       </a>
-  //     </div>
-  //   </div>
-  // </div>
-}
